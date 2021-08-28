@@ -33,12 +33,15 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Executing remote commands using password
-        uses: fifsky/ssh-action@master
+        uses: shimataro/ssh-key-action@v2
         with:
-          command: |
-            cd /home/duoarc/hi
-            ls -al
-
-          host: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+   
+
+      - name: Adding known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts      
+   
+
+
+      - name: Run commands
+        run: pwd && ls -al  
