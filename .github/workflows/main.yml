@@ -41,5 +41,5 @@ jobs:
           password: ${{ secrets.SSH_PASS }}
           script: |
             cd /var/www/zc_plugin_todo
-            sudo git pull
+            git pull
             echo "End"
