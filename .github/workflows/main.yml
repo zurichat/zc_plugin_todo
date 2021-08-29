@@ -42,5 +42,6 @@ jobs:
           script: |
             cd /var/www/zc_plugin_todo
             git pull
+            pwd
             echo "End"
             echo $USER
