@@ -43,3 +43,4 @@ jobs:
             cd /var/www/zc_plugin_todo
             git pull
             echo "End"
+            echo $USER
