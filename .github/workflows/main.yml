@@ -9,7 +9,8 @@ on:
     branches: [ master ]
 
   pull_request:
-    types: [closed]
+    branches: [ master ]
+    types: [ closed ]
 
 
 
@@ -32,17 +33,13 @@ jobs:
 
 
       # Runs a single command using the runners shell
-      - name: Executing remote commands using password
-        uses: shimataro/ssh-key-action@v2
+      - name: Executing remote commands via SSH
+        uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known-hosts: 'placeholder7890'
-   
-
-      - name: Adding known Hosts
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts      
-   
-
-
-      - name: Run commands
-        run: pwd && ls -al  
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASS }}
+          script: |
+            cd /var/www/zc_plugin_todo
+            sudo git pull
+            echo "End"
