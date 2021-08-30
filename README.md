@@ -64,12 +64,13 @@ git add .
 ```
 
 ```bash
-git commit _m "commit message"
+git commit -m "commit message"
 ```
 ```bash
 git pull upstream develop
 ```
-Make Sure there is no conflict
+Make Sure there is no conflict, 
+Make sure you push to develop branch -- Create a develop branch in your local
 
 ```bash
 git push origin develop
