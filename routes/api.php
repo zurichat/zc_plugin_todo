@@ -27,6 +27,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
-Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
-Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
-Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
+Route::post('create', [\App\Http\Controllers\PluginInfoController::class, 'create']);
+Route::post('edit', [\App\Http\Controllers\PluginInfoController::class, 'edit']);
+Route::post('update', [\App\Http\Controllers\PluginInfoController::class, 'update']);
