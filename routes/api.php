@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('tasks/{id}', [PluginInfoController::class, 'getTaskCollection']);

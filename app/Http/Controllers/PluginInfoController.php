@@ -20,7 +20,7 @@ class PluginInfoController extends Controller
             'mvp_features' => [
                 'feature-1' => 'Create Todo Tasks',
                 'feature-2' => 'Assign Tasks To An Individual Or A Team',
-                'feature-3' => 'Dispaly Tasks On Cards',
+                'feature-3' => 'Display Tasks On Cards',
                 'feature-4' => 'Manage and Display Task Progress Using Dynamic ProgressBar',
                 'feature-5' => "Set Reminders For Task's Due Date",
                 'feature-6' => "Schedule A Task For Future Commencement",
