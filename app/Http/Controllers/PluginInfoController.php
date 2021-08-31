@@ -37,4 +37,18 @@ class PluginInfoController extends Controller
             'plugin_info' => $pluginInfo
         ], 200);
     }
+
+    public function getTaskCollection($id)
+    {
+        $user = [
+            'id' => $id,
+            'name' => 'Olayinka',
+            'tasks' => ['play games', 'go to church', 'wake up by 5']
+        ];
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user
+        ], 200);
+    }
 }
