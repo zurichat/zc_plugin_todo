@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
@@ -19,3 +20,5 @@ Route::get("/tasks", [Controller::class, 'editTask']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);

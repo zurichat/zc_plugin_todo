@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <title>Zuri chat Todo Plugin</title>
 
         <!-- Fonts -->
@@ -21,11 +21,9 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <h2>Welcome to Zuri Chat's TODO Plugin</h2>
-            </div>
-        </div>
+       <div id="app">
+           <example-component />
+       </div>
+       <script src="{{ mix('/js/app.js') }}"></script>
     </body>
 </html>
