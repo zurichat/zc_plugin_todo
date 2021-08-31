@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Services\TaskService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TodoResourceCollection;
 
 class TaskController extends Controller
 {
@@ -40,7 +43,7 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $tasks = ($this->taskService->find($id))['data'];
+        $tasks = ($this->taskService->find($id));
         $data = [];
         foreach($tasks as $task){
             if($task['_id'] == $id){
@@ -51,7 +54,7 @@ class TaskController extends Controller
                 "status" => 200,
                 "message" => "success",
                 'data' => $data,
-                    ]);
+        ]);
     }
     public function modifyShow($id)
     {
@@ -60,6 +63,21 @@ class TaskController extends Controller
     public function updateTaskDate(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+    public function toggleArchiveStatus($id)
+    {
+        $task = $this->taskService->find($id); // Get the Task
+
+        $archived = array_key_exists('archived_at', $task) && $task['archived_at']  ?  '' : Carbon::now(); // Set new date if it is null or empty, else set back to empty
+
+        // prepare the payload
+        $data = array();
+        $data['archived_at'] = $archived;
+
+        //response from zccore
+        return response()->json($this->taskService->update($data, $id));
+
     }
 
 
@@ -135,4 +153,46 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
+    public function showResource(Request $request) : TodoResourceCollection
+    {
+        $tasks = $this->taskService->all();
+        return new TodoResourceCollection($tasks);
+    }
+
+    public function archived(Request $request)
+    {
+        $tasks = $this->taskService->all();
+        
+        $newArr = [];
+        foreach ($tasks as $value) {
+            if (isset($value['archived_at']) && $value['archived_at'] != null) {
+                array_push($newArr, $value);
+            }
+        }
+        return response()->json([
+            'message' => 'Request success',
+            'data' => $newArr
+        ],200);
+       
+   
+    }
+
+    public function getTaskByStatus($status){
+        $task = $this->taskService->all();
+        if(array_key_exists('status',$task)){
+            $tasks = $this->taskService->taskByStatus('status',$status);
+        }else{
+            $tasks = $task;
+        }
+        return response()->json([
+            'status' => 'success',
+            'type' => 'tasks',
+            'count' => count($tasks),
+            'data' => $tasks
+        ], 200);
+       
+
+    }
+
+   
 }

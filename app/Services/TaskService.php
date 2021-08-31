@@ -61,6 +61,10 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
+    public function showResource()
+    {
+        return $this->taskRepository->all();
+    }
           /**
      * @return mixed
      * @author {@omoh}
@@ -86,6 +90,10 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function search($key, $data)
     {
+        return $this->taskRepository->search($key, $data);
+    }
+
+    public function taskByStatus($key, $data){
         return $this->taskRepository->search($key, $data);
     }
 
