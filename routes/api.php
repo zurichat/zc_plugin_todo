@@ -103,7 +103,6 @@ Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
 Route::get('task/filter/{status}', [TaskController::class, 'getTaskByStatus']);
 
-
 //Route to get collection of tasks for a user by id
 Route::get('/task_collection/{id}', function () {
     return response()->json(['message' => 'route to get task collection is working'], 200);
@@ -112,3 +111,4 @@ Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
 
 Route::get('/task/archived', [TaskController::class, 'archived']);
 Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
+
