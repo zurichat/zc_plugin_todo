@@ -18,14 +18,6 @@ Route::get('/', function () {
 });
 
 
-
-
-
-
-
-
-
-
 Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
 Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
