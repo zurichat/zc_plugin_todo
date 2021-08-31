@@ -11,7 +11,18 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    function editTask(){
-      return "Redis is such a torn";
+    function editTask(Request $req){
+      $task = Task::find($id);
+      $req->validate([
+        'title'=>"required",
+        'description'=>"required"
+      ]);
+
+      $task->title = $req->input('title');
+      $task->description = $req->input('description');
+
+      $task->save();
+
+
     }
 }
