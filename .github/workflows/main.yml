@@ -6,10 +6,10 @@ name: CI todo.zuri.chat
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ develop ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
     types: [ closed ]
 
 
@@ -41,7 +41,8 @@ jobs:
           password: ${{ secrets.SSH_PASS }}
           script: |
             cd /var/www/zc_plugin_todo
+            git checkout develop
             git pull
-            pwd
+            #php artisan serve
             echo "End"
             echo $USER
