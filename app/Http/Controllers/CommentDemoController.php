@@ -24,8 +24,4 @@ class CommentDemoController extends Controller
             'comment' => $comment,
         ]);
     }
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> e2432de4ca3d8c1c44df48a9b3d376cb9f17cf73
+

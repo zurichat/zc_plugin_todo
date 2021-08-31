@@ -177,7 +177,7 @@ class TaskController extends Controller
    
     }
 
-<<<<<<< HEAD
+
     public function getTaskByStatus($status){
         $task = $this->taskService->all();
         if(array_key_exists('status',$task)){
@@ -195,7 +195,4 @@ class TaskController extends Controller
 
     }
 
-=======
->>>>>>> e2432de4ca3d8c1c44df48a9b3d376cb9f17cf73
-   
 }

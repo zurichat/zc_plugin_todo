@@ -108,13 +108,8 @@ Route::get('/task_collection/{id}', function () {
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
 
 Route::get('/task/archived', [TaskController::class, 'archived']);
-<<<<<<< HEAD
-Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
 
 Route::get('task/filter/{status}', [TaskController::class, 'getTaskByStatus']);
 
-
-
-=======
 Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
->>>>>>> e2432de4ca3d8c1c44df48a9b3d376cb9f17cf73
+
