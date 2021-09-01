@@ -43,7 +43,8 @@ class TodoController extends Controller
         $data['start_date'] = $request->input('start_date', date('Y-m-d'));
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
-        return response()->json($this->taskService->create($data));
+        $response = response()->json($this->taskService->create($data));
+        return redirect()->back()->with('sent', boolval($response));
     }
 
     public function show($id)
