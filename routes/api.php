@@ -24,7 +24,6 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
 Route::post('create', [\App\Http\Controllers\PluginInfoController::class, 'create']);
