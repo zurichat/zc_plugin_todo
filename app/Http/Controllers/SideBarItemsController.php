@@ -8,16 +8,35 @@ class SideBarItemsController extends Controller
 {
     public function serveMenuItems()
     {
-        $sideBarItems = [
-            'item_1' => 'Task Leaf',
-            'item_2' => 'Schedules',
-            'item_3' => 'Calendar'
+        $sideBarMenu = [
+            'title' => 'TODO',
+            'sub_menu' => [
+                'item_1' => [
+                    'name' => 'Task Board',
+                    'icon' => 'https://media.publit.io/file/board.svg',
+                    'action' => 'Open Task Board'
+                ],
+
+                'item_2' => [
+                    'name' => 'Schedule',
+                    'icon' => 'https://media.publit.io/file/schedulem.svg',
+                    'action' => 'Schedule Task'
+                ],
+
+                'item_3' => [
+                    'name' => 'Calender',
+                    'icon' => 'https://media.publit.io/file/calendar-page-with-circular-clock-symbol-svgrepo-com.svg',
+                    'action' => 'Open Task Caleder'
+                ]
+            ]
+
         ];
 
         return response()->json([
             'status' => 'success',
+            'plugin_name' => 'TODO Plugin',
             'type' => 'sidebar items',
-            'items' => $sideBarItems
+            'menu' => $sideBarMenu
         ], 200);
     }
 }
