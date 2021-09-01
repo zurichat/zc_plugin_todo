@@ -25,6 +25,9 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('create', [\App\Http\Controllers\PluginInfoController::class, 'create']);
+Route::post('edit', [\App\Http\Controllers\PluginInfoController::class, 'edit']);
+Route::post('update', [\App\Http\Controllers\PluginInfoController::class, 'update']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
