@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TaskService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 /**
  * class TodoController extends Controller
@@ -11,7 +11,24 @@ use Illuminate\Support\Facades\Http;
  */
 class TodoController extends Controller
 {
-    public function create(Request $request)
+
+    protected $taskService;
+
+    public function __construct(TaskService $taskService)
+    {
+        $this->taskService = $taskService;
+    }
+
+    public function index()
+    {
+        return response()->json($this->taskService->all());
+    }
+
+    /**
+     * Create todo and save to the database.
+     * @author Atoyebi, Ajibola (atoyebieniola93@gmail.com|Ajibola03)
+     */
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|max:255',
@@ -26,16 +43,30 @@ class TodoController extends Controller
         $data['start_date'] = $request->input('start_date', date('Y-m-d'));
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
-        $data['email'] = "eve.holt@reqres.in";
-        $data['password'] = "pistol";
-        $response = Http::post('https://reqres.in/api/register', $data);
-        if ($response->successful()) {
-            return redirect()->back()->with('sent', true);
-        }
-        return $request->except('_method', '_token');
+        return response()->json($this->taskService->create($data));
     }
 
-    public function show()
+    public function show($id)
+    {
+        return response()->json($this->taskService->find($id));
+    }
+
+    public function update(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+    public function delete($id)
+    {
+        return response()->json($this->taskService->delete($id));
+    }
+
+    public function create(Request $request)
+    {
+    }
+
+    //TODO: Test frontend link to be modified;
+    public function showPage()
     {
         return view('test');
     }

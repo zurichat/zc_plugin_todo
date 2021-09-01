@@ -20,8 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
-Route::get('/create-todo', [TodoController::class, 'show'])->name('show.create-todo');
-Route::post('/create-todo', [TodoController::class, 'create'])->name('create-todo');
+Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
+Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
 Route::get('/ping', function () {
     return response()->json(['message' => 'Server is Live!'], 200);
 });
