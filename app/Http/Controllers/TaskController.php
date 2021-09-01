@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 
-class TaskDemoController extends Controller
+class TaskController extends Controller
 {
     protected $taskService;
 
