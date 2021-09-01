@@ -19,11 +19,6 @@ class TodoController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function index()
-    {
-        return response()->json($this->taskService->all());
-    }
-
     /**
      * Create todo and save to the database.
      * @author Atoyebi, Ajibola (atoyebieniola93@gmail.com|Ajibola03)
@@ -45,25 +40,6 @@ class TodoController extends Controller
         $data['reminder'] = $request->input('reminder');
         $response = response()->json($this->taskService->create($data));
         return redirect()->back()->with('sent', boolval($response));
-    }
-
-    public function show($id)
-    {
-        return response()->json($this->taskService->find($id));
-    }
-
-    public function update(Request $request, $id)
-    {
-        return response()->json($this->taskService->update($request->all(), $id));
-    }
-
-    public function delete($id)
-    {
-        return response()->json($this->taskService->delete($id));
-    }
-
-    public function create(Request $request)
-    {
     }
 
     //TODO: Test frontend link to be modified;
