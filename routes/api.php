@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskDemoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
