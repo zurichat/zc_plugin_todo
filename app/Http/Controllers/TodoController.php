@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * class TodoController extends Controller
@@ -14,21 +13,12 @@ class TodoController extends Controller
 {
     public function create(Request $request)
     {
-        // VarDumper::dump($request->except('_method', '_token'));
-        // die;
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required|max:255',
-            // 'status_id' => 'required|max:255',
-            // 'parent_id' => 'required|max:255',
             'end_date' => 'required|max:255',
-            // 'start_date' => 'required|max:255',
             'workspace_id' => 'required|max:255',
             'category_id' => 'required|max:255',
-            // 'priority_id' => 'required',
-            // 'recurring' => "required",
-            // 'reminder' => 'required',
-            // 'color_code' => "required",
         ]);
         $data = $request->except('_method', '_token');
         $data['status_id'] = $request->input('status_id', 1);
