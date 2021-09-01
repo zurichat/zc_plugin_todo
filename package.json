@@ -12,19 +12,19 @@
     "devDependencies": {
         "@vue/compiler-sfc": "^3.2.6",
         "axios": "^0.21",
-
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
-        "vue": "^3.2.6",
+        "vue": "^3.2.7",
         "vue-loader": "^16.5.0",
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "tailwindcss": "^2.2.9"
+        "bootstrap": "^5.1.0",
+        "tailwindcss": "^2.2.9",
+        "vue-bootstrap-datetimepicker": "^5.0.1"
     }
 }

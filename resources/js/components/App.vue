@@ -6,7 +6,7 @@
         <img class="w-full" :src="'/img/zuri-logo.svg'" alt="">
         </div> 
         <div class="my-10 text-center text-gray-800 sm:text-left">
-            <span class="block montserrat text-3xl sm:text-5xl"><span class="text-green-500">Zuri</span>-<span class="text-pink-500">Chat</span> Todo Plugin</span>
+            <span class="block clearmontserrat text-3xl sm:text-5xl"><span class="text-green-500">Zuri</span>-<span class="text-pink-500">Chat</span> Todo Plugin</span>
             <span class="block my-2 italic font-medium">This Plugin is Still under Construction!!!</span>
         </div>
     </div>
@@ -29,3 +29,4 @@ import TodoItem from './Todo-item.vue'
         }
     }
 </script>
+

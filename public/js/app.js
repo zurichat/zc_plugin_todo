@@ -19178,7 +19178,7 @@ var _hoisted_7 = {
 };
 var _hoisted_8 = ["src"];
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"my-10 text-center text-gray-800 sm:text-left\"><span class=\"block montserrat text-3xl sm:text-5xl\"><span class=\"text-green-500\">Zuri</span>-<span class=\"text-pink-500\">Chat</span> Todo Plugin</span><span class=\"block my-2 italic font-medium\">This Plugin is Still under Construction!!!</span></div>", 1);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"my-10 text-center text-gray-800 sm:text-left\"><span class=\"block clearmontserrat text-3xl sm:text-5xl\"><span class=\"text-green-500\">Zuri</span>-<span class=\"text-pink-500\">Chat</span> Todo Plugin</span><span class=\"block my-2 italic font-medium\">This Plugin is Still under Construction!!!</span></div>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {

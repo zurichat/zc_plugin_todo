@@ -13,6 +13,16 @@ import { createApp } from 'vue'
 import App from './components/App.vue'
 const app = createApp(App);
 app.mount("#app")
+
+import Vue from 'vue';
+import App from './App.vue';
+
+import datePicker from 'vue-bootstrap-datetimepicker';
+Vue.use(datePicker);
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
     /**
      * The following block of code may be used to automatically register your
      * Vue components. It will recursively scan this directory for the Vue
@@ -31,3 +41,4 @@ app.mount("#app")
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
