@@ -8,7 +8,6 @@ class SideBarItemsController extends Controller
 {
     public function serveMenuItems()
     {
-
         $sideBarItems = [
             'item_1' => 'Task Leaf',
             'item_2' => 'Schedules',

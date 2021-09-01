@@ -11,14 +11,15 @@ class PluginInfoController extends Controller
 
         $pluginInfo = [
             'name' => 'TODO Plugin',
-            'description' => "Zuri.chat Plugin for TODO tasks management\n. 
-                              Plugin can create and assigne\n task to an individuaal
-                              or a team",
+            'description' => [
+                "Zuri.chat Plugin",
+                "Todo Plugin is a zuri.chat plugin that can be used
+                 to managing task for an individual or a team's project."
+            ],
             'scaffold_structure' => 'Monolith',
-            'use' => "Set and Manage individual/team Project's Tasks",
             'team' => 'HNG-8.0/Team-Kant',
             'sidebar_url' => 'https://todo.zuri.chat/api/sidebar',
-            'url' => 'https://todo.zuri.chat/',
+            'html_url' => 'https://todo.zuri.chat/',
             'ping_url' => 'https://todo.zuri.chat/api/ping',
         ];
         return response()->json([
