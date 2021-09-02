@@ -31,6 +31,7 @@ Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
 Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 Route::get('/search', [TodoController::class, 'search_todo']);
+Route::get('/findFirst', [TodoController::class, 'findFirstToDo']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {

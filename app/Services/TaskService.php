@@ -58,6 +58,14 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
+      /**
+     * @return mixed
+     */
+    public function findFirst()
+    {
+        return $this->taskRepository->findFirst();
+    }
+
     /**
      * @para mixed $data
      *  return mixed
