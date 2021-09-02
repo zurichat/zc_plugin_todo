@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\TaskRepository;
+use Illuminate\Support\Facades\Http;
 
 class TaskService extends \App\Providers\AppServiceProvider
 {
@@ -27,6 +28,7 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function create(array $data)
     {
+
         return $this->taskRepository->create($data);
     }
 
@@ -57,4 +59,14 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->delete($id);
     }
+//
+//    public function addPost()
+//    {
+//        $post = Http::post('https://jsonplaceholder.typicode.com/posts', [
+//            'userId' => 1,
+//            'title' => 'New Post Title',
+//            'body' => 'This is a new post description'
+//        ]);
+//        return $post->json();
+//    }
 }
