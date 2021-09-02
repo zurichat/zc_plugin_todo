@@ -61,7 +61,7 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
-      /**
+          /**
      * @return mixed
      * @author {@omoh}
      */
@@ -79,8 +79,8 @@ class TaskService extends \App\Providers\AppServiceProvider
         $sorted = $collection->sortDesc()->first();
         return $sorted;
     }
-
-    /**
+    
+     /**
      * @para mixed $data
      *  return mixed
      */
