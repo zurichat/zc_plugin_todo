@@ -9,7 +9,7 @@ class HTTPRepository implements RepositoryInterface
 {
     protected $url = 'https://zccore.herokuapp.com/';
     protected $organisation_id = '612a3a914acf115e685df8e3';
-    protected $plugin_id = '612e0c38a560ba3687c9ae4b';
+    protected $plugin_id = '61311b9d6e7d00b82b78b80c';
     protected $modelName;
     protected $model;
 
@@ -86,6 +86,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function create(array $attributes = [], bool $syncRelations = false)
     {
+        ;
         return $this->model::post($this->url . 'data/write', [
             "plugin_id" => $this->plugin_id,
             "organization_id" => $this->organisation_id,
