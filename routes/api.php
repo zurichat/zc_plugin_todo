@@ -36,3 +36,5 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+Route::post('comment', [\App\Http\Controllers\CommentController::class, 'store']);
