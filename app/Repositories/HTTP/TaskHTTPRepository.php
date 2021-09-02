@@ -6,13 +6,17 @@ use App\Repositories\BaseRepository;
 
 class TaskHTTPRepository extends BaseRepository
 {
-    protected $modelName = 'Task';
+    protected $modelName = 'DemoTask';
 
-    protected $url = 'https://jsonplaceholder.typicode.com/';
+    protected $url = 'https://zccore.herokuapp.com/';
+
+    protected $organisation_id, $plugin_id;
 
     public function __construct()
     {
         parent::__construct($this->modelName, 'http');
+        $this->organisation_id = '612a3a914acf115e685df8e3';
+        $this->plugin_id = '612e0c38a560ba3687c9ae4b';
     }
 
     /**
@@ -20,7 +24,7 @@ class TaskHTTPRepository extends BaseRepository
      */
     public function all()
     {
-        return $this->model::get($this->url . 'todos')->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json();
     }
 
     /**
@@ -33,7 +37,7 @@ class TaskHTTPRepository extends BaseRepository
      */
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'todos/' . $id)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json();
     }
 
     /**
@@ -195,7 +199,15 @@ class TaskHTTPRepository extends BaseRepository
      */
     public function create(array $attributes = [], bool $syncRelations = false)
     {
-        return $this->model::put($this->modelName, $attributes);
+        return $this->model::post($this->url . 'data/write', [
+            "plugin_id" => $this->plugin_id,
+            "organization_id" => $this->organisation_id,
+            "collection_name" => $this->modelName,
+            "bulk_write" => false,
+            "object_id" => "xxxx",
+            "filter" => (object) [],
+            "payload" => $attributes
+        ])->json();
     }
 
     /**
@@ -209,7 +221,15 @@ class TaskHTTPRepository extends BaseRepository
      */
     public function update($id, array $attributes = [], bool $syncRelations = false)
     {
-        // TODO: Implement update() method.
+        return $this->model::post($this->url . 'data/write', [
+            "plugin_id" => $this->plugin_id,
+            "organization_id" => $this->organisation_id,
+            "collection_name" => $this->modelName,
+            "bulk_write" => false,
+            "object_id" => $id,
+            "filter" => (object) [],
+            "payload" => $attributes
+        ])->json();
     }
 
     /**
@@ -223,7 +243,15 @@ class TaskHTTPRepository extends BaseRepository
      */
     public function store($id, array $attributes = [], bool $syncRelations = false)
     {
-        // TODO: Implement store() method.
+        return $this->model::post($this->url . 'data/write', [
+            "plugin_id" => $this->plugin_id,
+            "organization_id" => $this->organisation_id,
+            "collection_name" => $this->modelName,
+            "bulk_write" => false,
+            "object_id" => "xxxx",
+            "filter" => (object) [],
+            "payload" => $attributes
+        ])->json();
     }
 
     /**
@@ -235,7 +263,15 @@ class TaskHTTPRepository extends BaseRepository
      */
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->model::post($this->url . 'data/write', [
+            "plugin_id" => $this->plugin_id,
+            "organization_id" => $this->organisation_id,
+            "collection_name" => $this->modelName,
+            "bulk_write" => false,
+            "object_id" => $id,
+            "filter" => (object) [],
+            "payload" =>(object) []
+        ])->json();
     }
 
     /**
