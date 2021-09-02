@@ -4,6 +4,7 @@ use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\VarDumper\VarDumper;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
+Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
+Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
