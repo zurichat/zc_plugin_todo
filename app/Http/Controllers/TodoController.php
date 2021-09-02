@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\TaskService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * class TodoController extends Controller
@@ -25,13 +27,21 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'description' => 'required|max:255',
             'end_date' => 'required|max:255',
             'workspace_id' => 'required|max:255',
             'category_id' => 'required|max:255',
         ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' =>  true,
+                'type' => 'error',
+                'message' => 'missing required fields',
+                'data' => $validator->errors()->messages()
+            ], 200);
+        }
         $data = $request->except('_method', '_token');
         $data['status_id'] = $request->input('status_id', 1);
         $data['parent_id'] = $request->input('parent_id');
@@ -39,10 +49,14 @@ class TodoController extends Controller
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = response()->json($this->taskService->create($data));
-        return redirect()->back()->with('sent', boolval($response));
+        return response()->json([
+            'status' =>  boolval($response),
+            'type' => 'success',
+            'message' => boolval($response) ? 'Todo created successfully' : 'Todo not created'
+        ], 200);
     }
 
-    //TODO: Test frontend link to be modified;
+    //TODO: Test frontend link to be removed or modified;
     public function showPage()
     {
         return view('test');
