@@ -40,5 +40,7 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
-// @omoh
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
+//------------------- Resource End ponits ---------- //
+Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+
