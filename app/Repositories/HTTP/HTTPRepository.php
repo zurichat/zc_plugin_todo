@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
 {
-    protected $url = 'https://zccore.herokuapp.com/';
+    protected $url = 'https://jsonplaceholder.typicode.com/posts';
     protected $organisation_id = '612a3a914acf115e685df8e3';
     protected $plugin_id = '612e0c38a560ba3687c9ae4b';
     protected $modelName;
@@ -141,9 +141,16 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
-    public function search($query)
+    public function search($key, $data)
     {
         $todos = $this->all();
-        return $todos;
+        $search_data = [];
+        for($i = 0; $i < count($todos); $i++){
+            return array_search($todos[$data], array_column($todos, $key));
+            if(collect($todos)->where($todos[$i][$key], $data)){
+                array_push($search_data, $todos[$i]);
+            }
+        }
+        return json_encode($search_data);
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
-use App\Repositories\HTTP\HTTPRepository;
 use App\Repositories\TaskRepository;
 
 class TaskService extends \App\Providers\AppServiceProvider
 {
     protected $taskRepository;
 
-    public function __construct(HTTPRepository $taskRepository)
+    public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
@@ -63,8 +62,8 @@ class TaskService extends \App\Providers\AppServiceProvider
      * @para mixed $data
      *  return mixed
      */
-    public function search($data)
+    public function search($key, $data)
     {
-        return $this->taskRepository->search($data);
+        return $this->taskRepository->search($key, $data);
     }
 }

@@ -41,6 +41,6 @@ class TaskDemoController extends Controller
 
     public function search(Request $request)
     {
-        return response()->json($this->taskService->search($request->query('q')));
+        // return response()->json($this->taskService->search($request->query('q')));
     }
 }

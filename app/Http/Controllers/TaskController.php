@@ -21,7 +21,7 @@ class TaskController extends Controller{
      */
     public function search(Request $request)
     {
-        return response()->json($this->taskService->search($request->query('q')));
+        return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
 
 

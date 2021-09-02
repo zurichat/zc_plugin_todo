@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\PluginInfoController;
-use App\Http\Controllers\SideBarItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskDemoController;
+use App\Http\Controllers\TodoController;
+use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\SideBarItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
 Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
-Route::get('/search', [TodoController::class, 'search']);
+Route::get('/search', [TodoController::class, 'search_todo']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
