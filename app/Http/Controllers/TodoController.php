@@ -30,13 +30,14 @@ class TodoController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'description' => 'required|max:255',
+            'color_code' => 'required|max:255',
             'end_date' => 'required|max:255',
             'workspace_id' => 'required|max:255',
             'category_id' => 'required|max:255',
         ]);
         if ($validator->fails()) {
             return response()->json([
-                'status' =>  true,
+                'status' =>  false,
                 'type' => 'error',
                 'message' => 'missing required fields',
                 'data' => $validator->errors()->messages()
@@ -46,12 +47,15 @@ class TodoController extends Controller
         $data['status_id'] = $request->input('status_id', 1);
         $data['parent_id'] = $request->input('parent_id');
         $data['start_date'] = $request->input('start_date', date('Y-m-d'));
+        $data['created_at'] = date('Y-m-d');
+        $data['updated_at'] = null;
+        $data['archived_at'] = null;
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = response()->json($this->taskService->create($data));
         return response()->json([
             'status' =>  boolval($response),
-            'type' => 'success',
+            'type' => boolval($response) ? 'success' : 'error',
             'message' => boolval($response) ? 'Todo created successfully' : 'Todo not created'
         ], 200);
     }

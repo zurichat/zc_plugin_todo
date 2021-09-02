@@ -71,6 +71,7 @@
                     <label for="end_date">End Date</label>
                     <input type="date" name="end_date" class="form-control" id="end_date">
                     <input type="text" name="workspace_id" value="1" class="d-none">
+                    <input type="text" name="color_code" value="red" class="d-none">
                     @error('end_date')
                         <div class="alert mt-2 alert-danger">{{ $message }}</div>
                     @enderror
