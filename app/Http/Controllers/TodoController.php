@@ -5,12 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\VarDumper\VarDumper;
 
-/**
- * class TodoController extends Controller
- * @author Atoyebi, Ajibola (atoyebieniola93@gmail.com|Ajibola03)
- */
 class TodoController extends Controller
 {
 
@@ -21,10 +16,7 @@ class TodoController extends Controller
         $this->taskService = $taskService;
     }
 
-    /**
-     * Create todo and save to the database.
-     * @author Atoyebi, Ajibola (atoyebieniola93@gmail.com|Ajibola03)
-     */
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -71,5 +63,10 @@ class TodoController extends Controller
     public function showPage()
     {
         return view('test');
+    }
+
+    public function search_todo(Request $request)
+    {
+       return $this->taskService->search($request->query('key'), $request->query('q'));
     }
 }
