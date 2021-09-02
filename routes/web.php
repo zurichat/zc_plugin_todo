@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PluginInfoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,4 @@ Route::get('/', function () {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
