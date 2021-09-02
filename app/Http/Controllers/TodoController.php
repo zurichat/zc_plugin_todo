@@ -41,7 +41,7 @@ class TodoController extends Controller
                 'type' => 'error',
                 'message' => 'missing required fields',
                 'data' => $validator->errors()->messages()
-            ], 200);
+            ], 422);
         }
         $data = $request->except('_method', '_token');
         $data['status_id'] = $request->input('status_id', 1);
@@ -52,11 +52,18 @@ class TodoController extends Controller
         $data['archived_at'] = null;
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
-        $response = response()->json($this->taskService->create($data));
+        $response = $this->taskService->create($data);
+        if(!$response){
+            return response()->json([
+                'status' =>  false,
+                'type' => 'error',
+                'message' => 'Todo not created'
+            ], 500);
+        }
         return response()->json([
-            'status' =>  boolval($response),
-            'type' => boolval($response) ? 'success' : 'error',
-            'message' => boolval($response) ? 'Todo created successfully' : 'Todo not created'
+            'status' =>  true,
+            'type' =>  'success',
+            'message' => 'Todo created successfully'
         ], 200);
     }
 
