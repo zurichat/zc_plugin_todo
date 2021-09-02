@@ -31,13 +31,13 @@ class SideBarItemsController extends Controller
 
                 'item_4' => [
                     'name' => 'Search',
-                    'icon' => 'https://media.publit.io/file/calendar-page-with-circular-clock-symbol-svgrepo-com.svg',
+                    'icon' => '#',
                     'action' => 'Open Search Bar'
                 ],
 
                 'item_5' => [
                     'name' => 'Inbox',
-                    'icon' => 'https://media.publit.io/file/calendar-page-with-circular-clock-symbol-svgrepo-com.svg',
+                    'icon' => '#',
                     'action' => 'Open Inbox'
                 ]
             ]
