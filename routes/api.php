@@ -4,6 +4,7 @@ use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\VarDumper\VarDumper;
 
 /*
 |--------------------------------------------------------------------------
