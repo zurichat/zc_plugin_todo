@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
-use App\Http\Controllers\TodoController;
 use App\Http\Controllers\SideBarItemsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TodoController;
 
 
 /*

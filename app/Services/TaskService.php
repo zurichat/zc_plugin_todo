@@ -57,4 +57,13 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->delete($id);
     }
+
+    /**
+     * @para mixed $data
+     *  return mixed
+     */
+    public function search($key, $data)
+    {
+        return $this->taskRepository->search($key, $data);
+    }
 }
