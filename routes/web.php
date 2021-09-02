@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
-use App\Http\Controllers\TodoController;
 use App\Http\Controllers\SideBarItemsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
 Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
+
+
+
+Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
+
 Route::get('/ping', function () {
     return response()->json(['message' => 'Server is Live!'], 200);
 });
