@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
 {
-    protected $url = 'https://jsonplaceholder.typicode.com/posts';
+    protected $url = 'https://zccore.herokuapp.com/';
     protected $organisation_id = '612a3a914acf115e685df8e3';
     protected $plugin_id = '612e0c38a560ba3687c9ae4b';
     protected $modelName;
