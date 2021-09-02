@@ -2,17 +2,13 @@
 
 namespace App\Services;
 
-use App\Contracts\TaskRepository;
-use App\Repositories\Cache\TaskCacheRepository;
+use App\Repositories\TaskRepository;
 
 class TaskService extends \App\Providers\AppServiceProvider
 {
-    /**
-     * @var TaskRepository
-     */
     protected $taskRepository;
 
-    public function __construct(TaskCacheRepository $taskRepository)
+    public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
