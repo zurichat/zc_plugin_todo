@@ -68,7 +68,6 @@ class TaskService extends \App\Providers\AppServiceProvider
     public function getLatestTask()
     {
         $result = $this->taskRepository->all();
-        //$data = $result['data'];
         $data = [];
         // filter the array for items without created_at
         foreach($result['data'] as $anyName){
