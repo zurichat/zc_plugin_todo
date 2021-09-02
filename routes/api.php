@@ -1,5 +1,9 @@
 <?php
 
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\PluginInfoController;
+>>>>>>> e3ab126ffeb7769e383032ca19972a2ea0e57410
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -35,6 +39,7 @@ Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 Route::get('/search', [TodoController::class, 'search_todo']);
 
+<<<<<<< HEAD
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
     return response()->json(['message' => 'Server is Live!'], 200);
@@ -42,3 +47,6 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
+=======
+Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+>>>>>>> e3ab126ffeb7769e383032ca19972a2ea0e57410
