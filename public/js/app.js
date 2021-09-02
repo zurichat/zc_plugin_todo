@@ -19419,7 +19419,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-9f010e00");
 
 var _hoisted_1 = {
-  "class": "taskcard m-4 p-5 w-1/2 lg:w-1/4"
+  "class": "taskcard sm:mx-4 mx-auto my-4 p-5 "
 };
 var _hoisted_2 = {
   "class": "flex justify-between pb-4"
@@ -19623,14 +19623,22 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
+var _hoisted_2 = {
+  "class": "todo_container sm:grid sm:grid-cols-2 md:grid-cols-3"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_taskCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("taskCard");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_taskCard, {
-    title: "Task title",
-    date: "Tomorrow",
-    description: "Description"
-  })]);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(8, function (i) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_taskCard, {
+      key: i,
+      title: "Task title",
+      date: "Tomorrow",
+      description: "Description"
+    });
+  }), 64
+  /* STABLE_FRAGMENT */
+  ))])]);
 }
 
 /***/ }),
@@ -19800,7 +19808,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".todo_item[data-v-9f010e00] {\n  min-height: 10rem;\n}\n.taskcard[data-v-9f010e00] {\n  background: #FFFFFF;\n  border: 1px solid #DADADA;\n  box-sizing: border-box;\n  border-radius: 4px;\n}\n.task_title[data-v-9f010e00] {\n  color: #101010;\n  font-size: 1.26rem;\n  font-weight: bold;\n}\n.task_description[data-v-9f010e00] {\n  color: #959595;\n  font-size: 13px;\n}\n.link_color[data-v-9f010e00] {\n  color: #1A61DB;\n  font-size: 1rem;\n  font-weight: 700;\n}\n.line[data-v-9f010e00] {\n  background-color: #DADADA;\n  width: 100%;\n  height: 1px;\n  margin-top: 1rem;\n  margin-bottom: 4px;\n}\n.collab[data-v-9f010e00] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 11px;\n  line-height: 13px;\n  letter-spacing: 0.1em;\n  color: rgba(0, 0, 0, 0.6);\n  margin-top: 8px;\n  margin-bottom: 12px;\n}\n.gray_link[data-v-9f010e00] {\n  color: #7C7C7C;\n  -webkit-text-decoration-line: underline;\n          text-decoration-line: underline;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".todo_item[data-v-9f010e00] {\n  min-height: 10rem;\n}\n.taskcard[data-v-9f010e00] {\n  background: #FFFFFF;\n  border: 1px solid #DADADA;\n  box-sizing: border-box;\n  border-radius: 4px;\n  max-width: 30em;\n}\n.task_title[data-v-9f010e00] {\n  color: #101010;\n  font-size: 1.26rem;\n  font-weight: bold;\n}\n.task_description[data-v-9f010e00] {\n  color: #959595;\n  font-size: 13px;\n}\n.link_color[data-v-9f010e00] {\n  color: #1A61DB;\n  font-size: 1rem;\n  font-weight: 700;\n}\n.line[data-v-9f010e00] {\n  background-color: #DADADA;\n  width: 100%;\n  height: 1px;\n  margin-top: 1rem;\n  margin-bottom: 4px;\n}\n.collab[data-v-9f010e00] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 11px;\n  line-height: 13px;\n  letter-spacing: 0.1em;\n  color: rgba(0, 0, 0, 0.6);\n  margin-top: 8px;\n  margin-bottom: 12px;\n}\n.gray_link[data-v-9f010e00] {\n  color: #7C7C7C;\n  -webkit-text-decoration-line: underline;\n          text-decoration-line: underline;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="taskcard m-4 p-5 w-1/2 lg:w-1/4">
+    <div class="taskcard sm:mx-4 mx-auto my-4 p-5 ">
         <div class="flex justify-between pb-4">
             <div class="">
                 <h1 class="task_title">{{title}}</h1>
@@ -95,6 +95,7 @@
     }
 </script>
 <style lang="scss" scoped>
+
     .todo_item {
         min-height: 10rem;
     }
@@ -104,6 +105,7 @@
         border: 1px solid #DADADA;
         box-sizing: border-box;
         border-radius: 4px;
+        max-width: 30em;
     }
 
     .task_title {
