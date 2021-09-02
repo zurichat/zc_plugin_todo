@@ -14,4 +14,7 @@ yarn-error.log
 /.idea
 /.vscode
 /docker
+/mongodb
+/journal
+/diagnostic.data
 docker-compose.yml
