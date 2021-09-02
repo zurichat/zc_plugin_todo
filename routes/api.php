@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskDemoController;
+use App\Http\Controllers\PluginInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('/search', [TaskController::class, 'search']);
