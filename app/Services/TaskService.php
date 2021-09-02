@@ -60,10 +60,13 @@ class TaskService extends \App\Providers\AppServiceProvider
 
       /**
      * @return mixed
+     * @author {@omoh}
      */
-    public function findFirst()
+    public function getLatestTask()
     {
-        return $this->taskRepository->findFirst();
+        $result = $this->taskRepository->all();
+        $data = $result['data'][0];
+        return $data;
     }
 
     /**

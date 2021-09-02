@@ -6,6 +6,7 @@ use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,6 @@ Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
 Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 Route::get('/search', [TodoController::class, 'search_todo']);
-Route::get('/findFirst', [TodoController::class, 'findFirstToDo']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
@@ -39,3 +39,6 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+// @omoh
+Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
