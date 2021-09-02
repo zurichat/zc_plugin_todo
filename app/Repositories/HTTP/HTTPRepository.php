@@ -140,4 +140,17 @@ class HTTPRepository implements RepositoryInterface
     {
         // TODO: Implement restore() method.
     }
+
+    public function search($key, $data)
+    {
+        $todos = $this->all();
+        $search_data = [];
+        for($i = 0; $i < count($todos); $i++){
+            return array_search($todos[$data], array_column($todos, $key));
+            if(collect($todos)->where($todos[$i][$key], $data)){
+                array_push($search_data, $todos[$i]);
+            }
+        }
+        return json_encode($search_data);
+    }
 }
