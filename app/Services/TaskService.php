@@ -68,8 +68,17 @@ class TaskService extends \App\Providers\AppServiceProvider
     public function getLatestTask()
     {
         $result = $this->taskRepository->all();
-        $data = $result['data'][0];
-        return $data;
+        //$data = $result['data'];
+        $data = [];
+        // filter the array for items without created_at
+        foreach($result['data'] as $anyName){
+            if(isset($anyName['created_at'])){
+                array_push($data,$anyName);
+            }
+        }
+        $collection = collect($data);
+        $sorted = $collection->sortDesc()->first();
+        return $sorted;
     }
 
     /**
