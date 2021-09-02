@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use App\Repositories\TaskRepository;
+use App\Repositories\TaskCommentRepository;
 
-class TaskService extends \App\Providers\AppServiceProvider
+class TaskCommentService extends \App\Providers\AppServiceProvider
 {
-    protected $taskRepository;
+    protected $taskCommentRepository;
 
-    public function __construct(TaskRepository $taskRepository)
+    public function __construct(TaskCommentRepository $taskCommentRepository)
     {
-        $this->taskRepository = $taskRepository;
+        $this->taskCommentRepository = $taskCommentRepository;
     }
 
     /**
@@ -18,7 +18,6 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function all()
     {
-        return $this->taskRepository->all();
     }
 
     /**
@@ -27,7 +26,6 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function create(array $data)
     {
-        return $this->taskRepository->create($data);
     }
 
     /**
@@ -36,7 +34,6 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function find($id)
     {
-        return $this->taskRepository->find($id);
     }
 
     /**
@@ -46,7 +43,6 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function update($data, $id)
     {
-        return $this->taskRepository->update($id, $data);
     }
 
     /**
@@ -55,6 +51,5 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function delete($id)
     {
-        return $this->taskRepository->delete($id);
     }
 }
