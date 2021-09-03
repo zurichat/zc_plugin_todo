@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -68,4 +69,6 @@ Route::get('/todo_resource', [TodoController::class, 'showResource']);
 Route::get('/users', function(){
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
+
+Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 

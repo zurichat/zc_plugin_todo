@@ -41,6 +41,11 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 
+// assign user to a task
+Route::get('/assign-user', function(){
+    return view('assign-user');
+});
+
 //This Fetch id of task for comment
 Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
 
