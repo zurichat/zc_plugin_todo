@@ -1,5 +1,7 @@
 <template>
-    <div class="w-4/5 mx-auto todo_item border sm:w-full m-2 rounded-md bg-white "></div>
+    <div class="w-4/5 mx-auto todo_item border sm:w-full m-2 rounded-md bg-white ">
+         welcome
+    </div>
 </template>
 <script>
 export default {
