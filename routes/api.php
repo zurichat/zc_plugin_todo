@@ -58,3 +58,8 @@ Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
 
+// endpoint to fetch user credentials
+Route::get('/users', function(){
+    return response()->json(['message' => 'route to fetch user credentials is working'], 200);
+});
+
