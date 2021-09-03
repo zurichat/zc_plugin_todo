@@ -50,6 +50,9 @@ Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
+// -------------- Task Modification Endpoints --------------------- //
+Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
+Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
 //test endpoint that reads request from zuri core
 Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 
