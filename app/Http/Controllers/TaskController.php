@@ -25,7 +25,7 @@ class TaskController extends Controller
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
-    
+
     public function getLatestTask()
     {
         return response()->json($this->taskService->getLatestTask());
