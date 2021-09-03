@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
-use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskController;
 
@@ -25,7 +25,12 @@ Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
+
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
+
+// comment post request
+Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -42,6 +47,7 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
+Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 //------------------- Resource End ponits ---------- //
 Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
 
