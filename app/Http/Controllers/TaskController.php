@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TaskService;
 use Illuminate\Http\Request;
+use App\Services\TaskService;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -25,26 +26,33 @@ class TaskController extends Controller
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
-    
+
     public function getLatestTask()
     {
         return response()->json($this->taskService->getLatestTask());
+    }
+
+    public function allTask()
+    {
+        $response = Http::get('https://todo.zuri.chat/api/task');
+
+        return json_decode($response->body());
     }
 
     public function show($id)
     {
         $tasks = ($this->taskService->find($id))['data'];
         $data = [];
-        foreach($tasks as $task){
-            if($task['_id'] == $id){
+        foreach ($tasks as $task) {
+            if ($task['_id'] == $id) {
                 $data[] = $task;
             }
         }
         return response()->json([
-                "status" => 200,
-                "message" => "success",
-                'data' => $data,
-                    ]);
+            "status" => 200,
+            "message" => "success",
+            'data' => $data,
+        ]);
     }
 
 
@@ -56,7 +64,7 @@ class TaskController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json([
-                'Error'=>'Request failed',
+                'Error' => 'Request failed',
                 'message' => $validator->errors()
             ], 400);
         }
@@ -71,6 +79,6 @@ class TaskController extends Controller
         return response()->json([
             'message' => 'Request success',
             'data' => $newArr
-        ],200);
+        ], 200);
     }
 }

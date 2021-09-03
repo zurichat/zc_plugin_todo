@@ -4,6 +4,7 @@ use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,13 +38,15 @@ Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 // comment blade to test comment post request
-Route::get('/comment', function(){
+Route::get('/comment', function () {
     return view('create-comment');
 });
 
 //This Fetch id of task for comment
-Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+Route::get('/alphachris/comment/{id}', [TaskCommentController::class, 'findTaskCommentById']);
 
 //Resource route
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
+//Route to get all task
+Route::get('/all_task', [TaskController::class, 'allTask']);
