@@ -18,7 +18,10 @@
 </template>
 
 <script>
+import TodoDetails from "../components/TodoDetails.vue"
 export default {
+    components: {TodoDetails},
     name: 'Main'
 }
+
 </script>
