@@ -3,7 +3,6 @@
 namespace App\Repositories\HTTP;
 
 use App\Contracts\RepositoryInterface;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
@@ -48,7 +47,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findFirst($attributes = ['*'])
     {
-        // TODO: Implement findAll() method.
+        // TODO: Implement findFirst() method.
     }
 
     public function findAll($attributes = ['*'])
