@@ -25,7 +25,7 @@ class TaskController extends Controller
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
-    
+
     public function getLatestTask()
     {
         return response()->json($this->taskService->getLatestTask());
@@ -45,6 +45,14 @@ class TaskController extends Controller
                 "message" => "success",
                 'data' => $data,
                     ]);
+    }
+    public function modifyShow($id)
+    {
+        return view('updateDueDate');
+    }
+    public function updateTaskDate(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
     }
 
 
