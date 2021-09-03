@@ -1,5 +1,5 @@
 <template>
-  
+    <SearchFilter/>
         <nav id="first_section">
            
             <span id="menu"> 
@@ -44,8 +44,13 @@
         </nav>
 </template>
 <script>
+import SearchFilter from './SearchFilter.vue'
 export default {
     name: "Navbar",
+    components: {
+        SearchFilter,
+    },
+
     data(){
         return{
         }
