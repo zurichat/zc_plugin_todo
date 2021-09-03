@@ -26,7 +26,6 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function create(array $data)
     {
-        
         return $this->taskCommentRepository->create($data);
     }
 
@@ -36,6 +35,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function find($id)
     {
+        return $this->taskCommentRepository->find($id);
     }
 
     /**
@@ -45,6 +45,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function update($data, $id)
     {
+        return $this->taskRepository->update($id, $data);
     }
 
     /**
