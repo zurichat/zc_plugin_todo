@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\TaskCommentService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class TaskCommentController extends Controller
 {
@@ -33,7 +32,7 @@ class TaskCommentController extends Controller
 				"content" => $request->content,
 				"task_id" => $taskId,
 				"user_id" => $userId,
-				"created_at" => Carbon::now(),
+				"created_at" => now()->toDateTimeString(),
 			];
 
 			// return response
