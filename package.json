@@ -12,8 +12,10 @@
     "devDependencies": {
         "@vue/compiler-sfc": "^3.2.6",
         "axios": "^0.21",
+
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
+
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.11",
@@ -23,8 +25,6 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "tailwindcss": "^2.2.9",
-        "vue-router": "^4.0.11",
-        "vuex": "^4.0.2"
+        "tailwindcss": "^2.2.9"
     }
 }
