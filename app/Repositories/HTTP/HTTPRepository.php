@@ -86,7 +86,6 @@ class HTTPRepository implements RepositoryInterface
 
     public function create(array $attributes = [], bool $syncRelations = false)
     {
-        ;
         return $this->model::post($this->url . 'data/write', [
             "plugin_id" => $this->plugin_id,
             "organization_id" => $this->organisation_id,
