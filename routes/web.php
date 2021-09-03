@@ -43,7 +43,7 @@ Route::get('/comment', function(){
 
 //This Fetch id of task for comment
 Route::get('/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
-Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdChris']);
+Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdTest']);
 
 //Resource route
 Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
