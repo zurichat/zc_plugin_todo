@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
 use App\Http\Resources\TodoResource;
@@ -87,7 +88,7 @@ class TodoController extends Controller
         $response = $client->request('GET', $url);
 
         $responseBody = json_decode($response->getBody());
-        
+
         return new TodoResource($data);
     }
 }
