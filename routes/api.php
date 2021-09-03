@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
+use Symfony\Component\VarDumper\VarDumper;
+use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\UploadFilesController;
+use App\Http\Controllers\SideBarItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +26,25 @@ Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'updat
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
+// comment post request
+Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
+Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
+Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
+Route::get('/search', [TodoController::class, 'search_todo']);
+
+// -------------- Plugin Information Endpoints --------- //
+Route::get('/ping', function () {
+    return response()->json(['message' => 'Server is Live!'], 200);
+});
+Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+//------------------- Resource End ponits ---------- //
+Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+
