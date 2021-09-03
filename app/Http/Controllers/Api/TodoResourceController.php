@@ -20,7 +20,7 @@ class TodoResourceController extends Controller
             'title' => 'Demo Todo',
             'description' => 'This is a demo todo to test the resource',
             'status_id' => '1',
-            'statr_date' => '2021-09-03',
+            'start_date' => '2021-09-03',
             'end_date' => '2021-09-05',
             'parent_id' => '012',
             'workspace_id' => '013',
@@ -29,7 +29,8 @@ class TodoResourceController extends Controller
             'recurring' => [
                 'status' => true
             ],
-            'color_code' => '#001'
+            'color_code' => '#001',
+
         ];
         return new TodoResource($data);
     }
