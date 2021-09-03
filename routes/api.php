@@ -8,7 +8,6 @@ use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -54,6 +53,7 @@ Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 
 Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
 
+Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 //------------------- Resource End ponits ---------- //
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
