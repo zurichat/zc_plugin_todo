@@ -249,4 +249,9 @@ class TaskHTTPRepository extends BaseRepository
     {
         // TODO: Implement restore() method.
     }
+
+    public function sort($parameter)
+    {
+        
+    }
 }

@@ -61,4 +61,9 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->delete($id);
     }
+
+    public function sort($parameter)
+    {
+        $tasks = $this->taskRepository->sort($parameter);
+    }
 }
