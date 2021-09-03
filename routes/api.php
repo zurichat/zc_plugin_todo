@@ -26,7 +26,7 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 
 // comment post request
 Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
-Route::post('comment', [\App\Http\Controllers\CommentController::class, 'store']);
+Route::post('comments', [\App\Http\Controllers\CommentController::class, 'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

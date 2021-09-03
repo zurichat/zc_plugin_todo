@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <form action="/api/comment" method="post" class="card col-md-6 offset-md-3 p-4 mt-5">
+        <form action="/api/comments" method="post" class="card col-md-6 offset-md-3 p-4 mt-5">
             <div class="form-group">
                 <label>Comment on Task {{$id}}</label>
                 <input type="hidden" name="taskId" value="{{$id}}">
