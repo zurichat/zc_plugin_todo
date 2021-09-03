@@ -32,7 +32,7 @@ class TaskCacheRepository extends BaseRepository
      * @return mixed
      */
     public function find($id, $attributes = ['*'])
-    {        
+    {
         $records = $this->all();
         $key = array_search($id, array_column($records, 'id'));
         return $records[$key];
@@ -263,4 +263,5 @@ class TaskCacheRepository extends BaseRepository
     {
         // TODO: Implement restore() method.
     }
+
 }

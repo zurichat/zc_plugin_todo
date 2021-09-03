@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TaskCommentController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +23,3 @@ Route::get('/', function () {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
-//..........route to remove team member assigned to a task...............//
-Route::get('/memberAction',[MemberActionController::class, 'removeTeamMember']);
-//.........route to add team member to a task............................//
-Route::post('/memberAction',[MemberActionController::class, 'addTeamMember']);
