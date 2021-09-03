@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,4 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+Route::delete('delete/{id}', [TaskCommentController::class,'delete']);

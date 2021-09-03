@@ -51,5 +51,6 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function delete($id)
     {
+        return $this->taskCommentRepository->delete($id);
     }
 }
