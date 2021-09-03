@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\TodoResource;
 
 class TodoResourceController extends Controller
 {
@@ -12,9 +13,24 @@ class TodoResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index() : TodoResource
     {
-        //
+        return [
+            'id' => '0',
+            'title' => 'Demo Todo',
+            'description' => 'This is a demo todo to test the resource',
+            'status_id' => '1',
+            'statr_date' => '2021-09-03',
+            'end_date' => '2021-09-05',
+            'parent_id' => '012',
+            'workspace_id' => '013',
+            'category_id' => '01',
+            'priority_id' => '03',
+            'recurring' => [
+
+            ],
+
+        ];
     }
 
     /**
