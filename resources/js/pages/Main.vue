@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import TodoDetails from "../components/TodoDetails.vue"
+import TodoDetails from "./TodoDetails.vue"
 export default {
     components: {TodoDetails},
     name: 'Main'
