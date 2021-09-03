@@ -40,4 +40,5 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 //Resource route
-Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+

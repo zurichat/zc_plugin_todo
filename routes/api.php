@@ -7,6 +7,8 @@ use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +28,12 @@ Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'updat
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
+
+Route::get('task-category',[TaskController::class,'getTasksByCategory']);
+
 // comment post request
 Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -46,5 +52,6 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 //------------------- Resource End ponits ---------- //
-Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+
 
