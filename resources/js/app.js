@@ -6,11 +6,10 @@
 
 require('./bootstrap');
 
-// window.Vue = require('vue').default;
-
-
+import router from './router';
+import store from './store'
 import { createApp } from 'vue'
-import App from './components/App.vue'
+import App from './App.vue'
 const app = createApp(App);
 app.mount("#app")
 
@@ -42,3 +41,6 @@ new Vue({
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+app.use(router)
+    .use(store)
+    .mount("#app")

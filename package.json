@@ -26,5 +26,8 @@
         "bootstrap": "^5.1.0",
         "tailwindcss": "^2.2.9",
         "vue-bootstrap-datetimepicker": "^5.0.1"
+        "tailwindcss": "^2.2.9",
+        "vue-router": "^4.0.11",
+        "vuex": "^4.0.2"
     }
 }
