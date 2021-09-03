@@ -46,15 +46,13 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
-<<<<<<< HEAD
 // -------------- Comments endpoints --------------------- //
 Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
 Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
-=======
-Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+
 //------------------- Resource End ponits ---------- //
 Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
 
->>>>>>> f34886d797ccf38979982d1e62a8de140fd762a3
