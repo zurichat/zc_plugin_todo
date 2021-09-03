@@ -71,3 +71,5 @@ Route::get('/users', function(){
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
 
+//Show Tasks Assigned to a Specific User 
+Route::get('task/{workspace_id}', [\App\Http\Controllers\TaskController::class, 'assignedTask']); 

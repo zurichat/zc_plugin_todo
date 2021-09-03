@@ -73,4 +73,22 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
+
+    #Show Tasks Assigned to a Specific User 
+    public function assignedTask($workspace_id)
+    {
+        $tasks = ($this->taskService->find($workspace_id))['data'];
+        
+        $data = [];
+        foreach($tasks as $task){
+            if($task['workspace_id'] == $workspace_id){
+                $data[] = $task;
+            }
+        }
+        return response()->json([
+                "status" => 200,
+                "message" => "success",
+                'data' => $data,
+                    ]);
+    }
 }
