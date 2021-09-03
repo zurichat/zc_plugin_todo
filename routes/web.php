@@ -3,6 +3,7 @@
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TaskCommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,5 +36,14 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
+// comment blade to test comment post request
+Route::get('/comment', function(){
+    return view('create-comment');
+});
+
+//This Fetch id of task for comment
+Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+
 //Resource route
-Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+
