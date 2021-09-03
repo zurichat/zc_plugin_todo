@@ -24,5 +24,21 @@ class TaskController extends Controller{
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
 
+    public function show($id)
+    {
+        $tasks = ($this->taskService->find($id))['data'];
+
+        foreach($tasks as $d){
+            if($d['_id'] == $id){
+                $data[] = $d;
+            }
+        }
+        return response()->json([
+                "status" => 200,
+                "message" => "success",
+                'data' => $data,
+                    ]);
+    }
+
 
 }
