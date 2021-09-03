@@ -2,7 +2,7 @@
     <div id="main_container">
         
         <aside>
-               <Sidebar/>
+              <!-- <Sidebar/>-->
         </aside>
         <main>
              <nav>
