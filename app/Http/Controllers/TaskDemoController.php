@@ -39,8 +39,14 @@ class TaskDemoController extends Controller
         return response()->json($this->taskService->delete($id));
     }
 
-    public function sort($parameter)
+    public function sort(Request $request)
     {
+        $parameter = $request->sort;
         $tasks = $this->taskService->sort($parameter);
+        return $tasks;
+    }
+    public function search(Request $request)
+    {
+        // return response()->json($this->taskService->search($request->query('q')));
     }
 }

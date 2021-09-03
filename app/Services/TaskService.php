@@ -2,17 +2,16 @@
 
 namespace App\Services;
 
-use App\Contracts\TaskRepository;
+use App\Repositories\Cache\CacheRepository;
 use App\Repositories\Cache\TaskCacheRepository;
+use App\Repositories\HTTP\HTTPRepository;
+use App\Repositories\TaskRepository;
 
 class TaskService extends \App\Providers\AppServiceProvider
 {
-    /**
-     * @var TaskRepository
-     */
     protected $taskRepository;
 
-    public function __construct(TaskCacheRepository $taskRepository)
+    public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
@@ -65,5 +64,33 @@ class TaskService extends \App\Providers\AppServiceProvider
     public function sort($parameter)
     {
         $tasks = $this->taskRepository->sort($parameter);
+        return $tasks;
+    }
+          /**
+     * @return mixed
+     * @author {@omoh}
+     */
+    public function getLatestTask()
+    {
+        $result = $this->taskRepository->all();
+        $data = [];
+        // filter the array for items without created_at
+        foreach($result['data'] as $anyName){
+            if(isset($anyName['created_at'])){
+                array_push($data,$anyName);
+            }
+        }
+        $collection = collect($data);
+        $sorted = $collection->sortDesc()->first();
+        return $sorted;
+    }
+    
+     /**
+     * @para mixed $data
+     *  return mixed
+     */
+    public function search($key, $data)
+    {
+        return $this->taskRepository->search($key, $data);
     }
 }
