@@ -47,6 +47,7 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
+Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
 //test endpoint that reads request from zuri core
 Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 

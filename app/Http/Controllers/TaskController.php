@@ -31,6 +31,23 @@ class TaskController extends Controller
         return response()->json($this->taskService->getLatestTask());
     }
 
+    public function show($id)
+    {
+        $tasks = ($this->taskService->find($id))['data'];
+        $data = [];
+        foreach($tasks as $task){
+            if($task['_id'] == $id){
+                $data[] = $task;
+            }
+        }
+        return response()->json([
+                "status" => 200,
+                "message" => "success",
+                'data' => $data,
+                    ]);
+    }
+
+
     public function getTasksByCategory(Request $request)
     {
         // Validation of input
