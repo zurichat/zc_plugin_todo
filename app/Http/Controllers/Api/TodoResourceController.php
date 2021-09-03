@@ -15,7 +15,7 @@ class TodoResourceController extends Controller
      */
     public function index() : TodoResource
     {
-        return [
+        $data =  [
             'id' => '0',
             'title' => 'Demo Todo',
             'description' => 'This is a demo todo to test the resource',
@@ -27,10 +27,11 @@ class TodoResourceController extends Controller
             'category_id' => '01',
             'priority_id' => '03',
             'recurring' => [
-
+                'status' => true
             ],
-
+            'color_code' => '#001'
         ];
+        return new TodoResource($data);
     }
 
     /**
