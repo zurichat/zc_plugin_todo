@@ -38,3 +38,9 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+// endpoint to fetch user credentials
+Route::get('/users', function(){
+    return response()->json(['message' => 'route to fetch user credentials is working'], 200);
+});
+
