@@ -269,11 +269,15 @@ class TaskCacheRepository extends BaseRepository
      * @param mixed $value
      * @return mixed
      */
-    public function search($value)
+    public function search($field, $value)
     {
        $todos = $this->all();
-       $key = collect($todos)
-                ->where('title', $value);
-       return $key;
+       $search_arr = [];
+       for($i = 0; $i < count($todos); $i++){
+            if(collect($todos)->where($field, $value)){
+                array_push($arr, $todos[$i]);
+            }
+        return $search_arr;
+        }
     }
 }

@@ -22,8 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//taskcommentcontroller
-// Route::delete('/delete', [TaskCommentController::class,'delete']);
+
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
@@ -36,5 +35,4 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
-
 

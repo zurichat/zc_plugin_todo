@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Repositories\Cache\CacheRepository;
+use App\Repositories\Cache\TaskCacheRepository;
+use App\Repositories\HTTP\HTTPRepository;
 use App\Repositories\TaskRepository;
 
 class TaskService extends \App\Providers\AppServiceProvider
@@ -56,14 +59,5 @@ class TaskService extends \App\Providers\AppServiceProvider
     public function delete($id)
     {
         return $this->taskRepository->delete($id);
-    }
-
-    /**
-     * @para mixed $data
-     *  return mixed
-     */
-    public function search($key, $data)
-    {
-        return $this->taskRepository->search($key, $data);
     }
 }
