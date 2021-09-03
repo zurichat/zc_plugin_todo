@@ -38,4 +38,9 @@ class TaskDemoController extends Controller
     {
         return response()->json($this->taskService->delete($id));
     }
+
+    public function search(Request $request)
+    {
+        // return response()->json($this->taskService->search($request->query('q')));
+    }
 }
