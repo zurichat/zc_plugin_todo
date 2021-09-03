@@ -26,7 +26,19 @@ class SideBarItemsController extends Controller
                 'item_3' => [
                     'name' => 'Calender',
                     'icon' => 'https://media.publit.io/file/calendar-page-with-circular-clock-symbol-svgrepo-com.svg',
-                    'action' => 'Open Task Caleder'
+                    'action' => 'Open Task calendar'
+                ],
+
+                'item_4' => [
+                    'name' => 'Search',
+                    'icon' => '#',
+                    'action' => 'Open Search Bar'
+                ],
+
+                'item_5' => [
+                    'name' => 'Inbox',
+                    'icon' => '#',
+                    'action' => 'Open Inbox'
                 ]
             ]
 
