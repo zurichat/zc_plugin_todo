@@ -27,10 +27,10 @@ class TaskController extends Controller{
     public function show($id)
     {
         $tasks = ($this->taskService->find($id))['data'];
-
-        foreach($tasks as $d){
-            if($d['_id'] == $id){
-                $data[] = $d;
+        $data = [];
+        foreach($tasks as $task){
+            if($task['_id'] == $id){
+                $data[] = $task;
             }
         }
         return response()->json([
