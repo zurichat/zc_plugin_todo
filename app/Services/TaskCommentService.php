@@ -39,6 +39,14 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
     }
 
     /**
+    * @author {Alpha2Chris14}
+    */
+    public function findTaskCommentById($id){
+        $whereArr = ['id'=>$id];
+        return $this->taskCommentRepository->findWhere($whereArr);
+    }
+
+    /**
      * @param array $data
      * @param int $id
      * @return mixed

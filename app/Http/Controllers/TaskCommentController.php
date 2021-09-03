@@ -41,6 +41,13 @@ class TaskCommentController extends Controller
 		}
     }
 
+    /**
+        * @author {Alpha2Chris14}
+    */
+    public function findTaskCommentById($id){
+        return response()->json($this->taskCommentService->findTaskCommentById($id));
+    }
+
     public function show($id)
     {
         return response()->json($this->taskCommentService->find($id));
