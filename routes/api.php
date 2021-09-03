@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -38,3 +39,9 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+//-------------Routes to create and update task priority----------//
+
+Route::get('/taskpriorities',[ApiController::class, 'show']);
+Route::post('/taskpriority', [ApiController::class, 'create']);
+Route::patch('/updatetaskpriority/{id}',[ApiController::class, 'updatebyid']);
