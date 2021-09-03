@@ -122,4 +122,21 @@ class CacheRepository implements RepositoryInterface
     {
         // TODO: Implement restore() method.
     }
+
+    /**
+     * Search for specific value
+     * @param mixed $value
+     * @return mixed
+     */
+    public function search($field, $value)
+    {
+       $todos = $this->all();
+       $search_arr = [];
+       for($i = 0; $i < count($todos); $i++){
+            if(collect($todos)->where($field, $value)){
+                array_push($arr, $todos[$i]);
+            }
+        return $search_arr;
+        }
+    }
 }
