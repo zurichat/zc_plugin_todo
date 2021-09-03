@@ -26,6 +26,8 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function create(array $data)
     {
+        
+        return $this->taskCommentRepository->create($data);
     }
 
     /**
