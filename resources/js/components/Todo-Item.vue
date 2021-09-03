@@ -3,7 +3,27 @@
 </template>
 <script>
     export default {
-        name: "Todo-Item"
+        name: "Todo-Item",
+        data(){
+            return{
+                todos:'',
+                form: new Form({
+                    title: '',
+                    description: '',
+                    date: ''
+                })
+            }
+        },
+        // Function to Add Task
+        methods:{
+            AddTask(){
+                    axios.get('/').then((res) =>{
+                        this.todos = res.data
+                    }).catch((error) =>{
+                        console.log(error)
+                    })
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
