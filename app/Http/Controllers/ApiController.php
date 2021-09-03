@@ -17,7 +17,7 @@ class ApiController extends Controller
         return response()->json($task);
     }
 
-    public function show() {
+    public function showall() {
         $task = TaskPriority::all();
         return response()->json($task);
     }
