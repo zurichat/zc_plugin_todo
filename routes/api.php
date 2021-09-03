@@ -25,6 +25,10 @@ Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
+// TaskCommentController
+
+Route::delete('delete/{id}', [TaskCommentController::class, 'delete']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -40,6 +44,5 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
-// TaskCommentController
-
-Route::delete('delete/{id}', [TaskCommentController::class,'delete']);
+//------------------- Resource End ponits ---------- //
+Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');

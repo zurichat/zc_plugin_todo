@@ -27,6 +27,9 @@ Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.crea
 Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
 
 
+//commentcontroller
+Route::delete('/delete', [TaskCommentController::class,'delete']);
+
 
 Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
 
@@ -35,4 +38,8 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
-Route::delete('delete/{id}', [TaskCommentController::class,'delete']);
+
+
+
+//Resource route
+Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
