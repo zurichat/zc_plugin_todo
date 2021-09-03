@@ -23,7 +23,7 @@ class UploadFilesController extends Controller
 
         $file = $request->file('file')->storeAs($destinationPath, $fileName);
 
-        $uploadFile = $this->taskService->create($file);
+        $uploadFile = $this->taskService->create([$file]);
         if (!$uploadFile) {
             return response()->json([
                 'status_code' => 500,
