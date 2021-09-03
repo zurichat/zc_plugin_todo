@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
-use App\Http\Controllers\UsersController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
