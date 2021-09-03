@@ -31,6 +31,12 @@ class TaskDemoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+          'title'=>"required",
+          'content'=>"required",
+          'start_date'=>'required',
+          'end_date'=>'required',
+        ]);
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
