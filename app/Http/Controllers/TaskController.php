@@ -86,7 +86,7 @@ class TaskController extends Controller
             $idOfTask =   $this->taskService->find($task_id);
             $idOfUser =   $this->user->find($user_id);
 
-            $idOfTask->update(['user_id' => $idOfUser]);
+            //$idOfTask->update(['user_id' => $idOfUser]);
                 
         return response()->json($this->taskService->update($request->(user_id), $idOfUser));
     
