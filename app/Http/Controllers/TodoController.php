@@ -68,6 +68,12 @@ class TodoController extends Controller
 
     public function search_todo(Request $request)
     {
-       return $this->taskService->search($request->query('key'), $request->query('q'));
+
+        $search = $this->taskService->search($request->query('key'), $request->query('q'));
+        if (empty($search)) {
+           return response()->json(['message' => 'No result found'], 404);
+        }
+
+        return response()->json($search, 200);
     }
 }
