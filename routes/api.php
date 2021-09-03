@@ -38,3 +38,8 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+// -------------- Comments endpoints --------------------- //
+Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
+Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);

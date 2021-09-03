@@ -20,14 +20,17 @@ class TaskCommentController extends Controller
 
     public function store(Request $request)
     {
+        return response()->json($this->taskCommentService->create($request->all()));
     }
 
     public function show($id)
     {
+        return response()->json($this->taskCommentService->find($id));
     }
 
     public function update(Request $request, $id)
     {
+        return response()->json($this->taskCommentService->update($request->all(), $id));
     }
 
     public function delete($id)
