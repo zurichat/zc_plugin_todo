@@ -9,7 +9,6 @@ use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -49,9 +48,20 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
-
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+
+// -------------- Comments endpoints --------------------- //
+Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
+Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
+
+Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 //------------------- Resource End ponits ---------- //
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
+
+// endpoint to fetch user credentials
+Route::get('/users', function(){
+    return response()->json(['message' => 'route to fetch user credentials is working'], 200);
+});
 
