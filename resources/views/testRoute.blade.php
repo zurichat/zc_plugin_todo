@@ -37,6 +37,15 @@
     @csrf
     <button type="submit" class="btn btn-primary">update todo </button>
 </form>
+
+<div class="alert flash alert-success mx-4" id="flash-msg" style="position: fixed; right: 0%; z-index: 10000"
+        role="alert">
+        sort
+    </div>
+<form action="sort" method="post">    
+    @csrf
+    <button type="submit" class="btn btn-primary">Sort </button>
+</form>
     
 </body>
 

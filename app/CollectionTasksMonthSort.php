@@ -4,76 +4,67 @@ namespace App;
 
 use App\Http\Controllers\TodoController;
 use Cron\MonthField;
-// extends TodoController
+use App\Repositories\TaskRepository;
+use App\Services\TaskService;
+use Illuminate\Http\Request;
+
 class collectionTasksMonthSort {
-    public function taskmonth()
+
+    protected $taskService;
+
+    public function __construct(TaskService $taskService)
     {
-// SIMULATE A JSON STRING (BASED ON YOUR DATA) TO BE CONVERTED TO PHP OBJECT
-    // JUST FOR TESTING PURPOSES...
-    
-    $apiResponse = 
-    '[
-        {
-            "date": {
-                "date": "2016-08-03 08:17:18.000000",
-                "timezone_type": 3,
-                "timezone": "CET"
-            },
-            "taskTitle": "Page 1",            
-            "details": 27
-        },
-        {
-            "date": {
-                "date": "2016-08-03 08:17:18.000000",
-                "timezone_type": 3,
-                "timezone": "CET"
-            },
-            "taskTitle": "Page 3",            
-            "details": 27
-        },
-        {
-            "date": {
-                "date": "2016-09-03 08:17:18.000000",
-                "timezone_type": 3,
-                "timezone": "CET"
-            },
-            "taskTitle": "Page 4",            
-            "details": 27
-        },
-        {
-            "date": {
-                "date": "2016-09-03 08:17:18.000000",
-                "timezone_type": 3,
-                "timezone": "CET"
-            },
-            "taskTitle": "Page 2",           
-            "details": 13
-        }
-    ]';
+        $this->taskService = $taskService;
+    }
 
 
-    $data   = json_decode($apiResponse); //<== WHERE $apiResponse IS YOUR RESPONSE
+    public function store(Request $request){
+        $data = $request->all();
+        // $data = $request->except('_method', '_token');
+        // $data['start_date'] = $request->input('start_date', date('Y-m-d'));
+        // $data['created_at'] = date('Y-m-d');
   
+    // $data = $this;
+    
+    // $data   = json_decode($data);
     $sorted = [];
-    // $date = new date();
+   
     foreach($data as $k=>$item){
             
-        $M  = current(explode(" ", $item->date->date));
+        $M  = current(explode("_", $item->date));
         if(!array_key_exists($M, $sorted)){
             $sorted[$M]              = $item;
         }else{
-            $details  = $sorted[$M]->details;         
-            $taskTitle  = $sorted[$M]->taskTitle;
-            $sorted[$M]->details   = $details + $item->details;           
-            $sorted[$M]->task_title  = ($taskTitle != $item->taskTitle) ?
-                                                ($taskTitle . ", {$item->taskTitle}") : $taskTitle;
+            // $details  = $sorted[$M]->details;         
+            $title  = $sorted[$M]->title;
+            // $sorted[$M]->details   = $details + $item->details;           
+            $sorted[$M]->title  = ($title != $item->title) ?
+            ($title . ", {$item->title}") : $title;
         }
     }
 
 
     return json_encode($sorted);
+    // return $sorted;
 
 
 
     }
 }
+
+  // {
+    //     $sort = sort::make($request->all(), [
+    //         'title' => 'required|max:255',
+    //         'description' => 'required|max:255',
+    //         'color_code' => 'required|max:255',
+    //         'end_date' => 'required|max:255',
+    //         'workspace_id' => 'required|max:255',
+    //         'category_id' => 'required|max:255',
+    //     ]);
+
+    
+    // $apiResponse = $this ;
+   
+
+
+    // $data   = json_decode($apiResponse);
