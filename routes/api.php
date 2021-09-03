@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
+use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskController;
 
@@ -25,6 +26,7 @@ Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
+Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
 
