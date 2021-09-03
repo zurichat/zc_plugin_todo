@@ -57,9 +57,12 @@ Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
 // -------------- Comments endpoints --------------------- //
+Route::get('comments', [\App\Http\Controllers\TaskCommentController::class, 'index']); //officialozioma
 Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
 Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
+Route::DELETE('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'delete']); //officialozioma
+
 
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 //------------------- Resource End ponits ---------- //

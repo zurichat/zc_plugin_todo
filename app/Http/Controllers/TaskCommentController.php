@@ -15,6 +15,7 @@ class TaskCommentController extends Controller {
 
     public function index() {
         return response()->json( $this->taskCommentService->get() );
+        //officialozioma
     }
 
     public function store( Request $request ) {
@@ -57,6 +58,7 @@ class TaskCommentController extends Controller {
 
         public function delete( $id ) {
             return response()->json( $this->taskCommentService->delete( $id ) );
+            //officialozioma
 
         }
     }
