@@ -25,16 +25,17 @@ Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'updat
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
+    return $request->user(); });
+
+Route::post('create', [\App\Http\Controllers\TodoController::class, 'store']);
 Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 Route::get('/search', [TodoController::class, 'search_todo']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
-    return response()->json(['message' => 'Server is Live!'], 200);
-});
+    return response()->json(['message' => 'Server is Live!'], 200); });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+

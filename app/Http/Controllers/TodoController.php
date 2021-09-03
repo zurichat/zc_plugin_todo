@@ -55,7 +55,7 @@ class TodoController extends Controller
         return response()->json([
             'status' =>  true,
             'type' =>  'success',
-            'message' => 'Todo created successfully'
+            'message' => 'Todo created successful'
         ], 200);
     }
 
@@ -65,6 +65,24 @@ class TodoController extends Controller
         return view('test');
     }
 
+    public function edit()
+    {
+        
+return json_encode(['message' => 'Todo created successful'], 200);
+    }
+
+    public function update()
+    {
+
+        echo "update route works";
+    }
+
+  public function showtest()
+    {
+        return view('testRoute');
+    }
+
+    
     public function search_todo(Request $request)
     {
        return $this->taskService->search($request->query('key'), $request->query('q'));

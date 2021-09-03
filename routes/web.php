@@ -23,7 +23,11 @@ Route::get('/', function () {
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
-Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
+
+Route::post('/create-todo', [TodoController::class, 'store']);
+Route::get('testRoute', [TodoController::class, 'showtest']);
+Route::post('edit', [TodoController::class, 'edit']);
+Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 
 
 
@@ -34,3 +38,5 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+
