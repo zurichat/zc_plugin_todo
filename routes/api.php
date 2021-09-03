@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\SideBarItemsController;
-use App\Http\Controllers\API\TodoResourceController;
+
 
 /*
 |--------------------------------------------------------------------------
