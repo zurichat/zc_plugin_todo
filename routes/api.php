@@ -8,6 +8,7 @@ use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -49,5 +50,6 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 //------------------- Resource End ponits ---------- //
-Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+
 
