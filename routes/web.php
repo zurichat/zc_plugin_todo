@@ -1,5 +1,6 @@
 <?php
 
+use App\collectionTasksMonthSort;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
@@ -27,6 +28,7 @@ Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.crea
 Route::post('/create-todo', [TodoController::class, 'store']);
 Route::get('testRoute', [TodoController::class, 'showtest']);
 Route::post('edit', [TodoController::class, 'edit']);
+Route::post('sort', [collectionTasksMonthSort::class,'store']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 
 
