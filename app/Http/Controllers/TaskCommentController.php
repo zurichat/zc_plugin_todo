@@ -14,7 +14,7 @@ class TaskCommentController extends Controller {
     }
 
     public function index() {
-
+        return response()->json( $this->taskCommentService->get() );
     }
 
     public function store( Request $request ) {
