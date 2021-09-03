@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PluginInfoController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\notificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+
+Route::get('/task-email-notification', [notificationController::class, 'sendTaskAssignNotification']);
