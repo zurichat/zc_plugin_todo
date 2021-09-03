@@ -7,7 +7,7 @@
             <span id="second">
                 <i class="fas fa-search fas_color"></i>
             </span>
-            <input type="text" class="form-control" placeholder="Search here" />
+            <input v-model="search" type="text" class="form-control" placeholder="Search here" />
             <span id="third">
                 <i class="fas fa-binoculars fas_color"></i>
             </span>
@@ -65,8 +65,19 @@
 export default {
     name: "Navbar",
     data() {
-        return {};
+        return {
+            todos:['set up repo for new start-up','learn graphql'],
+            search:''
+        };
     },
+    
+    computed:{
+        filteredTodo(){
+             return this.todos.filter(todo=>{
+                 return todo.toLowerCase().includes(this.search.toLowerCase());
+             })
+        }
+    }
 };
 </script>
 <style scoped>
