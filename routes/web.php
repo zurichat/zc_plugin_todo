@@ -34,3 +34,10 @@ Route::get('/ping', function () {
 });
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+// comment blade to test comment post request
+Route::get('/comment', function(){
+    return view('create-comment');
+});
+//Resource route
+Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');

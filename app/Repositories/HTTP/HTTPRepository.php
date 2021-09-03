@@ -9,7 +9,7 @@ class HTTPRepository implements RepositoryInterface
 {
     protected $url = 'https://zccore.herokuapp.com/';
     protected $organisation_id = '612a3a914acf115e685df8e3';
-    protected $plugin_id = '612e0c38a560ba3687c9ae4b';
+    protected $plugin_id = '61311b9d6e7d00b82b78b80c';
     protected $modelName;
     protected $model;
 
@@ -21,6 +21,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function all()
     {
+        // return Http::get($this->url)->json();
         return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json();
     }
 
@@ -145,12 +146,14 @@ class HTTPRepository implements RepositoryInterface
     {
         $todos = $this->all();
         $search_data = [];
-        for($i = 0; $i < count($todos); $i++){
-            return array_search($todos[$data], array_column($todos, $key));
-            if(collect($todos)->where($todos[$i][$key], $data)){
-                array_push($search_data, $todos[$i]);
+        for($i = 0; $i < count($todos['data']); $i++){
+            if(array_key_exists($key, $todos['data'][$i])){
+                if($todos['data'][$i][$key] == $data){
+                    array_push($search_data, $todos['data'][$i]);
+                }
             }
+
         }
-        return json_encode($search_data);
+        return $search_data;
     }
 }
