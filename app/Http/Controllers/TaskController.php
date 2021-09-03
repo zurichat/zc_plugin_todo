@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -73,4 +74,21 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
+
+    
+        //Assigning Task to the user
+        public function assignTeamToTask(Request $request, $task_id, $user_id){
+
+            $this->validate($request, [
+                
+                'user_id' => 'required'
+            ]);
+            
+            $idOfTask =   $this->taskService->find($task_id);
+            $idOfUser =   User::find($user_id);
+
+            $idOfTask->update(['user_id' => $idOfUser]);
+        }
+
 }
+
