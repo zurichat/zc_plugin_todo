@@ -43,3 +43,6 @@ Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+//------------------- Resource End ponits ---------- //
+Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+
