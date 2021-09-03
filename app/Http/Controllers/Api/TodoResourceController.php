@@ -30,7 +30,8 @@ class TodoResourceController extends Controller
                 'status' => true
             ],
             'color_code' => '#001',
-
+            'created_at' => '2021-09-03',
+            'updated_at' => 'null'
         ];
         return new TodoResource($data);
     }
