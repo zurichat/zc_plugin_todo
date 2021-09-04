@@ -71,5 +71,5 @@ Route::get('/users', function(){
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
 
-Route::post('task/{id}', [AssignTaskUserController::class, 'assign']);
+Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 

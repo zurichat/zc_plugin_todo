@@ -42,7 +42,7 @@ Route::get('/comment', function(){
 });
 
 // assign user to a task
-Route::get('/assign-user', function(){
+Route::get('/task/assign', function(){
     return view('assign-user');
 });
 

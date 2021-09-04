@@ -12,6 +12,17 @@
 
     <body>
         <form action="/api/task/assign" method="post">
+            <label for="id">Select a task id</label>
+            <select name="task_id" id="id">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <label for="">Enter a user Id</label>
             <input type="text" name="user_id" />
             <input type="submit" value="Assign" />
         </form>

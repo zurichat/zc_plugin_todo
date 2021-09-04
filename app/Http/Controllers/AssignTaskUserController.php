@@ -14,9 +14,9 @@ class AssignTaskUserController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function assign(Request $request, $id)
+    public function assign(Request $request)
     {
-        $task = $this->taskService->find($id);
+        $task = $this->taskService->find($request->task_id);
 
         $data = array();
         $data['status_id'] = $task['status_id'];
@@ -30,7 +30,7 @@ class AssignTaskUserController extends Controller
 
         $data['assigned_users'] = array_push($data['assigned_users'], $request->user_id);
 
-        $response = $this->taskService->update($data, $id);
+        $response = $this->taskService->update($data, $request->task_id);
 
         return response()->json($response);
     }
