@@ -1,11 +1,14 @@
 <template>
     <div class="todo-details">
         <h3 class="title">Task: {{Title}}</h3>
-        <h4 class="descrp">Description: {{Description}}</h4>
-        <p><i class="fas fa-calendar-alt"></i>Due: {{Due}}</p>
+        <p class="descrp text-secondary">Description: {{Description}}</p>
+        <p><i class="fas fa-calendar-alt text-primary"></i>Due: {{Due}}</p>
         <div>
         <p>Collaborators</p>
-        <img src="pic" :alt="`{$pic}`">
+        <div class="collabs">
+            <img src="../images/passport.jpg" alt="pic">
+            <img src="../images/passport.jpg" alt="pic">
+        </div>
         </div>
         <p class="recurring :">Recurring :{{Recurring}}</p>
     </div>
@@ -25,12 +28,6 @@ export default{
             type: String,
             required: true,
             default: "Description",
-        
-        },
-        Collaborators:{
-            type: String,
-            required: true,
-            default: "../img/passport.png",
         
         },
         Due:{
@@ -60,6 +57,10 @@ export default{
 img{
     width: 24px;
     border-radius: 50%;
+}
+.collabs{
+    display: flex;
+    flex-flow: row;
 }
 
 </style>
