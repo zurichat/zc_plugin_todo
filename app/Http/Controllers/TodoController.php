@@ -56,7 +56,7 @@ class TodoController extends Controller
         return response()->json([
             'status' =>  true,
             'type' =>  'success',
-            'message' => 'Todo created successful'
+            'message' => 'Todo created successfully'
         ], 200);
     }
 
