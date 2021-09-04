@@ -50,7 +50,8 @@ Route::get('/search', [TodoController::class, 'search_todo']);
 
 // -------------- Plugin Information Endpoints --------- //
 Route::get('/ping', function () {
-    return response()->json(['message' => 'Server is Live!'], 200); });
+    return response()->json(['message' => 'Server is Live!'], 200); 
+});
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
