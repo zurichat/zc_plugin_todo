@@ -6,8 +6,9 @@
 <style lang="scss"></style>
 <script>
 import TodoNav from "./TodoNav.vue";
+import TodoNav from "./Searchbar.vue";
 export default {
-  components: { TodoNav },
+  components: { TodoNav, Searchbar },
   name: "Main",
   data() {
     return {};

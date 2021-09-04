@@ -17,7 +17,8 @@
 import Navbar from "./Navbar";
 import Main from "./Main";
 import Footer from "./Footer";
-import TodoNav from './TodoNav.vue';
+import TodoNav from "./TodoNav.vue";
+import Searchbar from "./Searchbar.vue";
 export default {
   name: "Layout",
   components: {
@@ -25,6 +26,7 @@ export default {
     Main,
     Footer,
     TodoNav,
+    Searchbar,
   },
 };
 </script>
