@@ -21,15 +21,14 @@ use App\Http\Controllers\TaskController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
-// Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
-// Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
-// Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
-// Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
+Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);
+Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
+Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
+Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
+Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
+Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 // TaskCommentController
-
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);

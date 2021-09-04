@@ -127,4 +127,12 @@ class TaskController extends Controller
 
     }
 
+    public function sort(Request $request)
+    {
+        $parameter = $request->sort;
+        $tasks = $this->taskService->all();
+        $collectionTasks = collect($tasks['data'])->sortBy($parameter);
+        return $collectionTasks;
+    }
+
 }
