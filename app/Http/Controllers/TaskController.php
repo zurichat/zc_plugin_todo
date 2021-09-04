@@ -24,7 +24,7 @@ class TaskController extends Controller
 
      public function index()
     {
-        $tasks = $this->taskRepository->all();
+        $tasks = $this->taskService->all();
         return response()->json(['tasks'=>$tasks], 200);
     }
 
