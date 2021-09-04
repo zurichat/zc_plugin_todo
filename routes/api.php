@@ -46,6 +46,6 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
 //------------------- Resource End ponits ---------- //
-Route::get('taskresource/', [App\Http\Controllers\TaskDemoController::class, 'resource']);
+Route::get('/taskresource', [App\Http\Controllers\TaskDemoController::class, 'resource']);
 
 

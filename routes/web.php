@@ -41,6 +41,6 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 //Resource route
-Route::get('taskresource/', [App\Http\Controllers\TaskDemoController::class, 'resource']);
+Route::get('/taskresource', [App\Http\Controllers\TaskDemoController::class, 'resource']);
 
 
