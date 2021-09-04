@@ -55,7 +55,7 @@ Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'm
 Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
 Route::post('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskCategory']);
 Route::get('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'categoryTestView']);
-
+Route::post('/task/update/{id}', [\App\Http\Controllers\TaskController::class, 'editTask']);
 
 //test endpoint that reads request from zuri core
 Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
