@@ -1,5 +1,5 @@
 <template>
-    <div class="sm:w-4/5 mx-auto">
+    <div class="mx-auto sm:w-4/5">
         <div class="flex items-center m-4 text-black"> <img class="inline m-2 w-5" :src="'/img/Vue.js_Logo.svg'" alt="">
             <span class="italic">Vue Installation was Successful<span class="text-green-500">&nbsp;!!!!</span></span>
         </div>
@@ -15,20 +15,8 @@
         </div>
     </div>
 </template>
-<style lang='scss'>
-    .logo-img {
-        max-width: 300px;
-    }
-</style>
 <script>
-    import TodoItem from './Todo-item.vue'
     export default {
-        name: "app",
-        components: {
-            TodoItem
-        },
-        mounted() {
-            console.log('Component mounted.')
-        }
+        name: 'Home'
     }
 </script>
