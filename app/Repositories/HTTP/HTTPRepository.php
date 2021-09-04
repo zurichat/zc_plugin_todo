@@ -3,6 +3,7 @@
 namespace App\Repositories\HTTP;
 
 use App\Contracts\RepositoryInterface;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
@@ -27,7 +28,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json()['data'][$id];
     }
 
     public function findOrFail($id, $attributes = ['*'])
@@ -47,7 +48,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findFirst($attributes = ['*'])
     {
-        // TODO: Implement findFirst() method.
+        // TODO: Implement findAll() method.
     }
 
     public function findAll($attributes = ['*'])
