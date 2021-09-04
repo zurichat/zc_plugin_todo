@@ -33,9 +33,10 @@ Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.crea
 Route::post('/create-todo', [TodoController::class, 'store']);
 Route::get('testRoute', [TodoController::class, 'showtest']);
 Route::post('edit', [TodoController::class, 'edit']);
-Route::post('sort', [collectionTasksMonthSort::class,'store']);
+Route::get('edit', [TodoController::class, 'edit']);
+Route::post('sort', [collectionTasksMonthSort::class,'sort']);
+Route::get('update', [\App\Http\Controllers\TodoController::class, 'update']);
 Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
-
 
 
 Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
