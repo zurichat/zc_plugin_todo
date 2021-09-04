@@ -18,13 +18,15 @@
 <script>
 import SearchInput from '../components/Search-Input.vue'
     import taskCard from '../components/taskCard.vue'
+    import AddTaskForm from '../components/addTaskForm.vue'
     import AddTaskBtn from '../components/AddTaskBtn.vue'
     export default {
         name: 'Main',
         components: {
             taskCard,
             SearchInput,
-            AddTaskBtn
+            AddTaskBtn,
+            AddTaskForm
         }
     }
 </script>
