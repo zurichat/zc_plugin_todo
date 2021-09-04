@@ -85,5 +85,6 @@ class TaskCommentController extends Controller
 
     public function delete($id)
     {
+        return response()->json($this->taskCommentService->delete($id));
     }
 }
