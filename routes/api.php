@@ -1,13 +1,16 @@
 <?php
 
-use App\Http\Controllers\ApiController;
+
 use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
+//use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskDemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,7 @@ Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
+Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
 
@@ -49,11 +53,10 @@ Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 
-//-------------Routes to create and update task priority----------//
 
-Route::get('/taskpriorities',[ApiController::class, 'showall']);
-Route::post('/taskpriority', [ApiController::class, 'create']);
-Route::patch('/updatetaskpriority/{id}',[ApiController::class, 'updatebyid']);
+//-------------Route to modify task priority----------//
+Route::patch('/updatetaskpriority/{id}',[TaskDemoController::class, 'update']);
+
 
 Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
 //test endpoint that reads request from zuri core
@@ -76,5 +79,4 @@ Route::get('/todo_resource', [TodoController::class, 'showResource']);
 Route::get('/users', function(){
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
-
 
