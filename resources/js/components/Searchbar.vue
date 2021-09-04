@@ -50,6 +50,7 @@
     </div>
 
     <main class="bg-white max-w-5xl h-5/6 ml-auto mt-5 mr-12"></main>
+
   </div>
 </template>
 <script>
