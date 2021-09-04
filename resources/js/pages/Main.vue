@@ -1,11 +1,3 @@
-<!---<template>
-    <div>
-        <h3>
-            This is where we will be workinng
-        </h3>
-    </div>
-    
-</template>--->
 <template>
     <div>
    <TodoDetails />
@@ -14,10 +6,11 @@
 </template>
 
 <script>
-import TodoDetails from "./TodoDetails.vue"
+import TodoDetails from "./TodoDetails"
 export default {
+name: 'Main'
     components: {TodoDetails},
-    name: 'Main'
+    
 }
 
 </script>

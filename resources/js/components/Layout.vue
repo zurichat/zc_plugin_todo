@@ -19,7 +19,7 @@ import Navbar from "./Navbar";
 import Main from "./Main";
 import Footer from "./Footer";
 import TodoNav from './TodoNav.vue';
-import TodoDetails from './TodoDetails.vue'
+import TodoDetails from './TodoDetails.vue';
 export default {
   name: "Layout",
   components: {
