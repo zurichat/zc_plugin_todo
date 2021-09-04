@@ -5,6 +5,7 @@ use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\TaskCommentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\assignTaskController;
 
 
 /*
@@ -23,6 +24,10 @@ Route::get('/', function () {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+
+
+Route::get('task-email-notification', [assignTaskController::class, 'sendEmailNotification']);
+
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
 Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
 
@@ -41,8 +46,14 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 
+// assign user to a task
+Route::get('/task/assign', function(){
+    return view('assign-user');
+});
+
 //This Fetch id of task for comment
-Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+Route::get('/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdTest']);
 
 //Resource route
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
