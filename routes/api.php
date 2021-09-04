@@ -8,6 +8,8 @@ use Symfony\Component\VarDumper\VarDumper;
 //use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskDemoController;
 
@@ -37,6 +39,9 @@ use App\Http\Controllers\AssignTaskUserController;
 // Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 // Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 // Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
+
+// TaskCommentController
+
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 
@@ -100,6 +105,7 @@ Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
 Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
+Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
 
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 //------------------- Resource End ponits ---------- //
@@ -119,4 +125,3 @@ Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 Route::get('/task_collection/{id}', function(){
     return response()->json(['message' => 'route to get task collection is working'], 200);
 });
-
