@@ -40,7 +40,6 @@ Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'sto
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user(); 
 });
-
 Route::post('create', [TodoController::class, 'store']);
 Route::post('edit', [TodoController::class, 'edit']);
 Route::post('update', [TodoController::class, 'update']);
