@@ -2,10 +2,10 @@
     <div class="todo-details">
         <h3 class="title">Task: {{Title}}</h3>
         <p class="descrp text-secondary">Description: {{Description}}</p>
-        <p><i class="fas fa-calendar-alt text-primary"></i>Due: {{Due}}</p>
+        <p class="text-primary"><i class="fas fa-calendar-alt"></i>Due: {{Due}}</p>
         <div>
-        <p>Collaborators</p>
         <div class="collabs">
+        <p>Collaborators</p>
             <img src="../images/passport.jpg" alt="pic">
             <img src="../images/passport.jpg" alt="pic">
         </div>
@@ -48,19 +48,14 @@ export default{
 </script>
 <style scoped>
 .todo-details{
-    margin: auto 0 0 70%;
-    line-height: 32px;
-    width: 500px;
-    height: 1000px;
-    border: solid;
+    margin: 200px auto 50px;
+    
 }
 img{
     width: 24px;
     border-radius: 50%;
 }
 .collabs{
-    display: flex;
-    flex-flow: row;
+    margin-bottom: 20px;
 }
-
 </style>
