@@ -21,6 +21,13 @@ class TaskController extends Controller
      *
      * @return mixed
      */
+
+     public function index()
+    {
+        $tasks = $this->taskRepository->all();
+        return response()->json(['tasks'=>$tasks], 200);
+    }
+
     public function search(Request $request)
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
@@ -56,6 +63,7 @@ class TaskController extends Controller
     }
 
 
+
     public function getTasksByCategory(Request $request)
     {
         // Validation of input
@@ -81,6 +89,19 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
+
+    public function categoryTestView($id)
+    {
+        return view('updateCategory');
+    }
+
+
+
+    public function updateTaskCategory(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
     public function editTask(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));
