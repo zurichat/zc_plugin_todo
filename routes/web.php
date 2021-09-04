@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TaskDemoController;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
-use App\Http\Controllers\TodoController;
-use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -40,5 +41,6 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 //Resource route
-Route::get('/todo_resource', [TodoController::class, 'showResource']);
+Route::get('taskresource/', [App\Http\Controllers\TaskDemoController::class, 'resource']);
+
 
