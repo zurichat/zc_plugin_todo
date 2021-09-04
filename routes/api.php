@@ -30,6 +30,9 @@ Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
 
+// api to fetch all todo tasks
+Route::get('task', [\App\Http\Controllers\TaskController::class, 'index']);
+
 // comment post request
 Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 
