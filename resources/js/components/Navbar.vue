@@ -1,9 +1,11 @@
 <template>
-    <SearchFilter/>
+    <SearchFilter />
         <nav id="first_section">
            
             <span id="menu"> 
                 <i class="fas fa-bars fas_color"></i>
+            </span>
+        </nav>
     <nav id="first_section">
         <span id="menu">
             <i class="fas fa-bars fas_color"></i>
@@ -67,8 +69,9 @@
     </nav>
 </template>
 <script>
-import SearchFilter from './SearchFilter.vue'
+import SearchFilter from "./SearchFilter.vue"
 export default {
+    components: { SearchFilter },
     name: "Navbar",
     data() {
         return {
