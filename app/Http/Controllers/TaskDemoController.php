@@ -38,4 +38,9 @@ class TaskDemoController extends Controller
     {
         return response()->json($this->taskService->delete($id));
     }
+
+    public function comments($comments)
+    {
+        return $comments;
+    }
 }
