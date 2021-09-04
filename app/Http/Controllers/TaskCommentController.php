@@ -48,6 +48,31 @@ class TaskCommentController extends Controller
         return response()->json($this->taskCommentService->findTaskCommentById($id));
     }
 
+    public function findTaskCommentByIdTest($id){
+        $url = 'https://todo.zuri.chat/api/comment/1';
+        $response = file_get_contents($url);
+        $values = json_decode($response,true);
+
+        $datas = $values["data"];
+        // print_r($datas);
+
+        $comments = array();
+        
+        
+        foreach($datas as $data){
+            //echo ($data['task_id'])."<br>";
+            // 
+            if(array_key_exists('task_id',$data)){
+                $taskId = $data["task_id"];
+                if($taskId == $id){
+                    $comments[] = $data;
+                }
+            }
+        }
+        
+        return response()->json($comments);
+    }
+
     public function show($id)
     {
         return response()->json($this->taskCommentService->find($id));
