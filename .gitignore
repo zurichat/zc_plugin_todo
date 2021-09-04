@@ -15,11 +15,7 @@ yarn-error.log
 /.vscode
 composer.phar
 /docker
-<<<<<<< HEAD
-docker-compose.yml
-=======
 /mongodb
 /journal
 /diagnostic.data
 docker-compose.yml
->>>>>>> 21675abff6f34a7c39f847da90034e9ea2295c64
