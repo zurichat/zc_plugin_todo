@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\PluginInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
+use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +26,13 @@ Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
+Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
+
+Route::get('task-category',[TaskController::class,'getTasksByCategory']);
+
 // comment post request
 Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
-Route::post('comments', [\App\Http\Controllers\CommentController::class, 'store']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -43,6 +49,30 @@ Route::get('/ping', function () {
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
+Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
+// -------------- Task Modification Endpoints --------------------- //
+Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
+Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
+//test endpoint that reads request from zuri core
+Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
+
+
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+
+// -------------- Comments endpoints --------------------- //
+Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
+Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
+
+Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 //------------------- Resource End ponits ---------- //
-Route::apiResource('todo_resource', \App\Http\Controllers\API\TodoResourceController::class)->only('index');
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+
+
+// endpoint to fetch user credentials
+Route::get('/users', function(){
+    return response()->json(['message' => 'route to fetch user credentials is working'], 200);
+});
+
+
+Route::post('comments', [\App\Http\Controllers\CommentController::class, 'store']);

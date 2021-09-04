@@ -1,4 +1,5 @@
 <template>
+   <Layout/> 
 </template>
 <style lang='scss'>
 .logo-img {
@@ -6,11 +7,13 @@
 }
 </style>
 <script>
-import TodoItem from './Todo-item.vue'
+import Layout from './Layout';
+import TodoItem from './Todo-item';
     export default {
         name: "app",
         components: {
-            TodoItem
+            TodoItem,
+            Layout
         },
         mounted() {
             console.log('Component mounted.')

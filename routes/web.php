@@ -3,6 +3,7 @@
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TaskCommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,6 +40,10 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 Route::get('/comment', function(){
     return view('create-comment');
 });
+
+//This Fetch id of task for comment
+Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+
 //Resource route
 Route::get('/{id}/comment', function ($id) {
     return view('comment',compact('id'));
