@@ -75,7 +75,7 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 
 
-//-------------Route to modify task priority----------//
+//-----------Route to modify task priority---------//
 Route::patch('/updatetaskpriority/{id}',[TaskDemoController::class, 'update']);
 
 
