@@ -34,9 +34,7 @@ class TaskController extends Controller
 
     public function allTask()
     {
-        $response = Http::get('https://todo.zuri.chat/api/task');
-
-        return json_decode($response->body());
+        return response()->json($this->taskService->all());
     }
 
     public function show($id)

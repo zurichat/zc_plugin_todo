@@ -61,7 +61,7 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
-          /**
+    /**
      * @return mixed
      * @author {@omoh}
      */
@@ -70,17 +70,17 @@ class TaskService extends \App\Providers\AppServiceProvider
         $result = $this->taskRepository->all();
         $data = [];
         // filter the array for items without created_at
-        foreach($result['data'] as $anyName){
-            if(isset($anyName['created_at'])){
-                array_push($data,$anyName);
+        foreach ($result['data'] as $anyName) {
+            if (isset($anyName['created_at'])) {
+                array_push($data, $anyName);
             }
         }
         $collection = collect($data);
         $sorted = $collection->sortDesc()->first();
         return $sorted;
     }
-    
-     /**
+
+    /**
      * @para mixed $data
      *  return mixed
      */
