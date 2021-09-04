@@ -22,7 +22,7 @@
 export default {
     name: "SearchFilter",
     methods: {
-        toggleSearchfilter(){
+        toggleSearchFilter(){
             let searchFilterModal = document.querySelector('.search-filter-icon');
             let modalDialog = document.querySelector('.search-filter-modal-box');
 
@@ -32,7 +32,7 @@ export default {
             });
         },
         mounted() {
-            this.toggleSearchfilter()
+            this.toggleSearchFilter()
         }
     }
 }

@@ -2,7 +2,7 @@
   <div id="main_container">
     <main>
       <nav>
-        <todo-nav />
+        <Navbar />
       </nav>
       <div id="content">
         <Main />
