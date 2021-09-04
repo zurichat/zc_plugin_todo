@@ -32,6 +32,7 @@ use App\Http\Controllers\TaskController;
 
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
+Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
 
