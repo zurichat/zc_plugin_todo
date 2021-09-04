@@ -30,12 +30,6 @@ Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('task-email-notification', [assignTaskController::class, 'sendEmailNotification']);
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
 Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
-Route::get('testRoute', [TodoController::class, 'showtest']);
-Route::post('edit', [TodoController::class, 'edit']);
-Route::get('edit', [TodoController::class, 'edit']);
-Route::post('sort', [collectionTasksMonthSort::class,'sort']);
-Route::get('update', [\App\Http\Controllers\TodoController::class, 'update']);
-Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
 
 
 Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
