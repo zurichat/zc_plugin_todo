@@ -18,7 +18,11 @@
         <form action="/edit" method="post">  
             @csrf          
             <button type="submit" class="btn btn-primary">edit todo </button>
-        </form>
+        </form><br>
+        <form action="api/edit" method="post">  
+            @csrf          
+            <button type="submit" class="btn btn-primary">api edit todo </button>
+        </form><br>
 
 <div class="alert flash alert-success mx-4" id="flash-msg" style="position: fixed; right: 0%; z-index: 10000"
         role="alert">
@@ -26,17 +30,26 @@
     </div>
 <form action="create-todo" method="post">    
     @csrf
-    <button type="submit" class="btn btn-primary">create todo </button>
-</form>
+    <button type="submit" class="btn btn-primary">create todo </button><br>
+</form><br>
+<form action="api/create" method="post">    
+    @csrf
+    <button type="submit" class="btn btn-primary">api create todo </button><br>
+</form><br>
 
 <div class="alert flash alert-success mx-4" id="flash-msg" style="position: fixed; right: 0%; z-index: 10000"
         role="alert">
-        edit todo route
+        update todo route
     </div>
 <form action="update" method="post">    
     @csrf
     <button type="submit" class="btn btn-primary">update todo </button>
-</form>
+</form><br>
+<form action="api/update" method="post">    
+    @csrf
+    <button type="submit" class="btn btn-primary">api update todo </button>
+</form><br>
+
 
 <div class="alert flash alert-success mx-4" id="flash-msg" style="position: fixed; right: 0%; z-index: 10000"
         role="alert">
@@ -45,7 +58,7 @@
 <form action="sort" method="post">    
     @csrf
     <button type="submit" class="btn btn-primary">Sort </button>
-</form>
+</form><br>
     
 </body>
 
