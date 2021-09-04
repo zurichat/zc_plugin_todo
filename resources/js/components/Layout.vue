@@ -2,7 +2,7 @@
   <div id="main_container">
     <main>
       <nav>
-        <Navbar />
+        <todo-nav />
       </nav>
       <div id="content">
         <Main />
@@ -17,12 +17,14 @@
 import Navbar from "./Navbar";
 import Main from "./Main";
 import Footer from "./Footer";
+import TodoNav from './TodoNav.vue';
 export default {
   name: "Layout",
   components: {
     Navbar,
     Main,
     Footer,
+    TodoNav,
   },
 };
 </script>
