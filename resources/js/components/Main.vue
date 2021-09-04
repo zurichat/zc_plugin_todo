@@ -1,29 +1,21 @@
 <template>
-    <section>
-        <todo-nav />
-    </section>
+  <section>
+    <todo-nav />
+  </section>
 </template>
-<style lang='scss'>
-
-
-</style>
+<style lang="scss"></style>
 <script>
-import TodoNav from './TodoNav.vue'
+import TodoNav from "./TodoNav.vue";
 export default {
   components: { TodoNav },
-    name: "Main",
-    data(){
-        return{
-        }
-    }
-
-}
+  name: "Main",
+  data() {
+    return {};
+  },
+};
 </script>
 <style scoped>
-  img{
-      margin:0 auto;
-  }
-  
-
-  
+img {
+  margin: 0 auto;
+}
 </style>
