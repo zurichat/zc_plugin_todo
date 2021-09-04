@@ -7,6 +7,7 @@ use App\Http\Controllers\TodoController;
 use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
+use App/Http/Controllers/Api/TodoResourceController.php
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,8 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 
 // TaskCommentController
 
-Route::delete('delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
+Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
