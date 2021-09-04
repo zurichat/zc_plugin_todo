@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TaskService;
 use Illuminate\Http\Request;
+use App\Http\Resources\TodoResource;
 
 class TaskDemoController extends Controller
 {
@@ -42,5 +43,12 @@ class TaskDemoController extends Controller
     public function search(Request $request)
     {
         // return response()->json($this->taskService->search($request->query('q')));
+    }
+    public function resource(Request $request)
+    {
+        $id = $request->id;
+        $task = $this->taskService->resource($id);
+        return $task;
+        return new TodoResource($task);
     }
 }

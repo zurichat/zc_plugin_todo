@@ -156,4 +156,16 @@ class HTTPRepository implements RepositoryInterface
         }
         return $search_data;
     }
+
+    public function resource($id)
+    {
+        $todos = $this->all();
+        // return collect($todos['data']);
+        $taskCollections = collect($todos['data'])->map(function ($todo) {
+          if($todo['_id'] == $id) {
+              return $todo;
+          }
+       });
+       return $taskCollections->all();
+    }
 }

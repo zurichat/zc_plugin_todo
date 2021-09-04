@@ -60,4 +60,9 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->delete($id);
     }
+
+    public function resource($id)
+    {
+        return $this->taskRepository->resource($id);
+    }
 }

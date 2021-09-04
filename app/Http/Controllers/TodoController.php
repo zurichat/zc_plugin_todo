@@ -78,17 +78,5 @@ class TodoController extends Controller
         return response()->json($search, 200);
     }
 
-    //Function to test the resource
-     public function showResource() : TodoResource
-    {
-        $client = new Client();
 
-        $url = 'https://jsonplaceholder.typicode.com/todos/10';
-
-        $response = $client->request('GET', $url);
-
-        $responseBody = json_decode($response->getBody());
-
-        return new TodoResource($data);
-    }
 }
