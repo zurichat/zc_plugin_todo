@@ -5,7 +5,7 @@
         <p><i class="fas fa-calendar-alt"></i>Due: {{Due}}</p>
         <div>
         <p>Collaborators</p>
-        <img :src="pic" :alt="`{$pic}`">
+        <img src="pic" :alt="`{$pic}`">
         </div>
         <p class="recurring :">Recurring :{{Recurring}}</p>
     </div>
