@@ -28,7 +28,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json()['data'][$id];
     }
 
     public function findOrFail($id, $attributes = ['*'])
