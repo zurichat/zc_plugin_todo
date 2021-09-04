@@ -7,6 +7,7 @@ use App\Http\Controllers\TaskCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\assignTaskController;
 
+use function GuzzleHttp\Promise\task;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +64,19 @@ Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentBy
 //Resource route
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
+
+Route::get('/task/priority/modify',function(){
+    return view('task-priority');
+});
+Route::post('task-priority', function(){
+    $tasks = [
+        "name"=> "Clean the house",
+        "author" => "Billy Hans",
+        "date" => "13/02/2015",
+        "priority" => request('priority')
+    ];
+    //dd($tasks);
+    //echo json_encode($tasks);
+    print_r(json_encode($tasks));
+    return view('priority-modify');
+});
