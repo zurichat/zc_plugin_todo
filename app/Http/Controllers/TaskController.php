@@ -95,4 +95,8 @@ class TaskController extends Controller
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
+    public function editTask(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
 }
