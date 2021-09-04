@@ -21,6 +21,13 @@ class TaskController extends Controller
      *
      * @return mixed
      */
+
+     public function index()
+    {
+        $tasks = $this->taskRepository->all();
+        return response()->json(['tasks'=>$tasks], 200);
+    }
+
     public function search(Request $request)
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
