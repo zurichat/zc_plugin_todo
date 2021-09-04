@@ -22,6 +22,7 @@ class TaskDemoController extends Controller
 
     public function store(Request $request)
     {
+
         return response()->json($this->taskService->create($request->all()));
     }
 
