@@ -8,8 +8,9 @@
                 <img class="w-8 m-4" :src="'./img/zuri-logo.svg'"/> <span class="font-bold text-lg">Zuri</span>
             </div>
         </div>
+        <AddTaskBtn />
         <SearchInput />
-        <div class="todo_container sm:grid sm:grid-cols-2 md:grid-cols-3" >
+        <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3" >
         <taskCard v-for="i in 8" :key="i" title="Task title" date="Tomorrow" description="Description" />
     </div>
     </div>
@@ -17,11 +18,13 @@
 <script>
 import SearchInput from '../components/Search-Input.vue'
     import taskCard from '../components/taskCard.vue'
+    import AddTaskBtn from '../components/AddTaskBtn.vue'
     export default {
         name: 'Main',
         components: {
             taskCard,
-            SearchInput
+            SearchInput,
+            AddTaskBtn
         }
     }
 </script>
