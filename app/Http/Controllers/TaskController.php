@@ -21,6 +21,13 @@ class TaskController extends Controller
      *
      * @return mixed
      */
+
+     public function index()
+    {
+        $tasks = $this->taskRepository->all();
+        return response()->json(['tasks'=>$tasks], 200);
+    }
+
     public function search(Request $request)
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
@@ -31,6 +38,14 @@ class TaskController extends Controller
         return response()->json($this->taskService->getLatestTask());
     }
 
+<<<<<<< HEAD
+=======
+    public function getLatestTask()
+    {
+        return response()->json($this->taskService->getLatestTask());
+    }
+
+>>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
     public function show($id)
     {
         $tasks = ($this->taskService->find($id))['data'];
@@ -46,6 +61,18 @@ class TaskController extends Controller
                 'data' => $data,
                     ]);
     }
+<<<<<<< HEAD
+=======
+    public function modifyShow($id)
+    {
+        return view('updateDueDate');
+    }
+    public function updateTaskDate(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+>>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
 
 
     public function getTasksByCategory(Request $request)
@@ -73,4 +100,24 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
+<<<<<<< HEAD
+=======
+
+    public function categoryTestView($id)
+    {
+        return view('updateCategory');
+    }
+
+
+
+    public function updateTaskCategory(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+    public function editTask(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+>>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
 }

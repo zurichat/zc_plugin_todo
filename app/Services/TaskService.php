@@ -79,7 +79,11 @@ class TaskService extends \App\Providers\AppServiceProvider
         $sorted = $collection->sortDesc()->first();
         return $sorted;
     }
+
     
+
+
+
      /**
      * @para mixed $data
      *  return mixed
@@ -88,4 +92,7 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->search($key, $data);
     }
+
+
+
 }

@@ -41,8 +41,19 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 
+
 //This Fetch id of task for comment
 Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+
+// assign user to a task
+Route::get('/task/assign', function(){
+    return view('assign-user');
+});
+
+//This Fetch id of task for comment
+Route::get('/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdTest']);
+
 
 //Resource route
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
