@@ -18,6 +18,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function all()
     {
+        return $this->taskCommentRepository->all();
     }
 
     /**
