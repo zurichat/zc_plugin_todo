@@ -32,6 +32,7 @@ class TaskController extends Controller
         return response()->json($this->taskService->getLatestTask());
     }
 
+    //get all task
     public function allTask()
     {
         return response()->json($this->taskService->all());
