@@ -8,6 +8,7 @@
                 <img class="w-8 m-4" :src="'./img/zuri-logo.svg'"/> <span class="font-bold text-lg">Zuri</span>
             </div>
         </div>
+        <!-- <AddTaskForm /> -->
         <AddTaskBtn />
         <SearchInput />
         <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3" >

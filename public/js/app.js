@@ -19634,7 +19634,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     taskCard: _components_taskCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     SearchInput: _components_Search_Input_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    AddTaskBtn: _components_AddTaskBtn_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    AddTaskBtn: _components_AddTaskBtn_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AddTaskForm: _components_addTaskForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -20016,7 +20017,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     src: './img/zuri-logo.svg'
   }, null, 8
   /* PROPS */
-  , _hoisted_3), _hoisted_4, _hoisted_5])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AddTaskBtn), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SearchInput), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(8, function (i) {
+  , _hoisted_3), _hoisted_4, _hoisted_5])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <AddTaskForm /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AddTaskBtn), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SearchInput), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(8, function (i) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_taskCard, {
       key: i,
       title: "Task title",
