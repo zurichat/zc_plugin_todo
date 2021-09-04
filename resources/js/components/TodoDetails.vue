@@ -42,10 +42,24 @@ export default{
         Recurring:{
             type: String,
             required: true,
-            default: "False",
+            default: "No",
         
         },
         
     },
 };
 </script>
+<style scoped>
+.todo-details{
+    margin: auto 0 0 70%;
+    line-height: 32px;
+    width: 500px;
+    height: 1000px;
+    border: solid;
+}
+img{
+    width: 24px;
+    border-radius: 50%;
+}
+
+</style>
