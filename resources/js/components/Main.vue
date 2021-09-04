@@ -12,8 +12,9 @@
 <script>
 
 import TodoNav from "./TodoNav.vue";
+import TodoDetails from "./TodoDetails.vue";
 export default {
-  components: { TodoNav },
+  components: { TodoNav ,TodoDetails},
   name: "Main",
   data() {
     return {};
