@@ -264,16 +264,4 @@ class TaskCacheRepository extends BaseRepository
         // TODO: Implement restore() method.
     }
 
-    /**
-     * Search for specific value
-     * @param mixed $value
-     * @return mixed
-     */
-    public function search($value)
-    {
-       $todos = $this->all();
-       $key = collect($todos)
-                ->where('title', $value);
-       return $key;
-    }
 }

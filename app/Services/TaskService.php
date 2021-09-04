@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Repositories\Cache\CacheRepository;
+use App\Repositories\Cache\TaskCacheRepository;
+use App\Repositories\HTTP\HTTPRepository;
 use App\Repositories\TaskRepository;
 
 class TaskService extends \App\Providers\AppServiceProvider
@@ -58,7 +61,26 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
-    /**
+          /**
+     * @return mixed
+     * @author {@omoh}
+     */
+    public function getLatestTask()
+    {
+        $result = $this->taskRepository->all();
+        $data = [];
+        // filter the array for items without created_at
+        foreach($result['data'] as $anyName){
+            if(isset($anyName['created_at'])){
+                array_push($data,$anyName);
+            }
+        }
+        $collection = collect($data);
+        $sorted = $collection->sortDesc()->first();
+        return $sorted;
+    }
+
+     /**
      * @para mixed $data
      *  return mixed
      */
@@ -66,4 +88,7 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->search($key, $data);
     }
+
+
+
 }
