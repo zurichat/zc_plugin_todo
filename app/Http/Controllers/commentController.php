@@ -23,7 +23,7 @@ class CommentController extends Controller
     {
 
         $id = rand(1, 20);
-        $userId = rand(1, 20);
+        $userId = 1;
         $data = [
             "content" => $request->content,
             "task_id" => $request->taskId,
