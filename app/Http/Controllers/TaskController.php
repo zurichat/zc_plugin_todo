@@ -56,6 +56,7 @@ class TaskController extends Controller
     }
 
 
+
     public function getTasksByCategory(Request $request)
     {
         // Validation of input
@@ -81,6 +82,19 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
+
+    public function categoryTestView($id)
+    {
+        return view('updateCategory');
+    }
+
+
+
+    public function updateTaskCategory(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
     public function editTask(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));

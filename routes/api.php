@@ -53,6 +53,10 @@ Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
 // -------------- Task Modification Endpoints --------------------- //
 Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
 Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
+Route::post('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskCategory']);
+Route::get('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'categoryTestView']);
+
+
 //test endpoint that reads request from zuri core
 Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 
