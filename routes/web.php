@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\TaskCommentController;
@@ -65,6 +66,7 @@ Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentBy
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
 
+
 Route::get('/task/priority/modify',function(){
     return view('task-priority');
 });
@@ -72,7 +74,7 @@ Route::post('task-priority', function(){
     $tasks = [
         "name"=> "Clean the house",
         "author" => "Billy Hans",
-        "date" => "13/02/2015",
+        "date" => "13/02/2021",
         "priority" => request('priority')
     ];
     //dd($tasks);
@@ -80,3 +82,6 @@ Route::post('task-priority', function(){
     print_r(json_encode($tasks));
     return view('priority-modify');
 });
+
+Route::get('/get-tasks', [TaskController::class, 'taskcollection']);
+

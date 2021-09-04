@@ -119,5 +119,29 @@ class TaskController extends Controller
     {
         return response()->json($this->taskService->update($request->all(), $id));
     }
+<<<<<<< HEAD
 >>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
+=======
+
+    public function taskcollection(){
+
+        $allTasks = $this->taskService->all()['data'];
+        $time = time();
+        $arr = array();
+        foreach ($allTasks as $value){
+            if (array_key_exists('end_date', $value)){
+                $end_date = $value['end_date'];
+                $convert_date = strtotime($end_date);
+                if($convert_date >= $time){
+
+                       $arr = $value;
+
+                }
+            }
+        }
+        return response()->json($arr);
+
+    }
+
+>>>>>>> ef670664c22db809fbe37d91fb4a16338df59b58
 }
