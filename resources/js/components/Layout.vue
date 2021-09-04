@@ -1,9 +1,6 @@
 <template>
     <div id="main_container">
         
-        <aside>
-              <!-- <Sidebar/>-->
-        </aside>
         <main>
              <nav>
                 <Navbar/>   
@@ -23,14 +20,12 @@
     </div>
 </template>
 <script>
-import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import Main from './Main';
 import Footer from './Footer';
 export default {
     name: "Layout",
     components: {
-            Sidebar,
             Navbar,
             Main,
             Footer
