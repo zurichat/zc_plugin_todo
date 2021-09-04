@@ -21,7 +21,7 @@ use App\Http\Controllers\TaskController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('task/sort', [\App\Http\Controllers\TaskDemoController::class, 'sort']);
+Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);
 Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
 Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
 Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
