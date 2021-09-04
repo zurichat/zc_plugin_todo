@@ -3,7 +3,12 @@
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\TaskCommentController;
+>>>>>>> e81e51d90b0cda905e5bf0ff985c0c4b2ec4085d
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\assignTaskController;
 
 
 /*
@@ -22,6 +27,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
+=======
+Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+
+
+Route::get('task-email-notification', [assignTaskController::class, 'sendEmailNotification']);
+>>>>>>> e81e51d90b0cda905e5bf0ff985c0c4b2ec4085d
 
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
 Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
@@ -31,3 +43,25 @@ Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo
 Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
 
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
+<<<<<<< HEAD
+=======
+Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+// comment blade to test comment post request
+Route::get('/comment', function(){
+    return view('create-comment');
+});
+
+// assign user to a task
+Route::get('/task/assign', function(){
+    return view('assign-user');
+});
+
+//This Fetch id of task for comment
+Route::get('/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdTest']);
+
+//Resource route
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+
+>>>>>>> e81e51d90b0cda905e5bf0ff985c0c4b2ec4085d

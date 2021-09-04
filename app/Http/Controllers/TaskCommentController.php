@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TaskCommentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class TaskCommentController extends Controller
 {
@@ -20,14 +21,66 @@ class TaskCommentController extends Controller
 
     public function store(Request $request)
     {
+		if (!empty($request->user_id) && !empty($request->task_id)){
+			return response()->json($this->taskCommentService->create($request->all()));
+		} else {
+			// create random ids for comment
+			$userId = rand(1, 20);
+			$taskId = 1;
+
+			// sketch the response data
+			$data = [
+				"content" => $request->content,
+				"task_id" => $taskId,
+				"user_id" => $userId,
+				"created_at" => Carbon::now(),
+			];
+
+			// return response
+			return response()->json($this->taskCommentService->create($data));
+		}
+    }
+
+    /**
+        * @author {Alpha2Chris14}
+    */
+    public function findTaskCommentById($id){
+        return response()->json($this->taskCommentService->findTaskCommentById($id));
+    }
+
+    public function findTaskCommentByIdTest($id){
+        $url = 'https://todo.zuri.chat/api/comment/1';
+        $response = file_get_contents($url);
+        $values = json_decode($response,true);
+
+        $datas = $values["data"];
+        // print_r($datas);
+
+        $comments = array();
+        
+        
+        foreach($datas as $data){
+            //echo ($data['task_id'])."<br>";
+            // 
+            if(array_key_exists('task_id',$data)){
+                $taskId = $data["task_id"];
+                if($taskId == $id){
+                    $comments[] = $data;
+                }
+            }
+        }
+        
+        return response()->json($comments);
     }
 
     public function show($id)
     {
+        return response()->json($this->taskCommentService->find($id));
     }
 
     public function update(Request $request, $id)
     {
+        return response()->json($this->taskCommentService->update($request->all(), $id));
     }
 
     public function delete($id)
