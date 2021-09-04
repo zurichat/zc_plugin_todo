@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\SideBarItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +26,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
-Route::get('tasks/{id}', [TaskController::class, 'getTaskCollection']);
-// -------------- Plugin Information Endpoints --------- //
-Route::get('/ping', function () {
-    return response()->json(['message' => 'Server is Live!'], 200);
-});
-Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
-Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
