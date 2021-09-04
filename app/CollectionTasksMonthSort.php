@@ -18,7 +18,7 @@ class collectionTasksMonthSort {
     }
 
 
-    public function store(Request $request){
+    public function sort(Request $request){
         $data = $request->all();
         // $data = $request->except('_method', '_token');
         // $data['start_date'] = $request->input('start_date', date('Y-m-d'));
