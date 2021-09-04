@@ -89,6 +89,8 @@ Route::get('/users', function(){
 });
 
 //Show Tasks Assigned to a Specific User 
+Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
+
 Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
 //Route to get collection of tasks for a user by id
