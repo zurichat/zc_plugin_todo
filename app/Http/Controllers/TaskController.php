@@ -88,4 +88,8 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
+    public function editTask(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
 }
