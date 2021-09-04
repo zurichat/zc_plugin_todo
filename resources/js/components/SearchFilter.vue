@@ -5,7 +5,7 @@
                 type="text"
                 placeholder="Search here"
             >
-            <div class="search-filter-icon">
+            <div class="search-filter-icon" @click="toggleSearchFilter()">
                 <img src="./img/icon-filter-8.svg" alt="search-filter-icon">
             </div>
             <div class="search-filter-modal-box">
@@ -22,7 +22,7 @@
 export default {
     name: "SearchFilter",
     methods: {
-        toggleSearchFilter(){
+            toggleSearchFilter(){
             let searchFilterModal = document.querySelector('.search-filter-icon');
             let modalDialog = document.querySelector('.search-filter-modal-box');
 
