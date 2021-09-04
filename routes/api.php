@@ -82,3 +82,8 @@ Route::get('/users', function(){
 });
 
 Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
+
+//Route to get collection of tasks for a user by id
+Route::get('/task_collection/{id}', function(){
+    return response()->json(['message' => 'route to get task collection is working'], 200);
+});
