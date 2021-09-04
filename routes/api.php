@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\AssignTaskUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
-use Symfony\Component\VarDumper\VarDumper;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
@@ -20,11 +20,11 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
-Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
-Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
-Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
-Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
+// Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
+// Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
+// Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
+// Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
+// Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 
@@ -71,5 +71,5 @@ Route::get('/users', function(){
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
 
-Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
+Route::post('task/{id}', [AssignTaskUserController::class, 'assign']);
 

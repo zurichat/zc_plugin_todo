@@ -12,7 +12,7 @@
 
     <body>
         <form action="/api/task/assign" method="post">
-            <input type="text" name="user" />
+            <input type="text" name="user_id" />
             <input type="submit" value="Assign" />
         </form>
     </body>

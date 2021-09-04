@@ -14,12 +14,24 @@ class AssignTaskUserController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function assign(Request $request)
+    public function assign(Request $request, $id)
     {
-        $all_tasks = $this->taskService->all();
+        $task = $this->taskService->find($id);
 
-        $all_tasks["data"][7]["users"] = $request->user;
+        $data = array();
+        $data['status_id'] = $task['status_id'];
+        $data['parent_id'] = $task['parent_id'];
+        $data['start_date'] = $task['start_date'];
+        $data['created_at'] = $task['created_at'];
+        $data['archived_at'] = $task['archived_at'];
+        $data['recurring'] = $task['recurring'];
+        $data['reminder'] = $task['reminder'];
+        $data['assigned_users'] = [];
 
-        return response()->json($all_tasks["data"][7]);
+        $data['assigned_users'] = array_push($data['assigned_users'], $request->user_id);
+
+        $response = $this->taskService->update($data, $id);
+
+        return response()->json($response);
     }
 }
