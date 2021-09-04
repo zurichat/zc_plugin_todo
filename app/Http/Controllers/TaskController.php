@@ -25,7 +25,7 @@ class TaskController extends Controller
     {
         return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
-    
+
     public function getLatestTask()
     {
         return response()->json($this->taskService->getLatestTask());
@@ -46,6 +46,15 @@ class TaskController extends Controller
                 'data' => $data,
                     ]);
     }
+    public function modifyShow($id)
+    {
+        return view('updateDueDate');
+    }
+    public function updateTaskDate(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
 
 
     public function getTasksByCategory(Request $request)
@@ -72,5 +81,22 @@ class TaskController extends Controller
             'message' => 'Request success',
             'data' => $newArr
         ],200);
+    }
+
+    public function categoryTestView($id)
+    {
+        return view('updateCategory');
+    }
+
+
+
+    public function updateTaskCategory(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+    public function editTask(Request $request, $id)
+    {
+        return response()->json($this->taskService->update($request->all(), $id));
     }
 }
