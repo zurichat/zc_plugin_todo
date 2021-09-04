@@ -49,19 +49,12 @@ class TaskCommentController extends Controller
     }
 
     public function findTaskCommentByIdTest($id){
-        $url = 'https://todo.zuri.chat/api/comment/1';
-        $response = file_get_contents($url);
-        $values = json_decode($response,true);
+        $url = $this->taskCommentService->all();
 
-        $datas = $values["data"];
-        // print_r($datas);
-
+        $datas = $url["data"];
+        
         $comments = array();
-        
-        
         foreach($datas as $data){
-            //echo ($data['task_id'])."<br>";
-            // 
             if(array_key_exists('task_id',$data)){
                 $taskId = $data["task_id"];
                 if($taskId == $id){
@@ -85,5 +78,6 @@ class TaskCommentController extends Controller
 
     public function delete($id)
     {
+        return response()->json($this->taskCommentService->delete($id));
     }
 }
