@@ -14,7 +14,7 @@ class assignTaskController extends Controller
   
         $details = [
             'greeting' => 'Hi ' . $user,
-            'body' => 'This is to notify you on your current issued tasked, Please visit the url below to get started',
+            'body' => 'This is to notify you on your newly assigned tasked, Please visit the url below to get started',
             'thanks' => 'Thank you for using todo.zuri.chat',
             'actionText' => 'View My Task',
             'actionURL' => url('/'),
