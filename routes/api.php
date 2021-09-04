@@ -27,6 +27,7 @@ Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'updat
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
+Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
 
