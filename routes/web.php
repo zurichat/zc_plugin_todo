@@ -24,7 +24,27 @@ Route::get('/', function () {
 });
 
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
+Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
 
 
-Route::get('task-email-notification', [assignTaskController::class, 'sendEmailNotification']);
+
+Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
+
+Route::get('/ping', function () {
+    return response()->json(['message' => 'Server is Live!'], 200);
+});
+Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+
+// comment blade to test comment post request
+Route::get('/comment', function(){
+    return view('create-comment');
+});
+
+//This Fetch id of task for comment
+Route::get('/alphachris/comment/{id}',[TaskCommentController::class,'findTaskCommentById']);
+
+//Resource route
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
