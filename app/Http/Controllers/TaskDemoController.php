@@ -21,6 +21,7 @@ class TaskDemoController extends Controller
 
     public function store(Request $request)
     {
+
         return response()->json($this->taskService->create($request->all()));
     }
 
@@ -37,5 +38,10 @@ class TaskDemoController extends Controller
     public function delete($id)
     {
         return response()->json($this->taskService->delete($id));
+    }
+
+    public function search(Request $request)
+    {
+        // return response()->json($this->taskService->search($request->query('q')));
     }
 }
