@@ -157,11 +157,5 @@ class HTTPRepository implements RepositoryInterface
         }
         return $search_data;
     }
-
-    public function sort($parameter)
-    {
-        $tasks = $this->all();
-        $collectionTasks = collect($tasks['data'])->sortBy($parameter);
-        return $collectionTasks->values()->all();
-    } 
+    
 }

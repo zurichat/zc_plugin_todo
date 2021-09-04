@@ -42,9 +42,11 @@ class TaskDemoController extends Controller
     public function sort(Request $request)
     {
         $parameter = $request->sort;
-        $tasks = $this->taskService->sort($parameter);
-        return $tasks;
+        $tasks = $this->taskService->all();
+        $collectionTasks = collect($tasks['data'])->sortBy($parameter);
+        return $collectionTasks;
     }
+
     public function search(Request $request)
     {
         // return response()->json($this->taskService->search($request->query('q')));
