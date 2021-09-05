@@ -22,11 +22,11 @@ use App\Http\Controllers\TaskController;
 |
 */
 Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);
-Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
-Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
-Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
-Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
-Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
+Route::get('get-tasks', [\App\Http\Controllers\TaskDemoController::class, 'index']);
+Route::get('find-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
+Route::post('add-task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
+Route::put('update-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
+Route::delete('delete-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 // TaskCommentController
 
