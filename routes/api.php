@@ -35,6 +35,7 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 
 Route::post('comment', [TaskCommentController::class, 'saveComment']);
 Route::get('comment', [TaskCommentController::class, 'index']);
+Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
 Route::get('comment/{id}', [TaskCommentController::class, 'show']);
 Route::put('comment/{id}', [TaskCommentController::class, 'update']);
 Route::delete('comment_delete/{id}', [TaskCommentController::class, 'delete']);
