@@ -6,7 +6,7 @@ use App\Repositories\HTTP\HTTPRepository;
 
 class TaskRepository extends HTTPRepository
 {
-    protected $modelName = 'TodoDemoTask';
+    protected $modelName = 'DemoTask';
 
     public function __construct()
     {
