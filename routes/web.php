@@ -55,3 +55,10 @@ Route::get('/task/comment/{id}', [TaskCommentController::class, 'findTaskComment
 
 //Resource route
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
+
+Route::get('testRoute', [TodoController::class, 'showtest']);
+Route::post('edit', [TodoController::class, 'edit']);
+Route::get('edit', [TodoController::class, 'edit']);
+Route::post('sort', [collectionTasksMonthSort::class,'sort']);
+Route::get('update', [\App\Http\Controllers\TodoController::class, 'update']);
+Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
