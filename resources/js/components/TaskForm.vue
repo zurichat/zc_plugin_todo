@@ -1,59 +1,61 @@
 <template>
-    <form action>
-        <h1>Create new task</h1>
+    <div class="form-container">
+        <form action>
+            <h1>Create new task</h1>
 
-        <div class="form-group">
-            <label for="topic">Topic</label>
-            <input
-                required
-                type="text"
-                id="topic"
-                placeholder="Type task title"
-            />
-        </div>
-
-        <div class="form-group">
-            <label for="desc">Description</label>
-            <input
-                required
-                type="text"
-                id="desc"
-                placeholder="Type task description"
-            />
-        </div>
-
-        <div class="form-group">
-            <label for="label">Label</label>
-            <select required name="label" id="label">
-                <option value disabled selected>Select task label</option>
-                <option value="1">Sprint</option>
-                <option value="2">Marathon</option>
-                <option value="3">hng-esque task</option>
-            </select>
-        </div>
-
-        <div class="form-flex">
             <div class="form-group">
-                <label for="start-date">Start</label>
-                <input required type="date" id="start-date" />
+                <label for="topic">Topic</label>
+                <input
+                    required
+                    type="text"
+                    id="topic"
+                    placeholder="Type task title"
+                />
             </div>
 
             <div class="form-group">
-                <label for="end-date">End</label>
-                <input required type="date" id="end-date" />
+                <label for="desc">Description</label>
+                <input
+                    required
+                    type="text"
+                    id="desc"
+                    placeholder="Type task description"
+                />
             </div>
-        </div>
 
-        <div class="option">
-            <input type="checkbox" />
-            <p>Recurring task</p>
-        </div>
+            <div class="form-group">
+                <label for="label">Label</label>
+                <select required name="label" id="label">
+                    <option value disabled selected>Select task label</option>
+                    <option value="1">Sprint</option>
+                    <option value="2">Marathon</option>
+                    <option value="3">hng-esque task</option>
+                </select>
+            </div>
 
-        <div class="cta-container">
-            <button class="cancel" type="button">Cancel</button>
-            <button class="submit" type="submit">Create task</button>
-        </div>
-    </form>
+            <div class="form-flex">
+                <div class="form-group">
+                    <label for="start-date">Start</label>
+                    <input required type="date" id="start-date" />
+                </div>
+
+                <div class="form-group">
+                    <label for="end-date">End</label>
+                    <input required type="date" id="end-date" />
+                </div>
+            </div>
+
+            <div class="option">
+                <input type="checkbox" />
+                <p>Recurring task</p>
+            </div>
+
+            <div class="cta-container">
+                <button class="cancel" type="button">Cancel</button>
+                <button class="submit" type="submit">Create task</button>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
