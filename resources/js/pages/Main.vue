@@ -10,8 +10,12 @@
             </div>
         </div>
         <!-- <AddTaskForm /> -->
-        <task-form />
-        <AddTaskBtn />
+        <transition name='fade'>
+            <TaskForm v-if="isModal"  @toggleModal = 'toggleModal'/>
+            </transition>
+        
+        <AddTaskBtn @click="toggleModal" />
+        
         <SearchInput />
 
         <TodoNav />
@@ -32,9 +36,19 @@ import taskCard from "../components/taskCard.vue";
 import TodoNav from "../components/TodoNav.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
-import TaskForm from "resources/js/components/TaskForm";
+import TaskForm from "../components/TaskForm";
 export default {
     name: "Main",
+    data(){
+        return {
+            isModal : false
+        }
+    },methods: {
+        toggleModal(){
+            console.log('hi')
+            this.isModal = !this.isModal
+        }
+},
     components: {
         taskCard,
         SearchInput,
@@ -44,4 +58,13 @@ export default {
         TaskForm,
     },
 };
+
 </script>
+<style lang="scss">
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
