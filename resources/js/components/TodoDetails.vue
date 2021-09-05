@@ -2,7 +2,7 @@
     <div class="todo-details">
         <h3 class="title">Task: {{Title}}</h3>
         <p class="descrp text-secondary">Description: {{Description}}</p>
-        <p class="text-primary"><i class="fas fa-calendar-alt"></i>Due: {{Due}}</p>
+        <p class="text-primary"><i class="fas fa-calendar-alt"></i> Due: {{Due}}</p>
         <div>
         <div class="collabs">
         <p>Collaborators</p>
