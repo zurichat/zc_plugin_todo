@@ -1,7 +1,12 @@
 <template>
+<<<<<<< HEAD
 <div class="overlay" >
     <form @submit.prevent="addTodo" class="sm:py-4">
         <h1>Create a new task</h1>
+=======
+    <form action>
+        <h1>Create new task</h1>
+>>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
 
         <div class="form-group">
             <label for="topic">Topic</label>
