@@ -92,6 +92,9 @@ Route::get('/users', function () {
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
 
+//Show Tasks Assigned to a Specific User 
+Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
+
 Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
 //Route to get collection of tasks for a user by id
