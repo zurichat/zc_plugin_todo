@@ -78,7 +78,7 @@ Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
 // -------------- Comments endpoints --------------------- //
 Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
-Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
 Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
 
