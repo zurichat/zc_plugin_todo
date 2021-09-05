@@ -10,6 +10,7 @@
             </div>
         </div>
         <!-- <AddTaskForm /> -->
+        <task-form />
         <AddTaskBtn />
         <SearchInput />
 
@@ -31,6 +32,7 @@ import taskCard from "../components/taskCard.vue";
 import TodoNav from "../components/TodoNav.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
+import TaskForm from "resources/js/components/TaskForm";
 export default {
     name: "Main",
     components: {
@@ -39,6 +41,7 @@ export default {
         TodoNav,
         AddTaskBtn,
         AddTaskForm,
+        TaskForm,
     },
 };
 </script>
