@@ -34,20 +34,4 @@ class AssignTaskUserController extends Controller
 
         return response()->json($response);
     }
-
-        // Show Task Assigned to a Specific
-        public function assignedTask(Request $request)
-        {
-        $allTasks = $this->taskService->all()['data'];
-        $newArr = [];
-        foreach ($allTasks as $value) {
-            if (isset($value['user_id']) && $value['user_id'] == $request->user_id) {
-                array_push($newArr, $value);
-            }
-        }
-        return response()->json([
-            'message' => 'Request success',
-            'data' => $newArr
-        ],200);
-    }
 }
