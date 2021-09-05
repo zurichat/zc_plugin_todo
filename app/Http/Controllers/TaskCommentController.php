@@ -38,29 +38,6 @@ class TaskCommentController extends Controller
     }
 
 
-
-    public function store(Request $request)
-    {
-        if (!empty($request->user_id) && !empty($request->task_id)) {
-            return response()->json($this->taskCommentService->create($request->all()));
-        } else {
-            // create random ids for comment
-            $userId = rand(1, 20);
-            $taskId = 1;
-
-            // sketch the response data
-            $data = [
-                "content" => $request->content,
-                "task_id" => $taskId,
-                "user_id" => $userId,
-                "created_at" => Carbon::now(),
-            ];
-
-            // return response
-            return response()->json($this->taskCommentService->create($data));
-        }
-    }
-
     /**
      * @author {Alpha2Chris14}
      */
