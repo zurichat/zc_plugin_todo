@@ -1,6 +1,6 @@
 <template>
     <form action>
-        <h1>Create new task</h1>
+        <h1>Create a new task</h1>
 
         <div class="form-group">
             <label for="topic">Topic</label>
