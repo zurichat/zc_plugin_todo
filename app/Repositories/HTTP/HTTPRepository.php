@@ -158,22 +158,19 @@ class HTTPRepository implements RepositoryInterface
         return $search_data;
     }
 
-    public function resource($id)
+    public function resource()
     {
-        $todos = $this->all();
-        // $array = array();
-        // // return collect($todos['data']);
-        // for ($i=0; $i < count($todos); $i++) {
-        //    if ($todos[$i]['_id'] == $id) {
-        //     array_push($array,$todo[$i]);
-        //    }
-        // }
-        // return $array;
-        $taskCollections = collect($todos['data'])->map(function ($todo) {
-          if($todo['_id'] == $id) {
-              return $todo;
-          }
-       });
-       return $taskCollections->all();
+        return[
+            '_id' => '61314f946e7d00b82b78b824',
+            "archived_at" => "2021-09-03",
+            "category_id" => "1",
+            "color_code" => "blue",
+            "created_at" => "2020-09-08",
+            "description" => "Ea corporis accusamus pariatur quaerat necessitatibus illo doloribus rerum!",
+            "end_date" => "2021-09-07",
+            "parent_id" =>  null,
+            "priority_id" => 1,
+            "title" =>  "This is a demo again",
+        ];
     }
 }

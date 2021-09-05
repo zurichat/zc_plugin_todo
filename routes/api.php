@@ -72,6 +72,7 @@ Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'st
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
 
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
+
 //------------------- Resource End ponits ---------- //
 Route::get('/taskresource', [App\Http\Controllers\TaskDemoController::class, 'resource']);
 

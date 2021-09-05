@@ -47,9 +47,7 @@ class TaskDemoController extends Controller
     }
     public function resource(Request $request)
     {
-        $id = $request->id;
-        $task = $this->taskService->resource($id);
+        $task = $this->taskService->resource();
         return $task;
-        return new TodoResource($task);
     }
 }
