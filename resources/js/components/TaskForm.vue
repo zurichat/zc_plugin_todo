@@ -1,17 +1,10 @@
 <template>
-<<<<<<< HEAD
-<div class="overlay" >
-    <form @submit.prevent="addTodo" class="sm:py-4">
-        <h1>Create a new task</h1>
-=======
     <form action>
         <h1>Create new task</h1>
->>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
 
         <div class="form-group">
             <label for="topic">Topic</label>
             <input
-                v-model = 'todoDetails.title'
                 required
                 type="text"
                 id="topic"
@@ -26,13 +19,12 @@
                 type="text"
                 id="desc"
                 placeholder="Type task description"
-                v-model= "todoDetails.description"
             />
         </div>
 
         <div class="form-group">
             <label for="label">Label</label>
-            <select required name="label" v-model = "todoDetails.label"  id="label">
+            <select required name="label" id="label">
                 <option value disabled selected>Select task label</option>
                 <option value="1">Sprint</option>
                 <option value="2">Marathon</option>
@@ -43,12 +35,12 @@
         <div class="form-flex">
             <div class="form-group">
                 <label for="start-date">Start</label>
-                <input required type="date" v-model="todoDetails.startDate" id="start-date" />
+                <input required type="date" id="start-date" />
             </div>
 
             <div class="form-group">
                 <label for="end-date">End</label>
-                <input required type="date" v-model="todoDetails.endDate" id="end-date" />
+                <input required type="date" id="end-date" />
             </div>
         </div>
 
@@ -58,48 +50,15 @@
         </div>
 
         <div class="cta-container">
-            <button class="cancel mx-2" type="button" @click="closeModal">Cancel</button>
+            <button class="cancel" type="button">Cancel</button>
             <button class="submit" type="submit">Create task</button>
         </div>
-    </form></div>
+    </form>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-import {mapGetters} from 'vuex'
 export default {
     name: "TaskForm",
-    data(){
-        return {
-            todoDetails: {
-                title: '',
-                label: '',
-                description: '',
-                startDate: '',
-                EndDate: '',
-                userId: ''
-            }
-        }
-    },
-    computed: {
-         ...mapGetters({
-       user: 'user/user'
-    })
-    },
-    methods: {
-                ...mapActions({
-            createTask: 'todo/createTask'
-        }),
-        closeModal(){
-            console.log('hgey')
-                this.$emit('toggleModal')
-            },
-             addTodo(){
-                this.todoDetails.userId = this.user.userId;
-                console.log(this.todoDetails)
-                this.createTask(this.details)
-            }
-    }
 };
 </script>
 
@@ -109,28 +68,13 @@ export default {
     margin: 0;
     box-sizing: border-box;
 }
-.overlay {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-}
-
 
 form {
-    width: 100%;
+    width: 40%;
     margin: 25px auto;
     padding: 30px 40px;
-    height: 100%;
     background: #fff;
     border-radius: 8px;
-    overflow-y: scroll;
-    
 }
 
 form h1 {
@@ -154,7 +98,6 @@ form h1 {
     border: 1px solid #dadada;
     border-radius: 4px;
     width: 100%;
-    background: white;
     padding: 12px 15px;
 }
 
@@ -223,15 +166,28 @@ form h1 {
     color: #00b87c;
 }
 
-@media (min-width:768px) {
-    .overlay {
-    background: rgba(0,0,0,.14901960784313725);
-    }
+@media screen and (max-width: 900px) {
     form {
-        width: 40%
+        width: 60%;
     }
 }
-@media screen and (max-width: 425px) {
+
+@media screen and (max-width: 720px) {
+    form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    form {
+        width: 95%;
+    }
     form h1 {
         font-size: 0.85rem;
     }
