@@ -18,6 +18,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function all()
     {
+        return $this->taskCommentRepository->all();
     }
 
     /**
@@ -38,11 +39,17 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
         return $this->taskCommentRepository->find($id);
     }
 
+    public function allCommentPerTask($key, $data)
+    {
+        return $this->taskCommentRepository->search($key, $data);
+    }
+
     /**
-    * @author {Alpha2Chris14}
-    */
-    public function findTaskCommentById($id){
-        $whereArr = ['id'=>$id];
+     * @author {Alpha2Chris14}
+     */
+    public function findTaskCommentById($id)
+    {
+        $whereArr = ['id' => $id];
         return $this->taskCommentRepository->findWhere($whereArr);
     }
 

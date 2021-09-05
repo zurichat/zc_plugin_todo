@@ -23,12 +23,12 @@ class HTTPRepository implements RepositoryInterface
     public function all()
     {
         // return Http::get($this->url)->json();
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json();
     }
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id .'/'. $this->modelName . '/' . $this->organisation_id)->json()['data'][$id];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json()['data'][$id];
     }
 
     public function findOrFail($id, $attributes = ['*'])
@@ -134,7 +134,7 @@ class HTTPRepository implements RepositoryInterface
             "bulk_write" => false,
             "object_id" => $id,
             "filter" => (object) [],
-            "payload" =>(object) []
+            "payload" => (object) []
         ])->json();
     }
 
@@ -147,13 +147,12 @@ class HTTPRepository implements RepositoryInterface
     {
         $todos = $this->all();
         $search_data = [];
-        for($i = 0; $i < count($todos['data']); $i++){
-            if(array_key_exists($key, $todos['data'][$i])){
-                if($todos['data'][$i][$key] == $data){
+        for ($i = 0; $i < count($todos['data']); $i++) {
+            if (array_key_exists($key, $todos['data'][$i])) {
+                if ($todos['data'][$i][$key] == $data) {
                     array_push($search_data, $todos['data'][$i]);
                 }
             }
-
         }
         return $search_data;
     }
