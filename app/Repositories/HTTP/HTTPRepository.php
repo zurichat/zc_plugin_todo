@@ -101,7 +101,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function update($id, array $attributes = [], bool $syncRelations = false)
     {
-        return $this->model::post($this->url . 'data/write', [
+        return $this->model::put($this->url . 'data/write', [
             "plugin_id" => $this->plugin_id,
             "organization_id" => $this->organisation_id,
             "collection_name" => $this->modelName,
