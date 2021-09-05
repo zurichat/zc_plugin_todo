@@ -30,6 +30,9 @@ Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'de
 
 // TaskCommentController
 
+Route::get('/cancel_recurringTask/{id}', [TaskController::class, 'recurringTaskView']);
+Route::post('/cancel_recurringTask/{id}', [TaskController::class, 'cancel_recurringTask']);
+
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 

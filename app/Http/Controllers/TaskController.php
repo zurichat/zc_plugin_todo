@@ -38,6 +38,30 @@ class TaskController extends Controller
         return response()->json($this->taskService->getLatestTask());
     }
 
+    public function cancel_recurringTask(Request $request)
+    {       
+        $data = [];
+        if (!request()->has('active')) {
+            $data[] = 'False';
+        }else {
+            return response()->json([
+                'status' =>  false,
+                'type' => 'error',
+                'message' => 'Recurrent is currently active'
+            ], 422);
+        }
+        return response()->json([
+            'status' =>  true,
+            'type' =>  'success',
+            'message' => 'Recurrent task has been successfully switched off',
+        ], 200);
+    }
+
+    public function recurringTaskView($id)
+    {
+        return view('cancelrecurringTask', compact('id'));//->with('id', $id);
+    }
+
     public function show($id)
     {
         $tasks = ($this->taskService->find($id))['data'];
