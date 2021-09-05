@@ -9,6 +9,7 @@
             </div>
         </div>
         <SearchInput />
+        <TodoNav />
         <div class="todo_container sm:grid sm:grid-cols-2 md:grid-cols-3" >
         <taskCard v-for="i in 8" :key="i" title="Task title" date="Tomorrow" description="Description" />
     </div>
@@ -17,11 +18,13 @@
 <script>
 import SearchInput from '../components/Search-Input.vue'
     import taskCard from '../components/taskCard.vue'
+    import TodoNav from '../components/TodoNav.vue'
     export default {
         name: 'Main',
         components: {
             taskCard,
-            SearchInput
+            SearchInput,
+            TodoNav
         }
     }
 </script>
