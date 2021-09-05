@@ -18,23 +18,18 @@
 <script>
 import SearchInput from '../components/Search-Input.vue'
     import taskCard from '../components/taskCard.vue'
-<<<<<<< HEAD
     import TodoDetails from '../components/TodoDetails.vue'
-=======
     import AddTaskForm from '../components/addTaskForm.vue'
     import AddTaskBtn from '../components/AddTaskBtn.vue'
->>>>>>> 4f6ca90a9e58b6370e321c0eadc2dfb210a031d8
+    import TodoDetails from '../components/TodoDetails.vue'
     export default {
         name: 'Main',
         components: {
             taskCard,
             SearchInput,
-<<<<<<< HEAD
-            TodoDetails
-=======
+            TodoDetails,
             AddTaskBtn,
             AddTaskForm
->>>>>>> 4f6ca90a9e58b6370e321c0eadc2dfb210a031d8
         }
     }
 </script>
