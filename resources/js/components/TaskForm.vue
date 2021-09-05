@@ -1,13 +1,7 @@
 <template>
-<<<<<<< HEAD
 <div class="overlay" >
     <form @submit.prevent="addTodo" class="sm:py-4">
         <h1>Create a new task</h1>
-=======
-    <form action>
-        <h1>Create new task</h1>
->>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
-
         <div class="form-group">
             <label for="topic">Topic</label>
             <input
@@ -88,7 +82,7 @@ export default {
     },
     methods: {
                 ...mapActions({
-            createTask: 'todo/createTask'
+            createTask: 'todos/createTask'
         }),
         closeModal(){
             console.log('hgey')
@@ -97,7 +91,9 @@ export default {
              addTodo(){
                 this.todoDetails.userId = this.user.userId;
                 console.log(this.todoDetails)
-                this.createTask(this.details)
+                //this.$emit('createTask', this.todoDetails)
+                this.$emit('toggleModal')
+                this.createTask(this.todoDetails)
             }
     }
 };
