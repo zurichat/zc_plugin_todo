@@ -3,22 +3,6 @@
     <!-- <h3>
             This is where we will be working
         </h3> -->
-<<<<<<< HEAD
-        <div id="header">
-            <div id="logo " class="flex items-center flex-row">
-                <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
-                <span class="font-bold text-lg">Zuri</span>
-            </div>
-        </div>
-        <!-- <AddTaskForm /> -->
-        <transition name='fade'>
-            <TaskForm v-if="isModal"  @toggleModal = 'toggleModal'/>
-            </transition>
-        
-        <AddTaskBtn @click="toggleModal" />
-        
-        <SearchInput />
-=======
     <div id="header">
       <div id="logo " class="flex items-center flex-row">
         <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
@@ -28,7 +12,6 @@
     <!-- <AddTaskForm /> -->
     <AddTaskBtn />
     <SearchInput />
->>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
 
     <TodoNav />
     <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
@@ -48,29 +31,6 @@ import taskCard from "../components/taskCard.vue";
 import TodoNav from "../components/TodoNav.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
-<<<<<<< HEAD
-import TaskForm from "../components/TaskForm";
-export default {
-    name: "Main",
-    data(){
-        return {
-            isModal : false
-        }
-    },methods: {
-        toggleModal(){
-            console.log('hi')
-            this.isModal = !this.isModal
-        }
-},
-    components: {
-        taskCard,
-        SearchInput,
-        TodoNav,
-        AddTaskBtn,
-        AddTaskForm,
-        TaskForm,
-    },
-=======
 export default {
   name: "Main",
   components: {
@@ -80,15 +40,5 @@ export default {
     AddTaskBtn,
     AddTaskForm,
   },
->>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
 };
-
 </script>
-<style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>
