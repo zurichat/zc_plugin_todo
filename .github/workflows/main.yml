@@ -8,10 +8,6 @@ on:
   push:
     branches: [ develop ]
 
-  pull_request:
-    branches: [ develop ]
-    types: [ closed ]
-
 
 
   # Allows you to run this workflow manually from the Actions tab
@@ -43,6 +39,7 @@ jobs:
             cd /var/www/zc_plugin_todo
             git checkout develop
             git pull
-            #php artisan serve
+            composer update
+            # php artisan serve
             echo "End"
             echo $USER
