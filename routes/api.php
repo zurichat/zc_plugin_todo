@@ -7,6 +7,8 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -19,14 +21,17 @@ use App\Http\Controllers\TaskController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);
+Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
+Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
+Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
+Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
+Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
-// Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);
-// Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
-// Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
-// Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
-// Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
+// TaskCommentController
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
+Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
 Route::get('task-category',[TaskController::class,'getTasksByCategory']);
 
@@ -58,7 +63,7 @@ Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'm
 Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
 Route::post('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskCategory']);
 Route::get('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'categoryTestView']);
-
+Route::post('/task/update/{id}', [\App\Http\Controllers\TaskController::class, 'editTask']);
 
 //test endpoint that reads request from zuri core
 Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
@@ -70,6 +75,7 @@ Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
 Route::post('/comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
+Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
 
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 //------------------- Resource End ponits ---------- //

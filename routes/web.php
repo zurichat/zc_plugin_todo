@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TodoController;
 <<<<<<< HEAD
@@ -28,7 +29,12 @@ Route::get('/', function () {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+
+>>>>>>> b059e29818a6c5d77050d63c2efbe9ea08fca420
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
 
@@ -37,11 +43,20 @@ Route::get('task-email-notification', [assignTaskController::class, 'sendEmailNo
 
 Route::get('/create-todo', [TodoController::class, 'showPage'])->name('show.create-todo');
 Route::post('/create-todo', [TodoController::class, 'store'])->name('create-todo');
-
-
-
 Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
 
+//TaskCommentController
+Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
+
+
+<<<<<<< HEAD
+Route::get('/todo', [TodoController::class, 'index'])->name('get-todo');
+
+=======
+Route::get('/ping', function () {
+    return response()->json(['message' => 'Server is Live!'], 200);
+});
+>>>>>>> b059e29818a6c5d77050d63c2efbe9ea08fca420
 Route::get('/info', [PluginInfoController::class, 'servePluginInfo']);
 <<<<<<< HEAD
 =======
@@ -64,4 +79,12 @@ Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentBy
 //Resource route
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
+<<<<<<< HEAD
 >>>>>>> e81e51d90b0cda905e5bf0ff985c0c4b2ec4085d
+=======
+
+
+
+Route::get('/get-tasks', [TaskController::class, 'taskcollection']);
+
+>>>>>>> b059e29818a6c5d77050d63c2efbe9ea08fca420
