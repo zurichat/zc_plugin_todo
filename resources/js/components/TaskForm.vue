@@ -1,7 +1,7 @@
 <template>
-    <form action>
-        <h1>Create new task</h1>
-
+<div class="overlay" >
+    <form @submit.prevent="addTodo" class="sm:py-4">
+        <h1>Create a new task</h1>
         <div class="form-group">
             <label for="topic">Topic</label>
             <input
@@ -59,6 +59,39 @@
 <script>
 export default {
     name: "TaskForm",
+    data(){
+        return {
+            todoDetails: {
+                title: '',
+                label: '',
+                description: '',
+                startDate: '',
+                EndDate: '',
+                userId: ''
+            }
+        }
+    },
+    computed: {
+         ...mapGetters({
+       user: 'user/user'
+    })
+    },
+    methods: {
+                ...mapActions({
+            createTask: 'todos/createTask'
+        }),
+        closeModal(){
+            console.log('hgey')
+                this.$emit('toggleModal')
+            },
+             addTodo(){
+                this.todoDetails.userId = this.user.userId;
+                console.log(this.todoDetails)
+                //this.$emit('createTask', this.todoDetails)
+                this.$emit('toggleModal')
+                this.createTask(this.todoDetails)
+            }
+    }
 };
 </script>
 
