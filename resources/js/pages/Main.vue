@@ -5,23 +5,43 @@
         </h3> -->
         <div id="header">
             <div id="logo " class="flex items-center flex-row">
-                <img class="w-8 m-4" :src="'./img/zuri-logo.svg'"/> <span class="font-bold text-lg">Zuri</span>
+                <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
+                <span class="font-bold text-lg">Zuri</span>
             </div>
         </div>
+        <!-- <AddTaskForm /> -->
+        <task-form />
+        <AddTaskBtn />
         <SearchInput />
-        <div class="todo_container sm:grid sm:grid-cols-2 md:grid-cols-3" >
-        <taskCard v-for="i in 8" :key="i" title="Task title" date="Tomorrow" description="Description" />
-    </div>
+
+        <TodoNav />
+        <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+            <taskCard
+                v-for="i in 8"
+                :key="i"
+                title="Task title"
+                date="Tomorrow"
+                description="Description"
+            />
+        </div>
     </div>
 </template>
 <script>
-import SearchInput from '../components/Search-Input.vue'
-    import taskCard from '../components/taskCard.vue'
-    export default {
-        name: 'Main',
-        components: {
-            taskCard,
-            SearchInput
-        }
-    }
+import SearchInput from "../components/Search-Input.vue";
+import taskCard from "../components/taskCard.vue";
+import TodoNav from "../components/TodoNav.vue";
+import AddTaskForm from "../components/addTaskForm.vue";
+import AddTaskBtn from "../components/AddTaskBtn.vue";
+import TaskForm from "resources/js/components/TaskForm";
+export default {
+    name: "Main",
+    components: {
+        taskCard,
+        SearchInput,
+        TodoNav,
+        AddTaskBtn,
+        AddTaskForm,
+        TaskForm,
+    },
+};
 </script>
