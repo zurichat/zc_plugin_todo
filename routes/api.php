@@ -10,6 +10,7 @@ use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show'
 Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
 Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
+
+// TaskSearchController
+
+Route::get('tasks', [TaskSearchController::class, 'index']);
 
 // TaskCommentController
 
