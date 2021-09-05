@@ -10,6 +10,7 @@
             </div>
         </div>
         <!-- <AddTaskForm /> -->
+        <task-form />
         <AddTaskBtn />
         <SearchInput />
         <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
@@ -28,6 +29,7 @@ import SearchInput from "../components/Search-Input.vue";
 import taskCard from "../components/taskCard.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
+import TaskForm from "resources/js/components/TaskForm";
 export default {
     name: "Main",
     components: {
@@ -35,6 +37,7 @@ export default {
         SearchInput,
         AddTaskBtn,
         AddTaskForm,
+        TaskForm,
     },
 };
 </script>
