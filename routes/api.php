@@ -99,3 +99,11 @@ Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
 //Route to get collection of tasks for a user by id
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
+
+
+Route::get('testRoute', [TodoController::class, 'showtest']);
+Route::post('edit', [TodoController::class, 'edit']);
+Route::get('edit', [TodoController::class, 'edit']);
+Route::post('sort', [collectionTasksMonthSort::class,'sort']);
+Route::get('update', [\App\Http\Controllers\TodoController::class, 'update']);
+Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
