@@ -1,5 +1,5 @@
 <template>
-    <div class="taskcard sm:mx-4 mx-auto my-4 p-5 ">
+    <div class="taskcard sm:mx-0 mx-auto my-4 p-5 ">
         <div class="flex justify-between pb-4">
             <div class="">
                 <h1 class="task_title">{{title}}</h1>
