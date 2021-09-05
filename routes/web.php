@@ -70,21 +70,7 @@ Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
 
 
-Route::get('/task/priority/modify',function(){
-    return view('task-priority');
-});
-Route::post('task-priority', function(){
-    $tasks = [
-        "name"=> "Clean the house",
-        "author" => "Billy Hans",
-        "date" => "13/02/2021",
-        "priority" => request('priority')
-    ];
-    //dd($tasks);
-    //echo json_encode($tasks);
-    print_r(json_encode($tasks));
-    return view('priority-modify');
-});
+
 
 Route::get('/get-tasks', [TaskController::class, 'taskcollection']);
 

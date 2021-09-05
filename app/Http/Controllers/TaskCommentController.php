@@ -46,8 +46,7 @@ class TaskCommentController extends Controller
     */
     public function findTaskCommentById($id){
         return response()->json($this->taskCommentService->findTaskCommentById($id));
-<<<<<<< HEAD
-=======
+
     }
 
     public function findTaskCommentByIdTest($id){
@@ -73,7 +72,7 @@ class TaskCommentController extends Controller
         }
         
         return response()->json($comments);
->>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
+
     }
 
     public function show($id)

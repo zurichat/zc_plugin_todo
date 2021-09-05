@@ -38,14 +38,13 @@ class TaskController extends Controller
         return response()->json($this->taskService->getLatestTask());
     }
 
-<<<<<<< HEAD
-=======
-    public function getLatestTask()
-    {
-        return response()->json($this->taskService->getLatestTask());
-    }
 
->>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
+   // public function getLatestTask()
+   // {
+    //    return response()->json($this->taskService->getLatestTask());
+   // }
+
+
     public function show($id)
     {
         $tasks = ($this->taskService->find($id))['data'];
@@ -61,8 +60,7 @@ class TaskController extends Controller
                 'data' => $data,
                     ]);
     }
-<<<<<<< HEAD
-=======
+
     public function modifyShow($id)
     {
         return view('updateDueDate');
@@ -72,7 +70,7 @@ class TaskController extends Controller
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
->>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
+
 
 
     public function getTasksByCategory(Request $request)
@@ -100,8 +98,7 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
-<<<<<<< HEAD
-=======
+
 
     public function categoryTestView($id)
     {
@@ -115,13 +112,22 @@ class TaskController extends Controller
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
+
+
+    public function priorityTestView($id) {
+        return view('updatePriority');
+    }
+
+    public function updateTaskPriority(Request $request, $id){
+        return response()->json($this->taskService->update($request->all(), $id));
+    }
+
     public function editTask(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));
     }
-<<<<<<< HEAD
->>>>>>> 27b5eaf0f01851494ee852786caed3c37108a28d
-=======
+
+
 
     public function taskcollection(){
 
@@ -143,5 +149,5 @@ class TaskController extends Controller
 
     }
 
->>>>>>> ef670664c22db809fbe37d91fb4a16338df59b58
+
 }

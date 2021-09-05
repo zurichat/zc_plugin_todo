@@ -80,8 +80,7 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 
 
 
-//-----------Route to modify task priority---------//
-//Route::patch('/updatetaskpriority/{id}',[TaskDemoController::class, 'update']);
+
 
 
 Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
@@ -91,6 +90,12 @@ Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
 Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
 Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
 Route::post('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskCategory']);
+
+//Route  to modify task priority
+Route::post('/task/update/priority/{id}', [TaskController::class, 'updateTaskPriority']);
+Route::get('/task/update/priority/{id}', [TaskController::class, 'priorityTestView']);
+
+
 Route::get('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'categoryTestView']);
 
 
