@@ -54,19 +54,6 @@ Route::post('/task/update/{id}', [\App\Http\Controllers\TaskController::class, '
 //test endpoint that reads request from zuri core
 Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('/plugin-info', [PluginInfoController::class, 'servePluginInfo']);
 
 // -------------- Comments endpoints --------------------- //
