@@ -19,7 +19,8 @@
         <SearchInput @searchTodo = 'searchTodo'/>
 
     <TodoNav />
-    <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+    <div id="main_view" class="section_grid">
+      <div class="todo_container border sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
       <taskCard
         v-for="(todo, index) in allTodos"
         :key="index"
@@ -28,6 +29,11 @@
         :description="todo.Description"
       />
     </div>
+    <div id="comment">
+      <router-view />
+    </div>
+    </div>
+    
   </div>
 </template>
 <script>
@@ -76,13 +82,10 @@ computed: {
         TaskForm,
     },
 };
-
 </script>
 <style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+.section_grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
 }
 </style>
