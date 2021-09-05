@@ -17,11 +17,13 @@
 <script>
 import SearchInput from '../components/Search-Input.vue'
     import taskCard from '../components/taskCard.vue'
+    import addTodo from '../components/addTodo.vue'
     export default {
         name: 'Main',
         components: {
             taskCard,
-            SearchInput
+            SearchInput,
+            addTodo
         }
     }
 </script>
