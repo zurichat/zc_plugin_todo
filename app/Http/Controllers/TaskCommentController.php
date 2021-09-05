@@ -37,6 +37,11 @@ class TaskCommentController extends Controller
         return response()->json($this->taskCommentService->create($payload));
     }
 
+    public function getCommentsPerTask($taskId)
+    {
+        return response()->json($this->taskCommentService->allCommentPerTask('task_id', $taskId));
+    }
+
 
     /**
      * @author {Alpha2Chris14}
