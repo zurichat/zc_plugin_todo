@@ -1,7 +1,8 @@
 <template>
 <div class="overlay" >
-    <form @submit.prevent="addTodo" class="sm:py-4">
+    <form @submit.prevent="addTodo" class="sm:my-4">
         <h1>Create a new task</h1>
+
         <div class="form-group">
             <label for="topic">Topic</label>
             <input
@@ -43,7 +44,7 @@
 
             <div class="form-group">
                 <label for="end-date">End</label>
-                <input required type="date"  id="end-date" />
+                <input required type="date" v-model="todoDetails.endDate" id="end-date" />
             </div>
         </div>
 
@@ -53,7 +54,7 @@
         </div>
 
         <div class="cta-container">
-            <button class="cancel" type="button">Cancel</button>
+            <button class="cancel" type="button" @click="closeModal">Cancel</button>
             <button class="submit" type="submit">Create task</button>
         </div>
     </form>
@@ -61,6 +62,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+import {mapGetters} from 'vuex'
 export default {
     name: "TaskForm",
     data(){
@@ -91,7 +94,6 @@ export default {
              addTodo(){
                 this.todoDetails.userId = this.user.userId;
                 console.log(this.todoDetails)
-                //this.$emit('createTask', this.todoDetails)
                 this.$emit('toggleModal')
                 this.createTask(this.todoDetails)
             }
@@ -100,94 +102,95 @@ export default {
 </script>
 
 <style scoped>
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-
+.overlay {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
 form {
-    width: 40%;
+    width: 100%;
     margin: 25px auto;
     padding: 30px 40px;
+    
     background: #fff;
     border-radius: 8px;
+    
+    
 }
-
 form h1 {
     font-weight: 600;
     margin-bottom: 30px;
 }
-
 .form-group {
     margin-bottom: 20px;
 }
-
 .form-group label {
     font-size: 0.8rem;
     font-weight: 600;
     display: block;
     margin-bottom: 10px;
 }
-
 .form-group input,
 .form-group select {
     border: 1px solid #dadada;
     border-radius: 4px;
     width: 100%;
+    background: white;
     padding: 12px 15px;
 }
-
 .form-flex {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
-
 .form-flex .form-group {
     width: 48.5%;
     margin-bottom: 0;
 }
-
 .option {
     display: flex;
     align-items: center;
     margin-bottom: 25px;
 }
-
 .option input {
     width: 20px;
     height: 20px;
     margin-right: 10px;
     cursor: pointer;
 }
-
 .option p {
     font-size: 0.85rem;
 }
-
 .cta-container {
     display: flex;
     justify-content: flex-end;
 }
-
 .cta-container button {
     border: 0;
-    outline: 0;
+    outline: 0; 
     background: transparent;
     cursor: pointer;
 }
-
 .cta-container button.cancel {
     color: #00b87c;
     font-size: 0.75rem;
     margin-right: 30px;
 }
-
 .cta-container button.cancel:hover {
     color: #959595;
 }
-
 .cta-container button.submit {
     padding: 10px 20px;
     font-size: 0.75rem;
@@ -196,37 +199,27 @@ form h1 {
     border-radius: 4px;
     border: 1px solid transparent;
 }
-
 .cta-container button.submit:hover {
     border-color: #00b87c;
     background: transparent;
     color: #00b87c;
 }
-
-@media screen and (max-width: 900px) {
+@media (min-width:768px) {
+    .overlay {
+    background: rgba(0,0,0,.14901960784313725);
+    }
     form {
-        width: 60%;
+        width: 40%
     }
 }
-
-@media screen and (max-width: 720px) {
-    form {
-        width: 70%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    form {
-        width: 80%;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    form {
-        width: 95%;
-    }
+@media screen and (max-width: 425px) {
     form h1 {
         font-size: 0.85rem;
     }
+    form {
+        height: 100%;
+        overflow-y: scroll;
+    }
 }
+
 </style>

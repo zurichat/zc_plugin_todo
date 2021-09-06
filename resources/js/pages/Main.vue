@@ -11,29 +11,29 @@
         </div>
         <!-- <AddTaskForm /> -->
         <transition name='fade'>
-            <TaskForm v-if="isModal"  @toggleModal = 'toggleModal' @createTask = "createTask"/>
+            <TaskForm v-if="isModal"  @toggleModal = 'toggleModal'/>
             </transition>
         
         <AddTaskBtn @click="toggleModal" />
         
-        <SearchInput @searchTodo = 'searchTodo'/>
+        <SearchInput />
 
     <TodoNav />
     <div id="main_view" class="section_grid">
-      <div class="todo_container border sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
-      <taskCard
-        v-for="(todo, index) in allTodos"
+          <div class="todo_container border sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+          <taskCard
+            v-for="(todo, index) in allTodos"
         :key="index"
         :title="todo.title"
         :date="todo.startDate"
         :description="todo.Description"
-      />
+          />
+        </div>
+        <div id="comment">
+          <router-view />
+        </div>
     </div>
-    <div id="comment">
-      <router-view />
-    </div>
-    </div>
-    
+  
   </div>
 </template>
 <script>
@@ -48,27 +48,14 @@ export default {
     name: "Main",
     data(){
         return {
-            isModal : false,
-            
-            searchTodos: [],
+            isModal : false
         }
-    },
-    methods: {
+    },methods: {
         toggleModal(){
             console.log('hi')
             this.isModal = !this.isModal
-        },
-        createTask(val){
-          console.log(val);
-          
-          //this.allTodos = ;
-          
-        },
-        searchTodo(val){
-          this.seaarchTodos = this.allTodos.filter( todo => todo.title.toLowerCase().indexOf(val.toLowerCase()) >= 0)
         }
-},
-computed: {
+},computed: {
    ...mapGetters({
        allTodos: 'todos/allTodos'
     })
@@ -83,9 +70,3 @@ computed: {
     },
 };
 </script>
-<style lang="scss">
-.section_grid {
-  display: grid;
-  grid-template-columns: 1fr 400px;
-}
-</style>

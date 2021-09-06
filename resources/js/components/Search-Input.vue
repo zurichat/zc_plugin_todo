@@ -30,8 +30,6 @@
       <input
         type="text"
         name="search"
-        v-model = 'value'
-        @input= "searchTodo"
         placeholder="Search here"
         class="ml-8 bg-transparent text-black outline-none w-4/5"
       />
@@ -54,16 +52,6 @@
 </template>
 <script>
 export default {
-    name: 'Search-Input',
-    data() {
-return {
-  value: ''
-}
-    },
-    methods: {
-      search(){
-        this.$emit('searchTodo', this.value)
-      }
-    }
+    name: 'Search-Input'
 }
 </script>
