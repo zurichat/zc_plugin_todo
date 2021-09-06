@@ -63,7 +63,7 @@ class TaskService extends \App\Providers\AppServiceProvider
 
     public function showResource()
     {
-        return $this->taskRepository->showResource();
+        return $this->taskRepository->all();
     }
           /**
      * @return mixed
