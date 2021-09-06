@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\TaskService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,6 +61,21 @@ class TaskController extends Controller
     public function updateTaskDate(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+    public function toggleArchiveStatus($id)
+    {
+        $task = $this->taskService->find($id); // Get the Task
+
+        $archived = array_key_exists('archived_at', $task) && $task['archived_at']  ?  '' : Carbon::now(); // Set new date if it is null or empty, else set back to empty
+
+        // prepare the payload
+        $data = array();
+        $data['archived_at'] = $archived;
+
+        //response from zccore
+        return response()->json($this->taskService->update($data, $id));
+
     }
 
 
