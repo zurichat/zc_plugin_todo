@@ -50,7 +50,9 @@ Route::get('/sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 Route::get('/comment', function(){
     return view('create-comment');
 });
-//to view comment to edit
+
+//comment to edit test
+
 Route::get('/editcomment/{id}', [TaskCommentController::class,'editcomment']);
 // assign user to a task
 Route::get('/task/assign', function(){
