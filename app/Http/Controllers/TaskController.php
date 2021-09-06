@@ -43,7 +43,7 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $tasks = ($this->taskService->find($id))['data'];
+        $tasks = ($this->taskService->find($id));
         $data = [];
         foreach($tasks as $task){
             if($task['_id'] == $id){
@@ -159,34 +159,29 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
-    public function getArchivedTasks(Request $request)
-    {   
-        $addTask = [];
-        $tasks =  ($this->taskService->all());
-         return response()->json($tasks);
-    }
-
-
-    public function getArchivedTasksById(Request $request,$id)
-    {           
-        $tasks = ($this->taskService->find($id));
-         return response()->json($tasks);
-    }
-
-    public function archiveTask(Request $request, $id)
+    public function archived(Request $request)
     {
-        $task = $this->taskService->find($request->task_id);
+        $tasks = $this->taskService->all();
+        
+        $newArr = [];
+        foreach ($tasks as $value) {
+            if (isset($value['archived_at']) && $value['archived_at'] != null) {
+                array_push($newArr, $value);
+            }
+        }
+        return response()->json([
+            'message' => 'Request success',
+            'data' => $newArr
+        ],200);
+       
+   
+    }
 
-        $data = array();
-        $data['status_id'] = $task['status_id'];
-        $data['parent_id'] = $task['parent_id'];
-        $data['start_date'] = $task['start_date'];
-        $data['created_at'] = $task['created_at'];
-        $data['archived_at'] = $task['archived_at'];
+   public function getArchivedTasks(Request $request)
+    {           
+        $tasks = ($this->taskService->all());
+         return response()->json($tasks, 200);
+    }
 
-        $data['archived_at'] = array_push($data['archived_at'], $request->user_id);
-
-        $response = $this->taskService->update($data, $request->task_id);
-        return response()->json($response);
-   }
+    
 }
