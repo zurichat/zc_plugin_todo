@@ -10,6 +10,7 @@ use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ use App\Http\Controllers\TaskController;
 // -------------- Task Endpoints --------------------- //
 // api to fetch all todo tasks
 Route::get('task', [TaskController::class, 'index']);
-Route::get('task/{id}', [TaskController::class, 'show']);
+Route::get('task/{id}/show', [TaskController::class, 'show']);
 Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
 Route::post('/task/modify/{id}', [TaskController::class, 'updateTaskDate']);
 Route::post('/task/update/category/{id}', [TaskController::class, 'updateTaskCategory']);
@@ -42,6 +43,14 @@ Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
 Route::post('add-task', [TaskDemoController::class, 'store']);
 Route::put('update-task/{id}', [TaskDemoController::class, 'update']);
 Route::delete('delete-task/{id}', [TaskDemoController::class, 'delete']);
+Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
+//Show Tasks Assigned to a Specific User
+Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
+
+Route::get('/search', [TaskController::class, 'search_todo']);
+
+//------------------- Resource End ponits ---------- //
+Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
 
 // -  Comment Related Endpoints ----------- //
 
@@ -51,27 +60,35 @@ Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTas
 Route::get('comment/{id}', [TaskCommentController::class, 'show']);
 Route::put('comment/{id}', [TaskCommentController::class, 'update']);
 Route::delete('comment_delete/{id}', [TaskCommentController::class, 'delete']);
+Route::get('task-category', [TaskController::class, 'getTasksByCategory']);
+
+
+
+// -------------- Comments endpoints --------------------- //
+Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
-Route::get('task-category', [TaskController::class, 'getTasksByCategory']);
 
 
 // comment post request
 Route::post('create', [TodoController::class, 'create']);
 Route::post('edit', [TodoController::class, 'edit']);
 Route::post('update', [TodoController::class, 'update']);
-Route::get('/search', [TodoController::class, 'search_todo']);
+
+
+
+
+// -------------- Task Modification Endpoints --------------------- //
+
+
+
+//test endpoint that reads request from zuri core
+Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 
 
 
 
 
-// -------------- Comments endpoints --------------------- //
 
-
-
-
-//Route to get collection of tasks for a user by id
-Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
