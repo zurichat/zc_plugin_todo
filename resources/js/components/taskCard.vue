@@ -1,11 +1,16 @@
 <template>
-    <div class="taskcard sm:mx-0 mx-auto my-4 p-5 ">
+    <div class="p-5 mx-auto my-4 taskcard sm:mx-0 ">
         <div class="flex justify-between pb-4">
             <div class="">
                 <h1 class="task_title">{{title}}</h1>
                 <h1 class="task_description">{{description}}</h1>
             </div>
             <div class="">
+                 <button
+                    type="button"
+                    class="btn"
+                    @click="showModal"
+                    >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M8.99988 10.4999C9.82831 10.4999 10.4999 9.82837 10.4999 8.99994C10.4999 8.17151 9.82831 7.49994 8.99988 7.49994C8.17145 7.49994 7.49988 8.17151 7.49988 8.99994C7.49988 9.82837 8.17145 10.4999 8.99988 10.4999Z"
@@ -16,7 +21,11 @@
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M8.99988 16.5C9.82831 16.5 10.4999 15.8284 10.4999 15C10.4999 14.1715 9.82831 13.5 8.99988 13.5C8.17145 13.5 7.49988 14.1715 7.49988 15C7.49988 15.8284 8.17145 16.5 8.99988 16.5Z"
                         stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                </svg> </button>
+                <Modal
+                    v-show="isModalVisible"
+                    @close="closeModal"
+                    />
             </div>
         </div>
         <span class="flex">
@@ -32,7 +41,7 @@
                 <path d="M2.24988 7.49995H15.7499" stroke="#1A61DB" stroke-width="1.22693" stroke-linecap="round"
                     stroke-linejoin="round" />
             </svg>
-            <a href="#" class="link_color pl-1">{{date}}</a>
+            <a href="#" class="pl-1 link_color">{{date}}</a>
         </span>
         <div class="line"></div>
         <div class="">
@@ -76,8 +85,26 @@
     </div>
 </template>
 <script>
+  import Modal from './Modal.vue';
+ 
     export default {
         name: "taskCard",
+        components: {
+      Modal,
+        },
+        data() {
+        return {
+            isModalVisible: false,
+        };
+        },
+        methods: {
+        showModal() {
+            this.isModalVisible = true;
+        },
+        closeModal() {
+            this.isModalVisible = false;
+        }
+        },
         props: {
             title: {
                 type: String,
