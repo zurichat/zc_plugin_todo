@@ -44,7 +44,7 @@
 
             <div class="form-group">
                 <label for="end-date">End</label>
-                <input required type="date" v-model="todoDetails.endDate" id="end-date" />
+                <input required type="date" id="end-date" />
             </div>
         </div>
 
@@ -120,7 +120,7 @@ export default {
     z-index: 2;
 }
 form {
-    width: 100%;
+    width: 40%;
     margin: 25px auto;
     padding: 30px 40px;
     
@@ -147,7 +147,6 @@ form h1 {
     border: 1px solid #dadada;
     border-radius: 4px;
     width: 100%;
-    background: white;
     padding: 12px 15px;
 }
 .form-flex {
@@ -208,11 +207,18 @@ form h1 {
     .overlay {
     background: rgba(0,0,0,.14901960784313725);
     }
+}
+
+@media screen and (max-width: 600px) {
     form {
-        width: 40%
+        width: 80%;
     }
 }
-@media screen and (max-width: 425px) {
+
+@media screen and (max-width: 480px) {
+    form {
+        width: 95%;
+    }
     form h1 {
         font-size: 0.85rem;
     }

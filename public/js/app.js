@@ -19951,17 +19951,19 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_17 = {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "form-group"
-};
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "end-date"
-}, "End", -1
+}, "End"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  required: "",
+  type: "date",
+  id: "end-date"
+})], -1
 /* HOISTED */
 );
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "option"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   type: "checkbox"
@@ -19969,11 +19971,11 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_20 = {
+var _hoisted_19 = {
   "class": "cta-container"
 };
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "submit",
   type: "submit"
 }, "Create task", -1
@@ -19984,7 +19986,7 @@ var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.addTodo && $options.addTodo.apply($options, arguments);
     }, ["prevent"])),
     "class": "sm:my-4"
@@ -20026,22 +20028,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.startDate]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    required: "",
-    type: "date",
-    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-      return $data.todoDetails.endDate = $event;
-    }),
-    id: "end-date"
-  }, null, 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.endDate]])])]), _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.startDate]])]), _hoisted_17]), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "cancel",
     type: "button",
-    onClick: _cache[5] || (_cache[5] = function () {
+    onClick: _cache[4] || (_cache[4] = function () {
       return $options.closeModal && $options.closeModal.apply($options, arguments);
     })
-  }, "Cancel"), _hoisted_21])], 32
+  }, "Cancel"), _hoisted_20])], 32
   /* HYDRATE_EVENTS */
   )]);
 }
@@ -20385,7 +20378,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: index,
       title: todo.title,
       date: todo.startDate,
-      description: todo.Description
+      description: todo.description
     }, null, 8
     /* PROPS */
     , ["title", "date", "description"]);
@@ -20752,7 +20745,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*[data-v-51f73658] {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n.overlay[data-v-51f73658] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 2;\n}\nform[data-v-51f73658] {\n  width: 100%;\n  margin: 25px auto;\n  padding: 30px 40px;\n  background: #fff;\n  border-radius: 8px;\n}\nform h1[data-v-51f73658] {\n  font-weight: 600;\n  margin-bottom: 30px;\n}\n.form-group[data-v-51f73658] {\n  margin-bottom: 20px;\n}\n.form-group label[data-v-51f73658] {\n  font-size: 0.8rem;\n  font-weight: 600;\n  display: block;\n  margin-bottom: 10px;\n}\n.form-group input[data-v-51f73658],\r\n.form-group select[data-v-51f73658] {\n  border: 1px solid #dadada;\n  border-radius: 4px;\n  width: 100%;\n  background: white;\n  padding: 12px 15px;\n}\n.form-flex[data-v-51f73658] {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px;\n}\n.form-flex .form-group[data-v-51f73658] {\n  width: 48.5%;\n  margin-bottom: 0;\n}\n.option[data-v-51f73658] {\n  display: flex;\n  align-items: center;\n  margin-bottom: 25px;\n}\n.option input[data-v-51f73658] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.option p[data-v-51f73658] {\n  font-size: 0.85rem;\n}\n.cta-container[data-v-51f73658] {\n  display: flex;\n  justify-content: flex-end;\n}\n.cta-container button[data-v-51f73658] {\n  border: 0;\n  outline: 0;\n  background: transparent;\n  cursor: pointer;\n}\n.cta-container button.cancel[data-v-51f73658] {\n  color: #00b87c;\n  font-size: 0.75rem;\n  margin-right: 30px;\n}\n.cta-container button.cancel[data-v-51f73658]:hover {\n  color: #959595;\n}\n.cta-container button.submit[data-v-51f73658] {\n  padding: 10px 20px;\n  font-size: 0.75rem;\n  background: #00b87c;\n  color: #fff;\n  border-radius: 4px;\n  border: 1px solid transparent;\n}\n.cta-container button.submit[data-v-51f73658]:hover {\n  border-color: #00b87c;\n  background: transparent;\n  color: #00b87c;\n}\n@media (min-width:768px) {\n.overlay[data-v-51f73658] {\n    background: rgba(0,0,0,.14901960784313725);\n}\nform[data-v-51f73658] {\n    width: 40%\n}\n}\n@media screen and (max-width: 425px) {\nform h1[data-v-51f73658] {\n    font-size: 0.85rem;\n}\nform[data-v-51f73658] {\n    height: 100%;\n    overflow-y: scroll;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "*[data-v-51f73658] {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n.overlay[data-v-51f73658] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 2;\n}\nform[data-v-51f73658] {\n  width: 40%;\n  margin: 25px auto;\n  padding: 30px 40px;\n  background: #fff;\n  border-radius: 8px;\n}\nform h1[data-v-51f73658] {\n  font-weight: 600;\n  margin-bottom: 30px;\n}\n.form-group[data-v-51f73658] {\n  margin-bottom: 20px;\n}\n.form-group label[data-v-51f73658] {\n  font-size: 0.8rem;\n  font-weight: 600;\n  display: block;\n  margin-bottom: 10px;\n}\n.form-group input[data-v-51f73658],\r\n.form-group select[data-v-51f73658] {\n  border: 1px solid #dadada;\n  border-radius: 4px;\n  width: 100%;\n  padding: 12px 15px;\n}\n.form-flex[data-v-51f73658] {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px;\n}\n.form-flex .form-group[data-v-51f73658] {\n  width: 48.5%;\n  margin-bottom: 0;\n}\n.option[data-v-51f73658] {\n  display: flex;\n  align-items: center;\n  margin-bottom: 25px;\n}\n.option input[data-v-51f73658] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.option p[data-v-51f73658] {\n  font-size: 0.85rem;\n}\n.cta-container[data-v-51f73658] {\n  display: flex;\n  justify-content: flex-end;\n}\n.cta-container button[data-v-51f73658] {\n  border: 0;\n  outline: 0;\n  background: transparent;\n  cursor: pointer;\n}\n.cta-container button.cancel[data-v-51f73658] {\n  color: #00b87c;\n  font-size: 0.75rem;\n  margin-right: 30px;\n}\n.cta-container button.cancel[data-v-51f73658]:hover {\n  color: #959595;\n}\n.cta-container button.submit[data-v-51f73658] {\n  padding: 10px 20px;\n  font-size: 0.75rem;\n  background: #00b87c;\n  color: #fff;\n  border-radius: 4px;\n  border: 1px solid transparent;\n}\n.cta-container button.submit[data-v-51f73658]:hover {\n  border-color: #00b87c;\n  background: transparent;\n  color: #00b87c;\n}\n@media (min-width:768px) {\n.overlay[data-v-51f73658] {\n    background: rgba(0,0,0,.14901960784313725);\n}\n}\n@media screen and (max-width: 600px) {\nform[data-v-51f73658] {\n    width: 80%;\n}\n}\n@media screen and (max-width: 480px) {\nform[data-v-51f73658] {\n    width: 95%;\n}\nform h1[data-v-51f73658] {\n    font-size: 0.85rem;\n}\nform[data-v-51f73658] {\n    height: 100%;\n    overflow-y: scroll;\n}\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

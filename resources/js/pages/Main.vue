@@ -26,7 +26,7 @@
         :key="index"
         :title="todo.title"
         :date="todo.startDate"
-        :description="todo.Description"
+        :description="todo.description"
           />
         </div>
         <div id="comment">
