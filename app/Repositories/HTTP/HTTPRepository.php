@@ -158,9 +158,4 @@ class HTTPRepository implements RepositoryInterface
         return $search_data;
     }
 
-    public function showResource()
-    {
-      $todos = $this->all();
-      return collect($todos);
-    }
 }
