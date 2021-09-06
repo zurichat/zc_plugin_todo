@@ -85,7 +85,7 @@ Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 
 //------------------- Resource End ponits ---------- //
-Route::get('/taskresource', [App\Http\Controllers\TaskDemoController::class, 'resource']);
+Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
 
 
 // endpoint to fetch user credentials
@@ -93,7 +93,7 @@ Route::get('/users', function () {
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
 
-//Show Tasks Assigned to a Specific User 
+//Show Tasks Assigned to a Specific User
 Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
 
 Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
