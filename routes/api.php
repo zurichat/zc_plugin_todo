@@ -72,7 +72,7 @@ Route::get('/search', [TodoController::class, 'search_todo']);
 
 
 
-Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
+Route::get('task/{id}/show', [\App\Http\Controllers\TaskController::class, 'show']);
 Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
 // -------------- Task Modification Endpoints --------------------- //
 Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
@@ -117,5 +117,5 @@ Route::get('/task_collection/{id}', function(){
 });
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
 
-Route::get('/archived_tasks', [TaskController::class, 'archived']);
+Route::get('/task/archived', [TaskController::class, 'archived']);
 Route::post('/archive_task/{id}', [TaskController::class, 'archive']);

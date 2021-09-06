@@ -43,7 +43,7 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $tasks = ($this->taskService->find($id))['data'];
+        $tasks = ($this->taskService->find($id));
         $data = [];
         foreach($tasks as $task){
             if($task['_id'] == $id){
@@ -159,10 +159,22 @@ class TaskController extends Controller
         return new TodoResourceCollection($tasks);
     }
 
-    public function archived()
+    public function archived(Request $request)
     {
         $tasks = $this->taskService->all();
-       return response()->json($tasks[0]);
+        
+        $newArr = [];
+        foreach ($tasks as $value) {
+            if (isset($value['archived_at']) && $value['archived_at'] != null) {
+                array_push($newArr, $value);
+            }
+        }
+        return response()->json([
+            'message' => 'Request success',
+            'data' => $newArr
+        ],200);
+       
+    //    return response()->json($tasks[0]);
     }
 
    
