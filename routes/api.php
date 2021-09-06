@@ -116,3 +116,6 @@ Route::get('/task_collection/{id}', function(){
     return response()->json(['message' => 'route to get task collection is working'], 200);
 });
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
+
+Route::get('archived_tasks', TaskController::class, 'archived');
+Route::post('archive_task/{id}', TaskController::class, 'archive');

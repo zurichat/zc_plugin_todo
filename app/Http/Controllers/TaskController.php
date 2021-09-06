@@ -158,4 +158,17 @@ class TaskController extends Controller
         $tasks = $this->taskService->all();
         return new TodoResourceCollection($tasks);
     }
+    public function archived()
+    {
+        $tasks = $this->taskService->all();
+        return $tasks::where('archive', 1)
+                       ->orderBy('id', 'desc')->get();
+    }
+    public function archive($id)
+    {
+        $tasks = $this->taskService->all();
+        $task = $tasks::find($id);
+        $task->archive = ! $task->archive;
+        $task->save();
+    }   
 }
