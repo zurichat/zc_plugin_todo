@@ -158,4 +158,20 @@ class HTTPRepository implements RepositoryInterface
         return $search_data;
     }
 
+
+    /**
+     * This will archive a model
+     */
+    public function archive($id)
+    {
+        $this->update($id, ['archived_at' => now()]);
+    }
+
+    /**
+     * This will unarchive a model
+     */
+    public function unarchive($id)
+    {
+        $this->update($id, ['archived_at' => null]);
+    }
 }
