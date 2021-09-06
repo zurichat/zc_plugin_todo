@@ -16,11 +16,12 @@
         
         <AddTaskBtn @click="toggleModal" />
         
-        <SearchInput />
+        <SearchInput @searchTodo = 'searchTodo'/>
 
     <TodoNav />
     <div id="main_view" class="section_grid">
-          <div class="todo_container border sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+      <template v-if="showAll">
+          <div  class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
           <taskCard
             v-for="(todo, index) in allTodos"
         :key="index"
@@ -29,6 +30,17 @@
         :description="todo.description"
           />
         </div>
+        </template>
+        <template v-else>
+          <div  class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+          <taskCard
+            v-for="(todo, index) in searchedValues"
+        :key="index"
+        :title="todo.title"
+        :date="todo.startDate"
+        :description="todo.description"
+          />
+        </div></template>
         <div id="comment">
           <router-view />
         </div>
@@ -48,17 +60,27 @@ export default {
     name: "Main",
     data(){
         return {
-            isModal : false
+            isModal : false,
+            showAll: true,
+            searchedValues: []
         }
-    },methods: {
-        toggleModal(){
-            console.log('hi')
-            this.isModal = !this.isModal
-        }
-},computed: {
+    },computed: {
    ...mapGetters({
        allTodos: 'todos/allTodos'
     })
+},methods: {
+        toggleModal(){
+            console.log('hi')
+            this.isModal = !this.isModal
+        },
+        searchTodo(val){
+          if(val === '' ){
+                this.showAll = true
+            }
+            else {
+                this.showAll = false
+          this.searchedValues = this.allTodos.filter( todo => todo.title.toLowerCase().indexOf(val.toLowerCase()) >= 0)
+        }}
 },
     components: {
         taskCard,
