@@ -174,7 +174,7 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
        
-    //    return response()->json($tasks[0]);
+   
     }
 
    
