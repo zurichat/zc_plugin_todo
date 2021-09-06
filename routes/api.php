@@ -24,7 +24,7 @@ use App\Http\Controllers\TaskSearchController;
 */
 
 // - Task Related Endpoints --------------//
-
+Route::get('task/filter', [\App\Http\Controllers\TaskController::class, 'filter']);
 Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);
 Route::get('get-tasks', [\App\Http\Controllers\TaskDemoController::class, 'index']);
 Route::get('find-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);

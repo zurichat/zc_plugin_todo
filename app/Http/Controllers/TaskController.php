@@ -177,5 +177,17 @@ class TaskController extends Controller
    
     }
 
+    public function filter(Request $request){
+        $parameter = $request->filter;
+        $tasks = $this->taskService->all();
+        //return $tasks[];
+        $collectionTasks = collect($tasks)->filter(function($task)use($parameter){
+            if(array_key_exists('status',$task)){
+                return in_array($parameter, $task['status']);
+            }
+        });
+        return $collectionTasks;
+    }
+
    
 }
