@@ -61,7 +61,8 @@ Route::get('/comment/{id}',[TaskCommentController::class,'findTaskCommentById'])
 Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdTest']);
 
 //Resource route
-Route::get('/taskresource', [App\Http\Controllers\TaskDemoController::class, 'resource']);
+Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
+
 
 
 
