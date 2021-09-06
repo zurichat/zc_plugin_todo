@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\TaskService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TodoResourceCollection;
 
 class TaskController extends Controller
 {
@@ -151,4 +153,9 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
+    public function showResource(Request $request) : TodoResourceCollection
+    {
+        $tasks = $this->taskService->all();
+        return new TodoResourceCollection($tasks);
+    }
 }
