@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TaskDemoController;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\SideBarItemsController;
-use App\Http\Controllers\TodoController;
 use App\Http\Controllers\TaskCommentController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\assignTaskController;
 
 
@@ -50,6 +51,9 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 
+//comment to edit test
+
+Route::get('/editcomment/{id}', [TaskCommentController::class,'editcomment']);
 // assign user to a task
 Route::get('/task/assign', function(){
     return view('assign-user');
@@ -60,6 +64,15 @@ Route::get('/comment/{id}',[TaskCommentController::class,'findTaskCommentById'])
 Route::get('/task/comment/{id}',[TaskCommentController::class,'findTaskCommentByIdTest']);
 
 //Resource route
+Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
+
+
+
+
+
+
+Route::get('/get-tasks', [TaskController::class, 'taskcollection']);
+
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 
 

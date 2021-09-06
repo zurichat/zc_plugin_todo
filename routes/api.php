@@ -10,6 +10,7 @@ use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::post('add-task', [\App\Http\Controllers\TaskDemoController::class, 'store
 Route::put('update-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
 Route::delete('delete-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
+// TaskSearchController
+
+Route::get('tasks', [TaskSearchController::class, 'index']);
+
+// TaskCommentController
 // -  Comment Related Endpoints ----------- //
 
 Route::post('comment', [TaskCommentController::class, 'saveComment']);
@@ -56,9 +62,9 @@ Route::get('task', [\App\Http\Controllers\TaskController::class, 'index']);
 // comment post request
 
 
-Route::get('archived-tasks', [\App\Http\Controllers\TaskController::class, 'getArchivedTasks']);
-Route::get('archived-tasks/{taskId}', [\App\Http\Controllers\TaskController::class, 'getArchivedTasksById']);
-Route::post('archived-tasks/{taskId}', [\App\Http\Controllers\TaskController::class, 'archiveTask']);
+Route::get('archive', [\App\Http\Controllers\TaskController::class, 'getArchivedTasks']);
+Route::get('archive/{taskId}', [\App\Http\Controllers\TaskController::class, 'getArchivedTasksById']);
+Route::post('archived/{taskId}', [\App\Http\Controllers\TaskController::class, 'archiveTask']);
 
 
 Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
@@ -69,11 +75,14 @@ Route::get('/search', [TodoController::class, 'search_todo']);
 
 
 Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
+Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
 // -------------- Task Modification Endpoints --------------------- //
 Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
 Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
 Route::post('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskCategory']);
 Route::get('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'categoryTestView']);
+
+
 Route::post('/task/update/{id}', [\App\Http\Controllers\TaskController::class, 'editTask']);
 
 //test endpoint that reads request from zuri core
@@ -82,11 +91,16 @@ Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 
 
 // -------------- Comments endpoints --------------------- //
+Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
+Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
+Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
 
 
 Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
+
 //------------------- Resource End ponits ---------- //
-Route::get('/todo_resource', [TodoController::class, 'showResource']);
+Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
 
 
 // endpoint to fetch user credentials
@@ -94,10 +108,13 @@ Route::get('/users', function () {
     return response()->json(['message' => 'route to fetch user credentials is working'], 200);
 });
 
-//Show Tasks Assigned to a Specific User 
+//Show Tasks Assigned to a Specific User
 Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
 
 Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
 //Route to get collection of tasks for a user by id
+Route::get('/task_collection/{id}', function(){
+    return response()->json(['message' => 'route to get task collection is working'], 200);
+});
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);

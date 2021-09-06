@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Services\TaskService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TodoResourceCollection;
 
 class TaskController extends Controller
 {
@@ -51,7 +54,7 @@ class TaskController extends Controller
                 "status" => 200,
                 "message" => "success",
                 'data' => $data,
-                    ]);
+        ]);
     }
     public function modifyShow($id)
     {
@@ -60,6 +63,21 @@ class TaskController extends Controller
     public function updateTaskDate(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));
+    }
+
+    public function toggleArchiveStatus($id)
+    {
+        $task = $this->taskService->find($id); // Get the Task
+
+        $archived = array_key_exists('archived_at', $task) && $task['archived_at']  ?  '' : Carbon::now(); // Set new date if it is null or empty, else set back to empty
+
+        // prepare the payload
+        $data = array();
+        $data['archived_at'] = $archived;
+
+        //response from zccore
+        return response()->json($this->taskService->update($data, $id));
+
     }
 
 
@@ -127,7 +145,13 @@ class TaskController extends Controller
 
     }
 
-    public function sort(Request $request)
+    public function showResource(Request $request) : TodoResourceCollection
+    {
+        $tasks = $this->taskService->all();
+        return new TodoResourceCollection($tasks);
+    }
+
+       public function sort(Request $request)
     {
         $parameter = $request->sort;
         $tasks = $this->taskService->all();
@@ -158,14 +182,10 @@ class TaskController extends Controller
         $data['start_date'] = $task['start_date'];
         $data['created_at'] = $task['created_at'];
         $data['archived_at'] = $task['archived_at'];
-        $data['recurring'] = $task['recurring'];
-        $data['reminder'] = $task['reminder'];
-        $data['assigned_users'] = [];
 
-        $data['assigned_users'] = array_push($data['assigned_users'], $request->user_id);
+        $data['archived_at'] = array_push($data['archived_at'], $request->user_id);
 
         $response = $this->taskService->update($data, $request->task_id);
-
         return response()->json($response);
-    }
+   }
 }
