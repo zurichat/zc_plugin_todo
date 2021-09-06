@@ -161,6 +161,7 @@ class TaskController extends Controller
 
     public function getArchivedTasks(Request $request)
     {   
+        $addTask = [];
         $tasks =  ($this->taskService->all());
          return response()->json($tasks);
     }
