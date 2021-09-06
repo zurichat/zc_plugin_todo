@@ -51,6 +51,9 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 
+//comment to edit test
+
+Route::get('/editcomment/{id}', [TaskCommentController::class,'editcomment']);
 // assign user to a task
 Route::get('/task/assign', function(){
     return view('assign-user');
