@@ -1,19 +1,20 @@
 <template>
-  <div>
+  <div class="grid grid-cols-2">
     <!-- <h3>
             This is where we will be working
         </h3> -->
-    <div id="header">
-      <div
-        id="logo "
-        class="flex items-center flex-row"
-      >
-        <img
-          class="w-8 m-4"
-          :src="'./img/zuri-logo.svg'"
-        />
-        <span class="font-bold text-lg">Zuri</span>
-    </div>
+    <div>
+      <div id="header">
+        <div
+          id="logo "
+          class="flex items-center flex-row"
+        >
+          <img
+            class="w-8 m-4"
+            :src="'./img/zuri-logo.svg'"
+          />
+          <span class="font-bold text-lg">Zuri</span>
+      </div>
   </div>
   <!-- <AddTaskForm /> -->
   <!-- transition for the modal components -->
@@ -23,49 +24,49 @@
       @toggleModal='toggleModal'
     />
   </transition>
-<!-- the create task button -->
+  <!-- the create task button -->
   <AddTaskBtn @click="toggleModal" />
-<!-- the search input component working -->
-  <SearchInput
-    @searchTodo='searchTodo'
-  />
-<!-- the todo nav component -->
+  <!-- the search input component working -->
+  <SearchInput @searchTodo='searchTodo' />
+  <!-- the todo nav component -->
   <TodoNav />
   <!-- the grid div tag for the todo container and the comment section -->
+  <!-- <div></div> -->
   <div
     id="main_view"
     class="section_grid"
   >
-  <div>
-    <template v-if="showAll">
-      <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
-        <taskCard
-          v-for="(todo, index) in allTodos"
-          :key="index"
-          :title="todo.title"
-          :date="todo.startDate"
-          :description="todo.description"
-        />
-      </div>
-    </template>
-    <template v-else>
-      <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
-        <taskCard
-          v-for="(todo, index) in searchedValues"
-          :key="index"
-          :title="todo.title"
-          :date="todo.startDate"
-          :description="todo.description"
-        />
-      </div>
-    </template>
+    <div>
+      <template v-if="showAll">
+        <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+          <taskCard
+            v-for="(todo, index) in allTodos"
+            :key="index"
+            :title="todo.title"
+            :date="todo.startDate"
+            :description="todo.description"
+          />
+        </div>
+      </template>
+      <template v-else>
+        <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+          <taskCard
+            v-for="(todo, index) in searchedValues"
+            :key="index"
+            :title="todo.title"
+            :date="todo.startDate"
+            :description="todo.description"
+          />
+        </div>
+      </template>
     </div>
     <!-- comment section still under construction -->
     <div id="comment">
-      <router-view />
+     <!-- // <router-view /> -->
     </div>
     </div>
-
+    </div>
+<div></div>
     </div>
 </template>
 <script>

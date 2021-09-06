@@ -2,9 +2,13 @@
     <div class="overlay">
         <form
             @submit.prevent="addTodo"
-            class="sm:my-4"
+            class="sm:my-4 p-4 sm:p-6"
         >
-            <h1>Create a new task</h1>
+        <div class="flex flex-row justify-between mb-4 items-center">
+            <h1 class="font-bold text-lg ">Create a new task</h1>
+            <div @click="closeModal">X</div>
+        </div>
+            
 
             <div class="form-group">
                 <label for="topic">Topic</label>
@@ -13,6 +17,7 @@
                     required
                     type="text"
                     id="topic"
+                    class="border bg-white h-12 text-md w-full px-2 rounded"
                     placeholder="Type task title"
                 />
             </div>
@@ -24,6 +29,7 @@
                     required
                     type="text"
                     id="desc"
+                    class="border bg-white h-12 text-md w-full px-2 rounded"
                     placeholder="Type task description"
                 />
             </div>
@@ -33,6 +39,7 @@
                 <select
                     required
                     name="label"
+                    class="border bg-white h-12 text-md w-full px-2 rounded"
                     v-model="todoDetails.label"
                     id="label"
                 >
@@ -53,6 +60,7 @@
                     <input
                         required
                         type="date"
+                    class="border bg-white h-12 text-md w-full px-2 rounded"
                         id="start-date"
                         v-model="todoDetails.startDate"
                     />
@@ -61,6 +69,8 @@
                 <div class="form-group">
                     <label for="end-date">End</label>
                     <input
+                    class="border bg-white h-12 text-md w-full px-2 rounded"
+
                         required
                         type="date"
                         id="end-date"
@@ -131,10 +141,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 * {
-  padding: 0;
-  margin: 0;
+  //: 0;
+//   margin: 0;
   box-sizing: border-box;
 }
 .overlay {
@@ -151,15 +161,10 @@ export default {
 form {
   width: 40%;
   margin: 25px auto;
-  padding: 30px 40px;
-
   background: #fff;
   border-radius: 8px;
 }
-form h1 {
-  font-weight: 600;
-  margin-bottom: 30px;
-}
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -169,13 +174,14 @@ form h1 {
   display: block;
   margin-bottom: 10px;
 }
-.form-group input,
-.form-group select {
-  border: 1px solid #dadada;
-  border-radius: 4px;
-  width: 100%;
-  padding: 12px 15px;
-}
+// .form-group input,
+// .form-group select {
+//   border: 1px solid #dadada;
+//   border-radius: 4px;
+//   background: #fff;
+//   width: 100%;
+//   padding: 12px 15px;
+// }
 .form-flex {
   display: flex;
   justify-content: space-between;
@@ -236,20 +242,13 @@ form h1 {
   }
 }
 
-@media screen and (max-width: 600px) {
-  form {
-    width: 80%;
-  }
-}
 
-@media screen and (max-width: 480px) {
-  form {
-    width: 95%;
-  }
+@media screen and (max-width: 768px) {
   form h1 {
-    font-size: 0.85rem;
+    /* font-size: 0.85rem; */
   }
   form {
+      width: 100%;
     height: 100%;
     overflow-y: scroll;
   }
