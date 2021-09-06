@@ -48,6 +48,24 @@ class TaskCommentController extends Controller
         return response()->json($this->taskCommentService->findTaskCommentById($id));
     }
 
+    public function findTaskCommentByIdTest($id){
+        $url = $this->taskCommentService->all();
+
+        $datas = $url["data"];
+        
+        $comments = array();
+        foreach($datas as $data){
+            if(array_key_exists('task_id',$data)){
+                $taskId = $data["task_id"];
+                if($taskId == $id){
+                    $comments[] = $data;
+                }
+            }
+        }
+        
+        return response()->json($comments);
+    }
+
     public function show($id)
     {
         return response()->json($this->taskCommentService->find($id));
@@ -60,5 +78,6 @@ class TaskCommentController extends Controller
 
     public function delete($id)
     {
+        return response()->json($this->taskCommentService->delete($id));
     }
 }
