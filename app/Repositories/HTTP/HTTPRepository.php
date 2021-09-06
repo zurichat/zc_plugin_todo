@@ -94,7 +94,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json()['data'];
     }
@@ -107,7 +107,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json()['data'];
     }
@@ -120,7 +120,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json();
     }
@@ -133,8 +133,8 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
-            "payload" => (object)[]
+            "filter" => (object) [],
+            "payload" => (object) []
         ])->json()['data'];
     }
 
@@ -143,17 +143,18 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
+    /**
+     * This will search for a models with a specif key-value pair
+     */
     public function search($key, $data)
     {
-        $todos = $this->all();
+        $objects = $this->all();
         $search_data = [];
-        for ($i = 0; $i < count($todos['data']); $i++) {
-            if (array_key_exists($key, $todos['data'][$i])) {
-                if ($todos['data'][$i][$key] == $data) {
-                    array_push($search_data, $todos['data'][$i]);
-                }
-            }
+        for ($i = 0; $i < count($objects); $i++) {
 
+            if ($objects[$i][$key] == $data) {
+                array_push($search_data, $objects[$i]);
+            }
         }
         return $search_data;
     }
