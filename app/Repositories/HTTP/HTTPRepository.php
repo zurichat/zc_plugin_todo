@@ -147,13 +147,12 @@ class HTTPRepository implements RepositoryInterface
     {
         $todos = $this->all();
         $search_data = [];
-        for ($i = 0; $i < count($todos['data']); $i++) {
-            if (array_key_exists($key, $todos['data'][$i])) {
-                if ($todos['data'][$i][$key] == $data) {
-                    array_push($search_data, $todos['data'][$i]);
+        for ($i = 0; $i < count($todos); $i++) {
+            if (array_key_exists($key, $todos[$i])) {
+                if ($todos[$i][$key] == $data) {
+                    array_push($search_data, $todos[$i]);
                 }
             }
-
         }
         return $search_data;
     }

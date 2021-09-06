@@ -17,6 +17,7 @@ class TaskCommentController extends Controller
 
     public function index()
     {
+        //
     }
 
     public function store(Request $request)
@@ -52,7 +53,7 @@ class TaskCommentController extends Controller
         $url = $this->taskCommentService->all();
 
         $datas = $url["data"];
-        
+
         $comments = array();
         foreach($datas as $data){
             if(array_key_exists('task_id',$data)){
@@ -62,7 +63,7 @@ class TaskCommentController extends Controller
                 }
             }
         }
-        
+
         return response()->json($comments);
     }
 
