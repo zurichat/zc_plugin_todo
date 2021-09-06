@@ -53,10 +53,12 @@ Route::get('task-category', [TaskController::class, 'getTasksByCategory']);
 
 // api to fetch all todo tasks
 Route::get('task', [\App\Http\Controllers\TaskController::class, 'index']);
-
 // comment post request
 
 
+Route::get('archived-tasks', [\App\Http\Controllers\TaskController::class, 'getArchivedTasks']);
+Route::get('archived-tasks/{taskId}', [\App\Http\Controllers\TaskController::class, 'getArchivedTasksById']);
+Route::post('archived-tasks/{taskId}', [\App\Http\Controllers\TaskController::class, 'archiveTask']);
 
 
 Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);

@@ -18,7 +18,7 @@ class TaskService extends \App\Providers\AppServiceProvider
 
     /**
      * @return mixed
-     */
+     */ 
     public function all()
     {
         return $this->taskRepository->all();
