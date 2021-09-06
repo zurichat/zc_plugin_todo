@@ -19,3 +19,4 @@ composer.phar
 /journal
 /diagnostic.data
 docker-compose.yml
+.github/workflows/kill.yml
