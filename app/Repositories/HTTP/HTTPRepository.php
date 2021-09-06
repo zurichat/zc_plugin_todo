@@ -158,19 +158,9 @@ class HTTPRepository implements RepositoryInterface
         return $search_data;
     }
 
-    public function resource()
+    public function showResource()
     {
-        return[
-            '_id' => '61314f946e7d00b82b78b824',
-            "archived_at" => "2021-09-03",
-            "category_id" => "1",
-            "color_code" => "blue",
-            "created_at" => "2020-09-08",
-            "description" => "Ea corporis accusamus pariatur quaerat necessitatibus illo doloribus rerum!",
-            "end_date" => "2021-09-07",
-            "parent_id" =>  null,
-            "priority_id" => 1,
-            "title" =>  "This is a demo again",
-        ];
+      $todos = $this->all();
+      return collect($todos);
     }
 }

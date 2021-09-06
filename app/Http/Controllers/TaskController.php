@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TaskService;
 use Illuminate\Http\Request;
+use App\Services\TaskService;
+use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -135,4 +136,9 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
+    public function showResource(Request $request)
+    {
+        $task = $this->taskService->showResource();
+        return response()->json($task);
+    }
 }
