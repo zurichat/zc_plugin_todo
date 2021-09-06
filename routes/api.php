@@ -72,7 +72,7 @@ Route::get('/search', [TodoController::class, 'search_todo']);
 
 
 
-Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
+Route::get('task/{id}/show', [\App\Http\Controllers\TaskController::class, 'show']);
 Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
 // -------------- Task Modification Endpoints --------------------- //
 Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
@@ -116,3 +116,6 @@ Route::get('/task_collection/{id}', function(){
     return response()->json(['message' => 'route to get task collection is working'], 200);
 });
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
+
+Route::get('/task/archived', [TaskController::class, 'archived']);
+Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
