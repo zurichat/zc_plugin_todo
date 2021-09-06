@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TaskCommentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class TaskCommentController extends Controller
 {
@@ -21,24 +22,32 @@ class TaskCommentController extends Controller
 
     public function store(Request $request)
     {
-		if (!empty($request->user_id) && !empty($request->task_id)){
-			return response()->json($this->taskCommentService->create($request->all()));
-		} else {
-			// create random ids for comment
-			$userId = rand(1, 20);
-			$taskId = 1;
+        $validator = Validator::make($request->all(), [
+            "task_id" => "required",
+            "user_id" => "required",
+            "body" => "required"
+        ]);
 
-			// sketch the response data
+        if ($validator->passes()) {
+            // sketch the response data
 			$data = [
-				"content" => $request->content,
-				"task_id" => $taskId,
-				"user_id" => $userId,
+				"body" => $request->body,
+				"task_id" => $request->task_id,
+				"user_id" => $request->user_id,
 				"created_at" => Carbon::now(),
+                "updated_at" => Carbon::now(),
+                "deleted_at" => null,
 			];
 
-			// return response
-			return response()->json($this->taskCommentService->create($data));
-		}
+            return response()->json($this->taskCommentService->create($data));
+        }
+
+        // return response
+        return response()->json([
+            "message" => $validator->errors()
+        ], 400);
+
+
     }
 
     /**
@@ -80,4 +89,5 @@ class TaskCommentController extends Controller
     {
         return response()->json($this->taskCommentService->delete($id));
     }
+
 }

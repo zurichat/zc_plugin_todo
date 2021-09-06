@@ -32,8 +32,7 @@ Route::put('update-task/{id}', [\App\Http\Controllers\TaskDemoController::class,
 Route::delete('delete-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
 // -  Comment Related Endpoints ----------- //
-
-Route::post('comment', [TaskCommentController::class, 'saveComment']);
+Route::post('comment', [TaskCommentController::class, 'store']);
 Route::get('comment', [TaskCommentController::class, 'index']);
 Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
 Route::get('comment/{id}', [TaskCommentController::class, 'show']);
