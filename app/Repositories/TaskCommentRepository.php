@@ -6,7 +6,7 @@ use App\Repositories\HTTP\HTTPRepository;
 
 class TaskCommentRepository extends HTTPRepository
 {
-    protected $modelName = 'TodoDemoTaskComment';
+    protected $modelName = 'TodoTaskComment';
 
     public function __construct()
     {
