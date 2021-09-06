@@ -18,6 +18,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function all()
     {
+        return $this->taskCommentRepository->all();
     }
 
     /**
@@ -53,7 +54,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function update($data, $id)
     {
-        return $this->taskRepository->update($id, $data);
+        return $this->taskCommentRepository->update($id, $data);
     }
 
     /**
@@ -62,5 +63,6 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function delete($id)
     {
+        return $this->taskCommentRepository->delete($id);
     }
 }

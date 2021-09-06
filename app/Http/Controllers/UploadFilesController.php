@@ -33,9 +33,15 @@ class UploadFilesController extends Controller
         }
         return response()->json([
             'status_code' => 200,
-                'message' => 'File uploaded succesfully'
+                'message' => 'File uploaded succesfully',
+                'file' => $file
         ]);
-
-
     }
+
+    public function viewFile()
+    {
+        $file = 'file';
+        return $this->taskService->find($file);
+    }
+
 }

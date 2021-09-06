@@ -61,6 +61,10 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
+    public function showResource()
+    {
+        return $this->taskRepository->all();
+    }
           /**
      * @return mixed
      * @author {@omoh}
@@ -79,7 +83,7 @@ class TaskService extends \App\Providers\AppServiceProvider
         $sorted = $collection->sortDesc()->first();
         return $sorted;
     }
-    
+
      /**
      * @para mixed $data
      *  return mixed
@@ -88,4 +92,7 @@ class TaskService extends \App\Providers\AppServiceProvider
     {
         return $this->taskRepository->search($key, $data);
     }
+
+
+
 }

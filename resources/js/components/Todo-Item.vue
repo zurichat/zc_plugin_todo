@@ -1,4 +1,5 @@
 <template>
+
   <div class="topnav">
     <a class="active" href="#">
       <img src="/img/task.svg" />
@@ -20,9 +21,13 @@
       <span>Trash</span>
     </a>
   </div>
+
+    <div class="w-4/5 mx-auto todo_item border sm:w-full m-2 rounded-md bg-white "></div>
+
 </template>
 
 <script>
+
 export default {
   name: "TodoNav",
 };
@@ -53,4 +58,14 @@ export default {
 .topnav a.active {
   color: #00b87c;
 }
+
+    export default {
+        name: "Todo-Item"
+    }
+</script>
+<style lang="scss" scoped>
+    .todo_item {
+        min-height: 10rem;
+    }
+
 </style>
