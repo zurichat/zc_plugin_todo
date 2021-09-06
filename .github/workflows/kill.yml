@@ -1,5 +1,5 @@
 
-name: CI todo.zuri.chat
+name: Kill Offending processess
 
 # Controls when the workflow will run
 on:
