@@ -74,7 +74,22 @@ class TaskCommentController extends Controller
 
     public function update(Request $request, $id)
     {
-        return response()->json($this->taskCommentService->update($request->all(), $id));
+        $comment = $this->taskCommentService->find($id);
+        if(!$comment){
+            return response()->json(['message' => 'Comment not found'], 404);    
+        }
+        return response()->json($this->taskCommentService->update($request->all(), $comment['_id']));
+    }
+
+    public function editcomment($id){
+        $comment = $this->taskCommentService->find($id);
+        if(!$comment){
+            return response()->json(['message' => 'Comment not found'], 404);    
+        }
+        return view('editcomment')->with([
+            'id' => $id,
+            'comment' => $comment,
+        ]);
     }
 
     public function delete($id)

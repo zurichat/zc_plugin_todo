@@ -54,7 +54,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function update($data, $id)
     {
-        return $this->taskRepository->update($id, $data);
+        return $this->taskCommentRepository->update($id, $data);
     }
 
     /**
