@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 
 import todos from './todo';
-
+import user from './user';
 export default createStore({
     state: {
 
@@ -14,6 +14,6 @@ export default createStore({
     },
     modules: {
         todos,
-
+        user
     }
 })
