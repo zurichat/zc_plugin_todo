@@ -19591,29 +19591,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       todoDetails: {
-        title: '',
-        label: '',
-        description: '',
-        startDate: '',
-        EndDate: '',
-        userId: ''
+        title: "",
+        label: "",
+        description: "",
+        startDate: "",
+        EndDate: "",
+        userId: ""
       }
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
-    user: 'user/user'
+    user: "user/user"
   })),
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
-    createTask: 'todos/createTask'
+    createTask: "todos/createTask"
   })), {}, {
     closeModal: function closeModal() {
-      console.log('hgey');
-      this.$emit('toggleModal');
+      console.log("hgey");
+      this.$emit("toggleModal");
     },
     addTodo: function addTodo() {
-      this.todoDetails.userId = this.user.userId;
-      console.log(this.todoDetails);
-      this.$emit('toggleModal');
+      this.todoDetails.userId = this.user.userId; //console.log(this.todoDetails);
+      //   function to toggle modal in the main page
+
+      this.$emit("toggleModal"); //   function to call action in the vuex store 
+
       this.createTask(this.todoDetails);
     }
   })
@@ -19744,15 +19746,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)({
-    allTodos: 'todos/allTodos'
+    allTodos: "todos/allTodos"
   })),
   methods: {
     toggleModal: function toggleModal() {
-      console.log('hi');
+      console.log("hi");
       this.isModal = !this.isModal;
     },
     searchTodo: function searchTodo(val) {
-      if (val === '') {
+      if (val === "") {
         this.showAll = true;
       } else {
         this.showAll = false;
@@ -20421,7 +20423,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     src: './img/zuri-logo.svg'
   }, null, 8
   /* PROPS */
-  , _hoisted_3), _hoisted_4])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <AddTaskForm /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
+  , _hoisted_3), _hoisted_4])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <AddTaskForm /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" transition for the modal components "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
     name: "fade"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -20435,15 +20437,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AddTaskBtn, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the create task button "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AddTaskBtn, {
     onClick: $options.toggleModal
   }, null, 8
   /* PROPS */
-  , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SearchInput, {
+  , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the search input component working "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SearchInput, {
     onSearchTodo: $options.searchTodo
   }, null, 8
   /* PROPS */
-  , ["onSearchTodo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$data.showAll ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.allTodos, function (todo, index) {
+  , ["onSearchTodo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the todo nav component "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the grid div tag for the todo container and the comment section "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [$data.showAll ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.allTodos, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_taskCard, {
       key: index,
       title: todo.title,
@@ -20465,7 +20467,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["title", "date", "description"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])])]);
+  ))]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" comment section still under construction "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])])]);
 }
 
 /***/ }),
@@ -20826,7 +20828,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*[data-v-51f73658] {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n.overlay[data-v-51f73658] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 2;\n}\nform[data-v-51f73658] {\n  width: 40%;\n  margin: 25px auto;\n  padding: 30px 40px;\n  background: #fff;\n  border-radius: 8px;\n}\nform h1[data-v-51f73658] {\n  font-weight: 600;\n  margin-bottom: 30px;\n}\n.form-group[data-v-51f73658] {\n  margin-bottom: 20px;\n}\n.form-group label[data-v-51f73658] {\n  font-size: 0.8rem;\n  font-weight: 600;\n  display: block;\n  margin-bottom: 10px;\n}\n.form-group input[data-v-51f73658],\r\n.form-group select[data-v-51f73658] {\n  border: 1px solid #dadada;\n  border-radius: 4px;\n  width: 100%;\n  padding: 12px 15px;\n}\n.form-flex[data-v-51f73658] {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px;\n}\n.form-flex .form-group[data-v-51f73658] {\n  width: 48.5%;\n  margin-bottom: 0;\n}\n.option[data-v-51f73658] {\n  display: flex;\n  align-items: center;\n  margin-bottom: 25px;\n}\n.option input[data-v-51f73658] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.option p[data-v-51f73658] {\n  font-size: 0.85rem;\n}\n.cta-container[data-v-51f73658] {\n  display: flex;\n  justify-content: flex-end;\n}\n.cta-container button[data-v-51f73658] {\n  border: 0;\n  outline: 0;\n  background: transparent;\n  cursor: pointer;\n}\n.cta-container button.cancel[data-v-51f73658] {\n  color: #00b87c;\n  font-size: 0.75rem;\n  margin-right: 30px;\n}\n.cta-container button.cancel[data-v-51f73658]:hover {\n  color: #959595;\n}\n.cta-container button.submit[data-v-51f73658] {\n  padding: 10px 20px;\n  font-size: 0.75rem;\n  background: #00b87c;\n  color: #fff;\n  border-radius: 4px;\n  border: 1px solid transparent;\n}\n.cta-container button.submit[data-v-51f73658]:hover {\n  border-color: #00b87c;\n  background: transparent;\n  color: #00b87c;\n}\n@media (min-width:768px) {\n.overlay[data-v-51f73658] {\n    background: rgba(0,0,0,.14901960784313725);\n}\n}\n@media screen and (max-width: 600px) {\nform[data-v-51f73658] {\n    width: 80%;\n}\n}\n@media screen and (max-width: 480px) {\nform[data-v-51f73658] {\n    width: 95%;\n}\nform h1[data-v-51f73658] {\n    font-size: 0.85rem;\n}\nform[data-v-51f73658] {\n    height: 100%;\n    overflow-y: scroll;\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "*[data-v-51f73658] {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n}\n.overlay[data-v-51f73658] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 2;\n}\nform[data-v-51f73658] {\n  width: 40%;\n  margin: 25px auto;\n  padding: 30px 40px;\n  background: #fff;\n  border-radius: 8px;\n}\nform h1[data-v-51f73658] {\n  font-weight: 600;\n  margin-bottom: 30px;\n}\n.form-group[data-v-51f73658] {\n  margin-bottom: 20px;\n}\n.form-group label[data-v-51f73658] {\n  font-size: 0.8rem;\n  font-weight: 600;\n  display: block;\n  margin-bottom: 10px;\n}\n.form-group input[data-v-51f73658],\r\n.form-group select[data-v-51f73658] {\n  border: 1px solid #dadada;\n  border-radius: 4px;\n  width: 100%;\n  padding: 12px 15px;\n}\n.form-flex[data-v-51f73658] {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 20px;\n}\n.form-flex .form-group[data-v-51f73658] {\n  width: 48.5%;\n  margin-bottom: 0;\n}\n.option[data-v-51f73658] {\n  display: flex;\n  align-items: center;\n  margin-bottom: 25px;\n}\n.option input[data-v-51f73658] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n  cursor: pointer;\n}\n.option p[data-v-51f73658] {\n  font-size: 0.85rem;\n}\n.cta-container[data-v-51f73658] {\n  display: flex;\n  justify-content: flex-end;\n}\n.cta-container button[data-v-51f73658] {\n  border: 0;\n  outline: 0;\n  background: transparent;\n  cursor: pointer;\n}\n.cta-container button.cancel[data-v-51f73658] {\n  color: #00b87c;\n  font-size: 0.75rem;\n  margin-right: 30px;\n}\n.cta-container button.cancel[data-v-51f73658]:hover {\n  color: #959595;\n}\n.cta-container button.submit[data-v-51f73658] {\n  padding: 10px 20px;\n  font-size: 0.75rem;\n  background: #00b87c;\n  color: #fff;\n  border-radius: 4px;\n  border: 1px solid transparent;\n}\n.cta-container button.submit[data-v-51f73658]:hover {\n  border-color: #00b87c;\n  background: transparent;\n  color: #00b87c;\n}\n@media (min-width: 768px) {\n.overlay[data-v-51f73658] {\n    background: rgba(0, 0, 0, 0.14901960784313725);\n}\n}\n@media screen and (max-width: 600px) {\nform[data-v-51f73658] {\n    width: 80%;\n}\n}\n@media screen and (max-width: 480px) {\nform[data-v-51f73658] {\n    width: 95%;\n}\nform h1[data-v-51f73658] {\n    font-size: 0.85rem;\n}\nform[data-v-51f73658] {\n    height: 100%;\n    overflow-y: scroll;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
