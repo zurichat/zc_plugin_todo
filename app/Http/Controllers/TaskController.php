@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\TaskService;
 use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TodoResourceCollection;
 
 class TaskController extends Controller
 {
@@ -136,9 +137,9 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
-    public function showResource(Request $request)
+    public function showResource(Request $request) : TodoResourceCollection
     {
-        $task = $this->taskService->showResource();
-        return response()->json($task);
+        $tasks = $this->taskService->all();
+        return new TodoResourceCollection($tasks);
     }
 }
