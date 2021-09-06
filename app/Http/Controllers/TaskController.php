@@ -83,11 +83,11 @@ class TaskController extends Controller
                 
                 'user_id' => 'required'
             ]);
-            
-            $idOfTask =   $this->taskService->find($task_id);
-            $idOfUser =   User::find($user_id);
-
-            $idOfTask->update(['user_id' => $idOfUser]);
+           
+            $task =   $this->taskService->find($task_id);
+          
+            array_push($task['collaborators'], $user_id);
+            return $this->taskService->update($task, $task['_id']);
         }
 
 }
