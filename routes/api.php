@@ -117,5 +117,5 @@ Route::get('/task_collection/{id}', function(){
 });
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
 
-Route::get('/archived_tasks', TaskController::class, 'archived');
-Route::post('/archive_task/{id}', TaskController::class, 'archive');
+Route::get('/archived_tasks', [TaskController::class, 'archived']);
+Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
