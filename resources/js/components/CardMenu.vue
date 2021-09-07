@@ -35,7 +35,7 @@
   .modal-items {
    position: absolute;
    top: 20px;
-   
+   right: 0;
    z-index: 100;
    overflow: auto;
    overflow-y: auto;

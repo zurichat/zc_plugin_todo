@@ -3,6 +3,7 @@ import 'primevue/resources/primevue.min.css'; //corecss
 import 'primeicons/primeicons.css';
 import router from './router';
 import store from './store'
+import VueClickAway from "vue3-click-away";
 import { createApp } from 'vue'
 import { Vue3Mq } from "vue3-mq";
 import App from './App.vue'
@@ -17,5 +18,6 @@ app.use(Vue3Mq, {
             xxl: 1400
         },
     }).use(router)
+    .use(VueClickAway)
     .use(store)
     .mount("#app")

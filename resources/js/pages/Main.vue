@@ -3,7 +3,11 @@
     <!-- <h3>
             This is where we will be working
         </h3> -->
-    <div class="flex-grow" :class="isComment ? 'hide' : 'show'">
+        <div id="comment" class="px-2" v-if="isComment" :class="isComment ? 'show' : 'hide'">
+     <router-view @hideComment = "hideComment" @showComment = "showComment"/> 
+     
+    </div>
+    <div class="flex-grow px-4" :class="isComment ? 'hide' : 'show'">
       <div id="header">
         <div
           id="logo "
@@ -25,7 +29,7 @@
     />
   </transition>
   <!-- the create task button -->
-  <AddTaskBtn @click="isComment = !isComment" />
+  <!-- <AddTaskBtn @click="isComment = !isComment" /> -->
   <AddTaskBtn @click="toggleModal" />
   <!-- the search input component working -->
   <SearchInput @searchTodo='searchTodo' />
@@ -59,20 +63,17 @@
         </div>
       </template>
     </div>
-    
-    
+    <!-- {{this.$route.params.id}}
+     -->
     </div>
     </div>
     <!-- comment section still under construction -->
     
-    <div id="comment" class="" v-if="isComment" :class="isComment ? 'show' : 'hide'">
-      
-     <router-view @hideComment = "hideComment" @showComment = "showComment" v-slot="{ Component }">
-                <transition name="fade">
-                   <component :is="Component" />
-                 </transition> 
-          </router-view>
+    <div id="comment" class="px-2" v-if="isComment" :class="isComment ? 'show' : 'hide'">
+     <router-view @hideComment = "hideComment" @showComment = "showComment"/> 
+     
     </div>
+
     </div>
 </template>
 <script>
@@ -126,10 +127,18 @@ export default {
         );
       }
     },
+  check(){
+      if(this.$route.params.id){
+        this.showComment();
+      } else {
+        this.hideComment();
+      }
+    },
+    
   },
   mounted(){
-    //this.isMobile()
-  },
+      this.check();
+    },
   components: {
     TodoCard,
     SearchInput,
@@ -145,6 +154,11 @@ export default {
     display: flex;
     
   }
+  // @media (min-width: 786px) {
+  //   #view_section {
+  //     padding: 0 0 0 2rem;
+  //   }
+  // }
   #comment {
     min-height: 100vh;
     width: 100%;
@@ -152,7 +166,7 @@ export default {
   }
  @media(min-width: 768px) {
    #comment {
-    width: 20%;
+    width: 25%;
   }}
   // #comment.hide {
   //   display: none

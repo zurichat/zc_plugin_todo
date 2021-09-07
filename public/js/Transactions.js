@@ -11,18 +11,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TodoDetails',
+  data: function data() {
+    return {
+      selectedTodo: ''
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    allTodos: 'todos/allTodos'
+  })),
   methods: {
     close: function close() {
-      this.$emit('closeComment');
+      this.$emit('hideComment');
     },
     check: function check() {
-      if (this.$route.params.id) {
-        this.$emit('showComment');
-      } else {
-        this.$emit('closeComment');
-      }
+      var id = this.$route.params.id;
+      this.selectedTodo = this.allTodos.find(function (todo) {
+        return todo.card_id.toLowerCase() === id.toLowerCase();
+      });
+
+      if (this.selectedTodo <= 0 || this.selectedTodo === undefined) {
+        this.$emit('hideComment');
+        this.$router.push({
+          path: '/main'
+        });
+      } else {}
+
+      console.log(this.selectedTodo);
     }
   },
   mounted: function mounted() {
@@ -51,9 +75,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.close && $options.close.apply($options, arguments);
     })
-  }, "X"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.check()), 1
-  /* TEXT */
-  )]);
+  }, "X")]);
 }
 
 /***/ }),
