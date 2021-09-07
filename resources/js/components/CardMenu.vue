@@ -19,7 +19,7 @@
     name: 'modal',
     methods: {
       close() {
-        this.$emit('close');
+        this.$emit('toggleMenu');
       },
 
     },

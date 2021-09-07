@@ -1,30 +1,36 @@
 <template>
     <div class="modal">
-        <div class="grid md:ml-32 p-8 overflow-visible text-sm rounded-md shadow-md modal-items w-80 grid-row-4 h-100">
+        <div class="grid my-2 p-4 overflow-visible text-sm border rounded-md shadow-md modal-items w-60 grid-row-4 h-100">
             <button class="flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close"
                 type="button" @click="close">
                 x
             </button>
             <h1 class="font-semibold text-lg mb-4">Access Settings</h1>
             <div class="form-group flex">
-                <input class="mt-2" v-model="access" type="radio" name="access" id="public">
+                <input class="mt-2" v-model="access" type="radio" name="public" id="public">
                 <span class="">
-                    <label for="public">Public access</label>
+                    <label for="public">
+                        <p class="label">Public access</p>
                     <p>Available to anyone</p>
+                    </label>
                 </span>
             </div>
             <div class="form-group flex">
-                <input class="mt-2" type="radio" name="access" id="private">
+                <input class="mt-2" type="radio" name="private" id="private">
                 <span class="">
-                    <label for="private">Private access</label>
+                    <label for="private">
+                        <p class="label">Private access</p>
                     <p>Only available to anyone with the link</p>
+                    </label>
                 </span>
             </div>
             <div class="form-group flex">
-                <input class="mt-2" type="radio" name="access" id="private">
+                <input class="mt-2" type="radio" name="organisation" id="organisation">
                 <span class="">
-                    <label for="private">Organisational access</label>
+                    <label for="private">
+                        <p class="label">Organisational access</p>
                     <p>Only available to the organisational Staff</p>
+                    </label>
                 </span>
             </div>
 
@@ -37,6 +43,7 @@
         name: 'modal',
         data() {
             return {
+                access: '',
                 isShareModalVisible: false,
             };
         },
@@ -57,9 +64,7 @@
 <style scoped>
     .modal-items {
         position: absolute;
-        top: 300px;
-        right: 100px;
-        left: 310px;
+        right: -50px;
         z-index: 100;
         overflow: auto;
         overflow-y: auto;
@@ -68,8 +73,8 @@
 
     .btn-close {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 5px;
+        right: 5px;
         border: none;
         font-size: 20px;
         padding: 10px;
@@ -91,7 +96,7 @@
         border: 1px solid #dadada;
     }
 
-    .form-group label {
+    .form-group .label {
         font-size: 15px;
         font-weight: 600;
         color: #101010;

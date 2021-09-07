@@ -14,8 +14,8 @@
       </div>
 
       <div class="form-group">
-        <label for="desc">Description</label>
-        <input v-model="todoDetails.description" required type="text" id="desc"
+        <label for="description">Description</label>
+        <input v-model="todoDetails.description" required type="text" id="description"
           class="border bg-white h-12 text-md w-full px-2 rounded" placeholder="Type task description" />
       </div>
 
@@ -32,14 +32,14 @@
 
       <div class="form-flex">
         <div class="form-group">
-          <label for="start-date">Start</label>
-          <input required type="date" class="border bg-white h-12 text-md w-full px-2 rounded" id="start-date"
+          <label for="stateDate">Start</label>
+          <input required type="date" class="border bg-white h-12 text-md w-full px-2 rounded" id="stateDate"
             v-model="todoDetails.startDate" />
         </div>
 
         <div class="form-group">
-          <label for="end-date">End</label>
-          <input class="border bg-white h-12 text-md w-full px-2 rounded" required type="date" id="end-date" />
+          <label for="endDate">End</label>
+          <input class="border bg-white h-12 text-md w-full px-2 rounded" required type="date" id="endDate" />
         </div>
       </div>
 

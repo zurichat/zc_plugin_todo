@@ -99,7 +99,8 @@
             name: 'Share',
             action: () => {
               this.toggleMenu()
-              alert('You cant assign tasks now')
+              this.$emit('toggleShareModal')
+              //alert('You cant assign tasks now')
             },
             type: 'default'
           },

@@ -4,19 +4,26 @@
             <div class="flex flex-row justify-between mb-4 items-center">
                 <div class="flex">
                     <h1 class="font-bold text-2xl mr-8 self-center">Share</h1>
-                    <button class="private-btn flex items-center rounded-sm text-white p-3" @click="showPrivateModal">
-                        Private Access
-                    </button>
+                    <div class="relative" v-click-away="ClickAway">
+                            <span class="private-btn flex items-center rounded-sm text-white p-3" @click="showPrivateModal">
+                                    Private Access
+                                </span>
+                        <privateModal v-show="isModalVisible" @close="closePrivateModal" />
+                    </div>
+                            
                 </div>
-                <div @click="closeModal">X</div>
+                <button class="flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close"
+                type="button" @click="closeModal" >
+                x
+            </button>
             </div>
-            <privateModal v-show="isModalVisible" @close="closePrivateModal" />
+            
 
             <div class="form-group mb-10">
                 <label class="font-bold text-md" for="link">Link to share</label>
                 <div class="lock-container">
                     <input v-model='shareDetails.link' required type="text" id="link"
-                        class="border bg-white h-12 text-md w-full pl-10 pr-2"
+                        class="border bg-white rounded-md outline-none h-12 text-md w-full pl-10 pr-2"
                         placeholder="https :// htywyGAFS K.GFGSSGJDGSDJsjkJSzkLZKLCHZNMz<xZO/ZURICHAT" />
                     <span class="lock-icon">
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,9 +44,9 @@
             <div class="line my-20"></div>
 
             <div class="form-group">
-                <label class="font-bold text-md mt-10" for="link">Invite People</label>
-                <input v-model='shareDetails.email' required type="text" id="link"
-                    class="border bg-white h-12 ///text-md w-full px-2"
+                <label class="font-bold text-md mt-10" for="invite">Invite People</label>
+                <input v-model='shareDetails.email' required type="text" id="invite"
+                    class="border bg-white h-12 rounded-md outline-none ///text-md w-full px-2"
                     placeholder="Add multiple Email addresses seperated by commas" />
                 <button class="link-btn flex items-center rounded-sm p-2">Copy Link</button>
             </div>
@@ -72,6 +79,9 @@
             }),
         },
         methods: {
+            ClickAway(event){
+            this.isModalVisible = false;
+        },
             ...mapActions({
                 createTask: "todos/createTask",
             }),
@@ -134,10 +144,8 @@
 
     .lock-icon {
         position: absolute;
-        top: 12px;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        top: 15px;
+        left:10px;
     }
 
     .line {
@@ -155,18 +163,17 @@
         border: 1px solid #2F80ED;
     }
 
-    @media (min-width: 768px) {
+    
         .overlay {
             background: rgba(0, 0, 0, 0.14901960784313725);
         }
-    }
+    
 
 
     @media screen and (max-width: 768px) {
         form {
-            width: 100%;
-            height: 100%;
-            overflow-y: scroll;
+            width: 90%;
+            margin: 0 auto;
         }
     }
 </style>

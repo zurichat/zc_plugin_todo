@@ -19554,7 +19554,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'modal',
   methods: {
     close: function close() {
-      this.$emit('close');
+      this.$emit('toggleMenu');
     }
   },
   props: {
@@ -19684,7 +19684,8 @@ __webpack_require__.r(__webpack_exports__);
         action: function action() {
           _this.toggleMenu();
 
-          alert('You cant assign tasks now');
+          _this.$emit('toggleShareModal'); //alert('You cant assign tasks now')
+
         },
         type: 'default'
       }, {
@@ -19793,6 +19794,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'modal',
   data: function data() {
     return {
+      access: '',
       isShareModalVisible: false
     };
   },
@@ -19850,7 +19852,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     user: "user/user"
   })),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
+  methods: _objectSpread(_objectSpread({
+    ClickAway: function ClickAway(event) {
+      this.isModalVisible = false;
+    }
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
     createTask: "todos/createTask"
   })), {}, {
     showPrivateModal: function showPrivateModal() {
@@ -20241,7 +20247,7 @@ var _hoisted_6 = {
 };
 
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "desc"
+  "for": "description"
 }, "Description", -1
 /* HOISTED */
 );
@@ -20291,7 +20297,7 @@ var _hoisted_16 = {
 };
 
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "start-date"
+  "for": "stateDate"
 }, "Start", -1
 /* HOISTED */
 );
@@ -20299,12 +20305,12 @@ var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "form-group"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "end-date"
+  "for": "endDate"
 }, "End"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   "class": "border bg-white h-12 text-md w-full px-2 rounded",
   required: "",
   type: "date",
-  id: "end-date"
+  id: "endDate"
 })], -1
 /* HOISTED */
 );
@@ -20357,7 +20363,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     required: "",
     type: "text",
-    id: "desc",
+    id: "description",
     "class": "border bg-white h-12 text-md w-full px-2 rounded",
     placeholder: "Type task description"
   }, null, 512
@@ -20376,7 +20382,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     required: "",
     type: "date",
     "class": "border bg-white h-12 text-md w-full px-2 rounded",
-    id: "start-date",
+    id: "stateDate",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.todoDetails.startDate = $event;
     })
@@ -20681,7 +20687,7 @@ var _hoisted_1 = {
   "class": "modal"
 };
 var _hoisted_2 = {
-  "class": "grid md:ml-32 p-8 overflow-visible text-sm rounded-md shadow-md modal-items w-80 grid-row-4 h-100"
+  "class": "grid my-2 p-4 overflow-visible text-sm border rounded-md shadow-md modal-items w-60 grid-row-4 h-100"
 };
 
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
@@ -20698,11 +20704,13 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": ""
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "public"
-}, "Public access"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Available to anyone")], -1
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "label"
+}, "Public access"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Available to anyone")])], -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"form-group flex\" data-v-bec8ec96><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"private\" data-v-bec8ec96><span class=\"\" data-v-bec8ec96><label for=\"private\" data-v-bec8ec96>Private access</label><p data-v-bec8ec96>Only available to anyone with the link</p></span></div><div class=\"form-group flex\" data-v-bec8ec96><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"private\" data-v-bec8ec96><span class=\"\" data-v-bec8ec96><label for=\"private\" data-v-bec8ec96>Organisational access</label><p data-v-bec8ec96>Only available to the organisational Staff</p></span></div>", 2);
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"form-group flex\" data-v-bec8ec96><input class=\"mt-2\" type=\"radio\" name=\"private\" id=\"private\" data-v-bec8ec96><span class=\"\" data-v-bec8ec96><label for=\"private\" data-v-bec8ec96><p class=\"label\" data-v-bec8ec96>Private access</p><p data-v-bec8ec96>Only available to anyone with the link</p></label></span></div><div class=\"form-group flex\" data-v-bec8ec96><input class=\"mt-2\" type=\"radio\" name=\"organisation\" id=\"organisation\" data-v-bec8ec96><span class=\"\" data-v-bec8ec96><label for=\"private\" data-v-bec8ec96><p class=\"label\" data-v-bec8ec96>Organisational access</p><p data-v-bec8ec96>Only available to the organisational Staff</p></label></span></div>", 2);
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -20716,14 +20724,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, " x "), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "mt-2",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.access = $event;
+      return $data.access = $event;
     }),
     type: "radio",
-    name: "access",
+    name: "public",
     id: "public"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, _ctx.access]]), _hoisted_5]), _hoisted_6])]);
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.access]]), _hoisted_5]), _hoisted_6])]);
 }
 
 /***/ }),
@@ -20761,21 +20769,24 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_5 = {
+  "class": "relative"
+};
+var _hoisted_6 = {
   "class": "form-group mb-10"
 };
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "font-bold text-md",
   "for": "link"
 }, "Link to share", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = {
+var _hoisted_8 = {
   "class": "lock-container"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "lock-icon"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   width: "17",
@@ -20801,30 +20812,30 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "link-btn flex items-center rounded-sm p-2"
 }, "Copy Link", -1
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "line my-20"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
+var _hoisted_12 = {
   "class": "form-group"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "font-bold text-md mt-10",
-  "for": "link"
+  "for": "invite"
 }, "Invite People", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "link-btn flex items-center rounded-sm p-2"
 }, "Copy Link", -1
 /* HOISTED */
@@ -20835,47 +20846,53 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_privateModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("privateModal");
 
+  var _directive_click_away = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveDirective)("click-away");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.addTodo && $options.addTodo.apply($options, arguments);
     }, ["prevent"])),
     "class": "sm:my-4 p-4 sm:p-6"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "private-btn flex items-center rounded-sm text-white p-3",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.showPrivateModal && $options.showPrivateModal.apply($options, arguments);
     })
-  }, " Private Access ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    onClick: _cache[1] || (_cache[1] = function () {
-      return $options.closeModal && $options.closeModal.apply($options, arguments);
-    })
-  }, "X")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_privateModal, {
+  }, " Private Access "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_privateModal, {
     onClose: $options.closePrivateModal
   }, null, 8
   /* PROPS */
-  , ["onClose"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  , ["onClose"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]])], 512
+  /* NEED_PATCH */
+  ), [[_directive_click_away, $options.ClickAway]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close",
+    type: "button",
+    onClick: _cache[1] || (_cache[1] = function () {
+      return $options.closeModal && $options.closeModal.apply($options, arguments);
+    })
+  }, " x ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.shareDetails.link = $event;
     }),
     required: "",
     type: "text",
     id: "link",
-    "class": "border bg-white h-12 text-md w-full pl-10 pr-2",
+    "class": "border bg-white rounded-md outline-none h-12 text-md w-full pl-10 pr-2",
     placeholder: "https :// htywyGAFS K.GFGSSGJDGSDJsjkJSzkLZKLCHZNMz<xZO/ZURICHAT"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.shareDetails.link]]), _hoisted_8]), _hoisted_9]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.shareDetails.link]]), _hoisted_9]), _hoisted_10]), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.shareDetails.email = $event;
     }),
     required: "",
     type: "text",
-    id: "link",
-    "class": "border bg-white h-12 ///text-md w-full px-2",
+    id: "invite",
+    "class": "border bg-white h-12 rounded-md outline-none ///text-md w-full px-2",
     placeholder: "Add multiple Email addresses seperated by commas"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.shareDetails.email]]), _hoisted_13])], 32
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.shareDetails.email]]), _hoisted_14])], 32
   /* HYDRATE_EVENTS */
   )]);
 }
@@ -20995,8 +21012,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_TodoCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TodoCard");
 
-  var _component_taskCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("taskCard");
-
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h3>\r\n            This is where we will be working\r\n        </h3> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -21046,14 +21061,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index++,
       todo: todo,
-      onShowComment: $options.showComment
+      onShowComment: $options.showComment,
+      onToggleShareModal: $options.toggleShareModal
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment"]);
+    , ["todo", "onShowComment", "onToggleShareModal"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.searchedValues, function (todo, index) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_taskCard, {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index,
       title: todo.title,
       date: todo.startDate,
@@ -21471,7 +21487,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".overlay[data-v-95c210ce] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 2;\n}\nform[data-v-95c210ce] {\n  width: 60%;\n  margin: 25px auto;\n  background: #fff;\n  border-radius: 8px;\n}\n.private-btn[data-v-95c210ce] {\n  background-color: #2F80ED;\n}\n.form-group label[data-v-95c210ce] {\n  font-size: 0.8rem;\n  font-weight: 600;\n  display: block;\n  margin-bottom: 10px;\n}\n.lock-container[data-v-95c210ce] {\n  position: relative;\n}\n.lock-icon[data-v-95c210ce] {\n  position: absolute;\n  top: 12px;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n.line[data-v-95c210ce] {\n  background-color: #DADADA;\n  width: 100%;\n  height: 1px;\n  margin-top: 1rem;\n  margin-bottom: 4px;\n}\n.link-btn[data-v-95c210ce] {\n  color: #2F80ED;\n  margin-left: auto;\n  margin-top: 1rem;\n  border: 1px solid #2F80ED;\n}\n@media (min-width: 768px) {\n.overlay[data-v-95c210ce] {\n    background: rgba(0, 0, 0, 0.1490196078);\n}\n}\n@media screen and (max-width: 768px) {\nform[data-v-95c210ce] {\n    width: 100%;\n    height: 100%;\n    overflow-y: scroll;\n}\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".overlay[data-v-95c210ce] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  z-index: 2;\n}\nform[data-v-95c210ce] {\n  width: 60%;\n  margin: 25px auto;\n  background: #fff;\n  border-radius: 8px;\n}\n.private-btn[data-v-95c210ce] {\n  background-color: #2F80ED;\n}\n.form-group label[data-v-95c210ce] {\n  font-size: 0.8rem;\n  font-weight: 600;\n  display: block;\n  margin-bottom: 10px;\n}\n.lock-container[data-v-95c210ce] {\n  position: relative;\n}\n.lock-icon[data-v-95c210ce] {\n  position: absolute;\n  top: 15px;\n  left: 10px;\n}\n.line[data-v-95c210ce] {\n  background-color: #DADADA;\n  width: 100%;\n  height: 1px;\n  margin-top: 1rem;\n  margin-bottom: 4px;\n}\n.link-btn[data-v-95c210ce] {\n  color: #2F80ED;\n  margin-left: auto;\n  margin-top: 1rem;\n  border: 1px solid #2F80ED;\n}\n.overlay[data-v-95c210ce] {\n  background: rgba(0, 0, 0, 0.1490196078);\n}\n@media screen and (max-width: 768px) {\nform[data-v-95c210ce] {\n    width: 90%;\n    margin: 0 auto;\n}\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21615,7 +21631,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-items[data-v-bec8ec96] {\n  position: absolute;\n  top: 300px;\n  right: 100px;\n  left: 310px;\n  z-index: 100;\n  overflow: auto;\n  overflow-y: auto;\n  background-color: white;\n}\n.btn-close[data-v-bec8ec96] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  border: none;\n  font-size: 20px;\n  padding: 10px;\n  cursor: pointer;\n  font-weight: bold;\n  color: #4AAE9B;\n  background: transparent;\n}\n.form-group[data-v-bec8ec96] {\n  margin: 0.5rem;\n}\n.form-group span[data-v-bec8ec96] {\n  margin-left: 1rem;\n}\n.form-group input[data-v-bec8ec96] {\n  border: 1px solid #dadada;\n}\n.form-group label[data-v-bec8ec96] {\n  font-size: 15px;\n  font-weight: 600;\n  color: #101010;\n}\n.form-group p[data-v-bec8ec96] {\n  font-size: 13px;\n  font-weight: 600;\n  color: #999999;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-items[data-v-bec8ec96] {\n  position: absolute;\n  right: -50px;\n  z-index: 100;\n  overflow: auto;\n  overflow-y: auto;\n  background-color: white;\n}\n.btn-close[data-v-bec8ec96] {\n  position: absolute;\n  top: 5px;\n  right: 5px;\n  border: none;\n  font-size: 20px;\n  padding: 10px;\n  cursor: pointer;\n  font-weight: bold;\n  color: #4AAE9B;\n  background: transparent;\n}\n.form-group[data-v-bec8ec96] {\n  margin: 0.5rem;\n}\n.form-group span[data-v-bec8ec96] {\n  margin-left: 1rem;\n}\n.form-group input[data-v-bec8ec96] {\n  border: 1px solid #dadada;\n}\n.form-group .label[data-v-bec8ec96] {\n  font-size: 15px;\n  font-weight: 600;\n  color: #101010;\n}\n.form-group p[data-v-bec8ec96] {\n  font-size: 13px;\n  font-weight: 600;\n  color: #999999;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
