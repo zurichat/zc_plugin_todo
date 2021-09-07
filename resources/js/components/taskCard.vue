@@ -1,6 +1,6 @@
 <template>
     <div class="p-5 mx-auto my-4 taskcard sm:mx-0 relative">
-        <Modal v-show="isModalVisible" @close="closeModal" />
+        <CardMenu v-show="isModalVisible" @close="closeModal" />
         <div class="flex justify-between pb-4">
             <div class="">
                 <h1 class="task_title">{{title}}</h1>
@@ -79,12 +79,12 @@
     </div>
 </template>
 <script>
-    import Modal from './Modal.vue';
+    import CardMenu from './CardMenu.vue';
 
     export default {
         name: "taskCard",
         components: {
-            Modal,
+            CardMenu,
         },
         data() {
             return {
