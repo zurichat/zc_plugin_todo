@@ -186,10 +186,7 @@ class TaskController extends Controller
         foreach($tasks as $task)
         {
             if(isset($task['recurring'])){
-
-                if($task["recurring"][0] == "True"){
                     array_push($getArchive, $task);
-                }
             }
         }
 
@@ -201,17 +198,18 @@ class TaskController extends Controller
     
     public function createRecurringTask(Request $request, $id)
     {
-        $taskRecord = $this->taskService->find($id);
+        $taskRecurring = $this->taskService->find($id);
+        $task = [];
 
-        if(isset($taskRecord["recurring"])){
-            if($taskRecord["recurring"][0] != "True"){
-                $taskRecord["recurring"] = "True";
+        if(isset($taskRecurring["recurring"])){
+            if($taskRecurring["recurring"][0] != "True"){
+               $this->taskService->update($taskRecurring["recurring"] = "Task" , $id);
             }
         }
 
         return response()->json([
             "message" => "Request Success",
-            "data" => $taskRecord
+            "data" => $task
         ]);
     }
 }
