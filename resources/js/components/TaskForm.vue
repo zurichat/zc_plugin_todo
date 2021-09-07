@@ -106,6 +106,7 @@ export default {
   data() {
     return {
       todoDetails: {
+        card_id: `${Date.now()}`,
         title: "",
         label: "",
         description: "",
@@ -244,13 +245,12 @@ form {
 
 
 @media screen and (max-width: 768px) {
-  form h1 {
-    /* font-size: 0.85rem; */
-  }
+  
   form {
       width: 100%;
     height: 100%;
     overflow-y: scroll;
   }
+  
 }
 </style>

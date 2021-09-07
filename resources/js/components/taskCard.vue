@@ -1,5 +1,9 @@
 <template>
-    <div class="p-5 mx-auto my-4 taskcard sm:mx-0 ">
+    <div class="p-5 mx-auto my-4 taskcard sm:mx-0 relative">
+        <Modal
+                    v-show="isModalVisible"
+                    @close="closeModal"
+                    />
         <div class="flex justify-between pb-4">
             <div class="">
                 <h1 class="task_title">{{title}}</h1>
@@ -22,10 +26,7 @@
                         d="M8.99988 16.5C9.82831 16.5 10.4999 15.8284 10.4999 15C10.4999 14.1715 9.82831 13.5 8.99988 13.5C8.17145 13.5 7.49988 14.1715 7.49988 15C7.49988 15.8284 8.17145 16.5 8.99988 16.5Z"
                         stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
                 </svg> </button>
-                <Modal
-                    v-show="isModalVisible"
-                    @close="closeModal"
-                    />
+                
             </div>
         </div>
         <span class="flex">
@@ -78,7 +79,7 @@
                     </div>
                 </div>
                 <span class="">
-                    <a href="#" class="gray_link">View task</a>
+                    <span @click="details()" class="gray_link">View task</span>
                 </span>
             </div>
         </div>

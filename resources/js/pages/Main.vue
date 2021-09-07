@@ -1,9 +1,9 @@
 <template>
-  <div class="grid grid-cols-2">
+  <div id="view_section" >
     <!-- <h3>
             This is where we will be working
         </h3> -->
-    <div>
+    <div class="flex-grow" :class="isComment ? 'hide' : 'show'">
       <div id="header">
         <div
           id="logo "
@@ -25,6 +25,7 @@
     />
   </transition>
   <!-- the create task button -->
+  <AddTaskBtn @click="isComment = !isComment" />
   <AddTaskBtn @click="toggleModal" />
   <!-- the search input component working -->
   <SearchInput @searchTodo='searchTodo' />
@@ -39,39 +40,44 @@
     <div>
       <template v-if="showAll">
         <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
-          <taskCard
+          <TodoCard
             v-for="(todo, index) in allTodos"
-            :key="index"
-            :title="todo.title"
-            :date="todo.startDate"
-            :description="todo.description"
+            :key="index++"
+            :todo = "todo"
+            @showComment = "showComment"
           />
         </div>
       </template>
       <template v-else>
         <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
-          <taskCard
-            v-for="(todo, index) in searchedValues"
-            :key="index"
-            :title="todo.title"
-            :date="todo.startDate"
-            :description="todo.description"
+          <TodoCard
+            v-for="(todo, index) in searchedValues "
+            :todo = "todo"
+            :key = "index++"
+            @showComment = "showComment"
           />
         </div>
       </template>
     </div>
+    
+    
+    </div>
+    </div>
     <!-- comment section still under construction -->
-    <div id="comment">
-     <!-- // <router-view /> -->
+    
+    <div id="comment" class="" v-if="isComment" :class="isComment ? 'show' : 'hide'">
+      
+     <router-view @hideComment = "hideComment" @showComment = "showComment" v-slot="{ Component }">
+                <transition name="fade">
+                   <component :is="Component" />
+                 </transition> 
+          </router-view>
     </div>
-    </div>
-    </div>
-<div></div>
     </div>
 </template>
 <script>
 import SearchInput from "../components/Search-Input.vue";
-import taskCard from "../components/taskCard.vue";
+import TodoCard from "../components/TodoCard.vue";
 import TodoNav from "../components/TodoNav.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
@@ -84,6 +90,7 @@ export default {
       isModal: false,
       showAll: true,
       searchedValues: [],
+      isComment: false
     };
   },
   computed: {
@@ -96,6 +103,19 @@ export default {
       console.log("hi");
       this.isModal = !this.isModal;
     },
+//     isMobile() {
+//       if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+//         return true
+//       } else {
+//         return false
+//       }
+//  },
+    showComment(){
+      this.isComment = true
+    },
+    hideComment(){
+      this.isComment = false
+    },
     searchTodo(val) {
       if (val === "") {
         this.showAll = true;
@@ -107,8 +127,11 @@ export default {
       }
     },
   },
+  mounted(){
+    //this.isMobile()
+  },
   components: {
-    taskCard,
+    TodoCard,
     SearchInput,
     TodoNav,
     AddTaskBtn,
@@ -117,3 +140,32 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+  #view_section {
+    display: flex;
+    
+  }
+  #comment {
+    min-height: 100vh;
+    width: 100%;
+    border-left: .5px solid lightgrey;
+  }
+ @media(min-width: 768px) {
+   #comment {
+    width: 20%;
+  }}
+  // #comment.hide {
+  //   display: none
+  // }
+  // #comment.show {
+  //   display: block
+  // }
+  @media (max-width: 768px){
+    .hide {
+      display: none
+    }
+    #view_section {
+      display: block !important;
+    }
+  }
+</style>

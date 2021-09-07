@@ -1,6 +1,6 @@
 <template>
-    <div class="modal" >
-     <div class="grid ml-56 overflow-visible text-sm rounded-md shadow-md modal-items w-44 grid-row-5 h-72" >
+    <div class="modal shadow-md" >
+     <div class="grid overflow-visible text-sm rounded-md shadow-md modal-items w-44 grid-row-5 h-72" >
        <button class="flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close"
           type="button"
           @click="close"
@@ -26,6 +26,7 @@
       close() {
         this.$emit('close');
       },
+      
     },
   };
 </script>
@@ -33,9 +34,8 @@
 <style>
   .modal-items {
    position: absolute;
-   top: 300px;
-   right: 100px;
-    left: 310px;
+   top: 20px;
+   
    z-index: 100;
    overflow: auto;
    overflow-y: auto;
