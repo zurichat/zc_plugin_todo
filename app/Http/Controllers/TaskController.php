@@ -177,7 +177,7 @@ class TaskController extends Controller
    
     }
 
-   public function getRecurringTask(Request $request)
+   public function getRecurringTask()
     {           
         $tasks = $this->taskService->all();
 
@@ -186,7 +186,9 @@ class TaskController extends Controller
         foreach($tasks as $task)
         {
             if(isset($task['recurring'])){
+                 if($taskRecurring["recurring"][0] == "True"){
                     array_push($getArchive, $task);
+                 }
             }
         }
 
