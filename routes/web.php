@@ -8,6 +8,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\assignTaskController;
+use App\Http\Controllers\CommentDemoController;
 
 
 /*
@@ -51,6 +52,9 @@ Route::get('/comment', function(){
     return view('create-comment');
 });
 
+//comment to edit test
+
+Route::get('/editcomment/{id}', [CommentDemoController::class,'editcomment']);
 // assign user to a task
 Route::get('/task/assign', function(){
     return view('assign-user');
