@@ -32,7 +32,7 @@
     </div>
 </template>
 
-<script>
+<script scoped>
     export default {
         name: 'modal',
         data() {
@@ -54,7 +54,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     .modal-items {
         position: absolute;
         top: 300px;

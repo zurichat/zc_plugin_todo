@@ -1,13 +1,13 @@
 <template>
   <div class="p-4 shadow-md mx-auto my-4 taskcard sm:mx-0 relative" v-click-away="ClickAway">
-    <CardMenu v-show="isModalVisible" @close="closeModal" />
+    <CardMenu :links="links" v-show="isModalVisible" @toggleMenu="toggleMenu" />
     <div class="flex justify-between pb-4">
       <div class="">
         <h1 class="text-md capitalize font-bold">{{todo.title}}</h1>
         <h1 class="text-md text-gray-500 ">{{todo.description}}</h1>
       </div>
       <div class="">
-        <button type="button" class="btn" @click="showModal">
+        <button type="button" class="btn" @click="toggleMenu">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M8.99988 10.4999C9.82831 10.4999 10.4999 9.82837 10.4999 8.99994C10.4999 8.17151 9.82831 7.49994 8.99988 7.49994C8.17145 7.49994 7.49988 8.17151 7.49988 8.99994C7.49988 9.82837 8.17145 10.4999 8.99988 10.4999Z"
@@ -86,6 +86,48 @@
     data() {
       return {
         isModalVisible: false,
+        links: [
+          {
+            name: 'Assign task',
+            action: () => {
+              this.toggleMenu()
+              alert('You cant assign tasks now')
+            },
+            type: 'default'
+          },
+          {
+            name: 'Share',
+            action: () => {
+              this.toggleMenu()
+              alert('You cant assign tasks now')
+            },
+            type: 'default'
+          },
+          {
+            name: 'Mark as completed',
+            action: () => {
+              this.toggleMenu()
+              alert('completed')
+            },
+            type: 'default'
+          },
+          {
+            name: 'Archive',
+            action: () => {
+              this.toggleMenu()
+             // alert('You cant assign tasks now')
+            },
+            type: 'default'
+          },
+          {
+            name: 'Delete',
+            action: () => {
+              this.toggleMenu()
+             // alert('You cant assign tasks now')
+            },
+            type: 'danger'
+          }
+        ]
       }
     },
     methods: {
@@ -97,8 +139,8 @@
         this.$emit('showComment')
         this.$router.push({ name: 'Details', params: { id: this.todo.card_id } })
       },
-      showModal() {
-        this.isModalVisible = true;
+      toggleMenu() {
+        this.isModalVisible = !this.isModalVisible;
       },
       closeModal() {
         this.isModalVisible = false;
