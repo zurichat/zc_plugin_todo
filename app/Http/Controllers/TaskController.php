@@ -177,5 +177,19 @@ class TaskController extends Controller
    
     }
 
+
+       //Assigning Task to the user
+       public function assignTeamToTask(Request $request, $task_id, $user_id){
+
+        $this->validate($request, [
+            
+            'user_id' => 'required'
+        ]);
+       
+        $task =   $this->taskService->find($task_id);
+      
+        array_push($task['collaborators'], $user_id);
+        return $this->taskService->update($task, $task['_id']);
+    }
    
 }
