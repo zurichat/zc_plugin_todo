@@ -45,7 +45,7 @@
             </svg>
             <a
                 href="#"
-                class="pl-1 link_color"
+                class="px-1 font-bold block text-blue-600"
             >{{todo.startDate}}</a>
         </span>
         <div class="line"></div>
@@ -84,7 +84,7 @@
                 <span class="">
                     <span
                         @click="details(todo.card_id)"
-                        class="text-gray-500 text-sm"
+                        class="py-2 text-green-600 text-xs font-bold cursor-pointer uppercase hover:underline"
                     >view task</span>
                 </span>
             </div>
