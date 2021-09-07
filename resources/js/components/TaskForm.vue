@@ -64,6 +64,7 @@
     data() {
       return {
         todoDetails: {
+          card_id: `${Date.now()}`,
           title: "",
           label: "",
           description: "",
@@ -101,8 +102,7 @@
 
 <style lang="scss" scoped>
   * {
-    //: 0;
-    //   margin: 0;
+    margin: 0;
     box-sizing: border-box;
   }
 
@@ -136,14 +136,15 @@
     margin-bottom: 10px;
   }
 
-  // .form-group input,
-  // .form-group select {
-  //   border: 1px solid #dadada;
-  //   border-radius: 4px;
-  //   background: #fff;
-  //   width: 100%;
-  //   padding: 12px 15px;
-  // }
+  .form-group input,
+  .form-group select {
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    padding: 12px 15px;
+  }
+
   .form-flex {
     display: flex;
     justify-content: space-between;
@@ -209,7 +210,7 @@
     color: #00b87c;
   }
 
-  @media (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     .overlay {
       background: rgba(0, 0, 0, 0.14901960784313725);
     }
@@ -217,9 +218,6 @@
 
 
   @media screen and (max-width: 768px) {
-    form h1 {
-      /* font-size: 0.85rem; */
-    }
 
     form {
       width: 100%;
