@@ -177,11 +177,26 @@ class TaskController extends Controller
    
     }
 
-   public function getArchivedTasks(Request $request)
+   public function getRecurringTask(Request $request)
     {           
-        $tasks = ($this->taskService->all());
-         return response()->json($tasks, 200);
-    }
+        $tasks = $this->taskService->all();
 
+        $getArchive = [];
+        
+        foreach($tasks as $task)
+        {
+            if(isset($task['recurring'])){
+                
+                if($task["recurring"][0] == "True"){
+                    array_push($getArchive, $task);
+                }
+            }
+        }
+
+        return response()->json([
+            'message' => "Request Success",
+            'data' => $getArchive
+        ],200);
+    }
     
 }

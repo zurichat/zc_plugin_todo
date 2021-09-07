@@ -58,9 +58,7 @@ Route::get('task', [\App\Http\Controllers\TaskController::class, 'index']);
 // comment post request
 
 
-Route::get('archive', [\App\Http\Controllers\TaskController::class, 'getArchivedTasks']);
-Route::get('archive/{taskId}', [\App\Http\Controllers\TaskController::class, 'getArchivedTasksById']);
-Route::post('archived/{taskId}', [\App\Http\Controllers\TaskController::class, 'archiveTask']);
+Route::get('task/recurring', [\App\Http\Controllers\TaskController::class, 'getRecurringTask']);
 
 
 Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
@@ -72,6 +70,7 @@ Route::get('/search', [TodoController::class, 'search_todo']);
 
 Route::get('task/{id}/show', [\App\Http\Controllers\TaskController::class, 'show']);
 Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
+
 // -------------- Task Modification Endpoints --------------------- //
 Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
 Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
