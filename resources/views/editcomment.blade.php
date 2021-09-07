@@ -11,8 +11,8 @@
     </head>
 
     <body>
-        <form action="/api/comment/{{$id}}" method="post">
-            <input type="text" name="content" value="{{ $comment['content'] }}" />
+        <form action="/api/update-comment/{{$comment['_id']}}" method="post">
+            <input type="text" name="body" value="{{ $comment['body'] }}" />
 
             <input type="submit" value="update" />
             <input type="hidden" name="_method" value="put" />
