@@ -5,7 +5,7 @@
                 <div class="flex">
                     <h1 class="font-bold text-2xl mr-8 self-center">Share</h1>
                     <button class="private-btn flex items-center rounded-sm text-white p-3" @click="showPrivateModal">
-                        Private access
+                        {{}}
                     </button>
                 </div>
                 <div @click="closeModal">X</div>

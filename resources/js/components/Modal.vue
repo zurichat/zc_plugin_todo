@@ -8,37 +8,22 @@
 
       <div class="flex flex-col mt-8 mb-0 items">
         <a class="rounded-sm hover:bg-gray-100" href="#">Assign task</a>
-        <a class="rounded-sm hover:bg-gray-100" @click="showShareModal">Share k</a>
+        <a class="rounded-sm hover:bg-gray-100" href="#">Share</a>
         <a class=" rounded-sm hover:bg-gray-100" href="#">Mark as completed</a>
         <a class="rounded-sm hover:bg-gray-100" href="#">Archive</a>
         <a class="rounded-sm hover:bg-red-500 hover:text-white" href="#">Delete</a>
       </div>
     </div>
-    <transition name='fade'>
-      <shareModal v-show="isShareModalVisible" @close="closeShareModal" @toggleShareModal='toggleShareModal' />
-    </transition>
   </div>
 </template>
 
 <script>
-  import shareModal from './shareModal.vue';
   export default {
     name: 'modal',
-    data() {
-      return {
-        isShareModalVisible: false,
-      };
-    },
     methods: {
       close() {
         this.$emit('close');
       },
-      showShareModal() {
-        this.isShareModalVisible = true;
-      },
-      closeShareModal() {
-        this.isShareModalVisible = false;
-      }
     },
   };
 </script>

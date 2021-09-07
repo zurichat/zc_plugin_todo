@@ -1,14 +1,13 @@
 <template>
     <div class="modal">
-        <div
-            class="grid md:ml-32 p-8 overflow-visible text-sm rounded-md shadow-md modal-items w-80 md:grid-row-4 h-100">
+        <div class="grid md:ml-32 p-8 overflow-visible text-sm rounded-md shadow-md modal-items w-80 grid-row-4 h-100">
             <button class="flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close"
                 type="button" @click="close">
                 x
             </button>
             <h1 class="font-semibold text-lg mb-4">Access Settings</h1>
             <div class="form-group flex">
-                <input class="mt-2" type="radio" name="access" id="public">
+                <input class="mt-2" v-model="access" type="radio" name="access" id="public">
                 <span class="">
                     <label for="public">Public access</label>
                     <p>Available to anyone</p>

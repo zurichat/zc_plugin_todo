@@ -19550,24 +19550,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _shareModal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shareModal.vue */ "./resources/js/components/shareModal.vue");
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'modal',
-  data: function data() {
-    return {
-      isShareModalVisible: false
-    };
-  },
   methods: {
     close: function close() {
       this.$emit('close');
-    },
-    showShareModal: function showShareModal() {
-      this.isShareModalVisible = true;
-    },
-    closeShareModal: function closeShareModal() {
-      this.isShareModalVisible = false;
     }
   }
 });
@@ -20032,67 +20019,17 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "grid ml-56 overflow-visible text-sm rounded-md shadow-md modal-items w-44 grid-row-5 h-72"
 };
-var _hoisted_3 = {
-  "class": "flex flex-col mt-8 mb-0 items"
-};
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  "class": "rounded-sm hover:bg-gray-100",
-  href: "#"
-}, "Assign task", -1
-/* HOISTED */
-);
-
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  "class": " rounded-sm hover:bg-gray-100",
-  href: "#"
-}, "Mark as completed", -1
-/* HOISTED */
-);
-
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  "class": "rounded-sm hover:bg-gray-100",
-  href: "#"
-}, "Archive", -1
-/* HOISTED */
-);
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-  "class": "rounded-sm hover:bg-red-500 hover:text-white",
-  href: "#"
-}, "Delete", -1
-/* HOISTED */
-);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex flex-col mt-8 mb-0 items\"><a class=\"rounded-sm hover:bg-gray-100\" href=\"#\">Assign task</a><a class=\"rounded-sm hover:bg-gray-100\" href=\"#\">Share</a><a class=\" rounded-sm hover:bg-gray-100\" href=\"#\">Mark as completed</a><a class=\"rounded-sm hover:bg-gray-100\" href=\"#\">Archive</a><a class=\"rounded-sm hover:bg-red-500 hover:text-white\" href=\"#\">Delete</a></div>", 1);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_shareModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("shareModal");
-
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close",
     type: "button",
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.close && $options.close.apply($options, arguments);
     })
-  }, " x "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    "class": "rounded-sm hover:bg-gray-100",
-    onClick: _cache[1] || (_cache[1] = function () {
-      return $options.showShareModal && $options.showShareModal.apply($options, arguments);
-    })
-  }, "Share k"), _hoisted_5, _hoisted_6, _hoisted_7])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
-    name: "fade"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_shareModal, {
-        onClose: $options.closeShareModal,
-        onToggleShareModal: _ctx.toggleShareModal
-      }, null, 8
-      /* PROPS */
-      , ["onClose", "onToggleShareModal"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isShareModalVisible]])];
-    }),
-    _: 1
-    /* STABLE */
-
-  })]);
+  }, " x "), _hoisted_3])]);
 }
 
 /***/ }),
@@ -20433,10 +20370,28 @@ var _hoisted_1 = {
   "class": "modal"
 };
 var _hoisted_2 = {
-  "class": "grid md:ml-32 p-8 overflow-visible text-sm rounded-md shadow-md modal-items w-80 md:grid-row-4 h-100"
+  "class": "grid md:ml-32 p-8 overflow-visible text-sm rounded-md shadow-md modal-items w-80 grid-row-4 h-100"
 };
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<h1 class=\"font-semibold text-lg mb-4\">Access Settings</h1><div class=\"form-group flex\"><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"public\"><span class=\"\"><label for=\"public\">Public access</label><p>Available to anyone</p></span></div><div class=\"form-group flex\"><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"private\"><span class=\"\"><label for=\"private\">Private access</label><p>Only available to anyone with the link</p></span></div><div class=\"form-group flex\"><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"private\"><span class=\"\"><label for=\"private\">Organisational access</label><p>Only available to the organisational Staff</p></span></div>", 4);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+  "class": "font-semibold text-lg mb-4"
+}, "Access Settings", -1
+/* HOISTED */
+);
+
+var _hoisted_4 = {
+  "class": "form-group flex"
+};
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": ""
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "public"
+}, "Public access"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Available to anyone")], -1
+/* HOISTED */
+);
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"form-group flex\"><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"private\"><span class=\"\"><label for=\"private\">Private access</label><p>Only available to anyone with the link</p></span></div><div class=\"form-group flex\"><input class=\"mt-2\" type=\"radio\" name=\"access\" id=\"private\"><span class=\"\"><label for=\"private\">Organisational access</label><p>Only available to the organisational Staff</p></span></div>", 2);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -20445,7 +20400,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.close && $options.close.apply($options, arguments);
     })
-  }, " x "), _hoisted_3])]);
+  }, " x "), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "mt-2",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return _ctx.access = $event;
+    }),
+    type: "radio",
+    name: "access",
+    id: "public"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, _ctx.access]]), _hoisted_5]), _hoisted_6])]);
 }
 
 /***/ }),
@@ -20567,7 +20532,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.showPrivateModal && $options.showPrivateModal.apply($options, arguments);
     })
-  }, " Private access ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.closeModal && $options.closeModal.apply($options, arguments);
     })
