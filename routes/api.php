@@ -43,49 +43,36 @@ Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
 Route::post('add-task', [TaskDemoController::class, 'store']);
 Route::put('update-task/{id}', [TaskDemoController::class, 'update']);
 Route::delete('delete-task/{id}', [TaskDemoController::class, 'delete']);
-Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
-//Show Tasks Assigned to a Specific User
+Route::post('task/{id}/toggleArchiveStatus', [TaskController::class, 'toggleArchiveStatus']);
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
+Route::get('/task/archived', [TaskController::class, 'archived']);
+Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
 
 Route::get('/search', [TaskController::class, 'search_todo']);
 
 //------------------- Resource End ponits ---------- //
-Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
+Route::get('/taskresource', [TaskController::class, 'showResource']);
+
 
 // -  Comment Related Endpoints ----------- //
 
-Route::post('comment', [TaskCommentController::class, 'saveComment']);
-Route::get('comment', [TaskCommentController::class, 'index']);
+Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
+Route::get('all-comment', [TaskCommentController::class, 'index']);
 Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
-Route::get('comment/{id}', [TaskCommentController::class, 'show']);
-Route::put('comment/{id}', [TaskCommentController::class, 'update']);
-Route::delete('comment_delete/{id}', [TaskCommentController::class, 'delete']);
-Route::get('task-category', [TaskController::class, 'getTasksByCategory']);
+Route::put('update-comment/{commentId}', [TaskCommentController::class, 'update']);
+Route::delete('comment_delete/{commentId}', [TaskCommentController::class, 'delete']);
 
 
-
-// -------------- Comments endpoints --------------------- //
-Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
+// ----------- File Related Endpoints --------------------- //
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
-
-
-// comment post request
+// todo post request
 Route::post('create', [TodoController::class, 'create']);
 Route::post('edit', [TodoController::class, 'edit']);
 Route::post('update', [TodoController::class, 'update']);
 
-
-
-
-// -------------- Task Modification Endpoints --------------------- //
-
-
-
-//test endpoint that reads request from zuri core
-Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
 
 
 

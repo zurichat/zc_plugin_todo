@@ -56,10 +56,7 @@ class TaskController extends Controller
                 'data' => $data,
         ]);
     }
-    public function modifyShow($id)
-    {
-        return view('updateDueDate');
-    }
+
     public function updateTaskDate(Request $request, $id)
     {
         return response()->json($this->taskService->update($request->all(), $id));
@@ -107,12 +104,6 @@ class TaskController extends Controller
             'data' => $newArr
         ],200);
     }
-
-    public function categoryTestView($id)
-    {
-        return view('updateCategory');
-    }
-
 
 
     public function updateTaskCategory(Request $request, $id)
@@ -210,4 +201,24 @@ class TaskController extends Controller
         $tasks = $this->taskService->all();
         return new TodoResourceCollection($tasks);
     }
+
+    public function archived(Request $request)
+    {
+        $tasks = $this->taskService->all();
+
+        $newArr = [];
+        foreach ($tasks as $value) {
+            if (isset($value['archived_at']) && $value['archived_at'] != null) {
+                array_push($newArr, $value);
+            }
+        }
+        return response()->json([
+            'message' => 'Request success',
+            'data' => $newArr
+        ],200);
+
+
+    }
+
+
 }
