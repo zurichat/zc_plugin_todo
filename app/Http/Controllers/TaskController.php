@@ -201,17 +201,17 @@ class TaskController extends Controller
     
     public function createRecurringTask(Request $request, $id)
     {
-        $task = $this->taskService->find($id);
+        $taskRecord = $this->taskService->find($id);
 
-        if(isset($task["recurring"])){
-            if($task["recurring"][0] != "True"){
-                $task["recurring"] = "True";
+        if(isset($taskRecord["recurring"])){
+            if($taskRecord["recurring"][0] != "True"){
+                $taskRecord["recurring"] = "True";
             }
         }
 
         return response()->json([
             "message" => "Request Success",
-            "data" => $task
+            "data" => $taskRecord
         ]);
     }
 }
