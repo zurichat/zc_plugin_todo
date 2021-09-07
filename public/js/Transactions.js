@@ -214,19 +214,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  "class": "w-full"
+};
+var _hoisted_2 = {
+  "class": "flex flex-row justify-between items-center"
+};
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div><div><p>Task Title</p><span>Created On: 12/03348n/39424</span><p>oihsoiv hwt0pu;n4wy0iohjgwkleftrhwbvhnpgrfiyoer0y6u</p></div><div><p>Task Title</p><div></div></div><div class=\"flex\"><div><p>Due Date</p><span>p320409</span></div><div><p>Worked </p><span>loiwheot</span></div></div></div>", 1);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "text-green-500 font-bold "
+}, " This is the todo details section, ", -1
+/* HOISTED */
+);
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "text-lg font-bold text-wrap text-red-500"
+}, "Still under construction", -1
+/* HOISTED */
+);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TextArea = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TextArea");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$route.params.id) + " ", 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(this.$route.params.id) + " ", 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.close && $options.close.apply($options, arguments);
-    })
-  }, "X"), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TextArea)]);
+    }),
+    "class": "font-bold text-green-500"
+  }, "X")]), _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div>\r\n        <div>\r\n          <p>Task Title</p>\r\n        <span>Created On: 12/03348n/39424</span>\r\n        <p>oihsoiv hwt0pu;n4wy0iohjgwklef</p>\r\n        </div>\r\n        <div>\r\n          <p>Task Title</p>\r\n          <div>\r\n            \r\n          </div>\r\n        </div>\r\n        <div class=\"flex\">\r\n          <div>\r\n            <p>Due Date</p>\r\n            <span>p320409</span>\r\n          </div>\r\n          <div>\r\n            <p>Worked </p>\r\n            <span>loiwheot</span>\r\n          </div>\r\n        </div>\r\n      </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TextArea)]);
 }
 
 /***/ }),

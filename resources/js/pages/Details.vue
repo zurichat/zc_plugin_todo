@@ -1,12 +1,19 @@
 <template>
-    <div>
+<div class="w-full">
+    <div class="flex flex-row justify-between items-center"> 
       {{this.$route.params.id}}
-      <div @click="close">X</div>
-      <div>
+      <div @click="close" class="font-bold text-green-500">X</div>
+      </div>
+      <p class="text-green-500 font-bold ">
+        This is the todo details section,
+        
+      </p>
+      <p class="text-lg font-bold text-wrap text-red-500">Still under construction</p>
+      <!-- <div>
         <div>
           <p>Task Title</p>
         <span>Created On: 12/03348n/39424</span>
-        <p>oihsoiv hwt0pu;n4wy0iohjgwkleftrhwbvhnpgrfiyoer0y6u</p>
+        <p>oihsoiv hwt0pu;n4wy0iohjgwklef</p>
         </div>
         <div>
           <p>Task Title</p>
@@ -24,9 +31,10 @@
             <span>loiwheot</span>
           </div>
         </div>
-      </div>
+      </div> -->
       <TextArea />
     </div>
+   
 </template>
 <script>
 import TextArea from '../components/TextArea.vue'

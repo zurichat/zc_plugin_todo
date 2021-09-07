@@ -4,7 +4,18 @@
             This is where we will be working
         </h3> -->
     <div class="flex-grow px-4" :class="isComment ? 'hide' : 'show'">
-  </div>
+      <div id="header">
+        <div
+          id="logo "
+          class="flex items-center flex-row"
+        >
+          <img
+            class="w-8 m-4"
+            :src="'./img/zuri-logo.svg'"
+          />
+          <span class="font-bold text-lg">Zuri</span>
+      </div>
+      </div>
   
   <!-- <AddTaskForm /> -->
   <!-- transition for the modal components -->
@@ -50,9 +61,9 @@
           </template>
           </div>
         <!-- comment section still under construction -->
-        <div id="comment">
+        <!-- <div id="comment"> -->
           <!-- // <router-view /> -->
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     <!-- <AddTaskForm /> -->
@@ -74,7 +85,7 @@
 </template>
 <script>
   import SearchInput from "../components/Search-Input.vue";
-  import taskCard from "../components/taskCard.vue";
+  import TodoCard from "../components/TodoCard.vue";
   import TodoNav from "../components/TodoNav.vue";
   import AddTaskForm from "../components/addTaskForm.vue";
   import AddTaskBtn from "../components/AddTaskBtn.vue";
@@ -176,13 +187,13 @@
     }
   }
 
-  #comment.hide {
-    display: none
-  }
+  // #comment.hide {
+  //   display: none
+  // }
 
-  #comment.show {
-    display: block
-  }
+  // #comment.show {
+  //   display: block
+  // }
 
   @media (max-width: 768px) {
     .hide {
