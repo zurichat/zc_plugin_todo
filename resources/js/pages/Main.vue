@@ -3,10 +3,7 @@
     <!-- <h3>
             This is where we will be working
         </h3> -->
-        <div id="comment" class="px-2" v-if="isComment" :class="isComment ? 'show' : 'hide'">
-     <router-view @hideComment = "hideComment" @showComment = "showComment"/> 
-     
-    </div>
+        
     <div class="flex-grow px-4" :class="isComment ? 'hide' : 'show'">
       <div id="header">
         <div
@@ -20,6 +17,7 @@
           <span class="font-bold text-lg">Zuri</span>
       </div>
   </div>
+  
   <!-- <AddTaskForm /> -->
   <!-- transition for the modal components -->
   <transition name='fade'>
@@ -77,6 +75,7 @@
     </div>
 </template>
 <script>
+
 import SearchInput from "../components/Search-Input.vue";
 import TodoCard from "../components/TodoCard.vue";
 import TodoNav from "../components/TodoNav.vue";
@@ -146,6 +145,7 @@ export default {
     AddTaskBtn,
     AddTaskForm,
     TaskForm,
+    
   },
 };
 </script>

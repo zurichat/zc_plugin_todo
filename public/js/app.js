@@ -20592,8 +20592,6 @@ var _hoisted_8 = {
   "class": "todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
-
   var _component_TaskForm = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TaskForm");
 
   var _component_AddTaskBtn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTaskBtn");
@@ -20604,18 +20602,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_TodoCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TodoCard");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h3>\r\n            This is where we will be working\r\n        </h3> "), $data.isComment ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    key: 0,
-    id: "comment",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["px-2", $data.isComment ? 'show' : 'hide'])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, {
-    onHideComment: $options.hideComment,
-    onShowComment: $options.showComment
-  }, null, 8
-  /* PROPS */
-  , ["onHideComment", "onShowComment"])], 2
-  /* CLASS */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <h3>\r\n            This is where we will be working\r\n        </h3> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex-grow px-4", $data.isComment ? 'hide' : 'show'])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "w-8 m-4",
@@ -20667,7 +20656,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ))]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{this.$route.params.id}}\r\n     ")])], 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" comment section still under construction "), $data.isComment ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    key: 1,
+    key: 0,
     id: "comment",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["px-2", $data.isComment ? 'show' : 'hide'])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view, {

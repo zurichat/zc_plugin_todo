@@ -2,10 +2,35 @@
     <div>
       {{this.$route.params.id}}
       <div @click="close">X</div>
-      
+      <div>
+        <div>
+          <p>Task Title</p>
+        <span>Created On: 12/03348n/39424</span>
+        <p>oihsoiv hwt0pu;n4wy0iohjgwkleftrhwbvhnpgrfiyoer0y6u</p>
+        </div>
+        <div>
+          <p>Task Title</p>
+          <div>
+            
+          </div>
+        </div>
+        <div class="flex">
+          <div>
+            <p>Due Date</p>
+            <span>p320409</span>
+          </div>
+          <div>
+            <p>Worked </p>
+            <span>loiwheot</span>
+          </div>
+        </div>
+      </div>
+      <TextArea />
     </div>
 </template>
 <script>
+import TextArea from '../components/TextArea.vue'
+import CommentBox from '../components/CommentBox.vue'
 import {mapGetters} from 'vuex'
 export default {
     name: 'TodoDetails',
@@ -18,6 +43,9 @@ export default {
       ...mapGetters({
         allTodos: 'todos/allTodos'
       })
+    },
+    components: {
+      TextArea
     },
   methods: {
     close(){
