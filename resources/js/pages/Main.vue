@@ -39,7 +39,16 @@
             :todo = "todo"
             @showComment = "showComment"
           />
+          
         </div>
+        </template>
+        <template v-else>
+            <div class="todo_container  sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
+              <taskCard v-for="(todo, index) in searchedValues" :key="index" :title="todo.title" :date="todo.startDate"
+                :description="todo.description" />
+            </div>
+          </template>
+          </div>
         <!-- comment section still under construction -->
         <div id="comment">
           <!-- // <router-view /> -->
