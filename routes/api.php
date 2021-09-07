@@ -59,6 +59,7 @@ Route::get('task', [\App\Http\Controllers\TaskController::class, 'index']);
 
 
 Route::get('task/recurring', [\App\Http\Controllers\TaskController::class, 'getRecurringTask']);
+Route::post('task/recurring/{id}', [\App\Http\Controllers\TaskController::class, 'createRecurringTask']);
 
 
 Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
