@@ -15,6 +15,5 @@ export default createStore({
     modules: {
         todos,
         user
-
     }
 })

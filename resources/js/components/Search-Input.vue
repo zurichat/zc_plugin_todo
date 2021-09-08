@@ -29,8 +29,9 @@
       </svg>
       <input
         type="text"
-        name="search"
-        placeholder="Search here"
+        @input = 'search'
+      v-model= 'value'
+       placeholder="Search here"
         class="ml-8 bg-transparent text-black outline-none w-4/5"
       />
       <svg
@@ -52,6 +53,16 @@
 </template>
 <script>
 export default {
-    name: 'Search-Input'
+    name: 'Search-Input',
+    data(){
+      return {
+        value: ''
+      }
+    },
+    methods: {
+      search(){
+        this.$emit('searchTodo', this.value)
+      }
+    }
 }
 </script>

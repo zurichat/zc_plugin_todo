@@ -1,94 +1,238 @@
 <template>
-  <div>
-    <!-- <h3>
+    <div id="view_section">
+        <!-- <h3>
             This is where we will be working
         </h3> -->
-<<<<<<< HEAD
-        <div id="header">
-            <div id="logo " class="flex items-center flex-row">
-                <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
-                <span class="font-bold text-lg">Zuri</span>
+        <div class="flex-grow px-4" :class="isComment ? 'hide' : 'show'">
+            <div id="header">
+                <div id="logo " class="flex items-center flex-row">
+                    <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
+                    <span class="font-bold text-lg">Zuri</span>
+                </div>
+            </div>
+
+            <!-- <AddTaskForm /> -->
+            <!-- transition for the modal components -->
+            <transition name="fade">
+                <TaskForm v-if="isModal" @toggleModal="toggleModal" />
+            </transition>
+            <transition name="fade">
+                <shareModal
+                    v-if="isShareModal"
+                    @toggleShareModal="toggleShareModal"
+                />
+            </transition>
+            <!-- the create task button -->
+            <!-- <AddTaskBtn @click="isComment = !isComment" /> -->
+            <AddTaskBtn @click="toggleModal" />
+            <!-- the search input component working -->
+            <SearchInput @searchTodo="searchTodo" />
+            <!-- the todo nav component -->
+            <TodoNav @showLabel="showEditModal = true" />
+            <!-- the grid div tag for the todo container and the comment section -->
+            <!-- <div></div> -->
+            <div id="main_view" class="section_grid">
+                <div>
+                    <template v-if="showAll">
+                        <div
+                            class="
+                                todo_container
+                                sm:grid sm:grid-cols-2
+                                gap-4
+                                md:grid-cols-3
+                            "
+                        >
+                            <TodoCard
+                                v-for="(todo, index) in allTodos"
+                                :key="index++"
+                                :todo="todo"
+                                @showComment="showComment"
+                                @toggleShareModal="toggleShareModal"
+                            />
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div
+                            class="
+                                todo_container
+                                sm:grid sm:grid-cols-2
+                                gap-4
+                                md:grid-cols-3
+                            "
+                        >
+                            <TodoCard
+                                v-for="(todo, index) in searchedValues"
+                                :key="index"
+                                :title="todo.title"
+                                :date="todo.startDate"
+                                :description="todo.description"
+                            />
+                        </div>
+                    </template>
+                </div>
+                <!-- comment section still under construction -->
+                <!-- <div id="comment"> -->
+                <!-- // <router-view /> -->
+                <!-- </div> -->
             </div>
         </div>
         <!-- <AddTaskForm /> -->
-        <transition name='fade'>
-            <TaskForm v-if="isModal"  @toggleModal = 'toggleModal'/>
-            </transition>
-        
-        <AddTaskBtn @click="toggleModal" />
-        
-        <SearchInput />
-=======
-    <div id="header">
-      <div id="logo " class="flex items-center flex-row">
-        <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
-        <span class="font-bold text-lg">Zuri</span>
-      </div>
-    </div>
-    <!-- <AddTaskForm /> -->
-    <AddTaskBtn />
-    <SearchInput />
->>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
+        <!-- transition for the modal components -->
+        <transition name="fade">
+            <TaskForm v-if="isModal" @toggleModal="toggleModal" />
+        </transition>
 
-    <TodoNav />
-    <div class="todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3">
-      <taskCard
-        v-for="i in 8"
-        :key="i"
-        title="Task title"
-        date="Tomorrow"
-        description="Description"
-      />
+        <transition name="fade">
+            <edit-label-modal
+                v-if="showEditModal"
+                @close="showEditModal = false"
+            />
+        </transition>
+        <!-- the create task button -->
+
+        <!-- the grid div tag for the todo container and the comment section -->
+        <!-- <div></div> -->
+
+        <!-- comment section still under construction -->
+        <div
+            id="comment"
+            class="px-2"
+            v-if="isComment"
+            :class="isComment ? 'show' : 'hide'"
+        >
+            <router-view
+                @hideComment="hideComment"
+                @showComment="showComment"
+            />
+        </div>
     </div>
-  </div>
 </template>
 <script>
 import SearchInput from "../components/Search-Input.vue";
-import taskCard from "../components/taskCard.vue";
+import TodoCard from "../components/TodoCard.vue";
 import TodoNav from "../components/TodoNav.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
-<<<<<<< HEAD
 import TaskForm from "../components/TaskForm";
+import shareModal from "../components/shareModal";
+import EditLabelModal from "../components/EditLabelModal";
+import { mapGetters } from "vuex";
+
 export default {
     name: "Main",
-    data(){
+    data() {
         return {
-            isModal : false
-        }
-    },methods: {
-        toggleModal(){
-            console.log('hi')
-            this.isModal = !this.isModal
-        }
-},
+            isModal: false,
+            isShareModal: false,
+            showAll: true,
+            searchedValues: [],
+            isComment: false,
+            showEditModal: false,
+        };
+    },
+    computed: {
+        ...mapGetters({
+            allTodos: "todos/allTodos",
+        }),
+    },
+    methods: {
+        toggleModal() {
+            console.log("hi");
+            this.isModal = !this.isModal;
+        },
+        toggleShareModal() {
+            console.log("hi");
+            this.isShareModal = !this.isShareModal;
+        },
+        isMobile() {
+            if (
+                /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                    navigator.userAgent
+                )
+            ) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        showComment() {
+            this.isComment = true;
+        },
+        hideComment() {
+            this.isComment = false;
+        },
+        searchTodo(val) {
+            if (val === "") {
+                this.showAll = true;
+            } else {
+                this.showAll = false;
+                this.searchedValues = this.allTodos.filter(
+                    (todo) =>
+                        todo.title.toLowerCase().indexOf(val.toLowerCase()) >= 0
+                );
+            }
+        },
+        check() {
+            if (this.$route.params.id) {
+                this.showComment();
+            } else {
+                this.hideComment();
+            }
+        },
+    },
+    mounted() {
+        this.check();
+    },
     components: {
-        taskCard,
+        TodoCard,
         SearchInput,
         TodoNav,
         AddTaskBtn,
         AddTaskForm,
+        shareModal,
         TaskForm,
+        EditLabelModal,
     },
-=======
-export default {
-  name: "Main",
-  components: {
-    taskCard,
-    SearchInput,
-    TodoNav,
-    AddTaskBtn,
-    AddTaskForm,
-  },
->>>>>>> 9401779ef6601fcb2559e7b81677a5dffdb712ee
 };
-
 </script>
 <style lang="scss">
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+#view_section {
+    display: flex;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+
+@media (min-width: 786px) {
+    #view_section {
+        padding: 0 0 0 2rem;
+    }
+}
+
+#comment {
+    min-height: 100vh;
+    width: 100%;
+    border-left: 0.5px solid lightgrey;
+}
+
+@media (min-width: 768px) {
+    #comment {
+        width: 25%;
+    }
+}
+
+// #comment.hide {
+//   display: none
+// }
+
+// #comment.show {
+//   display: block
+// }
+
+@media (max-width: 768px) {
+    .hide {
+        display: none;
+    }
+
+    #view_section {
+        display: block !important;
+    }
 }
 </style>

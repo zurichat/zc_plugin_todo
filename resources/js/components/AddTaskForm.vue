@@ -1,9 +1,10 @@
 <template>
     <div>
         <form>
+
             <div class="input_box">
                 <label for="topic">Topic</label>
-                <input id="topic" class="border rounded-sm " name="topic" type="text">
+                <input id="topic" name="topic" type="text">
             </div>
             <div class="input_box">
                 <label for="description">Description</label>
