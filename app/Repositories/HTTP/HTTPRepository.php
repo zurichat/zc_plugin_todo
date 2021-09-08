@@ -151,7 +151,6 @@ class HTTPRepository implements RepositoryInterface
         $objects = $this->all();
         $search_data = [];
         for ($i = 0; $i < count($objects); $i++) {
-
             if ($objects[$i][$key] == $data) {
                 array_push($search_data, $objects[$i]);
             }
