@@ -1,24 +1,24 @@
 <template>
   <div class="topnav">
-    <a class="active" href="#">
+    <router-link to="/main">
       <img src="/img/task.svg" />
       <span>Task</span>
-    </a>
+    </router-link>
 
     <a href="#">
       <img src="/img/label.svg" />
       <span>Labels</span>
     </a>
 
-    <a href="#">
+   <router-link :to="{ name: 'Archive'}">
       <img src="/img/archive.svg" />
       <span>Archive</span>
-    </a>
+   </router-link>
 
-    <a href="#">
+    <router-link :to="{ name: 'Trash'}">
       <img src="/img/trash.svg" />
       <span>Trash</span>
-    </a>
+    </router-link>
   </div>
 </template>
 
@@ -29,6 +29,9 @@ export default {
 </script>
 <style scoped>
 .topnav {
+  position: fixed;
+  top: 70px;
+  width: 90%;
   overflow: hidden;
   display: flex;
   justify-content: flex-end;
@@ -50,7 +53,9 @@ export default {
   color: rgb(25, 146, 86);
 }
 /* Add a color to the active/current link */
-.topnav a.active {
-  color: #00b87c;
+
+a.router-link-exact-active {
+  color:  #00b87c;
+ 
 }
 </style>
