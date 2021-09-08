@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class PluginInfoController extends Controller
 {
+    // This method serves stactic info about the TO-DO plugin
     public function servePluginInfo()
     {
 

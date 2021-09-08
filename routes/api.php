@@ -55,7 +55,6 @@ Route::get('/taskresource', [TaskController::class, 'showResource']);
 
 
 // -  Comment Related Endpoints ----------- //
-
 Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
 Route::get('all-comment', [TaskCommentController::class, 'index']);
 Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
