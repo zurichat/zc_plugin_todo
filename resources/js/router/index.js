@@ -12,7 +12,13 @@ const routes = [{
         path: '/main',
         //this is where the main work lies
         name: 'Main',
-        component: Main
+        component: Main,
+        children: [{
+            path: 'details/:id',
+            name: 'Details',
+            component: () =>
+                import ( /* webpackChunkName: "Transactions" */ '../pages/Details.vue')
+        }]
     },
     {
         path: '/:pathMatch(.*)*',
