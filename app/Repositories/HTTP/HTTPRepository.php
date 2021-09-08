@@ -149,6 +149,9 @@ class HTTPRepository implements RepositoryInterface
     public function search($key, $data)
     {
         $objects = $this->all();
+        if (empty($objects) || $objects['status'] == '404') {
+           return ["status" => "error" ];
+        }
         $search_data = [];
         for ($i = 0; $i < count($objects); $i++) {
             if ($objects[$i][$key] == $data) {
@@ -156,6 +159,8 @@ class HTTPRepository implements RepositoryInterface
             }
         }
         return $search_data;
+
+
     }
 
 

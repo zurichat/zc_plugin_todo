@@ -28,15 +28,10 @@ class TaskController extends Controller
      public function index()
     {
         $task = $this->taskService->all();
-        if ($task['status'] == '404') {
+        if (empty($task) || $task['status'] == '404') {
            return response()->json(['message' => 'Tasks not found'], 404);
         }
         return response()->json($task, 200);
-    }
-
-    public function search(Request $request)
-    {
-        return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
     }
 
     public function getLatestTask()
@@ -150,7 +145,7 @@ class TaskController extends Controller
     public function search_todo(Request $request)
     {
         $search = $this->taskService->search($request->query('key'), $request->query('q'));
-        if (empty($search)) {
+        if (empty($search) || $search['status'] == 'error') {
            return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
@@ -196,7 +191,7 @@ class TaskController extends Controller
             'status' =>  true,
             'type' =>  'success',
             'message' => 'Todo created successfully'
-        ], 200);
+        ], 201);
     }
 
     public function showResource(Request $request) : TodoResourceCollection
@@ -223,5 +218,15 @@ class TaskController extends Controller
 
     }
 
+    public function resource_checker($resource)
+    {
+        if(empty($reso) || $reso['status'] == "404"){
+            return response()->json([
+                'status' =>  false,
+                'type' => 'error',
+                'message' => 'An Internal server error occured, please try again'
+            ], 500);
+        }
+    }
 
 }
