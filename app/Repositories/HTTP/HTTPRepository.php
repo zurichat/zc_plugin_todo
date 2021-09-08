@@ -96,7 +96,7 @@ class HTTPRepository implements RepositoryInterface
             "object_id" => "xxxx",
             "filter" => (object) [],
             "payload" => $attributes
-        ])->json()['data'];
+        ])->json();
     }
 
     public function update($id, array $attributes = [], bool $syncRelations = false)

@@ -27,8 +27,11 @@ class TaskController extends Controller
 
      public function index()
     {
-        $tasks = $this->taskService->all();
-        return response()->json(['tasks'=>$tasks], 200);
+        $task = $this->taskService->all();
+        if ($task['status'] == '404') {
+           return response()->json(['message' => 'Tasks not found'], 404);
+        }
+        return response()->json($task, 200);
     }
 
     public function search(Request $request)
@@ -182,7 +185,7 @@ class TaskController extends Controller
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = $this->taskService->create($data);
-        if(!$response){
+        if(empty($response) || $response['status'] == "404"){
             return response()->json([
                 'status' =>  false,
                 'type' => 'error',

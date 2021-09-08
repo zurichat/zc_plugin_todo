@@ -40,7 +40,7 @@ Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
 Route::get('task/sort', [TaskController::class, 'sort']);
 Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
-Route::post('add-task', [TaskDemoController::class, 'store']);
+Route::post('add-task', [TaskController::class, 'store']);
 Route::put('update-task/{id}', [TaskDemoController::class, 'update']);
 Route::delete('delete-task/{id}', [TaskDemoController::class, 'delete']);
 Route::post('task/{id}/toggleArchiveStatus', [TaskController::class, 'toggleArchiveStatus']);
