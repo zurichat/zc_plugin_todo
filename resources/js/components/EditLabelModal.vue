@@ -1,13 +1,13 @@
 <template>
     <div class="edit-label-overlay">
-        <div class="edit-label-modal">
+        <div class="edit-label-modal" v-click-away="hideLabel">
             <h3>Edit Labels</h3>
             <div class="create-label">
                 <img src="/img/add-icon.png" alt="add-icon" />
                 <p>Create a new label</p>
             </div>
 
-            <button class="done" @click="$emit('close')">Done</button>
+            <button class="done" @click="hideLabel">Done</button>
         </div>
     </div>
 </template>
@@ -16,12 +16,15 @@
 export default {
     name: "EditLabelModal",
 
-    methods: {},
+    methods: {
+        hideLabel() {
+            this.$emit("close");
+        },
+    },
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 * {
     padding: 0;
     margin: 0;
@@ -85,5 +88,29 @@ export default {
 
 .done:hover {
     color: #00b87c;
+}
+
+@media screen and (max-width: 900px) {
+    .edit-label-modal {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .edit-label-modal {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .edit-label-modal {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .edit-label-modal {
+        width: 95%;
+    }
 }
 </style>

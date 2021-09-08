@@ -5,7 +5,7 @@
             <span>Task</span>
         </a>
 
-        <a href="#" @click="$emit('showLabel')">
+        <a href @click.prevent="$emit('showLabel')">
             <img src="/img/label.svg" />
             <span>Labels</span>
         </a>
