@@ -48,7 +48,7 @@ Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
 
-
+Route::get('me', [TaskController::class, 'me']);
 
 
 Route::get('task-category', [TaskController::class, 'getTasksByCategory']);

@@ -25,10 +25,10 @@ class TaskController extends Controller
      * @return mixed
      */
 
-     public function index()
+    public function index()
     {
         $tasks = $this->taskService->all();
-        return response()->json(['tasks'=>$tasks], 200);
+        return response()->json(['tasks' => $tasks], 200);
     }
 
     public function search(Request $request)
@@ -45,19 +45,21 @@ class TaskController extends Controller
     {
         $tasks = ($this->taskService->find($id))['data'];
         $data = [];
-        foreach($tasks as $task){
-            if($task['_id'] == $id){
+        foreach ($tasks as $task) {
+            if ($task['_id'] == $id) {
                 $data[] = $task;
             }
         }
         return response()->json([
-                "status" => 200,
-                "message" => "success",
-                'data' => $data,
+            "status" => 200,
+            "message" => "success",
+            'data' => $data,
         ]);
     }
+
     public function modifyShow($id)
     {
+
         return view('updateDueDate');
     }
     public function updateTaskDate(Request $request, $id)
@@ -77,7 +79,6 @@ class TaskController extends Controller
 
         //response from zccore
         return response()->json($this->taskService->update($data, $id));
-
     }
 
 
@@ -90,7 +91,7 @@ class TaskController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json([
-                'Error'=>'Request failed',
+                'Error' => 'Request failed',
                 'message' => $validator->errors()
             ], 400);
         }
@@ -105,7 +106,7 @@ class TaskController extends Controller
         return response()->json([
             'message' => 'Request success',
             'data' => $newArr
-        ],200);
+        ], 200);
     }
 
     public function categoryTestView($id)
@@ -125,24 +126,23 @@ class TaskController extends Controller
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
-    public function taskcollection(){
+    public function taskcollection()
+    {
 
         $allTasks = $this->taskService->all()['data'];
         $time = time();
         $arr = array();
-        foreach ($allTasks as $value){
-            if (array_key_exists('end_date', $value)){
+        foreach ($allTasks as $value) {
+            if (array_key_exists('end_date', $value)) {
                 $end_date = $value['end_date'];
                 $convert_date = strtotime($end_date);
-                if($convert_date >= $time){
+                if ($convert_date >= $time) {
 
-                       $arr = $value;
-
+                    $arr = $value;
                 }
             }
         }
         return response()->json($arr);
-
     }
 
     public function sort(Request $request)
@@ -153,7 +153,7 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
-    public function showResource(Request $request) : TodoResourceCollection
+    public function showResource(Request $request): TodoResourceCollection
     {
         $tasks = $this->taskService->all();
         return new TodoResourceCollection($tasks);
