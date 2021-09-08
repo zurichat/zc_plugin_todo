@@ -25,15 +25,13 @@ class TaskController extends Controller
      * @return mixed
      */
 
-     public function index()
+    public function index()
     {
-        $tasks = $this->taskService->all();
-        return response()->json(['tasks'=>$tasks], 200);
-    }
-
-    public function search(Request $request)
-    {
-        return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
+        $task = $this->taskService->all();
+        if (empty($task) || $task['status'] == '404') {
+           return response()->json(['message' => 'Tasks not found'], 404);
+        }
+        return response()->json($task, 200);
     }
 
     public function getLatestTask()
@@ -45,15 +43,15 @@ class TaskController extends Controller
     {
         $tasks = ($this->taskService->find($id));
         $data = [];
-        foreach($tasks as $task){
-            if($task['_id'] == $id){
+        foreach ($tasks as $task) {
+            if ($task['_id'] == $id) {
                 $data[] = $task;
             }
         }
         return response()->json([
-                "status" => 200,
-                "message" => "success",
-                'data' => $data,
+            "status" => 200,
+            "message" => "success",
+            'data' => $data,
         ]);
     }
 
@@ -74,7 +72,6 @@ class TaskController extends Controller
 
         //response from zccore
         return response()->json($this->taskService->update($data, $id));
-
     }
 
 
@@ -87,7 +84,7 @@ class TaskController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json([
-                'Error'=>'Request failed',
+                'Error' => 'Request failed',
                 'message' => $validator->errors()
             ], 400);
         }
@@ -102,7 +99,7 @@ class TaskController extends Controller
         return response()->json([
             'message' => 'Request success',
             'data' => $newArr
-        ],200);
+        ], 200);
     }
 
 
@@ -116,24 +113,23 @@ class TaskController extends Controller
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
-    public function taskcollection(){
+    public function taskcollection()
+    {
 
         $allTasks = $this->taskService->all();
         $time = time();
         $arr = array();
-        foreach ($allTasks as $value){
-            if (array_key_exists('end_date', $value)){
+        foreach ($allTasks as $value) {
+            if (array_key_exists('end_date', $value)) {
                 $end_date = $value['end_date'];
                 $convert_date = strtotime($end_date);
-                if($convert_date >= $time){
+                if ($convert_date >= $time) {
 
-                       $arr = $value;
-
+                    $arr = $value;
                 }
             }
         }
         return response()->json($arr);
-
     }
 
     public function sort(Request $request)
@@ -147,7 +143,7 @@ class TaskController extends Controller
     public function search_todo(Request $request)
     {
         $search = $this->taskService->search($request->query('key'), $request->query('q'));
-        if (empty($search)) {
+        if (empty($search) || $search['status'] == 'error') {
            return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
@@ -182,7 +178,7 @@ class TaskController extends Controller
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = $this->taskService->create($data);
-        if(!$response){
+        if(empty($response) || $response['status'] == "404"){
             return response()->json([
                 'status' =>  false,
                 'type' => 'error',
@@ -193,10 +189,10 @@ class TaskController extends Controller
             'status' =>  true,
             'type' =>  'success',
             'message' => 'Todo created successfully'
-        ], 200);
+        ], 201);
     }
 
-    public function showResource(Request $request) : TodoResourceCollection
+    public function showResource(Request $request): TodoResourceCollection
     {
         $tasks = $this->taskService->all();
         return new TodoResourceCollection($tasks);
@@ -215,10 +211,7 @@ class TaskController extends Controller
         return response()->json([
             'message' => 'Request success',
             'data' => $newArr
-        ],200);
-
-
+        ], 200);
     }
-
 
 }

@@ -23,7 +23,7 @@ use App\Http\Controllers\TaskSearchController;
 |
 */
 
-// - Task Related Endpoints --------------//
+
 // -------------- Task Endpoints --------------------- //
 // api to fetch all todo tasks
 Route::get('task', [TaskController::class, 'index']);
@@ -55,7 +55,6 @@ Route::get('/taskresource', [TaskController::class, 'showResource']);
 
 
 // -  Comment Related Endpoints ----------- //
-
 Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
 Route::get('all-comment', [TaskCommentController::class, 'index']);
 Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
@@ -73,9 +72,9 @@ Route::post('create', [TodoController::class, 'create']);
 Route::post('edit', [TodoController::class, 'edit']);
 Route::post('update', [TodoController::class, 'update']);
 
-
-
-
-
-
-
+//  ---   Plugin Info Related Enpoints ------------------ //
+Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('ping', function () {
+    return response()->json(['message' => 'Server is live'], 200);
+});
