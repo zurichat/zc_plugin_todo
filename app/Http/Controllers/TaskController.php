@@ -178,11 +178,7 @@ class TaskController extends Controller
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = $this->taskService->create($data);
-<<<<<<< HEAD
         if(empty($response) || $response['status'] == "404"){
-=======
-        if (!$response) {
->>>>>>> 8429ea3ca0cc92d66e4103fceab1958644a3eb13
             return response()->json([
                 'status' =>  false,
                 'type' => 'error',
@@ -217,19 +213,5 @@ class TaskController extends Controller
             'data' => $newArr
         ], 200);
     }
-<<<<<<< HEAD
 
-    public function resource_checker($resource)
-    {
-        if(empty($reso) || $reso['status'] == "404"){
-            return response()->json([
-                'status' =>  false,
-                'type' => 'error',
-                'message' => 'An Internal server error occured, please try again'
-            ], 500);
-        }
-    }
-
-=======
->>>>>>> 8429ea3ca0cc92d66e4103fceab1958644a3eb13
 }
