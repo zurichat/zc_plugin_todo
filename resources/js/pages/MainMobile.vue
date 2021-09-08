@@ -3,6 +3,6 @@
 </template>
 <script>
 export default {
-    name: 'Comment'
+    name: 'Mobile'
 }
 </script>

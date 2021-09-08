@@ -94,9 +94,9 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
-        ])->json()['data'];
+        ])->json();
     }
 
     public function update($id, array $attributes = [], bool $syncRelations = false)
@@ -107,7 +107,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json()['data'];
     }
@@ -120,7 +120,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json();
     }
@@ -133,8 +133,8 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
-            "payload" => (object)[]
+            "filter" => (object) [],
+            "payload" => (object) []
         ])->json()['data'];
     }
 
@@ -143,19 +143,40 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
+    /**
+     * This will search for a models with a specif key-value pair
+     */
     public function search($key, $data)
     {
-        $todos = $this->all();
+        $objects = $this->all();
+        if (empty($objects) || $objects['status'] == '404') {
+           return ["status" => "error" ];
+        }
         $search_data = [];
-        for ($i = 0; $i < count($todos['data']); $i++) {
-            if (array_key_exists($key, $todos['data'][$i])) {
-                if ($todos['data'][$i][$key] == $data) {
-                    array_push($search_data, $todos['data'][$i]);
-                }
+        for ($i = 0; $i < count($objects); $i++) {
+            if ($objects[$i][$key] == $data) {
+                array_push($search_data, $objects[$i]);
             }
-
         }
         return $search_data;
+
+
     }
 
+
+    /**
+     * This will archive a model
+     */
+    public function archive($id)
+    {
+        $this->update($id, ['archived_at' => now()]);
+    }
+
+    /**
+     * This will unarchive a model
+     */
+    public function unarchive($id)
+    {
+        $this->update($id, ['archived_at' => null]);
+    }
 }
