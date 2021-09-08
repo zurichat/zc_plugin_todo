@@ -1,31 +1,25 @@
 <template>
-    <div class="p-5 mx-auto my-4 taskcard sm:mx-0 ">
+    <div class="p-5 mx-auto my-4 taskcard sm:mx-0 relative">
+        <CardMenu v-show="isModalVisible" @close="closeModal" />
         <div class="flex justify-between pb-4">
             <div class="">
                 <h1 class="task_title">{{title}}</h1>
                 <h1 class="task_description">{{description}}</h1>
             </div>
             <div class="">
-                 <button
-                    type="button"
-                    class="btn"
-                    @click="showModal"
-                    >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8.99988 10.4999C9.82831 10.4999 10.4999 9.82837 10.4999 8.99994C10.4999 8.17151 9.82831 7.49994 8.99988 7.49994C8.17145 7.49994 7.49988 8.17151 7.49988 8.99994C7.49988 9.82837 8.17145 10.4999 8.99988 10.4999Z"
-                        stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8.99988 4.49994C9.82831 4.49994 10.4999 3.82837 10.4999 2.99994C10.4999 2.17151 9.82831 1.49994 8.99988 1.49994C8.17145 1.49994 7.49988 2.17151 7.49988 2.99994C7.49988 3.82837 8.17145 4.49994 8.99988 4.49994Z"
-                        stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M8.99988 16.5C9.82831 16.5 10.4999 15.8284 10.4999 15C10.4999 14.1715 9.82831 13.5 8.99988 13.5C8.17145 13.5 7.49988 14.1715 7.49988 15C7.49988 15.8284 8.17145 16.5 8.99988 16.5Z"
-                        stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
-                </svg> </button>
-                <Modal
-                    v-show="isModalVisible"
-                    @close="closeModal"
-                    />
+                <button type="button" class="btn" @click="showModal">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M8.99988 10.4999C9.82831 10.4999 10.4999 9.82837 10.4999 8.99994C10.4999 8.17151 9.82831 7.49994 8.99988 7.49994C8.17145 7.49994 7.49988 8.17151 7.49988 8.99994C7.49988 9.82837 8.17145 10.4999 8.99988 10.4999Z"
+                            stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M8.99988 4.49994C9.82831 4.49994 10.4999 3.82837 10.4999 2.99994C10.4999 2.17151 9.82831 1.49994 8.99988 1.49994C8.17145 1.49994 7.49988 2.17151 7.49988 2.99994C7.49988 3.82837 8.17145 4.49994 8.99988 4.49994Z"
+                            stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M8.99988 16.5C9.82831 16.5 10.4999 15.8284 10.4999 15C10.4999 14.1715 9.82831 13.5 8.99988 13.5C8.17145 13.5 7.49988 14.1715 7.49988 15C7.49988 15.8284 8.17145 16.5 8.99988 16.5Z"
+                            stroke="#333333" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg> </button>
+
             </div>
         </div>
         <span class="flex">
@@ -61,10 +55,9 @@
                         </defs>
                     </svg>
                     <div class="pl-1 female">
-                        <svg width="44" height="40" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        <svg width="44" height="34" viewBox="0 0 44 34" fill="none" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <circle cx="22" cy="20" r="18.5" fill="#F7E0FF" stroke="#00B87C" />
-                            <rect y="4" width="44" height="34" fill="url(#pattern0)" />
+                            <rect width="44" height="34" fill="url(#pattern0)" />
                             <defs>
                                 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
                                     <use xlink:href="#image0"
@@ -75,35 +68,36 @@
                             </defs>
                         </svg>
 
+
                     </div>
                 </div>
                 <span class="">
-                    <a href="#" class="gray_link">View task</a>
+                    <span @click="details()" class="gray_link">View task</span>
                 </span>
             </div>
         </div>
     </div>
 </template>
 <script>
-  import Modal from './Modal.vue';
- 
+    import CardMenu from './CardMenu.vue';
+
     export default {
         name: "taskCard",
         components: {
-      Modal,
+            CardMenu,
         },
         data() {
-        return {
-            isModalVisible: false,
-        };
+            return {
+                isModalVisible: false,
+            };
         },
         methods: {
-        showModal() {
-            this.isModalVisible = true;
-        },
-        closeModal() {
-            this.isModalVisible = false;
-        }
+            showModal() {
+                this.isModalVisible = true;
+            },
+            closeModal() {
+                this.isModalVisible = false;
+            }
         },
         props: {
             title: {
@@ -122,7 +116,6 @@
     }
 </script>
 <style lang="scss" scoped>
-
     .todo_item {
         min-height: 10rem;
     }
