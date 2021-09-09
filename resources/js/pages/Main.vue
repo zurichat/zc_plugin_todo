@@ -65,9 +65,9 @@
           <TodoCard
             v-for="(todo, index) in searchedValues"
             :key="index"
-            :title="todo.title"
-            :date="todo.startDate"
-            :description="todo.description"
+            :todo="todo"
+            @showComment="showComment"
+            @toggleShareModal = "toggleShareModal"
           />
         </div>
       </template>

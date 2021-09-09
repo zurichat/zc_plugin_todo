@@ -21071,12 +21071,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.searchedValues, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index,
-      title: todo.title,
-      date: todo.startDate,
-      description: todo.description
+      todo: todo,
+      onShowComment: $options.showComment,
+      onToggleShareModal: $options.toggleShareModal
     }, null, 8
     /* PROPS */
-    , ["title", "date", "description"]);
+    , ["todo", "onShowComment", "onToggleShareModal"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" comment section still under construction "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div id=\"comment\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" // <router-view /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </div> ")])], 2
