@@ -9,6 +9,7 @@ use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
+use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSearchController;
 
@@ -77,3 +78,16 @@ Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('ping', function () {
     return response()->json(['message' => 'Server is live'], 200);
 });
+
+
+
+
+// Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
+Route::prefix('v1')->group(function () {
+    Route::get('/todo', [SideBarTodoController::class, 'index']);
+    Route::post('/todo', [SideBarTodoController::class, 'store']);
+    Route::delete('/todo', [SideBarTodoController::class, 'delete']);
+    Route::get('/sidebar', [SideBarTodoController::class, 'sidebar']);
+});
+// Route::get('v1/all-rooms', [SideBarTodoController::class, 'allRooms']);
+// Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
