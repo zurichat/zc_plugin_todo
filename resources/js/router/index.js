@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Busy from '../pages/Busy.vue';
 import Main from '../pages/Main.vue';
+import Trash from '../pages/Trash.vue';
+import Archive from '../pages/Archive';
 const routes = [{
         path: '/',
         //this is main page where users land
@@ -23,6 +25,18 @@ const routes = [{
         //this is where the main work lies
         name: 'PageNotFound',
         component: Busy
+    },
+    {
+        path: '/trash',
+        //this is the page that contains todo trash
+        name: 'Trash' ,
+        component: Trash
+    },
+    {
+        path: '/archive',
+        //this is the page that contains todo archive
+        name: 'Archive',
+        component: Archive
     }
 ]
 const router = createRouter({

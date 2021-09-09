@@ -27,8 +27,7 @@
             <AddTaskBtn @click="toggleModal" />
             <!-- the search input component working -->
             <SearchInput @searchTodo="searchTodo" />
-            <!-- the todo nav component -->
-            <TodoNav @showLabel="showEditModal = true" />
+            
             <!-- the grid div tag for the todo container and the comment section -->
             <!-- <div></div> -->
             <div id="main_view" class="section_grid">
@@ -109,8 +108,8 @@
 </template>
 <script>
 import SearchInput from "../components/Search-Input.vue";
+import taskCard from "../components/taskCard.vue";
 import TodoCard from "../components/TodoCard.vue";
-import TodoNav from "../components/TodoNav.vue";
 import AddTaskForm from "../components/addTaskForm.vue";
 import AddTaskBtn from "../components/AddTaskBtn.vue";
 import TaskForm from "../components/TaskForm";
@@ -186,7 +185,6 @@ export default {
     components: {
         TodoCard,
         SearchInput,
-        TodoNav,
         AddTaskBtn,
         AddTaskForm,
         shareModal,
