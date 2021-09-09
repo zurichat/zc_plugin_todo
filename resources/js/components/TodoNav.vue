@@ -5,17 +5,17 @@
       <span>Task</span>
     </router-link>
 
-    <a href="#">
+    <a href="#" @click.prevent="$emit('showLabel')">
       <img src="/img/label.svg" />
       <span>Labels</span>
     </a>
 
-   <router-link :to="{ name: 'Archive'}">
+    <router-link :to="{ name: 'Archive' }">
       <img src="/img/archive.svg" />
       <span>Archive</span>
-   </router-link>
+    </router-link>
 
-    <router-link :to="{ name: 'Trash'}">
+    <router-link :to="{ name: 'Trash' }">
       <img src="/img/trash.svg" />
       <span>Trash</span>
     </router-link>
@@ -27,6 +27,7 @@ export default {
   name: "TodoNav",
 };
 </script>
+
 <style scoped>
 .topnav {
   position: fixed;
@@ -46,16 +47,13 @@ export default {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 15px;
-  
 }
 /* Change the color of links on hover */
 .topnav a:hover {
   color: rgb(25, 146, 86);
 }
 /* Add a color to the active/current link */
-
 a.router-link-exact-active {
-  color:  #00b87c;
- 
+  color: #00b87c;
 }
 </style>

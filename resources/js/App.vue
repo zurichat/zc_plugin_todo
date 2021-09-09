@@ -2,7 +2,7 @@
   <!-- view for all pages -->
   <div id="view">
     <!-- the todo nav component -->
-    <TodoNav />
+            <TodoNav @showLabel="showEditModal = true" />
     <router-view />
   </div>
 </template>

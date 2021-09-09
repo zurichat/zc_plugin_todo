@@ -96,7 +96,7 @@ class HTTPRepository implements RepositoryInterface
             "object_id" => "xxxx",
             "filter" => (object) [],
             "payload" => $attributes
-        ])->json()['data'];
+        ])->json();
     }
 
     public function update($id, array $attributes = [], bool $syncRelations = false)
@@ -149,14 +149,18 @@ class HTTPRepository implements RepositoryInterface
     public function search($key, $data)
     {
         $objects = $this->all();
+        if (empty($objects) || $objects['status'] == '404') {
+           return ["status" => "error" ];
+        }
         $search_data = [];
         for ($i = 0; $i < count($objects); $i++) {
-
             if ($objects[$i][$key] == $data) {
                 array_push($search_data, $objects[$i]);
             }
         }
         return $search_data;
+
+
     }
 
 
