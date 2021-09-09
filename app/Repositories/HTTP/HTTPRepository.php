@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
 {
-    protected $url = 'https://zccore.herokuapp.com/';
+    protected $url = 'https://api.zuri.chat/';
     protected $organisation_id = '612a3a914acf115e685df8e3';
-    protected $plugin_id = '6134a7a42d91654fa0487274';
+    protected $plugin_id = '6138deac99bd9e223a37d8f5';
+
+    // protected $url = 'https://zccore.herokuapp.com/';
+    // protected $organisation_id = '612a3a914acf115e685df8e3';
+    // protected $plugin_id = '6138deac99bd9e223a37d8f5';
 
     protected $modelName;
     protected $model;

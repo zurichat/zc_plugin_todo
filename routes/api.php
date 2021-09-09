@@ -24,7 +24,7 @@ use App\Http\Controllers\TaskSearchController;
 */
 
 
-// -------------- Task Endpoints --------------------- //
+
 // api to fetch all todo tasks
 Route::get('task', [TaskController::class, 'index']);
 Route::get('task/{id}/show', [TaskController::class, 'show']);
@@ -47,14 +47,13 @@ Route::post('task/{id}/toggleArchiveStatus', [TaskController::class, 'toggleArch
 Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
 Route::get('/task/archived', [TaskController::class, 'archived']);
 Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
-
 Route::get('/search', [TaskController::class, 'search_todo']);
 
-//------------------- Resource End ponits ---------- //
+// Resource End ponits 
 Route::get('/taskresource', [TaskController::class, 'showResource']);
 
 
-// -  Comment Related Endpoints ----------- //
+// Comment Related Endpoints 
 Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
 Route::get('all-comment', [TaskCommentController::class, 'index']);
 Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
@@ -62,7 +61,7 @@ Route::put('update-comment/{commentId}', [TaskCommentController::class, 'update'
 Route::delete('comment_delete/{commentId}', [TaskCommentController::class, 'delete']);
 
 
-// ----------- File Related Endpoints --------------------- //
+// File Related Endpoints 
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
@@ -72,7 +71,7 @@ Route::post('create', [TodoController::class, 'create']);
 Route::post('edit', [TodoController::class, 'edit']);
 Route::post('update', [TodoController::class, 'update']);
 
-//  ---   Plugin Info Related Enpoints ------------------ //
+// Plugin Info Related Enpoints 
 Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
 Route::get('ping', function () {
