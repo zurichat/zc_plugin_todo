@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
 {
-    protected $url = 'https://zccore.herokuapp.com/';
+    protected $url = 'https://api.zuri.chat/';
     protected $organisation_id = '612a3a914acf115e685df8e3';
-    protected $plugin_id = '6134a7a42d91654fa0487274';
+    protected $plugin_id = '6138deac99bd9e223a37d8f5';
+
+    // protected $url = 'https://zccore.herokuapp.com/';
+    // protected $organisation_id = '612a3a914acf115e685df8e3';
+    // protected $plugin_id = '6138deac99bd9e223a37d8f5';
 
     protected $modelName;
     protected $model;
@@ -94,9 +98,9 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
-        ])->json()['data'];
+        ])->json();
     }
 
     public function update($id, array $attributes = [], bool $syncRelations = false)
@@ -107,7 +111,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json()['data'];
     }
@@ -120,7 +124,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json();
     }
@@ -133,8 +137,8 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
-            "payload" => (object)[]
+            "filter" => (object) [],
+            "payload" => (object) []
         ])->json()['data'];
     }
 
@@ -143,19 +147,24 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
+    /**
+     * This will search for a models with a specif key-value pair
+     */
     public function search($key, $data)
     {
-        $todos = $this->all();
+        $objects = $this->all();
+        if (empty($objects) || $objects['status'] == '404') {
+           return ["status" => "error" ];
+        }
         $search_data = [];
-        for ($i = 0; $i < count($todos['data']); $i++) {
-            if (array_key_exists($key, $todos['data'][$i])) {
-                if ($todos['data'][$i][$key] == $data) {
-                    array_push($search_data, $todos['data'][$i]);
-                }
+        for ($i = 0; $i < count($objects); $i++) {
+            if ($objects[$i][$key] == $data) {
+                array_push($search_data, $objects[$i]);
             }
-
         }
         return $search_data;
+
+
     }
 
 

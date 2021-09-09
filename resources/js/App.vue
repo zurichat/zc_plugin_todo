@@ -7,12 +7,12 @@
 <style lang='scss'>
 
     #view {
-        width: 95%;
+        //width: 95%;
         margin: 0 auto;
 }
 @media (min-width: 424px) {
     #view {
-        width: 90%;
+      //  width: 90%;
     
     }
 }

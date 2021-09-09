@@ -23,96 +23,57 @@ use App\Http\Controllers\TaskSearchController;
 |
 */
 
-// - Task Related Endpoints --------------//
 
-Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);
-Route::get('get-tasks', [\App\Http\Controllers\TaskDemoController::class, 'index']);
-Route::get('find-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);
-Route::post('add-task', [\App\Http\Controllers\TaskDemoController::class, 'store']);
-Route::put('update-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);
-Route::delete('delete-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);
 
-// TaskSearchController
+// api to fetch all todo tasks
+Route::get('task', [TaskController::class, 'index']);
+Route::get('task/{id}/show', [TaskController::class, 'show']);
+Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
+Route::post('/task/modify/{id}', [TaskController::class, 'updateTaskDate']);
+Route::post('/task/update/category/{id}', [TaskController::class, 'updateTaskCategory']);
+Route::get('/task/update/category/{id}', [TaskController::class, 'categoryTestView']);
+Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
+Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
+Route::get('/todo_resource', [TodoController::class, 'showResource']);
+Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
+Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
 
-Route::get('tasks', [TaskSearchController::class, 'index']);
+Route::get('task/sort', [TaskController::class, 'sort']);
+Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
+Route::post('add-task', [TaskController::class, 'store']);
+Route::put('update-task/{id}', [TaskDemoController::class, 'update']);
+Route::delete('delete-task/{id}', [TaskDemoController::class, 'delete']);
+Route::post('task/{id}/toggleArchiveStatus', [TaskController::class, 'toggleArchiveStatus']);
+Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
+Route::get('/task/archived', [TaskController::class, 'archived']);
+Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
+Route::get('/search', [TaskController::class, 'search_todo']);
 
-// TaskCommentController
-// -  Comment Related Endpoints ----------- //
+// Resource End ponits 
+Route::get('/taskresource', [TaskController::class, 'showResource']);
 
-Route::post('comment', [TaskCommentController::class, 'saveComment']);
-Route::get('comment', [TaskCommentController::class, 'index']);
+
+// Comment Related Endpoints 
+Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
+Route::get('all-comment', [TaskCommentController::class, 'index']);
 Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
-Route::get('comment/{id}', [TaskCommentController::class, 'show']);
-Route::put('comment/{id}', [TaskCommentController::class, 'update']);
-Route::delete('comment_delete/{id}', [TaskCommentController::class, 'delete']);
+Route::put('update-comment/{commentId}', [TaskCommentController::class, 'update']);
+Route::delete('comment_delete/{commentId}', [TaskCommentController::class, 'delete']);
 
 
-
-
-
-
+// File Related Endpoints 
 
 Route::post('files', [UploadFilesController::class, 'upLoadFiles']);
 Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);
 
-Route::get('task-category', [TaskController::class, 'getTasksByCategory']);
+// todo post request
+Route::post('create', [TodoController::class, 'create']);
+Route::post('edit', [TodoController::class, 'edit']);
+Route::post('update', [TodoController::class, 'update']);
 
-// api to fetch all todo tasks
-Route::get('task', [\App\Http\Controllers\TaskController::class, 'index']);
-
-// comment post request
-
-
-
-
-Route::post('create', [\App\Http\Controllers\TodoController::class, 'create']);
-Route::post('edit', [\App\Http\Controllers\TodoController::class, 'edit']);
-Route::post('update', [\App\Http\Controllers\TodoController::class, 'update']);
-Route::get('/search', [TodoController::class, 'search_todo']);
-
-
-
-Route::get('task/{id}', [\App\Http\Controllers\TaskController::class, 'show']);
-Route::post('task/{id}/toggleArchiveStatus', [\App\Http\Controllers\TaskController::class, 'toggleArchiveStatus']);
-// -------------- Task Modification Endpoints --------------------- //
-Route::get('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'modifyShow']);
-Route::post('/task/modify/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskDate']);
-Route::post('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'updateTaskCategory']);
-Route::get('/task/update/category/{id}', [\App\Http\Controllers\TaskController::class, 'categoryTestView']);
-
-
-Route::post('/task/update/{id}', [\App\Http\Controllers\TaskController::class, 'editTask']);
-
-//test endpoint that reads request from zuri core
-Route::get('test', [\App\Http\Controllers\TestController::class, 'index']);
-
-
-
-// -------------- Comments endpoints --------------------- //
-Route::get('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'show']);
-Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'store']);
-Route::put('comment/{id}', [\App\Http\Controllers\TaskCommentController::class, 'update']);
-Route::delete('comment_delete/{id}', [\App\Http\Controllers\TaskCommentController::class,'delete']);
-
-
-Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
-
-//------------------- Resource End ponits ---------- //
-Route::get('/taskresource', [App\Http\Controllers\TaskController::class, 'showResource']);
-
-
-// endpoint to fetch user credentials
-Route::get('/users', function () {
-    return response()->json(['message' => 'route to fetch user credentials is working'], 200);
+// Plugin Info Related Enpoints 
+Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('ping', function () {
+    return response()->json(['message' => 'Server is live'], 200);
 });
-
-//Show Tasks Assigned to a Specific User
-Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
-
-Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
-
-//Route to get collection of tasks for a user by id
-Route::get('/task_collection/{id}', function(){
-    return response()->json(['message' => 'route to get task collection is working'], 200);
-});
-Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
