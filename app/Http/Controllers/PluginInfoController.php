@@ -6,30 +6,21 @@ use Illuminate\Http\Request;
 
 class PluginInfoController extends Controller
 {
+    // This method serves stactic info about the TO-DO plugin
     public function servePluginInfo()
     {
 
         $pluginInfo = [
             'name' => 'TODO Plugin',
-            'description' => "Zuri.chat Plugin",
-            'scaffold_structure' => 'Monolith',
-            'uses' => "Set and Manage individual/team Project's Tasks",
-            'team' => 'HNG-8.0/Team-Kant',
-            'sub_domain' => 'https://todo.zuri.chat/',
-            'team_lead' => 'Bethel Irumudomon',
-            'mvp_features' => [
-                'feature-1' => 'Create Todo Tasks',
-                'feature-2' => 'Assign Tasks To An Individual Or A Team',
-                'feature-3' => 'Dispaly Tasks On Cards',
-                'feature-4' => 'Manage and Display Task Progress Using Dynamic ProgressBar',
-                'feature-5' => "Set Reminders For Task's Due Date",
-                'feature-6' => "Schedule A Task For Future Commencement",
-                'feature-7' => 'Schedule Task Notification And Reminders',
-                'feature-8' => 'Manage Workspace Comments On Task'
+            'description' => [
+                "Zuri.chat Plugin",
+                "A plugin to manage individual/team project's task"
             ],
-            'programming_language' => ['PHP', 'Javascript'],
-            'frameworks' => ['Laravel', 'Vue.js'],
-            'dependencies' => ['Phpredis', 'Tailwind CSS',]
+            'scaffold_structure' => 'Monolith',
+            'team' => 'HNG-8.0/Team-Kant',
+            'ping_url' => 'https://todo.zuri.chat/api/ping',
+            'html_url' => 'https://todo.zuri.chat/#/main',
+            'sidebar_url' => 'https://todo.zuri.chat/api/sidebar',
         ];
         return response()->json([
             'status' => 'success',
