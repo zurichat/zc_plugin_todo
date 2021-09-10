@@ -18,9 +18,3 @@ use App\Http\Controllers\TaskController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/create-todo', function () {
-    return view('test');
-});
-
-Route::post('create-todo', [TaskController::class, 'store']);
