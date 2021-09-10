@@ -17,7 +17,6 @@ class HTTPRepository implements RepositoryInterface
     {
         $this->modelName = $modelName;
         $this->model = new Http();
-        
         $this->organisation_id = session('organisation_id');
         $this->plugin_id = session('plugin_id');
     }
@@ -160,7 +159,7 @@ class HTTPRepository implements RepositoryInterface
     public function search($key, $data)
     {
         $objects = $this->all();
-        if (empty($objects) || $objects['status'] == '404') {
+        if (isset($objects['status']) && $objects['status'] == '404') {
            return ["status" => "error" ];
         }
         $search_data = [];
@@ -189,5 +188,16 @@ class HTTPRepository implements RepositoryInterface
     public function unarchive($id)
     {
         $this->update($id, ['archived_at' => null]);
+    }
+
+    /**
+     * Get users details by the userID
+     */
+    public function findUser($data)
+    {
+        return $this->model::withHeaders(
+                    ['Authorization' => 'Bearer ' . $data['token']])
+                    ->get($this->url . '/users/' . $data['user_id'])
+                    ->json()['data'];
     }
 }
