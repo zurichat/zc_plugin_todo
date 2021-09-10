@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Services\TaskService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -149,26 +150,9 @@ class TaskController extends Controller
         return response()->json($search, 200);
     }
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
-            'end_date' => 'required|max:255',
-            'labels' => 'required|max:255',
-            'tasks' => 'required|array|min:1',
-            'owner' => 'required|max:255',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' =>  false,
-                'type' => 'error',
-                'message' => 'missing required fields',
-                'data' => $validator->errors()->messages()
-            ], 422);
-        }
-
-        $data = $request->except('_method', '_token', 'org', 'token');
+        $data = $request->except('org', 'token');
         $tasks = $request->input('tasks');
         $i = 1;
         $data['tasks'] = [];
@@ -176,7 +160,7 @@ class TaskController extends Controller
             $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
             $i++;
         }
-        $data['status'] = 'pending';
+        $data['status'] = $request->input('status');
         $data['type'] = $request->input('type', 'public');
         $data['admins'][] = $data['user_id'] = $request->input('user', 1); // user id
         $data['parent_id'] = $request->input('parent_id');
@@ -187,7 +171,7 @@ class TaskController extends Controller
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = $this->taskService->create($data);
-        if (empty($response) || $response['status'] == "404") {
+        if (isset($response['status']) && $response['status'] == "404") {
             return response()->json([
                 'status' =>  false,
                 'type' => 'error',
