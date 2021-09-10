@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/create-todo', function () {
+    return view('test');
+});
+
+Route::post('create-todo', [TaskController::class, 'store']);
