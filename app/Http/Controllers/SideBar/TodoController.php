@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
     use HTTPRepoResponseHandler;
-    
+
     protected $todoRepository, $roomRepository;
 
     function __construct(TodoRepository $todoRepository, RoomRepository $roomRepository)
@@ -94,7 +94,7 @@ class TodoController extends Controller
         // update todo
         $this->todoRepository->update($todo_attr['todo_id'], $update_attr);
         // if update successful fetch room id from todo
-        // delete from 
+        // delete from
         return response()->json(['message' => "Deleted"], 204);
     }
 
@@ -135,7 +135,31 @@ class TodoController extends Controller
 
     public function allRooms(Request $request)
     {
-        return response()->json($this->roomRepository->all());
+        $allTodos = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org]);
+        // $rooms = [];
+        // for ($i=1; $i < count($allTodos); $i++) {
+        //     array_push($rooms,$allTodos[$i]);
+        // }
+        return response()->json(['rooms' => $allTodos], 200);
+    }
+
+    public function usersInRoom(Request $request)
+    {
+        //Get the room we want to users from.
+      $usersInRoom = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org, 'room_id' => $request->room]);
+      $data = [
+        'token' => $request->token,
+        'org' => $request->org
+      ];
+      $users_ids = $usersInRoom[0]['users'];
+      $usersInfo = [];
+      for ($i = 0; $i < count($users_ids); $i++) {
+        $data['user_id'] = $users_ids[$i];
+        $user = $this->todoRepository->findUser($data);
+        $usersInfo[] = collect($user)->only(['display_name', 'email', 'first_name', 'last_name', 'phone']);
+      }
+
+      return response()->json(["users" => $usersInfo], 200);
     }
 
     public function deleteRoom(Request $request)

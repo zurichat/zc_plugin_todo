@@ -89,5 +89,6 @@ Route::prefix('v1')->group(function () {
     Route::delete('/todo', [SideBarTodoController::class, 'delete']);
     Route::get('/sidebar', [SideBarTodoController::class, 'sidebar']);
 });
-// Route::get('v1/all-rooms', [SideBarTodoController::class, 'allRooms']);
+Route::get('/v1/all-rooms', [SideBarTodoController::class, 'allRooms']);
+Route::get('/v1/users-in-room', [SideBarTodoController::class, 'usersInRoom']);
 // Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
