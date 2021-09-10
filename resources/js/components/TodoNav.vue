@@ -1,6 +1,6 @@
 <template>
   <div class="topnav">
-    <router-link to="/main">
+    <router-link to="/new">
       <img src="/img/task.svg" />
       <span>Task</span>
     </router-link>
@@ -30,17 +30,17 @@ export default {
 
 <style scoped>
 .topnav {
-  position: fixed;
+  /* position: fixed;
   top: 70px;
-  width: 90%;
-  overflow: hidden;
+  width: 90%; */
+  /* overflow: hidden; */
   display: flex;
   justify-content: flex-end;
 }
 /* Style the links inside the navigation bar */
 .topnav a {
   display: flex;
-  gap: 8px;
+  /* gap: 8px; */
   color: #999999;
   font-weight: 700;
   text-align: center;

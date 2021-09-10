@@ -80,7 +80,7 @@
 </template>
 <script>
   import CardMenu from "./CardMenu.vue";
-
+  import {mapActions} from 'vuex'
   export default {
     name: "todo",
     data() {
@@ -115,7 +115,9 @@
           {
             name: 'Archive',
             action: () => {
+              this.archive(this.todo.card_id)
               this.toggleMenu()
+              
              // alert('You cant assign tasks now')
             },
             type: 'default'
@@ -123,6 +125,7 @@
           {
             name: 'Delete',
             action: () => {
+              this.delete(this.todo.card_id)
               this.toggleMenu()
              // alert('You cant assign tasks now')
             },
@@ -132,12 +135,14 @@
       }
     },
     methods: {
+      ...mapActions({
+        delete: 'todos/ADD_TRASH',
+        archive: 'todos/ADD_ARCHIVE'
+      }),
       ClickAway(event) {
         this.isModalVisible = false;
       },
       details(any) {
-
-        this.$emit('showComment')
         this.$router.push({ name: 'Details', params: { id: this.todo.card_id } })
       },
       toggleMenu() {
