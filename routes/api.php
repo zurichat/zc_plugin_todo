@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AssignTaskUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PingContoller;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\TaskSearchController;
+use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
-use App\Http\Controllers\TaskCommentController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskSearchController;
+use App\Http\Controllers\AssignTaskUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,3 +109,5 @@ Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
 
 Route::get('/task/archived', [TaskController::class, 'archived']);
 Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
+
+
