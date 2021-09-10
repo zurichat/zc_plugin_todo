@@ -19720,9 +19720,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         name: 'Share',
         action: function action() {
-          _this.toggleMenu();
-
-          _this.$emit('toggleShareModal'); //alert('You cant assign tasks now')
+          _this.toggleMenu(); // this.$emit('toggleShareModal')
+          //alert('You cant assign tasks now')
 
         },
         type: 'default'
@@ -19995,7 +19994,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     allTodos: "todos/allTodos",
     result: "todos/searchedTodo",
-    showAll: 'todos/showAll'
+    showAll: "todos/showAll"
   })),
   methods: {},
   components: {
@@ -20603,22 +20602,13 @@ var _hoisted_1 = {
   "class": "p-4 shadow-md mx-auto my-4 taskcard sm:mx-0 relative"
 };
 var _hoisted_2 = {
-  "class": "flex justify-between pb-4"
+  "class": "flex justify-between items-center "
 };
 var _hoisted_3 = {
-  "class": ""
-};
-var _hoisted_4 = {
   "class": "text-md capitalize font-bold"
 };
-var _hoisted_5 = {
-  "class": "text-md text-gray-500 "
-};
-var _hoisted_6 = {
-  "class": ""
-};
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   width: "18",
   height: "18",
   viewBox: "0 0 18 18",
@@ -20652,39 +20642,45 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_8 = [_hoisted_7];
-var _hoisted_9 = {
+var _hoisted_5 = [_hoisted_4];
+var _hoisted_6 = {
+  "class": "py-1"
+};
+var _hoisted_7 = {
+  "class": "text-md text-gray-500 "
+};
+var _hoisted_8 = {
   "class": "flex"
 };
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<svg class=\"self-center\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" data-v-40dea23e><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.24988 4.22688C2.24988 3.54927 2.79919 2.99995 3.4768 2.99995H14.523C15.2006 2.99995 15.7499 3.54927 15.7499 4.22688V15.273C15.7499 15.9506 15.2006 16.5 14.523 16.5H3.4768C2.79919 16.5 2.24988 15.9506 2.24988 15.273V4.22688Z\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path><path d=\"M11.9999 1.49997V4.49997\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path><path d=\"M5.99988 1.49997V4.49997\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path><path d=\"M2.24988 7.49995H15.7499\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path></svg>", 1);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<svg class=\"self-center\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" data-v-40dea23e><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.24988 4.22688C2.24988 3.54927 2.79919 2.99995 3.4768 2.99995H14.523C15.2006 2.99995 15.7499 3.54927 15.7499 4.22688V15.273C15.7499 15.9506 15.2006 16.5 14.523 16.5H3.4768C2.79919 16.5 2.24988 15.9506 2.24988 15.273V4.22688Z\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path><path d=\"M11.9999 1.49997V4.49997\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path><path d=\"M5.99988 1.49997V4.49997\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path><path d=\"M2.24988 7.49995H15.7499\" stroke=\"#1A61DB\" stroke-width=\"1.22693\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-v-40dea23e></path></svg>", 1);
 
-var _hoisted_11 = {
+var _hoisted_10 = {
   href: "#",
   "class": "px-1 font-bold block text-blue-600"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "line"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_13 = {
+var _hoisted_12 = {
   "class": ""
 };
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-sm text-gray-500 tracking-wide "
 }, "COLLABORATORS", -1
 /* HOISTED */
 );
 
-var _hoisted_15 = {
+var _hoisted_14 = {
   "class": "flex items-center flex-wrap justify-between"
 };
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "flex"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   width: "44",
@@ -20754,7 +20750,7 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_17 = {
+var _hoisted_16 = {
   "class": ""
 };
 
@@ -20770,19 +20766,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onToggleMenu: $options.toggleMenu
   }, null, 8
   /* PROPS */
-  , ["links", "onToggleMenu"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 1
+  , ["links", "onToggleMenu"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 1
-  /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "button",
-    "class": "btn",
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleMenu && $options.toggleMenu.apply($options, arguments);
     })
-  }, _hoisted_8)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.startDate), 1
+  }, _hoisted_5)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 1
   /* TEXT */
-  )]), _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.startDate), 1
+  /* TEXT */
+  )]), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $options.details($props.todo.card_id);
     }),
@@ -21152,7 +21146,7 @@ var _hoisted_1 = {
 };
 var _hoisted_2 = {
   key: 1,
-  "class": "\r\n                                todo_container\r\n                                sm:grid sm:grid-cols-2\r\n                                gap-4\r\n                                md:grid-cols-3\r\n                            "
+  "class": "\r\n                                 todo_container\r\n sm:grid sm:grid-cols-2\r\ngap-4\r\n md:grid-cols-3\r\n lg:grid-cols-4 \r\n                            "
 };
 var _hoisted_3 = {
   key: 1,
@@ -21171,12 +21165,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.archive, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index++,
-      todo: todo,
-      onShowComment: _ctx.showComment,
-      onToggleShareModal: _ctx.toggleShareModal
+      todo: todo
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment", "onToggleShareModal"]);
+    , ["todo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))], 2112
@@ -21184,12 +21176,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.searchedTodo, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index,
-      todo: todo,
-      onShowComment: _ctx.showComment,
-      onToggleShareModal: _ctx.toggleShareModal
+      todo: todo
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment", "onToggleShareModal"]);
+    , ["todo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"archive\">\r\n    <p>Your Archived Tasks will be added here</p>\r\n    <div class=\"image\">\r\n      <img src=\"/img/BigTrash.svg\" />\r\n      <span>No Tasks in Archive</span>\r\n    </div>\r\n  </div> ")], 2112
@@ -21278,11 +21268,11 @@ var _hoisted_2 = {
 };
 var _hoisted_3 = {
   key: 1,
-  "class": "\r\n                                todo_container\r\n                                sm:grid sm:grid-cols-2\r\n                                gap-4\r\n                                md:grid-cols-3\r\n                            "
+  "class": "\r\n                         todo_container\r\n sm:grid sm:grid-cols-2\r\ngap-4\r\n md:grid-cols-3\r\n lg:grid-cols-4 \r\n                    "
 };
 var _hoisted_4 = {
   key: 1,
-  "class": "\r\n                                todo_container\r\n                                sm:grid sm:grid-cols-2\r\n                                gap-4\r\n                                md:grid-cols-3\r\n                            "
+  "class": "\r\n                        todo_container\r\n                        sm:grid sm:grid-cols-2\r\n                        gap-4\r\n                        md:grid-cols-3\r\n                        lg:grid-cols-4\r\n                    "
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Empty = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Empty");
@@ -21297,12 +21287,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.allTodos, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index++,
-      todo: todo,
-      onShowComment: _ctx.showComment,
-      onToggleShareModal: _ctx.toggleShareModal
+      todo: todo
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment", "onToggleShareModal"]);
+    , ["todo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))], 2112
@@ -21310,12 +21298,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.result, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index,
-      todo: todo,
-      onShowComment: _ctx.showComment,
-      onToggleShareModal: _ctx.toggleShareModal
+      todo: todo
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment", "onToggleShareModal"]);
+    , ["todo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))])]);
@@ -21357,6 +21343,9 @@ var _hoisted_5 = {
 
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
+var _hoisted_7 = {
+  "class": "px-1"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_TaskForm = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TaskForm");
 
@@ -21370,21 +21359,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
-    name: "fade"
-  }, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [$data.isModal ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TaskForm, {
-        key: 0,
-        onToggleModal: $options.toggleModal
-      }, null, 8
-      /* PROPS */
-      , ["onToggleModal"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
-    }),
-    _: 1
-    /* STABLE */
-
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <transition name=\"fade\">\r\n            <edit-label-modal\r\n                v-if=\"showEditModal\"\r\n                @close=\"showEditModal = false\"\r\n            />\r\n        </transition>\r\n         "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <transition name=\"fade\">\r\n            <edit-label-modal\r\n                v-if=\"showEditModal\"\r\n                @close=\"showEditModal = false\"\r\n            />\r\n        </transition>\r\n         "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex-grow px-4", $data.isComment ? 'hide' : 'show'])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     "class": "w-8 m-4",
@@ -21433,7 +21408,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   })])], 2
   /* CLASS */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])]);
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)])])]);
 }
 
 /***/ }),
@@ -21456,7 +21431,7 @@ var _hoisted_1 = {
 };
 var _hoisted_2 = {
   key: 1,
-  "class": "\r\n                                todo_container\r\n                                sm:grid sm:grid-cols-2\r\n                                gap-4\r\n                                md:grid-cols-3\r\n                            "
+  "class": "\r\n                                 todo_container\r\n sm:grid sm:grid-cols-2\r\ngap-4\r\n md:grid-cols-3\r\n lg:grid-cols-4 \r\n                            "
 };
 var _hoisted_3 = {
   key: 1,
@@ -21475,12 +21450,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.trash, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index++,
-      todo: todo,
-      onShowComment: _ctx.showComment,
-      onToggleShareModal: _ctx.toggleShareModal
+      todo: todo
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment", "onToggleShareModal"]);
+    , ["todo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))], 2112
@@ -21488,12 +21461,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.searchedTodo, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index,
-      todo: todo,
-      onShowComment: _ctx.showComment,
-      onToggleShareModal: _ctx.toggleShareModal
+      todo: todo
     }, null, 8
     /* PROPS */
-    , ["todo", "onShowComment", "onToggleShareModal"]);
+    , ["todo"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))]);

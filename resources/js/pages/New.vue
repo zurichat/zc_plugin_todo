@@ -1,9 +1,6 @@
 <template>
     <div>
-        <transition name="fade">
-            <TaskForm v-if="isModal" @toggleModal="toggleModal" />
-        </transition>
-
+        
         <!-- <transition name="fade">
             <edit-label-modal
                 v-if="showEditModal"
@@ -36,7 +33,10 @@
                 <SearchInput @searchTodo="searchTodo" /> <TodoNav @showLabel="showEditModal = true" />
                 </div>
             </div>
-            <router-view />
+            <div class="px-1">
+                <router-view />
+            </div>
+            
         </div>
         
     

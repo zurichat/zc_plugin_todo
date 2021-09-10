@@ -11,18 +11,19 @@
       <div
         v-else
         class="
-                                todo_container
-                                sm:grid sm:grid-cols-2
-                                gap-4
-                                md:grid-cols-3
+                                 todo_container
+ sm:grid sm:grid-cols-2
+gap-4
+ md:grid-cols-3
+ lg:grid-cols-4 
                             "
       >
         <TodoCard
           v-for="(todo, index) in archive"
           :key="index++"
           :todo="todo"
-          @showComment="showComment"
-          @toggleShareModal="toggleShareModal"
+          
+          
         />
   </div>
   </template>
@@ -37,8 +38,8 @@
         v-for="(todo, index) in searchedTodo"
         :key="index"
         :todo="todo"
-        @showComment="showComment"
-        @toggleShareModal="toggleShareModal"
+        
+        
       />
     </div>
   </template>
