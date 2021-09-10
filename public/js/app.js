@@ -21589,7 +21589,7 @@ var routes = [{
   name: 'Main',
   component: _pages_Main_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
-  path: '/new',
+  path: '/main',
   //this is the page that contains todo trash
   name: 'New',
   component: _pages_New_vue__WEBPACK_IMPORTED_MODULE_2__["default"],

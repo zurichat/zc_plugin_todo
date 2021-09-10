@@ -17,7 +17,7 @@ const routes = [{
 
     },
     {
-        path: '/new',
+        path: '/main',
         //this is the page that contains todo trash
         name: 'New',
         component: New,
