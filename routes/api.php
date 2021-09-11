@@ -10,6 +10,13 @@ use App\Http\Controllers\TaskSearchController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
+use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\Api\TodoResourceController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskSearchController;
+
 /*
 | Here is where you can register API routes for your application. These
 | is assigned the "api" middleware group. Enjoy building your API!

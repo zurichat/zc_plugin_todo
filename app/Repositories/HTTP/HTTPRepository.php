@@ -195,9 +195,7 @@ class HTTPRepository implements RepositoryInterface
      */
     public function findUser($data)
     {
-        return $this->model::withHeaders(
-                    ['Authorization' => 'Bearer ' . $data['token']])
-                    ->get($this->url . '/users/' . $data['user_id'])
+        return $this->model::get($this->url . '/users/' . $data['user_id'])
                     ->json()['data'];
     }
 }
