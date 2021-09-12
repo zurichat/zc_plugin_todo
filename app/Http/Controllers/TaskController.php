@@ -162,7 +162,7 @@ class TaskController extends Controller
         }
         $data['status'] = $request->input('status');
         $data['type'] = $request->input('type', 'public');
-        $data['admins'][] = $data['user_id'] = $request->input('user', 1); // user id
+        $data['admins'][] = $data['user_id'] = $request->input('user'); // user id
         $data['parent_id'] = $request->input('parent_id');
         $data['start_date'] = $request->input('start_date', date('Y-m-d'));
         $data['created_at'] = date('Y-m-d');

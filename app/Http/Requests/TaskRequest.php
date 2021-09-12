@@ -31,6 +31,7 @@ class TaskRequest extends FormRequest
             'tasks' => 'required|array|min:1',
             'owner' => 'required|max:255',
             'status' => 'required',
+            'user' => 'required',
         ];
     }
 }
