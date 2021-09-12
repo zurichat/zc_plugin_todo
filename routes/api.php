@@ -50,6 +50,9 @@ Route::get('/task/archived', [TaskController::class, 'archived']);
 Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
 Route::get('/search', [TaskController::class, 'search_todo']);
 
+Route::get('/addTodoTask/{id}', [TaskController::class, 'addTodoTask']);
+Route::get('/removeTodoTask/{id}', [TaskController::class, 'removeTodoTask']);
+
 // Resource End ponits
 Route::get('/taskresource', [TaskController::class, 'showResource']);
 

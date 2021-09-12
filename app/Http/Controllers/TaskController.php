@@ -214,4 +214,38 @@ class TaskController extends Controller
         ], 200);
     }
 
+    public function addTodoTask(Request $request){              
+        $user_priv = [ 'user_id' => $request->user];
+    
+        foreach ($user_priv as $value) {
+
+            if (isset($value['admins']) && $value[$user_priv] != null) {
+                array_push ($user_priv, $value);
+                
+            }else if (array_key_exists('admins', $user_priv)) {
+                    $user_priv = $value['user_id'];
+            }else     return response()->json([
+                'status' =>  false,
+                'type' => 'error',
+                'message' => 'not an admin'
+            ], 500);         
+            return response()->json($this->taskService->create($request->all()));
+        }
+       
+    }
+    public function removeTodoTask(Request $request, $id){              
+        $user_priv = [ 'user_id' => $request->user];
+        $tasks = $this->taskService->all();
+        $task = $tasks->find($id);
+        
+        foreach ($user_priv as $value) {
+            if (isset($value['admins']) && $value[$user_priv] != null) {
+                array_push ($user_priv, $value);
+                
+            }
+            return response()->json($this->taskService->delete($id));
+        }
+       
+    }
+
 }
