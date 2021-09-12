@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Services\TaskService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -144,32 +145,24 @@ class TaskController extends Controller
     {
         $search = $this->taskService->search($request->query('key'), $request->query('q'));
         if (empty($search) || $search['status'] == 'error') {
-           return response()->json(['message' => 'No result found'], 404);
+            return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
     }
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
-            'color_code' => 'required|max:255',
-            'end_date' => 'required|max:255',
-            'workspace_id' => 'required|max:255',
-            'category_id' => 'required|max:255',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' =>  false,
-                'type' => 'error',
-                'message' => 'missing required fields',
-                'data' => $validator->errors()->messages()
-            ], 422);
+        $data = $request->except('org', 'token');
+        $tasks = $request->input('tasks');
+        $i = 1;
+        $data['tasks'] = [];
+        foreach ($tasks as $task) {
+            $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
+            $i++;
         }
-
-        $data = $request->except('_method', '_token');
-        $data['status_id'] = $request->input('status_id', 1);
+        $data['status'] = $request->input('status');
+        $data['type'] = $request->input('type', 'public');
+        $data['admins'][] = $data['user_id'] = $request->input('user'); // user id
         $data['parent_id'] = $request->input('parent_id');
         $data['start_date'] = $request->input('start_date', date('Y-m-d'));
         $data['created_at'] = date('Y-m-d');
@@ -178,17 +171,18 @@ class TaskController extends Controller
         $data['recurring'] = $request->input('recurring', false);
         $data['reminder'] = $request->input('reminder');
         $response = $this->taskService->create($data);
-        if(empty($response) || $response['status'] == "404"){
+        if (isset($response['status']) && $response['status'] == "404") {
             return response()->json([
                 'status' =>  false,
                 'type' => 'error',
-                'message' => 'Todo not created'
+                'message' => 'Todo not created',
             ], 500);
         }
         return response()->json([
             'status' =>  true,
             'type' =>  'success',
-            'message' => 'Todo created successfully'
+            'message' => 'Todo created successfully',
+            'data' => $data
         ], 201);
     }
 
@@ -213,5 +207,4 @@ class TaskController extends Controller
             'data' => $newArr
         ], 200);
     }
-
 }
