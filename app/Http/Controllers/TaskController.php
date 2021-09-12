@@ -29,8 +29,8 @@ class TaskController extends Controller
     public function index()
     {
         $task = $this->taskService->all();
-        if (empty($task) || $task['status'] == '404') {
-            return response()->json(['message' => 'Tasks not found'], 404);
+        if (isset($task['status']) && $task['status'] == '404') {
+           return response()->json(['message' => 'Tasks not found'], 404);
         }
         return response()->json($task, 200);
     }
