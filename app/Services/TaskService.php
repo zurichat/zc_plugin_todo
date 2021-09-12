@@ -42,6 +42,15 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->find($id);
     }
 
+     /**
+     * @param mixed
+     * @return mixed
+     */
+    public function findBy($attr, $value)
+    {
+        return $this->taskRepository->findBy($attr, $value);
+    }
+
     /**
      * @param array $data
      * @param int $id

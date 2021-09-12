@@ -41,17 +41,12 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $tasks = ($this->taskService->find($id));
-        $data = [];
-        foreach ($tasks as $task) {
-            if ($task['_id'] == $id) {
-                $data[] = $task;
-            }
-        }
+        $tasks = $this->taskService->findBy('_id', $id);
+
         return response()->json([
             "status" => 200,
             "message" => "success",
-            'data' => $data,
+            'data' => $tasks,
         ]);
     }
 
@@ -143,7 +138,7 @@ class TaskController extends Controller
     public function search_todo(Request $request)
     {
         $search = $this->taskService->search($request->query('key'), $request->query('q'));
-        if (empty($search) || $search['status'] == 'error') {
+        if (isset($search['status']) && $search['status'] == 'error' || empty($search)) {
            return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
