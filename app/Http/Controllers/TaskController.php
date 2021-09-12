@@ -207,7 +207,6 @@ class TaskController extends Controller
             'data' => $newArr
         ], 200);
     }
-<<<<<<< HEAD
 
     public function addTodoTask(Request $request){              
         $user_priv = [ 'user_id' => $request->user];
@@ -243,6 +242,4 @@ class TaskController extends Controller
        
     }
 
-=======
->>>>>>> 15b43c428bd4739359cc0882cd1426995cea6309
 }
