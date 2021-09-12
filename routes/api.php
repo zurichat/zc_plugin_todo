@@ -93,7 +93,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/users-in-room', [SideBarTodoController::class, 'usersInRoom']);
     Route::post('/auth/login', [AuthController::class, 'login']);
 });
-Route::get('/v1/all-rooms', [SideBarTodoController::class, 'allRooms']);
-Route::get('/v1/users-in-room', [SideBarTodoController::class, 'usersInRoom']);
 
 // Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
