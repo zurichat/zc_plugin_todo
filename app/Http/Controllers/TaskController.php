@@ -32,7 +32,7 @@ class TaskController extends Controller
         if (isset($task['status']) && $task['status'] == '404') {
            return response()->json(['message' => 'Tasks not found'], 404);
         }
-        return response()->json($task, 200);
+        return response()->json(new TodoResourceCollection($task), 200);
     }
 
     public function getLatestTask()
@@ -42,18 +42,11 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $tasks = ($this->taskService->find($id));
-        $data = [];
-        foreach ($tasks as $task) {
-            if ($task['_id'] == $id) {
-                $data[] = $task;
-            }
+        $tasks = $this->taskService->findBy('_id', $id);
+        if (empty($tasks)) {
+           return response()->json(['message' => 'Todo not found'], 404);
         }
-        return response()->json([
-            "status" => 200,
-            "message" => "success",
-            'data' => $data,
-        ]);
+        return response()->json($tasks, 200);
     }
 
     public function updateTaskDate(Request $request, $id)
@@ -144,8 +137,8 @@ class TaskController extends Controller
     public function search_todo(Request $request)
     {
         $search = $this->taskService->search($request->query('key'), $request->query('q'));
-        if (empty($search) || $search['status'] == 'error') {
-            return response()->json(['message' => 'No result found'], 404);
+        if (isset($search['status']) && $search['status'] == 'error' || empty($search)) {
+           return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
     }
@@ -184,12 +177,6 @@ class TaskController extends Controller
             'message' => 'Todo created successfully',
             'data' => $data
         ], 201);
-    }
-
-    public function showResource(Request $request): TodoResourceCollection
-    {
-        $tasks = $this->taskService->all();
-        return new TodoResourceCollection($tasks);
     }
 
     public function archived(Request $request)
