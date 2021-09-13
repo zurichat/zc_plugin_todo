@@ -15,7 +15,7 @@
 
 @media (min-width: 786px) {
     #view_section {
-        padding: 0 2rem;
+       // padding: 0 2rem;
     }
 }
 
