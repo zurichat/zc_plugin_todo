@@ -83,7 +83,7 @@ class TaskService extends \App\Providers\AppServiceProvider
         $result = $this->taskRepository->all();
         $data = [];
         // filter the array for items without created_at
-        foreach($result['data'] as $anyName){
+        foreach($result as $anyName){
             if(isset($anyName['created_at'])){
                 array_push($data,$anyName);
             }

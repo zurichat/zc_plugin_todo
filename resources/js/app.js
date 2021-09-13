@@ -1,6 +1,7 @@
 require('./bootstrap');
 import 'primevue/resources/primevue.min.css'; //corecss
 import 'primeicons/primeicons.css';
+import 'primevue/resources/themes/saga-green/theme.css';
 import router from './router';
 import store from './store'
 import VueClickAway from "vue3-click-away";
