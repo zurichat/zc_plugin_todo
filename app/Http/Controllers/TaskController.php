@@ -208,38 +208,44 @@ class TaskController extends Controller
         ], 200);
     }
 
-    public function addTodoTask(Request $request){              
-        $user_priv = [ 'user_id' => $request->user];
-    
-        foreach ($user_priv as $value) {
+    public function addTodoTask(Request $request){ 
+        $validator = $request->validate([
+            'user_id' => 'required',
+            'todo_id' => 'required',
+            'admins' => 'required'
+        ]);
 
-            if (isset($value['admins']) && $value[$user_priv] != null) {
-                array_push ($user_priv, $value);
-                
-            }else if (array_key_exists('admins', $user_priv)) {
-                    $user_priv = $value['user_id'];
-            }else     return response()->json([
-                'status' =>  false,
-                'type' => 'error',
-                'message' => 'not an admin'
-            ], 500);         
-            return response()->json($this->taskService->create($request->all()));
-        }
-       
+        $user_id = $request->user_id;
+        $admins = $request->admins;
+        $todo = $request->todo_id;
+    
+        if(in_array($user_id,$admins,)) {
+
+            return response()->json($todo->$this->TaskController->store);
+
+        } return response()->json([
+            'status' =>  false,
+            'type' => 'error',
+            'message' => 'error',
+        ], 500);                      
     }
+
     public function removeTodoTask(Request $request, $id){              
-        $user_priv = [ 'user_id' => $request->user];
-        $tasks = $this->taskService->all();
-        $task = $tasks->find($id);
+         $validator = $request->validate([
+            'user_id' => 'required',
+            'todo_id' => 'required',
+            'admins' => 'required'
+        ]);
+
+        $user_id = $request->user_id;
+        $admins = $request->admins;
+        $todo = $request->todo_id;
         
-        foreach ($user_priv as $value) {
-            if (isset($value['admins']) && $value[$user_priv] != null) {
-                array_push ($user_priv, $value);
-                
-            }
-            return response()->json($this->taskService->delete($id));
-        }
-       
+        if(in_array($user_id,$admins,)) {
+
+            return response()->json($todo->$this->taskService->delete($id));
+
+        }       
     }
 
 }
