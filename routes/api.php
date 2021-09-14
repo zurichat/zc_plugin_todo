@@ -7,7 +7,6 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\TaskSearchController;
-use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
