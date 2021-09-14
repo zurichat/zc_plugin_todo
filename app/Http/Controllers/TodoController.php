@@ -2,30 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
+
+use App\Http\Requests\TodoRequest;
+use App\Services\TodoService;
 use Illuminate\Http\Request;
-use App\Services\TaskService;
-use App\Http\Resources\TodoResource;
-use Illuminate\Support\Facades\Validator;
+
 
 class TodoController extends Controller
 {
 
-    protected $taskService;
+    protected $todoService;
 
-    public function __construct(TaskService $taskService)
+    public function __construct(TodoService $todoService)
     {
-        $this->taskService = $taskService;
+        $this->todoService = $todoService;
+    }
+
+    public function createTodo(TodoRequest $request)
+    {
+
+        $randomString = substr(uniqid(), 0, 10);
+        $input =  $request->all();
+        $todoObject = array_merge($input, [
+            'channel' => "$randomString-$request->title",
+            "tasks" => [],
+            "labels" => [],
+            "colaborators" => [],
+            "created_at" => now()
+        ]);
+
+        $result = $this->todoService->create($todoObject);
+
+        if ($result['status'] == 200 && isset($result["data"])) {
+            $responseWithId = array_merge(['_id' => $result["data"]['object_id']], $todoObject);
+            return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
+        }
+
+        return response()->json(['message' => $result['message']], 400);
     }
 
 
-    //TODO: Test frontend link to be removed or modified;
-    public function showPage()
+    public function index()
     {
-        return view('test');
+        $result = $this->todoService->all();
+        return $result;
+        if ($result['status'] == 200 && isset($result["data"])) {
+            return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $result], 200);
+        }
+
+        return response()->json(['message' => $result['message']], 400);
     }
-
-
-
-
 }

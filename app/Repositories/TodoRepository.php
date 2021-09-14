@@ -6,7 +6,7 @@ use App\Repositories\HTTP\HTTPRepository;
 
 class TodoRepository extends HTTPRepository
 {
-    protected $modelName = 'DemoTodo';
+    protected $modelName = 'Todo';
 
     public function __construct()
     {
