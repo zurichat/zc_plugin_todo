@@ -39,6 +39,7 @@ Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
 Route::get('/todo_resource', [TodoController::class, 'showResource']);
 Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
 Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
+Route::delete('task/remove', [AssignTaskUserController::class, 'remove']);
 
 Route::get('task/sort', [TaskController::class, 'sort']);
 Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
