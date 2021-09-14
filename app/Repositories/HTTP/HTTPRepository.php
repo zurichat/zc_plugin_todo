@@ -12,6 +12,8 @@ class HTTPRepository implements RepositoryInterface
 
     protected $modelName;
     protected $model;
+    protected $org = '613a3ac959842c7444fb0240';
+    protected $p_id = '6138deac99bd9e223a37d8f5';
 
     public function __construct($modelName = "")
     {
@@ -19,6 +21,7 @@ class HTTPRepository implements RepositoryInterface
         $this->model = new Http();
         $this->organisation_id = session('organisation_id');
         $this->plugin_id = session('plugin_id');
+
     }
 
     public function allWithoutDeletedWhere(array $where)
@@ -32,12 +35,12 @@ class HTTPRepository implements RepositoryInterface
 
     public function all()
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json()['data'];
+        return $this->model::get($this->url . 'data/read/' . $this->p_id. '/' . $this->modelName . '/'.$this->org)->json()['data'];
     }
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?_id=' . $id)->json()['data'][0];
+        return $this->model::get($this->url . 'data/read/' . $this->p_id . '/' . $this->modelName . '/' . $this->org. '?_id=' . $id)->json()['data'];
     }
 
     public function findOrFail($id, $attributes = ['*'])
@@ -52,7 +55,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findBy($attribute, $value, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $attribute . '=' . $value)->json()['data'][0];
+        return $this->model::get($this->url . 'data/read/' . $this->p_id . '/' . $this->modelName . '/' . $this->org . '?' . $attribute . '=' . $value)->json()['data'];
     }
 
     public function findFirst($attributes = ['*'])
@@ -195,7 +198,7 @@ class HTTPRepository implements RepositoryInterface
      */
     public function findUser($data)
     {
-        return $this->model::get($this->url . '/users/' . $data['user_id'])
-                    ->json()['data'];
+        return $this->model::get($this->url . '/users/' . $data['user_id'].'?session='. $data['session_id'])
+                    ->json();
     }
 }

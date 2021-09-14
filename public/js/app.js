@@ -20354,42 +20354,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "\r\n      bg-gray-50\r\n      rounded-lg\r\n      border-2 border-gray-200\r\n      p-2\r\n      text-gray-300\r\n      max-w-md\r\n      flex\r\n      justify-between\r\n    ",
+  "class": "\r\n      rounded-lg\r\n      border-2 border-gray-200\r\n      p-2\r\n      text-gray-300\r\n      max-w-md\r\n      flex\r\n      justify-between\r\n    ",
   "for": "search"
 };
-
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "w-6 h-6 absolute ml-1",
-  fill: "none",
-  stroke: "currentColor",
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  "stroke-width": "2",
-  d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-})], -1
-/* HOISTED */
-);
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-  "class": "w-6 h-6 right-0 mr-2",
-  fill: "none",
-  stroke: "currentColor",
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round",
-  "stroke-width": "2",
-  d: "M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-})], -1
-/* HOISTED */
-);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     onInput: _cache[0] || (_cache[0] = function () {
       return $options.search && $options.search.apply($options, arguments);
@@ -20401,7 +20370,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "ml-8 bg-transparent text-black outline-none w-4/5"
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.value]]), _hoisted_3]);
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.value]])]);
 }
 
 /***/ }),
@@ -21759,7 +21728,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     showAll: true,
     isComment: false,
     selectedTodo: null,
-    searchedTodo: []
+    searchedTodo: [],
+    errMessage: "No Result Found"
   },
   mutations: {
     ADD_TODOS: function ADD_TODOS(state, data) {
@@ -21857,20 +21827,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return state.todos.splice(location, 1); //return commit('ADD_ARCHIVE', state.todos.location)
     },
     SEARCH: function SEARCH(_ref6, any) {
-      var commit = _ref6.commit,
-          dispatch = _ref6.dispatch,
-          state = _ref6.state;
-      var value = any;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var commit, dispatch, state, value;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref6.commit, dispatch = _ref6.dispatch, state = _ref6.state;
+                value = any;
 
-      if (value === "") {
-        dispatch('TOGGLESHOW', true);
-      } else {
-        var result = state.todos.filter(function (todo) {
-          return todo.title.toLowerCase().indexOf(value.toLowerCase()) >= 0;
-        });
-        dispatch('TOGGLESHOW', false);
-        commit('RESULT', result);
-      }
+                if (!(value === "")) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                dispatch('TOGGLESHOW', true);
+                _context2.next = 9;
+                break;
+
+              case 6:
+                _context2.next = 8;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("https://todo.zuri.chat/api/search?key=title&q=".concat(value)).then(function (res) {
+                  console.log(res.data);
+                  commit('RESULT', res.data);
+                });
+
+              case 8:
+                dispatch('TOGGLESHOW', false);
+
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     TOGGLESHOW: function TOGGLESHOW(_ref7, any) {
       var commit = _ref7.commit;
