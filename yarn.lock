@@ -5773,7 +5773,7 @@ vue3-icon@^2.0.0:
   dependencies:
     simple-icons "^5.3.0"
 
-vue3-mq@3.0.0:
+vue3-mq@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/vue3-mq/-/vue3-mq-3.0.0.tgz#c0636a04c9e100f11a1b4c820904a430bba1bd87"
   integrity sha512-3TQzssoliDuORoaBkAMUDG6zBqplicPcodqRuvKslC696npJB7Eve7yMPnet7BExTOv3yxkkIk23vQS2sxJXUg==
