@@ -194,4 +194,35 @@ class TaskController extends Controller
             'data' => $newArr
         ], 200);
     }
+
+    public function addTask(TaskRequest $request) {
+        $data = $request->only('tasks', 'admins', 'user_id', 'user', '_id');
+        $admin = $data['admins'][]=$data['user_id']=$request->input('user');
+        $data['tasks'] = [];
+        $tasks = $request->input('tasks');
+        $todoId = $data['_id'];
+        if($admin == $todoId) {
+            foreach ($tasks as $task) {
+                $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
+                $i++;
+            }
+             $data['status'] = $request->input('status');
+            $response = $this->taskService->create($data);
+            if($response) {
+                return response()->json([
+                    'status' => true,
+                    'type' => 'success',
+                    'message' => 'Task added successfully',
+                    'data' => $data
+                ]);
+            }
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'type' => 'error',
+                'message' => 'You are not allowed to perform this action'
+            ]);
+        }
+    }
 }
