@@ -42,6 +42,15 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->find($id);
     }
 
+     /**
+     * @param mixed
+     * @return mixed
+     */
+    public function findBy($attr, $value)
+    {
+        return $this->taskRepository->findBy($attr, $value);
+    }
+
     /**
      * @param array $data
      * @param int $id
@@ -61,6 +70,10 @@ class TaskService extends \App\Providers\AppServiceProvider
         return $this->taskRepository->delete($id);
     }
 
+    public function showResource()
+    {
+        return $this->taskRepository->all();
+    }
           /**
      * @return mixed
      * @author {@omoh}
@@ -70,7 +83,7 @@ class TaskService extends \App\Providers\AppServiceProvider
         $result = $this->taskRepository->all();
         $data = [];
         // filter the array for items without created_at
-        foreach($result['data'] as $anyName){
+        foreach($result as $anyName){
             if(isset($anyName['created_at'])){
                 array_push($data,$anyName);
             }
