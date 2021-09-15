@@ -9,8 +9,8 @@ export default {
         showAll: true,
         isComment: false,
         selectedTodo: null,
-        searchedTodo: []
-
+        searchedTodo: [],
+        errMessage: "No Result Found"
     },
     mutations: {
         ADD_TODOS(state, data) {
@@ -80,14 +80,17 @@ export default {
             return state.todos.splice(location, 1);
             //return commit('ADD_ARCHIVE', state.todos.location)
         },
-        SEARCH({ commit, dispatch, state }, any) {
+        async SEARCH({ commit, dispatch, state }, any) {
             let value = any
             if (value === "") {
                 dispatch('TOGGLESHOW', true);
             } else {
-                let result = state.todos.filter(todo => todo.title.toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                await axios.get(`https://todo.zuri.chat/api/search?key=title&q=${value}`)
+                .then((res) => {
+                    console.log(res.data);
+                    commit('RESULT', res.data)
+                })
                 dispatch('TOGGLESHOW', false);
-                commit('RESULT', result)
             }
 
         },

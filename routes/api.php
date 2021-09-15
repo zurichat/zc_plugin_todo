@@ -28,6 +28,8 @@ use App\Http\Controllers\TaskSearchController;
 
 
 // api to fetch all todo tasks
+Route::post('create-todo', [TodoController::class, 'createTodo']);
+Route::get('all-todo', [TodoController::class, 'index']);
 Route::get('task', [TaskController::class, 'index']);
 Route::get('task/{id}/show', [TaskController::class, 'show']);
 Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
