@@ -4,6 +4,8 @@ import 'primeicons/primeicons.css';
 import 'primevue/resources/themes/saga-green/theme.css';
 import router from './router';
 import store from './store'
+import axios from "axios";
+axios.defaults.baseURL = 'https://todo.zuri.chat/api'
 import VueClickAway from "vue3-click-away";
 import { createApp } from 'vue'
 import { Vue3Mq } from "vue3-mq";

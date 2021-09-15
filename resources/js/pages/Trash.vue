@@ -13,8 +13,8 @@ gap-4
  md:grid-cols-3
  lg:grid-cols-4 
                             "
-                        >
-                            <TodoCard
+                        >                            
+<TodoCard
                                 v-for="(todo, index) in trash"
                                 :key="index++"
                                 :todo="todo"

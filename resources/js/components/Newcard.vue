@@ -9,8 +9,8 @@
         <div @click="alert()">
         <div class="flex justify-between">
             <div id="card_title py-3">
-                <p class="title font-bold  ">App Project</p>
-                <p class="description text-gray-400 font-bold text-sm">Do your best...</p>
+                <p class="title font-bold  ">{{todo.title}}</p>
+                <p class="description text-gray-400 font-bold text-sm overflow-ellipsis w-4/5 break-all">{{todo.description}}</p>
             </div>
            
         </div>
@@ -163,7 +163,7 @@
         <div class="flex justify-between my-2">
             <div class="flex items-center text-gray-400  text-sm">
                 <i class="pi pi-calendar"></i>
-                <span class="px-1">Jan 03, 2020</span>
+                <span class="px-1">{{todo.startDate}}</span>
             </div>
             <div class="flex items-center text-gray-400  text-sm">
                 <svg
@@ -220,6 +220,10 @@ export default {
       CardMenu
   },
   methods: {
+      ...mapActions({
+        delete: 'todos/ADD_TRASH',
+        archive: 'todos/ADD_ARCHIVE'
+      }),
       
       ClickAway(event) {
         this.isModalVisible = false;
@@ -236,7 +240,12 @@ export default {
       alert(){
           alert('hi')
       }
-  },
+  }, 
+  props: {
+      todo: {
+        type: Object,
+      },
+    }
   
 };
 </script>
