@@ -40,14 +40,6 @@ class AssignTaskUserController extends Controller
         $task = $this->taskService->find($request->task_id);
 
         $data = array();
-        $data['status_id'] = $task['status_id'];
-        $data['parent_id'] = $task['parent_id'];
-        $data['start_date'] = $task['start_date'];
-        $data['created_at'] = $task['created_at'];
-        $data['archived_at'] = $task['archived_at'];
-        $data['recurring'] = $task['recurring'];
-        $data['reminder'] = $task['reminder'];
-        $data['assigned_users'] = [];
 
         $data['assigned_users'] = unset($data['assigned_users'], $request->user_id);
 
