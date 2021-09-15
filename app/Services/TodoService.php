@@ -5,54 +5,46 @@ namespace App\Services;
 use App\Providers\AppServiceProvider;
 use App\Repositories\TodoRepository;
 
-class TodoService extends AppServiceProvider
+class TodoService extends TodoRepository
 {
-
-    protected $todoRepository;
-
-    public function __construct(TodoRepository $todoRepository)
-    {
-        $this->todoRepository = $todoRepository;
-    }
-
     public function all()
     {
-        return $this->todoRepository->all();
+        return $this->httpRepository->all();
     }
 
 
     public function create(array $data)
     {
-        return $this->todoRepository->create($data);
+        return $this->httpRepository->create($data);
     }
 
 
     public function find($id)
     {
-        return $this->todoRepository->find($id);
+        return $this->httpRepository->find($id);
     }
 
 
     public function findBy($attr, $value)
     {
-        return $this->todoRepository->findBy($attr, $value);
+        return $this->httpRepository->findBy($attr, $value);
     }
 
 
     public function update($data, $id)
     {
-        return $this->todoRepository->update($id, $data);
+        return $this->httpRepository->update($id, $data);
     }
 
 
     public function delete($id)
     {
-        return $this->todoRepository->delete($id);
+        return $this->httpRepository->delete($id);
     }
 
 
     public function search($key, $data)
     {
-        return $this->todoRepository->search($key, $data);
+        return $this->httpRepository->search($key, $data);
     }
 }
