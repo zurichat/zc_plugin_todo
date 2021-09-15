@@ -4,26 +4,19 @@ namespace App\Services;
 
 use App\Repositories\TaskCommentRepository;
 
-class TaskCommentService extends \App\Providers\AppServiceProvider
+class TaskCommentService extends TaskCommentRepository
 {
-    protected $taskCommentRepository;
-
-    public function __construct(TaskCommentRepository $taskCommentRepository)
-    {
-        $this->taskCommentRepository = $taskCommentRepository;
-    }
-
     /**
      * @return mixed
      */
     public function all()
     {
-        return $this->taskCommentRepository->all();
+        return $this->httpRepository->all();
     }
 
     public function commentsPerTask($key, $data)
     {
-        return $this->taskCommentRepository->search($key, $data);
+        return $this->httpRepository->search($key, $data);
     }
 
     /**
@@ -32,7 +25,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function create(array $data)
     {
-        return $this->taskCommentRepository->create($data);
+        return $this->httpRepository->create($data);
     }
 
     /**
@@ -41,7 +34,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function find($id)
     {
-        return $this->taskCommentRepository->find($id);
+        return $this->httpRepository->find($id);
     }
 
     /**
@@ -50,7 +43,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
     public function findTaskCommentById($id)
     {
         $whereArr = ['id' => $id];
-        return $this->taskCommentRepository->findWhere($whereArr);
+        return $this->httpRepository->findWhere($whereArr);
     }
 
     /**
@@ -60,7 +53,7 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function update($data, $id)
     {
-        return $this->taskCommentRepository->update($id, $data);
+        return $this->httpRepository->update($id, $data);
     }
 
     /**
@@ -69,6 +62,6 @@ class TaskCommentService extends \App\Providers\AppServiceProvider
      */
     public function delete($id)
     {
-        return $this->taskCommentRepository->delete($id);
+        return $this->httpRepository->delete($id);
     }
 }
