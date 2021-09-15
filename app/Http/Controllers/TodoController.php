@@ -20,13 +20,13 @@ class TodoController extends Controller
 
     public function createTodo(TodoRequest $request)
     {
-
         $randomString = substr(uniqid(), 0, 10);
         $input =  $request->all();
+        $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
             'channel' => "$randomString-$request->title",
             "tasks" => [],
-            "labels" => [],
+            "labels" => $labels,
             "colaborators" => [],
             "created_at" => now()
         ]);
@@ -38,7 +38,7 @@ class TodoController extends Controller
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
-        return response()->json(['message' => $result['message']], 400);
+        return response()->json(['message' => $result['message']], 404);
     }
 
 
