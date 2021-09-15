@@ -20,8 +20,8 @@ class HTTPRepository implements RepositoryInterface
     {
         $this->modelName = $modelName;
         $this->model = new Http();
-        // Had to commentout the credentials for session cause they were'nt working   
-        // $this->organisation_id = session('organisation_id'); 
+        // Had to commentout the credentials for session cause they were'nt working
+        // $this->organisation_id = session('organisation_id');
         // $this->plugin_id = session('plugin_id');
 
     }
@@ -196,9 +196,15 @@ class HTTPRepository implements RepositoryInterface
     /**
      * Get users details by the userID
      */
-    public function findUser($data)
+    public function findUser($data, $cookie)
     {
-        return $this->model::get($this->url . '/users/' . $data['user_id'] . '?session=' . $data['session_id'])
-            ->json();
+        $user = $this->model::withHeaders(['Cookie' => $cookie])->get($this->url . '/users/' . $data['user_id'])
+                    ->json();
+        if (isset($user['status']) && $user['status'] == '200') {
+           return $user['data'];
+        }else{
+            return $user;
+        }
+
     }
 }
