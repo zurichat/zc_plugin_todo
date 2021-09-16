@@ -6,6 +6,7 @@
       </nav>
       <div id="content">
         <Main />
+        <TotalTodos />
       </div>
     </main>
     <footer>
@@ -18,6 +19,7 @@ import Navbar from "./Navbar";
 import Main from "./Main";
 import Footer from "./Footer";
 import TodoNav from './TodoNav.vue';
+import TotalTodos from './Total-Todos.vue';
 export default {
   name: "Layout",
   components: {
@@ -25,6 +27,7 @@ export default {
     Main,
     Footer,
     TodoNav,
+    TotalTodos
   },
 };
 </script>
