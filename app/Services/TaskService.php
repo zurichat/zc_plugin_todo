@@ -73,19 +73,20 @@ class TaskService extends TaskRepository
     {
         $result = Response::checkAndServe($this->httpRepository->all());
         if (isset($result['status']) && $result['status'] == 404) {
-            $data = [];
-            // filter the array for items without created_at
-            foreach ($result as $anyName) {
-                if (isset($anyName['created_at'])) {
-                    array_push($data, $anyName);
-                }
+            return $result;
+        }
+
+        $data = [];
+        // filter the array for items without created_at
+        foreach ($result as $anyName) {
+            if (isset($anyName['created_at'])) {
+                array_push($data, $anyName);
             }
+
             $collection = collect($data);
             $sorted = $collection->sortDesc()->first();
             return $sorted;
         }
-
-        return $result;
     }
 
     /**
