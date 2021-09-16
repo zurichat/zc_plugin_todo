@@ -4,6 +4,7 @@ import Main from '../pages/Main.vue';
 import New from '../pages/New.vue';
 import Trash from '../pages/Trash.vue';
 import Archive from '../pages/Archive';
+import DisplayNewTask from '../pages/DisplayNewTask.vue';
 const routes = [{
         path: '/',
         //this is main page where users land
@@ -37,6 +38,11 @@ const routes = [{
             //this is the page that contains todo trash
             name: 'Trash',
             component: Trash
+        }, {
+            path: '/newtask',
+            //this is the page that contains new tasks
+            name: 'DisplayNewTask',
+            component: DisplayNewTask
         }]
     },
     {

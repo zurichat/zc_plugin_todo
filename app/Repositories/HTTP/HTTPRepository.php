@@ -29,7 +29,7 @@ class HTTPRepository implements RepositoryInterface
     public function allWithoutDeletedWhere(array $where)
     {
         $whereStr = HelperFnc::queryBuilder($where);
-        $data = $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $whereStr)->json()['data'];
+        $data = $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $whereStr)->json();
         return array_filter($data, function ($v) {
             return !isset($v['deleted_at']);
         });
@@ -37,12 +37,12 @@ class HTTPRepository implements RepositoryInterface
 
     public function all()
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org)->json()['data'];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org)->json();
     }
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?_id=' . $id)->json()['data'];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?_id=' . $id)->json();
     }
 
     public function findOrFail($id, $attributes = ['*'])
@@ -57,7 +57,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findBy($attribute, $value, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?' . $attribute . '=' . $value)->json()['data'];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?' . $attribute . '=' . $value)->json();
     }
 
     public function findFirst($attributes = ['*'])
@@ -67,7 +67,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findAll($attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json()['data'];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json();
     }
 
     public function paginate($perPage = null, $attributes = ['*'], $pageName = 'page', $page = null)
@@ -158,9 +158,7 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
-    /**
-     * This will search for a models with a specif key-value pair
-     */
+
     public function search($key, $data)
     {
         $objects = $this->all();
@@ -199,12 +197,11 @@ class HTTPRepository implements RepositoryInterface
     public function findUser($data, $cookie)
     {
         $user = $this->model::withHeaders(['Cookie' => $cookie])->get($this->url . '/users/' . $data['user_id'])
-                    ->json();
+                ->json();
         if (isset($user['status']) && $user['status'] == '200') {
            return $user['data'];
         }else{
             return $user;
         }
-
     }
 }
