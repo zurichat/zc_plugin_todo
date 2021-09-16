@@ -15,6 +15,7 @@
   </div>
   <div>
     <template v-if="showAll">
+      <div>
       <div v-if="newTask.length <= 0">
         <Empty
           :title="'Oops No task has been added to this todo'"
@@ -36,6 +37,7 @@
           :key="index++"
           :task="task"
         />
+      </div>
       </div>
     </template>
     <template v-else>

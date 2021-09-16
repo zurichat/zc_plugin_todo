@@ -8,9 +8,28 @@
     </div>
   </div>
 </template>
+<script>
+import links from './plugins/links.js'
+export default {
+  name: 'view',
+  data(){
+    return {
+      
+    }
+  },
+  methods:{
+    
+  },
+  beforeMount(){
+   // this.appendLinks()
+  }
+}
+</script>
+
 <style lang='scss'>
 #view_section {
    // display: flex;
+   font-family: 'Lato', sans-serif !important;
 }
 
 @media (min-width: 786px) {
@@ -50,15 +69,3 @@
 
 }
 </style>
-<script>
-import TodoNav from "./components/TodoNav.vue";
-export default {
-  name: "app",
-  mounted() {
-    console.log("Component mounted.");
-  },
-  components: {
-    TodoNav,
-  },
-};
-</script>
