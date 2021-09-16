@@ -159,25 +159,6 @@ class HTTPRepository implements RepositoryInterface
     }
 
     /**
-     * This will search for a models with a specif key-value pair
-     */
-    public function search($key, $data)
-    {
-        $objects = $this->all();
-        if (isset($objects['status']) && $objects['status'] == '404') {
-            return ["status" => "error"];
-        }
-        $search_data = [];
-        for ($i = 0; $i < count($objects); $i++) {
-            if ($objects[$i][$key] == $data) {
-                array_push($search_data, $objects[$i]);
-            }
-        }
-        return $search_data;
-    }
-
-
-    /**
      * This will archive a model
      */
     public function archive($id)
@@ -199,10 +180,10 @@ class HTTPRepository implements RepositoryInterface
     public function findUser($data, $cookie)
     {
         $user = $this->model::withHeaders(['Cookie' => $cookie])->get($this->url . '/users/' . $data['user_id'])
-            ->json();
+                ->json();
         if (isset($user['status']) && $user['status'] == '200') {
-            return $user['data'];
-        } else {
+           return $user['data'];
+        }else{
             return $user;
         }
     }

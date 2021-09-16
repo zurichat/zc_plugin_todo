@@ -89,12 +89,4 @@ class TaskService extends TaskRepository
         }
     }
 
-    /**
-     * @para mixed $data
-     *  return mixed
-     */
-    public function search($key, $data)
-    {
-        return Response::checkAndServe($this->httpRepository->search($key, $data));
-    }
 }

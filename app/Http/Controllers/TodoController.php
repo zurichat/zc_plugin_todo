@@ -50,4 +50,13 @@ class TodoController extends Controller
         }
         return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $result],  200);
     }
+
+    public function search_todo(Request $request)
+    {
+        $search = $this->todoService->search($request->query('key'), $request->query('q'));
+        if (count($search) < 1 || isset($search['status'])) {
+           return response()->json(['message' => 'No result found'], 404);
+        }
+        return response()->json($search, 200);
+    }
 }

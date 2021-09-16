@@ -43,9 +43,21 @@ class TodoService extends TodoRepository
         return Response::checkAndServe($this->httpRepository->delete($id));
     }
 
-
+  /**
+     * This will search with a specif key-value pair
+     */
     public function search($key, $data)
     {
-        return Response::checkAndServe($this->httpRepository->search($key, $data));
+        $objects = $this->all();
+        if (isset($objects['status'])) {
+            return ["status" => "error"];
+        }
+        $search_data = collect($objects)->map(function($todo) use($data, $key) {
+            if(strtolower($todo[$key]) == strtolower($data)){
+                return $todo;
+            }
+        })->reject(fn($todo) => empty($todo))->values();
+
+        return $search_data;
     }
 }
