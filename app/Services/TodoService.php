@@ -16,11 +16,7 @@ class TodoService extends TodoRepository
 
     public function create(array $data)
     {
-<<<<<<< HEAD
-        return $this->httpRepository->create($data); 
-=======
         return Response::checkAndServe($this->httpRepository->create($data));
->>>>>>> 7ee84553c78d25a608e7fc50a5b4a8a36fbf46d4
     }
 
 
