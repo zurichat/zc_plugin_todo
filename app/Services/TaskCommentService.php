@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\Response;
 use App\Repositories\TaskCommentRepository;
 
 class TaskCommentService extends TaskCommentRepository
@@ -11,12 +12,12 @@ class TaskCommentService extends TaskCommentRepository
      */
     public function all()
     {
-        return $this->httpRepository->all();
+        return Response::checkAndServe($this->httpRepository->all());
     }
 
     public function commentsPerTask($key, $data)
     {
-        return $this->httpRepository->search($key, $data);
+        return Response::checkAndServe($this->httpRepository->search($key, $data));
     }
 
     /**
@@ -25,7 +26,7 @@ class TaskCommentService extends TaskCommentRepository
      */
     public function create(array $data)
     {
-        return $this->httpRepository->create($data);
+        return Response::checkAndServe($this->httpRepository->create($data));
     }
 
     /**
@@ -34,7 +35,7 @@ class TaskCommentService extends TaskCommentRepository
      */
     public function find($id)
     {
-        return $this->httpRepository->find($id);
+        return Response::checkAndServe($this->httpRepository->find($id));
     }
 
     /**
@@ -43,7 +44,7 @@ class TaskCommentService extends TaskCommentRepository
     public function findTaskCommentById($id)
     {
         $whereArr = ['id' => $id];
-        return $this->httpRepository->findWhere($whereArr);
+        return Response::checkAndServe($this->httpRepository->findWhere($whereArr));
     }
 
     /**
@@ -53,7 +54,7 @@ class TaskCommentService extends TaskCommentRepository
      */
     public function update($data, $id)
     {
-        return $this->httpRepository->update($id, $data);
+        return Response::checkAndServe($this->httpRepository->update($id, $data));
     }
 
     /**
@@ -62,6 +63,6 @@ class TaskCommentService extends TaskCommentRepository
      */
     public function delete($id)
     {
-        return $this->httpRepository->delete($id);
+        return Response::checkAndServe($this->httpRepository->delete($id));
     }
 }
