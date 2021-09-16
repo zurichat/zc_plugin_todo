@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
@@ -33,8 +33,8 @@ class TodoController extends Controller
 
         $result = $this->todoService->create($todoObject);
 
-        if ($result['status'] == 200 && isset($result["data"])) {
-            $responseWithId = array_merge(['_id' => $result["data"]['object_id']], $todoObject);
+        if (isset($result['object_id'])) {
+            $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
@@ -45,11 +45,9 @@ class TodoController extends Controller
     public function index()
     {
         $result = $this->todoService->all();
-        return $result;
-        if ($result['status'] == 200 && isset($result["data"])) {
-            return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $result], 200);
+        if (isset($result['status'])) {
+            return response()->json($result, 404);
         }
-
-        return response()->json(['message' => $result['message']], 400);
+        return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $result],  200);
     }
 }
