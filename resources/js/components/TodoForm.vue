@@ -21,8 +21,16 @@
         <input v-model="todoDetails.description" required type="text" id="description"
           class="border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded" placeholder="Type task description" />
       </div>
-
-      
+    <div class="form-group flex flex-col pb-4">
+        <label class="pb-2 text-red-400 capitalize font-bold" for="token">token<span>(necessary)</span></label>
+        <input v-model="token" required type="text" id="token"
+          class="border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded" placeholder="Type user token" />
+      </div>
+      <div class="form-group flex flex-col pb-4">
+        <label class="pb-2 text-red-400 capitalize font-bold" for="user_id">user_id<span>(necessary)</span></label>
+        <input v-model="todoDetails.user_id" required type="text" id="user_id"
+          class="border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded" placeholder="Type user_id" />
+      </div>
         <!-- <div class="form-group flex flex-col pb-4">
           <label class="pb-2 font-bold" for="dueDate">Due Date</label>
           <input required type="date" class="border hover:border-green-400 bg-white outline-none text-gray-500 py-3 text-md w-full px-2 rounded" id="dueDate"
@@ -39,10 +47,12 @@
 <script>
   import { mapActions } from "vuex";
   import { mapGetters } from "vuex";
+  import axios from 'axios'
   export default {
     name: "TaskForm",
     data() {
       return {
+          token: '',
         todoDetails: {
           title: "",
           
@@ -68,6 +78,8 @@
         this.$emit("toggleModal");
       },
       addTodo() {
+          
+          axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
         this.todoDetails.user_id = this.user.uuid;
         //console.log(this.todoDetails);
         //   function to toggle modal in the main page

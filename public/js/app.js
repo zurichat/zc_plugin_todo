@@ -19514,45 +19514,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _plugins_links_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugins/links.js */ "./resources/js/plugins/links.js");
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'view',
   data: function data() {
     return {};
   },
-  methods: {
-    appendLinks: function appendLinks() {
-      var head = document.querySelector('head');
-      console.log(_plugins_links_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-      var _iterator = _createForOfIteratorHelper(_plugins_links_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var obj = _step.value;
-          var link = document.createElement('link');
-          link.type = obj.type;
-          link.rel = obj.rel;
-          head.appendChild(link);
-          link.href = obj.href;
-          console.log(link);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    }
-  },
-  beforeMount: function beforeMount() {
-    this.appendLinks();
+  methods: {},
+  beforeMount: function beforeMount() {// this.appendLinks()
   }
 });
 
@@ -19866,7 +19835,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -19875,10 +19846,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TaskForm",
   data: function data() {
     return {
+      token: '',
       todoDetails: {
         title: "",
         type: "public",
@@ -19888,10 +19861,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
     user: "user/user"
   })),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
     createTodo: "todos/createTodo"
   })), {}, {
     closeModal: function closeModal() {
@@ -19899,6 +19872,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$emit("toggleModal");
     },
     addTodo: function addTodo() {
+      (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common.Authorization) = "Bearer ".concat(this.token);
       this.todoDetails.user_id = this.user.uuid; //console.log(this.todoDetails);
       //   function to toggle modal in the main page
 
@@ -21056,7 +21030,29 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_12 = {
+  "class": "form-group flex flex-col pb-4"
+};
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "pb-2 text-red-400 capitalize font-bold",
+  "for": "token"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("token"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "(necessary)")], -1
+/* HOISTED */
+);
+
+var _hoisted_14 = {
+  "class": "form-group flex flex-col pb-4"
+};
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "pb-2 text-red-400 capitalize font-bold",
+  "for": "user_id"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("user_id"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "(necessary)")], -1
+/* HOISTED */
+);
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "cta-container"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "submit bg-green-500 py-3 px-4 rounded text-white font-bold float-right",
@@ -21069,7 +21065,7 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+    onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.addTodo && $options.addTodo.apply($options, arguments);
     }, ["prevent"])),
     "class": "w-4/5 md:w-6/12 p-4 bg-white rounded "
@@ -21100,7 +21096,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     placeholder: "Type task description"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-group flex flex-col pb-4\">\r\n          <label class=\"pb-2 font-bold\" for=\"dueDate\">Due Date</label>\r\n          <input required type=\"date\" class=\"border hover:border-green-400 bg-white outline-none text-gray-500 py-3 text-md w-full px-2 rounded\" id=\"dueDate\"\r\n            v-model=\"todoDetails.dueDate\" />\r\n        </div> "), _hoisted_12], 32
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.token = $event;
+    }),
+    required: "",
+    type: "text",
+    id: "token",
+    "class": "border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded",
+    placeholder: "Type user token"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.token]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return $data.todoDetails.user_id = $event;
+    }),
+    required: "",
+    type: "text",
+    id: "user_id",
+    "class": "border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded",
+    placeholder: "Type user_id"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.user_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-group flex flex-col pb-4\">\r\n          <label class=\"pb-2 font-bold\" for=\"dueDate\">Due Date</label>\r\n          <input required type=\"date\" class=\"border hover:border-green-400 bg-white outline-none text-gray-500 py-3 text-md w-full px-2 rounded\" id=\"dueDate\"\r\n            v-model=\"todoDetails.dueDate\" />\r\n        </div> "), _hoisted_16], 32
   /* HYDRATE_EVENTS */
   )]);
 }
@@ -22072,7 +22090,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_resources_primevue_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/resources/primevue.min.css */ "./node_modules/primevue/resources/primevue.min.css");
 /* harmony import */ var primeicons_primeicons_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primeicons/primeicons.css */ "./node_modules/primeicons/primeicons.css");
 /* harmony import */ var primevue_resources_themes_saga_green_theme_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/resources/themes/saga-green/theme.css */ "./node_modules/primevue/resources/themes/saga-green/theme.css");
-/* harmony import */ var _plugins_token__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/token */ "./resources/js/plugins/token.js");
+/* harmony import */ var _plugins_links__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/links */ "./resources/js/plugins/links.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -22081,6 +22099,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var vue3_mq__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue3-mq */ "./node_modules/vue3-mq/dist/vue3-mq.es.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
  //corecss
@@ -22092,7 +22116,31 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 (axios__WEBPACK_IMPORTED_MODULE_6___default().defaults.baseURL) = 'https://todo.zuri.chat/api/v1';
-(axios__WEBPACK_IMPORTED_MODULE_6___default().defaults.headers.common.Authorization) = "Bearer ".concat(_plugins_token__WEBPACK_IMPORTED_MODULE_3__["default"]);
+
+var appendLinks = function appendLinks() {
+  var head = document.querySelector('head');
+  console.log(_plugins_links__WEBPACK_IMPORTED_MODULE_3__["default"]);
+
+  var _iterator = _createForOfIteratorHelper(_plugins_links__WEBPACK_IMPORTED_MODULE_3__["default"]),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var obj = _step.value;
+      var link = document.createElement('link');
+      link.type = obj.type;
+      link.rel = obj.rel;
+      head.appendChild(link);
+      link.href = obj.href;
+      console.log(link);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+};
+
 
 
 
@@ -22108,6 +22156,7 @@ app.use(vue3_mq__WEBPACK_IMPORTED_MODULE_9__.Vue3Mq, {
     xxl: 1400
   }
 }).use(_router__WEBPACK_IMPORTED_MODULE_4__["default"]).use(vue3_click_away__WEBPACK_IMPORTED_MODULE_7__["default"]).use(_store__WEBPACK_IMPORTED_MODULE_5__["default"]).mount("#app");
+appendLinks();
 
 /***/ }),
 
@@ -22186,22 +22235,6 @@ var links = [{
   type: ''
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (links);
-
-/***/ }),
-
-/***/ "./resources/js/plugins/token.js":
-/*!***************************************!*\
-  !*** ./resources/js/plugins/token.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOiJNVFl6TVRjeE5ESTJNM3hIZDNkQlIwUlplRTVFUm0xWmJWRXpUMWRhYTAxWFdUQmFhbGt4VGxkUk1FNUVWVEZQVVQwOWZDSy1mejdCaE45LUZ6ME5maTlHYmFGZlNIS1ZfcnVTd1l3cW1UMHJwaDdQIiwiZW1haWwiOiJvZ2lhLmFnaGFob3dhQGdtYWlsLmNvbSIsImlkIjoiNjE0MWZiZDc5ZmQxZjRmNjU1ZDQ0NTU5Iiwib3B0aW9ucyI6eyJQYXRoIjoiLyIsIkRvbWFpbiI6IiIsIk1heEFnZSI6NDMyMDAsIlNlY3VyZSI6ZmFsc2UsIkh0dHBPbmx5IjpmYWxzZSwiU2FtZVNpdGUiOjB9LCJzZXNzaW9uX25hbWUiOiJmNjgyMmFmOTRlMjliYTExMmJlMzEwZDNhZjQ1ZDVjNyJ9.PImgmrO0gK4yP57_frLk0ymYlgiEnw3ZFlAnqNlLMH0";
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (token);
 
 /***/ }),
 

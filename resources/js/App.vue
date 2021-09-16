@@ -18,23 +18,10 @@ export default {
     }
   },
   methods:{
-    appendLinks(){
-      const head = document.querySelector('head');
-      
-      console.log(links)
-      for(let obj of links){
-        var link = document.createElement('link');
-        link.type = obj.type;
-        link.rel = obj.rel;
-        head.appendChild(link)
-        link.href = obj.href;
-        console.log(link)
-      }
-      
-    }
+    
   },
   beforeMount(){
-    this.appendLinks()
+   // this.appendLinks()
   }
 }
 </script>
