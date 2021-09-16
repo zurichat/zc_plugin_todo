@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AssignTaskUserController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -9,6 +9,7 @@ use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
+use App\Http\Controllers\AssignUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
@@ -26,9 +27,8 @@ use App\Http\Controllers\TaskSearchController;
 */
 
 
-
 // api to fetch all todo tasks
-Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
+Route::prefix('v1')->group(function () {
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
     Route::get('task', [TaskController::class, 'index']);
@@ -40,8 +40,10 @@ Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function ()
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
-    Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
-    Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
+
+    // Collaborators Related Endpoints
+    Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
+
 
     Route::get('task/sort', [TaskController::class, 'sort']);
     Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
