@@ -83,13 +83,22 @@ class TaskService extends TaskRepository
         return $sorted;
     }
 
-     /**
-     * @para mixed $data
-     *  return mixed
+    /**
+     * This will search for a models with a specif key-value pair
      */
     public function search($key, $data)
     {
-        return $this->httpRepository->search($key, $data);
+        $objects = $this->all();
+        if (isset($objects['status']) && $objects['status'] == '404') {
+            return ["status" => "error"];
+        }
+        $search_data = [];
+        for ($i = 0; $i < count($objects); $i++) {
+            if (strtolower($objects[$i][$key]) == strtolower($data)) {
+                array_push($search_data, $objects[$i]);
+            }
+        }
+        return $search_data;
     }
 
 
