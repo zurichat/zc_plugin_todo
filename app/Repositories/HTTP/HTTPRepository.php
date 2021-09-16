@@ -3,32 +3,46 @@
 namespace App\Repositories\HTTP;
 
 use App\Contracts\RepositoryInterface;
-use Illuminate\Cache\RateLimiting\Limit;
+use App\Helpers\HelperFnc;
 use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
 {
-    protected $url = 'https://zccore.herokuapp.com/';
-    protected $organisation_id = '612a3a914acf115e685df8e3';
-    protected $plugin_id = '6134a7a42d91654fa0487274';
+    protected $url = 'https://api.zuri.chat/';
 
     protected $modelName;
     protected $model;
+    protected $org = '613a3ac959842c7444fb0240';
+    protected $plugin_id = '6138deac99bd9e223a37d8f5';
+    protected $organisation_id = '613a3ac959842c7444fb0240'; // same as $org but let's keep for now
 
-    public function __construct($modelName)
+    public function __construct($modelName = "")
     {
         $this->modelName = $modelName;
         $this->model = new Http();
+        // Had to commentout the credentials for session cause they were'nt working
+        // $this->organisation_id = session('organisation_id');
+        // $this->plugin_id = session('plugin_id');
+
+    }
+
+    public function allWithoutDeletedWhere(array $where)
+    {
+        $whereStr = HelperFnc::queryBuilder($where);
+        $data = $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $whereStr)->json()['data'];
+        return array_filter($data, function ($v) {
+            return !isset($v['deleted_at']);
+        });
     }
 
     public function all()
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json()['data'];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org)->json()['data'];
     }
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?_id=' . $id)->json()['data'][0];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?_id=' . $id)->json()['data'];
     }
 
     public function findOrFail($id, $attributes = ['*'])
@@ -43,7 +57,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findBy($attribute, $value, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $attribute . '=' . $value)->json()['data'][0];
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?' . $attribute . '=' . $value)->json()['data'];
     }
 
     public function findFirst($attributes = ['*'])
@@ -68,7 +82,8 @@ class HTTPRepository implements RepositoryInterface
 
     public function findWhere(array $where, $attributes = ['*'])
     {
-        // TODO: Implement findWhere() method.
+        $whereStr = HelperFnc::queryBuilder($where);
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $whereStr)->json();
     }
 
     public function findWhereIn(array $where, $attributes = ['*'])
@@ -94,9 +109,9 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
-        ])->json()['data'];
+        ])->json();
     }
 
     public function update($id, array $attributes = [], bool $syncRelations = false)
@@ -107,9 +122,9 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
-        ])->json()['data'];
+        ])->json();
     }
 
     public function store($id, array $attributes = [], bool $syncRelations = false)
@@ -120,7 +135,7 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => "xxxx",
-            "filter" => (object)[],
+            "filter" => (object) [],
             "payload" => $attributes
         ])->json();
     }
@@ -133,8 +148,8 @@ class HTTPRepository implements RepositoryInterface
             "collection_name" => $this->modelName,
             "bulk_write" => false,
             "object_id" => $id,
-            "filter" => (object)[],
-            "payload" => (object)[]
+            "filter" => (object) [],
+            "payload" => (object) []
         ])->json()['data'];
     }
 
@@ -143,19 +158,53 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
+    /**
+     * This will search for a models with a specif key-value pair
+     */
     public function search($key, $data)
     {
-        $todos = $this->all();
+        $objects = $this->all();
+        if (isset($objects['status']) && $objects['status'] == '404') {
+            return ["status" => "error"];
+        }
         $search_data = [];
-        for ($i = 0; $i < count($todos['data']); $i++) {
-            if (array_key_exists($key, $todos['data'][$i])) {
-                if ($todos['data'][$i][$key] == $data) {
-                    array_push($search_data, $todos['data'][$i]);
-                }
+        for ($i = 0; $i < count($objects); $i++) {
+            if ($objects[$i][$key] == $data) {
+                array_push($search_data, $objects[$i]);
             }
-
         }
         return $search_data;
     }
 
+
+    /**
+     * This will archive a model
+     */
+    public function archive($id)
+    {
+        $this->update($id, ['archived_at' => now()]);
+    }
+
+    /**
+     * This will unarchive a model
+     */
+    public function unarchive($id)
+    {
+        $this->update($id, ['archived_at' => null]);
+    }
+
+    /**
+     * Get users details by the userID
+     */
+    public function findUser($data, $cookie)
+    {
+        $user = $this->model::withHeaders(['Cookie' => $cookie])->get($this->url . '/users/' . $data['user_id'])
+                    ->json();
+        if (isset($user['status']) && $user['status'] == '200') {
+           return $user['data'];
+        }else{
+            return $user;
+        }
+
+    }
 }
