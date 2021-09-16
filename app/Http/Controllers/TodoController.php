@@ -41,11 +41,11 @@ class TodoController extends Controller
         return response()->json(['message' => $result['message']], 404);
     }
 
-
+    // - This method and assoc endpoint are basically for testing purposes
     public function index()
     {
         $result = $this->todoService->all();
-        if (isset($result['status'])) {
+        if (isset($result['status']) && $result['stutus'] == 404) {
             return response()->json($result, 404);
         }
         return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $result],  200);
