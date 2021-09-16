@@ -10,7 +10,7 @@
         <div class="flex justify-between">
             <div id="card_title py-3">
                 <p class="title font-bold  ">{{todo.title}}</p>
-                <p class="description text-gray-400 font-bold text-sm overflow-ellipsis w-4/5 break-all">{{todo.description}}</p>
+                <p class="description text-gray-400 font-bold text-sm ">{{todo.description.slice(0, 20)}}...</p>
             </div>
            
         </div>
@@ -163,7 +163,7 @@
         <div class="flex justify-between my-2">
             <div class="flex items-center text-gray-400  text-sm">
                 <i class="pi pi-calendar"></i>
-                <span class="px-1">{{todo.startDate}}</span>
+                <span class="px-1">{{todo.created_at.slice(0, 10)}}</span>
             </div>
             <div class="flex items-center text-gray-400  text-sm">
                 <svg
@@ -181,7 +181,7 @@
                     >
                         </path>
                         </svg>
-                        <span class="px-1">2 tasks</span>
+                        <span class="px-1">{{todo.tasks.length}} tasks</span>
             </div>
         </div>
         </div>

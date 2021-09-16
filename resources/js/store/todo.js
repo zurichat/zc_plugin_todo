@@ -2,7 +2,18 @@ import axios from 'axios'
 export default {
     namespaced: true,
     state: {
-        todos: [],
+        todos: [{
+            _id: "6142162c9fd1f4f655d44596",
+            title: "Didier",
+            type: " public ",
+            description: "Let my People go!!!",
+            labels: [],
+            user_id: "6139 a43559842c7444fb01ef ",
+            channel: "6142162 c6d - Didier ",
+            tasks: [{}, {}, {}],
+            colaborators: [],
+            created_at: "2021-09-15T15:50:04.448212Z "
+        }],
         names: [],
         archive: [],
         trash: [],
@@ -57,7 +68,7 @@ export default {
         },
         async createTodo({ commit }, data) {
             await axios.post('/create-todo', data)
-                .then((response) => { console.log(response.data) })
+                .then((response) => commit('ADD_TODOS', response.data.data))
                 .catch((error) => {
                     if (error.response) {
                         // The request was made and the server responded with a status code

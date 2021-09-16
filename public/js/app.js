@@ -20470,7 +20470,7 @@ var _hoisted_6 = {
   "class": "title font-bold  "
 };
 var _hoisted_7 = {
-  "class": "description text-gray-400 font-bold text-sm overflow-ellipsis w-4/5 break-all"
+  "class": "description text-gray-400 font-bold text-sm "
 };
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -20593,10 +20593,11 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_12 = {
   "class": "px-1"
 };
-
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_13 = {
   "class": "flex items-center text-gray-400  text-sm"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+};
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
   width: "20",
   height: "20",
   viewBox: "0 0 20 20",
@@ -20607,11 +20608,13 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "clip-rule": "evenodd",
   d: "M6.39199 1.66656H13.617C16.442 1.66656 18.3336 3.6499 18.3336 6.5999V13.4091C18.3336 16.3499 16.442 18.3332 13.617 18.3332H6.39199C3.56699 18.3332 1.66699 16.3499 1.66699 13.4091V6.5999C1.66699 3.6499 3.56699 1.66656 6.39199 1.66656ZM9.52531 12.4916L13.4836 8.53325C13.767 8.2499 13.767 7.79157 13.4836 7.4999C13.2003 7.21657 12.7336 7.21657 12.4503 7.4999L9.00864 10.9416L7.55032 9.48325C7.26699 9.19992 6.80033 9.19992 6.51699 9.48325C6.23366 9.76658 6.23366 10.2249 6.51699 10.5166L8.50031 12.4916C8.64198 12.6332 8.82531 12.6999 9.00864 12.6999C9.20031 12.6999 9.38364 12.6332 9.52531 12.4916Z",
   fill: "#999999"
-})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "px-1"
-}, "2 tasks")], -1
+})], -1
 /* HOISTED */
 );
+
+var _hoisted_15 = {
+  "class": "px-1"
+};
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -20638,11 +20641,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description), 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description.slice(0, 20)) + "...", 1
   /* TEXT */
-  )])]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.startDate), 1
+  )])]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.created_at.slice(0, 10)), 1
   /* TEXT */
-  )]), _hoisted_13])])]);
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.tasks.length) + " tasks", 1
+  /* TEXT */
+  )])])])]);
 }
 
 /***/ }),
@@ -21705,14 +21710,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primevue_resources_primevue_min_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! primevue/resources/primevue.min.css */ "./node_modules/primevue/resources/primevue.min.css");
 /* harmony import */ var primeicons_primeicons_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! primeicons/primeicons.css */ "./node_modules/primeicons/primeicons.css");
 /* harmony import */ var primevue_resources_themes_saga_green_theme_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! primevue/resources/themes/saga-green/theme.css */ "./node_modules/primevue/resources/themes/saga-green/theme.css");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue3_click_away__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue3-click-away */ "./node_modules/vue3-click-away/dist/module.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue3_mq__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue3-mq */ "./node_modules/vue3-mq/dist/vue3-mq.es.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _plugins_token__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/token */ "./resources/js/plugins/token.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue3_click_away__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue3-click-away */ "./node_modules/vue3-click-away/dist/module.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var vue3_mq__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue3-mq */ "./node_modules/vue3-mq/dist/vue3-mq.es.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
  //corecss
@@ -21722,13 +21728,15 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-(axios__WEBPACK_IMPORTED_MODULE_5___default().defaults.baseURL) = 'https://todo.zuri.chat/api';
+
+(axios__WEBPACK_IMPORTED_MODULE_6___default().defaults.baseURL) = 'https://todo.zuri.chat/api/v1';
+(axios__WEBPACK_IMPORTED_MODULE_6___default().defaults.headers.common.Authorization) = "Bearer ".concat(_plugins_token__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
 
 
 
-var app = (0,vue__WEBPACK_IMPORTED_MODULE_7__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_9__["default"]);
-app.use(vue3_mq__WEBPACK_IMPORTED_MODULE_8__.Vue3Mq, {
+var app = (0,vue__WEBPACK_IMPORTED_MODULE_8__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_10__["default"]);
+app.use(vue3_mq__WEBPACK_IMPORTED_MODULE_9__.Vue3Mq, {
   breakpoints: {
     xs: 0,
     sm: 576,
@@ -21737,7 +21745,7 @@ app.use(vue3_mq__WEBPACK_IMPORTED_MODULE_8__.Vue3Mq, {
     xl: 1200,
     xxl: 1400
   }
-}).use(_router__WEBPACK_IMPORTED_MODULE_3__["default"]).use(vue3_click_away__WEBPACK_IMPORTED_MODULE_6__["default"]).use(_store__WEBPACK_IMPORTED_MODULE_4__["default"]).mount("#app");
+}).use(_router__WEBPACK_IMPORTED_MODULE_4__["default"]).use(vue3_click_away__WEBPACK_IMPORTED_MODULE_7__["default"]).use(_store__WEBPACK_IMPORTED_MODULE_5__["default"]).mount("#app");
 
 /***/ }),
 
@@ -21819,6 +21827,22 @@ var links = [{
 
 /***/ }),
 
+/***/ "./resources/js/plugins/token.js":
+/*!***************************************!*\
+  !*** ./resources/js/plugins/token.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOiJNVFl6TVRjeE5ESTJNM3hIZDNkQlIwUlplRTVFUm0xWmJWRXpUMWRhYTAxWFdUQmFhbGt4VGxkUk1FNUVWVEZQVVQwOWZDSy1mejdCaE45LUZ6ME5maTlHYmFGZlNIS1ZfcnVTd1l3cW1UMHJwaDdQIiwiZW1haWwiOiJvZ2lhLmFnaGFob3dhQGdtYWlsLmNvbSIsImlkIjoiNjE0MWZiZDc5ZmQxZjRmNjU1ZDQ0NTU5Iiwib3B0aW9ucyI6eyJQYXRoIjoiLyIsIkRvbWFpbiI6IiIsIk1heEFnZSI6NDMyMDAsIlNlY3VyZSI6ZmFsc2UsIkh0dHBPbmx5IjpmYWxzZSwiU2FtZVNpdGUiOjB9LCJzZXNzaW9uX25hbWUiOiJmNjgyMmFmOTRlMjliYTExMmJlMzEwZDNhZjQ1ZDVjNyJ9.PImgmrO0gK4yP57_frLk0ymYlgiEnw3ZFlAnqNlLMH0";
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (token);
+
+/***/ }),
+
 /***/ "./resources/js/router/index.js":
 /*!**************************************!*\
   !*** ./resources/js/router/index.js ***!
@@ -21843,7 +21867,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [{
-  path: '/main',
+  path: '',
   //this is the page that contains todo trash
   name: 'New',
   component: _pages_New_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -21943,7 +21967,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: {
-    todos: [],
+    todos: [{
+      _id: "6142162c9fd1f4f655d44596",
+      title: "Didier",
+      type: " public ",
+      description: "Let my People go!!!",
+      labels: [],
+      user_id: "6139 a43559842c7444fb01ef ",
+      channel: "6142162 c6d - Didier ",
+      tasks: [{}, {}, {}],
+      colaborators: [],
+      created_at: "2021-09-15T15:50:04.448212Z "
+    }],
     names: [],
     archive: [],
     trash: [],
@@ -22024,7 +22059,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 commit = _ref2.commit;
                 _context2.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/create-todo', data).then(function (response) {
-                  console.log(response.data);
+                  return commit('ADD_TODOS', response.data.data);
                 })["catch"](function (error) {
                   if (error.response) {
                     // The request was made and the server responded with a status code
@@ -22139,10 +22174,10 @@ __webpack_require__.r(__webpack_exports__);
   state: {
     user: {
       id: "1",
-      uuid: "05095b1c-06f3-4e61-853a-7e310422a3a8",
+      uuid: "6139a43559842c7444fb01ef",
       fullname: "Admin",
-      email: "testadmin3 @gmail.com ",
-      phone: "+2347018995065",
+      email: "testadmin3@gmail.com ",
+      phone: "+234701234567",
       verified_at: null
     }
   },

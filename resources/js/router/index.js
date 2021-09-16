@@ -5,7 +5,7 @@ import New from '../pages/New.vue';
 import Trash from '../pages/Trash.vue';
 import Archive from '../pages/Archive';
 const routes = [{
-        path: '/main',
+        path: '',
         //this is the page that contains todo trash
         name: 'New',
         component: New,

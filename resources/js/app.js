@@ -2,10 +2,12 @@ require('./bootstrap');
 import 'primevue/resources/primevue.min.css'; //corecss
 import 'primeicons/primeicons.css';
 import 'primevue/resources/themes/saga-green/theme.css';
+import token from './plugins/token'
 import router from './router';
 import store from './store'
 import axios from "axios";
-axios.defaults.baseURL = 'https://todo.zuri.chat/api'
+axios.defaults.baseURL = 'https://todo.zuri.chat/api/v1'
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 import VueClickAway from "vue3-click-away";
 import { createApp } from 'vue'
 import { Vue3Mq } from "vue3-mq";
