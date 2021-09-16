@@ -12,7 +12,7 @@ class TodoService extends TodoRepository
 {
     public function all()
     {
-        return  Response::checkAndServe($this->httpRepository->all());
+        return Response::checkAndServe($this->httpRepository->all());
     }
 
 
