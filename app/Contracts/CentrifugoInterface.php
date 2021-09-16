@@ -18,7 +18,7 @@ interface CentrifugoInterface
      * @return
      */
 
-    public function unSubscribe(string $channel, array $id);
+    public function unSubscribe(string $channel, $id);
 
     /**
      * send same message to many channels

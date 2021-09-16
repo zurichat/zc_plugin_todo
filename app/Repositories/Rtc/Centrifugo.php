@@ -7,21 +7,14 @@ use Illuminate\Support\Facades\Http;
 
 class Centrifugo implements CentrifugoInterface
 {
-    protected $http;
+
     protected $url = "http://localhost:8000/api";
-    protected $apiKey;
-
-    public function __construct()
-    {
-        $this->apiKey = "aec93168-52fe-4da9-8568-23f22b7e08cc";//env('centrifugo.CENTRIFUGO_APIKEY');
-    }
-
 
     public function publish($channel, $data)
     {
         $response = Http::withHeaders([
             'Content-type' => 'application/json',
-            'Authorization' => 'apikey aec93168-52fe-4da9-8568-23f22b7e08cc'
+            'Authorization' => 'apikey '.env("CENTRIFUGO_APIKEY")
         ])->post($this->url, [
             'method' => 'publish',
             'params' => [
@@ -40,11 +33,11 @@ class Centrifugo implements CentrifugoInterface
         $response = Http::withHeaders([
             'Content-type' => 'application/json',
             'Authorization' => 'apikey aec93168-52fe-4da9-8568-23f22b7e08cc'
-        ])->post($this->url, [
-            'method' => 'unsubscribe',
-            'params' => [
-                'channel' => $channel,
-                'user' => $id
+        ])->get($this->url, [
+            "method" => "unsubscribe",
+            "params" => [
+                "channel" => $channel,
+                "user" => $id
             ]
         ]);
 
@@ -61,7 +54,7 @@ class Centrifugo implements CentrifugoInterface
         ])->post($this->url, [
             'method' => 'broadcast',
             'params' => [
-                'channel' => $channel,
+                'channels' => $channel,
                 'data' => $data
             ]
         ]);

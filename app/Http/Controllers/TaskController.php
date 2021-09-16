@@ -28,9 +28,6 @@ class TaskController extends Controller
 
     public function index()
     {
-       // $publish = $this->taskService->publish("channel", ["data" => "hello"]);
-
-       // return $publish;
         $task = $this->taskService->all();
         if (isset($task['status']) && $task['status'] == '404') {
            return response()->json(['message' => 'Tasks not found'], 404);
