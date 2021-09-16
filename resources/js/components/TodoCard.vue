@@ -39,7 +39,7 @@
       </svg>
       <a href="#" class="px-1 font-bold block text-blue-600">{{todo.startDate}}</a>
     </span>
-    <div class="line"></div>
+    <progress id="progress" class="w-full mx-auto" value="60" max="100"> 32% </progress>
     <div class="">
       <h1 class="text-sm text-gray-500 tracking-wide ">COLLABORATORS</h1>
       <div class="flex items-center flex-wrap justify-between">
@@ -217,4 +217,21 @@
     color: #7c7c7c;
     text-decoration-line: underline;
   }
+  progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+   appearance: none;
+  border-radius: .6em;
+  height: 5px;
+  //  box-shadow: 0 0 10px rgb(0 103 69 / 28%);
+}
+progress[value]::-webkit-progress-bar {
+ 
+  border-radius: 2px;
+  background-color: #E2ECF8;
+}
+progress[value]::-webkit-progress-value {
+  background-color: #00B87C;
+  border-radius: 2px;
+}
 </style>

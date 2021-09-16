@@ -2,26 +2,17 @@
 
 namespace App\Services;
 
-use App\Repositories\Cache\CacheRepository;
-use App\Repositories\Cache\TaskCacheRepository;
-use App\Repositories\HTTP\HTTPRepository;
+use App\Helpers\Response;
 use App\Repositories\TaskRepository;
 
-class TaskService extends \App\Providers\AppServiceProvider
+class TaskService extends TaskRepository
 {
-    protected $taskRepository;
-
-    public function __construct(TaskRepository $taskRepository)
-    {
-        $this->taskRepository = $taskRepository;
-    }
-
     /**
      * @return mixed
      */
     public function all()
     {
-        return $this->taskRepository->all();
+        return Response::checkAndServe($this->httpRepository->all());
     }
 
     /**
@@ -30,7 +21,7 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function create(array $data)
     {
-        return $this->taskRepository->create($data);
+        return Response::checkAndServe($this->httpRepository->create($data));
     }
 
     /**
@@ -39,16 +30,16 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function find($id)
     {
-        return $this->taskRepository->find($id);
+        return Response::checkAndServe($this->httpRepository->find($id));
     }
 
-     /**
+    /**
      * @param mixed
      * @return mixed
      */
     public function findBy($attr, $value)
     {
-        return $this->taskRepository->findBy($attr, $value);
+        return Response::checkAndServe($this->httpRepository->findBy($attr, $value));
     }
 
     /**
@@ -58,7 +49,7 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function update($data, $id)
     {
-        return $this->taskRepository->update($id, $data);
+        return Response::checkAndServe($this->httpRepository->update($id, $data));
     }
 
     /**
@@ -67,41 +58,35 @@ class TaskService extends \App\Providers\AppServiceProvider
      */
     public function delete($id)
     {
-        return $this->taskRepository->delete($id);
+        return Response::checkAndServe($this->httpRepository->delete($id));
     }
 
     public function showResource()
     {
-        return $this->taskRepository->all();
+        return Response::checkAndServe($this->httpRepository->all());
     }
-          /**
+    /**
      * @return mixed
      * @author {@omoh}
      */
     public function getLatestTask()
     {
-        $result = $this->taskRepository->all();
+        $result = Response::checkAndServe($this->httpRepository->all());
+        if (isset($result['status']) && $result['status'] == 404) {
+            return $result;
+        }
+
         $data = [];
         // filter the array for items without created_at
-        foreach($result as $anyName){
-            if(isset($anyName['created_at'])){
-                array_push($data,$anyName);
+        foreach ($result as $anyName) {
+            if (isset($anyName['created_at'])) {
+                array_push($data, $anyName);
             }
+
+            $collection = collect($data);
+            $sorted = $collection->sortDesc()->first();
+            return $sorted;
         }
-        $collection = collect($data);
-        $sorted = $collection->sortDesc()->first();
-        return $sorted;
     }
-
-     /**
-     * @para mixed $data
-     *  return mixed
-     */
-    public function search($key, $data)
-    {
-        return $this->taskRepository->search($key, $data);
-    }
-
-
 
 }
