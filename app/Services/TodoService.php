@@ -6,8 +6,6 @@ use App\Helpers\Response;
 use App\Providers\AppServiceProvider;
 use App\Repositories\TodoRepository;
 
-use function PHPUnit\Framework\isNull;
-
 class TodoService extends TodoRepository
 {
     public function all()
@@ -46,7 +44,7 @@ class TodoService extends TodoRepository
     }
 
   /**
-     * This will search for a models with a specif key-value pair
+     * This will search with a specif key-value pair
      */
     public function search($key, $data)
     {

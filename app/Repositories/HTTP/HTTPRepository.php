@@ -158,23 +158,6 @@ class HTTPRepository implements RepositoryInterface
         // TODO: Implement restore() method.
     }
 
-
-    public function search($key, $data)
-    {
-        $objects = $this->all();
-        if (isset($objects['status']) && $objects['status'] == '404') {
-            return ["status" => "error"];
-        }
-        $search_data = [];
-        for ($i = 0; $i < count($objects); $i++) {
-            if ($objects[$i][$key] == $data) {
-                array_push($search_data, $objects[$i]);
-            }
-        }
-        return $search_data;
-    }
-
-
     /**
      * This will archive a model
      */
