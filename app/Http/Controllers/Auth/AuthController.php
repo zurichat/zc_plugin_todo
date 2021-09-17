@@ -12,10 +12,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-       return Http::post($this->url, [
-        'email' => $request->email,
-        'password' => $request->password,
-       ])->json();
+       $response = Http::post($this->url, [
+            'email' => $request->email,
+            'password' => $request->password,
+        ], ['cookies' => true]);
+       return response()->json($response, 200)->header('Set-Cookie', $response->headers()['Set-Cookie']);
     }
 
 }

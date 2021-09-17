@@ -106,7 +106,7 @@
 
 <script>
 export default {
-  name: "Todos",
+  name: "TotalTodos",
   data() {
     return {
       todo: [

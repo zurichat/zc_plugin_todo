@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Repositories\AuthRepository;
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
 
 class AuthenticatePluginUserMiddleware
@@ -24,14 +25,19 @@ class AuthenticatePluginUserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!$request->token){
+        if(is_null($request->token) && is_null($request->header('Authorization'))){
             return response()->json(['error' => 'Authentication Error: TOKEN MISSING.'], 401);
         }
-        if(!$request->user){
-            return response()->json(['error' => 'Authentication Error: USER_ID MISSING.'], 401);
-        }
+
         // data attr
-        $attr = ['user_id' => $request->user, 'token' => $request->token];
+        $token = explode(' ', $request->header('Authorization'));
+
+        if(!is_array($token) || !count($token) > 1){
+            return response()->json(['error' => 'Authentication Error: TOKEN MISSING.'], 401);
+        }
+
+        $attr = ['user_id' => $request->user, 'token' => $token[1] ?? $request->token];
+
         // authenticate user
         $res = $this->authRepository->authenticateUser($attr);
     

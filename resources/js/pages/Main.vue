@@ -1,7 +1,7 @@
 <template>
     <div
         id="main_view"
-        class="section_grid"
+        class="section_grid p-2"
     >
         <div>
             <template v-if="showAll">
@@ -21,7 +21,7 @@ gap-4
  lg:grid-cols-4 
                     "
                 >
-                    <TodoCard
+                    <NewCard
                         v-for="(todo, index) in allTodos"
                         :key="index++"
                         :todo="todo"
@@ -36,7 +36,7 @@ gap-4
                         md:grid-cols-3
                         lg:grid-cols-4
                     ">
-                <TodoCard
+                <NewCard
                     v-for="(todo, index) in result"
                     :key="index"
                     :todo="todo"
@@ -48,7 +48,7 @@ gap-4
 </template>
 <script>
 import Empty from "../components/Empty.vue";
-import TodoCard from "../components/TodoCard.vue";
+import NewCard from "../components/Newcard.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -65,7 +65,7 @@ export default {
   },
   methods: {},
   components: {
-    TodoCard,
+    NewCard,
     Empty,
   },
 };

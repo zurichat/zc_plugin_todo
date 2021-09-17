@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AssignTaskUserController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
@@ -9,6 +9,7 @@ use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
+use App\Http\Controllers\AssignUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
@@ -24,7 +25,6 @@ use App\Http\Controllers\TaskSearchController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 
 
 // api to fetch all todo tasks
@@ -85,6 +85,7 @@ Route::get('/doc', function(){
 Route::get('ping', function () {
     return response()->json(['message' => 'Server is live'], 200);
 });
+
 
 
 

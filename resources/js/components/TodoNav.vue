@@ -24,8 +24,8 @@
 
 <script>
 export default {
-  name: "TodoNav",
-};
+  name: "TodoNav"
+}
 </script>
 
 <style scoped>

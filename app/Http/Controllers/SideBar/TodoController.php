@@ -136,30 +136,37 @@ class TodoController extends Controller
     public function allRooms(Request $request)
     {
         $allTodos = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org]);
-        // $rooms = [];
-        // for ($i=1; $i < count($allTodos); $i++) {
-        //     array_push($rooms,$allTodos[$i]);
-        // }
         return response()->json(['rooms' => $allTodos], 200);
     }
 
     public function usersInRoom(Request $request)
     {
         //Get the room we want to users from.
-      $usersInRoom = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org, 'room_id' => $request->room]);
-      $data = [
-        'token' => $request->token,
-        'org' => $request->org
-      ];
-      $users_ids = $usersInRoom[0]['users'];
-      $usersInfo = [];
-      for ($i = 0; $i < count($users_ids); $i++) {
-        $data['user_id'] = $users_ids[$i];
-        $user = $this->todoRepository->findUser($data);
-        $usersInfo[] = collect($user)->only(['display_name', 'email', 'first_name', 'last_name', 'phone']);
-      }
+        $usersInRoom = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org, 'room_id' => $request->room]);
+        $data = [
+            'token' => $request->token,
+            'org' => $request->org
+        ];
+        //cookie passed from the client
+        $cookie = $request->server('HTTP_COOKIE');
 
-      return response()->json(["users" => $usersInfo], 200);
+        //IDs of all the users in a room
+        $users_ids = $usersInRoom[0]['users'];
+        $usersInfo = [];
+        for ($i = 0; $i < count($users_ids); $i++) {
+            $data['user_id'] = $users_ids[$i];
+            //Get the users details
+            $user = $this->todoRepository->findUser($data,  $cookie);
+            if (isset($user['status'])) {
+               $user = "user not found";
+               continue;
+            }
+            $usersInfo[] = collect($user)->only(['display_name', 'email', 'first_name', 'last_name', 'phone']);
+        }
+
+        $response = !empty($usersInfo) ? $usersInfo : "users not found";
+        return response()->json(["users" => $response], 200);
+
     }
 
     public function deleteRoom(Request $request)
