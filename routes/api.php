@@ -79,6 +79,9 @@ Route::post('update', [TodoController::class, 'update']);
 // Plugin Info Related Enpoints
 Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
 Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
+Route::get('/doc', function(){
+    return view('doc');
+});
 Route::get('ping', function () {
     return response()->json(['message' => 'Server is live'], 200);
 });

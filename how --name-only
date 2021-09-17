@@ -1,0 +1,56 @@
+[33mcommit 6b5a7a6950d7813489180dcdfa0588cba76c32f8[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Merge: 8d035de 927181e
+Author: omoh09 <gabrielifoga@yahoo.com>
+Date:   Sun Sep 5 14:48:04 2021 +0100
+
+    Merge branch 'develop' of https://github.com/zurichat/zc_plugin_todo into develop
+
+[1mdiff --cc routes/api.php[m
+[1mindex 9859b26,64b7c44..888bb7d[m
+[1m--- a/routes/api.php[m
+[1m+++ b/routes/api.php[m
+[36m@@@ -21,18 -22,36 +22,39 @@@[m [muse App\Http\Controllers\TaskSearchCont[m
+  | is assigned the "api" middleware group. Enjoy building your API![m
+  |[m
+  */[m
+[32m+ [m
+[32m+ // - Task Related Endpoints --------------//[m
+[32m+ [m
+  Route::get('task/sort', [\App\Http\Controllers\TaskController::class, 'sort']);[m
+[31m- Route::get('task', [\App\Http\Controllers\TaskDemoController::class, 'index']);[m
+[31m- Route::get('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);[m
+[31m- Route::post('task', [\App\Http\Controllers\TaskDemoController::class, 'store']);[m
+[31m- Route::put('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);[m
+[31m- Route::delete('task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);[m
+[32m+ Route::get('get-tasks', [\App\Http\Controllers\TaskDemoController::class, 'index']);[m
+[32m+ Route::get('find-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'show']);[m
+[32m+ Route::post('add-task', [\App\Http\Controllers\TaskDemoController::class, 'store']);[m
+[32m+ Route::put('update-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'update']);[m
+[32m+ Route::delete('delete-task/{id}', [\App\Http\Controllers\TaskDemoController::class, 'delete']);[m
+[32m+ [m
+[32m+ // TaskSearchController[m
+[32m+ [m
+[32m+ Route::get('tasks', [TaskSearchController::class, 'index']);[m
+  [m
+  // TaskCommentController[m
+[32m+ // -  Comment Related Endpoints ----------- //[m
+[32m+ [m
+[32m+ Route::post('comment', [TaskCommentController::class, 'saveComment']);[m
+[32m+ Route::get('comment', [TaskCommentController::class, 'index']);[m
+[32m+ Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);[m
+[32m+ Route::get('comment/{id}', [TaskCommentController::class, 'show']);[m
+[32m+ Route::put('comment/{id}', [TaskCommentController::class, 'update']);[m
+[32m+ Route::delete('comment_delete/{id}', [TaskCommentController::class, 'delete']);[m
+[32m+ [m
+[32m+ [m
+[32m+ [m
+[32m+ [m
+[32m+ [m
+[32m+ [m
+  [m
+[32m +Route::get('/cancel_recurringTask/{id}', [TaskController::class, 'recurringTaskView']);[m
+[32m +Route::post('/cancel_recurringTask/{id}', [TaskController::class, 'cancel_recurringTask']);[m
+[32m +[m
+  Route::post('files', [UploadFilesController::class, 'upLoadFiles']);[m
+  Route::get('viewfiles', [UploadFilesController::class, 'viewFile']);[m
+  [m
