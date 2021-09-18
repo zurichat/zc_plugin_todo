@@ -22535,7 +22535,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context3.next = 8;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("https://todo.zuri.chat/api/search?key=title&q=".concat(value)).then(function (res) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("https://todo.zuri.chat/api/v1/search?key=title&q=".concat(value)).then(function (res) {
                   console.log(res.data);
                   commit('RESULT', res.data);
                 });
