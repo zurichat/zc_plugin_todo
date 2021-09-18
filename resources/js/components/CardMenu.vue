@@ -3,6 +3,7 @@
     <div class="grid overflow-visible bg-green-500 text-sm rounded-md shadow-md modal-items w-28 grid-row-5 ">
       <div class="flex flex-col mb-0 items">
         <span class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer border-b border-green-400" >Edit</span>
+        <span v-on="archiveid" class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer border-b border-green-400" >Archive</span>
         <span class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer "   >Delete</span>
       </div>
 
