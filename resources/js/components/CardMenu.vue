@@ -1,10 +1,10 @@
 <template>
   <div class="modal shadow-md ">
-    <div class="grid overflow-visible bg-green-500 text-sm rounded-md shadow-md modal-items w-28 grid-row-5 ">
+    <div class="grid overflow-visible border text-sm rounded-md shadow-md modal-items w-48 grid-row-5 ">
       <div class="flex flex-col mb-0 items">
-        <span class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer border-b border-green-400" >Edit</span>
-        <span v-on="archiveid" class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer border-b border-green-400" >Archive</span>
-        <span class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer "   >Delete</span>
+        <span class="rounded-sm py-3 px-4 text-gray-900 font-normal text-sm cursor-pointer border-b hover:bg-green-400 hover:text-white" >Edit</span>
+        <span @click="archive" class="rounded-sm py-3 px-4 text-gray-900 font-normal text-sm cursor-pointer border-b" >Archive</span>
+        <span class="rounded-sm py-3 px-4 text-gray-900 font-normal text-sm cursor-pointer ">Delete</span>
       </div>
 
     </div>
@@ -18,7 +18,11 @@
       close() {
         this.$emit('toggleMenu');
       },
-
+      archive() {
+        axios.post({
+          url: '/task/'
+        })
+      }
     },
     props: {
       links : {
@@ -31,8 +35,8 @@
 <style scoped>
   .modal-items {
     position: absolute;
-    top: 15px;
-    right:15px;
+    top: 50px;
+    right:-190px;
     z-index: 100;
     overflow: auto;
     overflow-y: auto;

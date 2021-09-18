@@ -2,7 +2,7 @@
     <div class="px-4 py-2 mx-auto hover:border cursor-pointer my-4 sm:my-0 taskcard sm:mx-0 relative">
      <div v-click-away="ClickAway">
             <div class="menu_btn px-6 py-3 absolute top-0 right-0" @click="toggleMenu">
-                <i class="pi pi-ellipsis-h"></i>
+                <i class="pi pi-ellipsis-v"></i>
             </div>
             <CardMenu :links="links" v-show="isModalVisible" @toggleMenu="toggleMenu" />
         </div>
