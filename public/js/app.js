@@ -19540,12 +19540,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   beforeMount: function beforeMount() {// this.appendLinks()
   },
+  searchTodo: function searchTodo(val) {
+    this.searchValue(val);
+  },
   components: {
     TodoForm: _components_TodoForm__WEBPACK_IMPORTED_MODULE_3__["default"],
     TodoNav: _components_TodoNav__WEBPACK_IMPORTED_MODULE_1__["default"],
     AddTaskBtn: _components_AddTaskBtn__WEBPACK_IMPORTED_MODULE_2__["default"],
     ShareModal: _components_shareModal__WEBPACK_IMPORTED_MODULE_4__["default"],
-    searchInput: _components_Search_Input__WEBPACK_IMPORTED_MODULE_5__["default"]
+    SearchInput: _components_Search_Input__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 });
 
@@ -20375,7 +20378,7 @@ var _hoisted_2 = {
   "class": "\r\n        flex flex-col\r\n        md:flex-row\r\n        flex-start\r\n        justify-start\r\n        md:items-center\r\n        md:justify-between\r\n      "
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_searchInput = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("searchInput");
+  var _component_SearchInput = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("SearchInput");
 
   var _component_TodoNav = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TodoNav");
 
@@ -20385,9 +20388,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_todo_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("todo-form");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" view for all pages "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the todo nav component "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_searchInput, {
-    "class": "mt-10"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" view for all pages "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the todo nav component "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SearchInput, {
+    onSearchTodo: _ctx.searchTodo
+  }, null, 8
+  /* PROPS */
+  , ["onSearchTodo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav, {
     onShowLabel: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.showEditModal = true;
     })

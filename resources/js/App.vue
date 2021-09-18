@@ -2,7 +2,7 @@
   <!-- view for all pages -->
   <div id="view_section" class="mx-5">
     <!-- the todo nav component -->
-    <searchInput  class="mt-10"/>
+    <SearchInput @searchTodo="searchTodo" />
     <div
       class="
         flex flex-col
@@ -26,7 +26,7 @@ import TodoNav from './components/TodoNav';
 import AddTaskBtn from './components/AddTaskBtn';
 import TodoForm from "./components/TodoForm";
 import ShareModal from "./components/shareModal";
-import searchInput from './components/Search-Input';
+import SearchInput from './components/Search-Input';
 
 export default {
   name: "view",
@@ -44,12 +44,15 @@ export default {
   beforeMount() {
     // this.appendLinks()
   },
+  searchTodo(val) {
+        this.searchValue(val);
+      },
   components: {
     TodoForm,
     TodoNav,
     AddTaskBtn,
     ShareModal,
-    searchInput
+    SearchInput
   }
 }
 </script>
