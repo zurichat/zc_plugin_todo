@@ -1,7 +1,8 @@
 <template>
   <!-- view for all pages -->
-  <div id="view_section">
+  <div id="view_section" class="mx-5">
     <!-- the todo nav component -->
+    <searchInput  class="mt-10"/>
     <div
       class="
         flex flex-col
@@ -25,6 +26,7 @@ import TodoNav from './components/TodoNav';
 import AddTaskBtn from './components/AddTaskBtn';
 import TodoForm from "./components/TodoForm";
 import ShareModal from "./components/shareModal";
+import searchInput from './components/Search-Input';
 
 export default {
   name: "view",
@@ -46,7 +48,8 @@ export default {
     TodoForm,
     TodoNav,
     AddTaskBtn,
-    ShareModal
+    ShareModal,
+    searchInput
   }
 }
 </script>

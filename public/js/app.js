@@ -19518,6 +19518,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_AddTaskBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/AddTaskBtn */ "./resources/js/components/AddTaskBtn.vue");
 /* harmony import */ var _components_TodoForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TodoForm */ "./resources/js/components/TodoForm.vue");
 /* harmony import */ var _components_shareModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/shareModal */ "./resources/js/components/shareModal.vue");
+/* harmony import */ var _components_Search_Input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Search-Input */ "./resources/js/components/Search-Input.vue");
+
 
 
 
@@ -19542,7 +19544,8 @@ __webpack_require__.r(__webpack_exports__);
     TodoForm: _components_TodoForm__WEBPACK_IMPORTED_MODULE_3__["default"],
     TodoNav: _components_TodoNav__WEBPACK_IMPORTED_MODULE_1__["default"],
     AddTaskBtn: _components_AddTaskBtn__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ShareModal: _components_shareModal__WEBPACK_IMPORTED_MODULE_4__["default"]
+    ShareModal: _components_shareModal__WEBPACK_IMPORTED_MODULE_4__["default"],
+    searchInput: _components_Search_Input__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 });
 
@@ -20365,12 +20368,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  id: "view_section"
+  id: "view_section",
+  "class": "mx-5"
 };
 var _hoisted_2 = {
   "class": "\r\n        flex flex-col\r\n        md:flex-row\r\n        flex-start\r\n        justify-start\r\n        md:items-center\r\n        md:justify-between\r\n      "
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_searchInput = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("searchInput");
+
   var _component_TodoNav = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("TodoNav");
 
   var _component_AddTaskBtn = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AddTaskBtn");
@@ -20379,7 +20385,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_todo_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("todo-form");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" view for all pages "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the todo nav component "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" view for all pages "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the todo nav component "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_searchInput, {
+    "class": "mt-10"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav, {
     onShowLabel: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.showEditModal = true;
     })
@@ -22488,7 +22496,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context3.next = 8;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("https://todo.zuri.chat/api/search?key=title&q=".concat(value)).then(function (res) {
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("https://todo.zuri.chat/api/v1/search?key=title&q=".concat(value)).then(function (res) {
                   console.log(res.data);
                   commit('RESULT', res.data);
                 });
