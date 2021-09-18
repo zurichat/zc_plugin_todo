@@ -55,6 +55,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/task/archived', [TaskController::class, 'archived']);
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
     Route::get('/search', [TodoController::class, 'search_todo']);
+    Route::delete('/delete/{id}', [TodoController::class, 'delete_todo']);
 
     // Resource End ponits
     Route::get('/taskresource', [TaskController::class, 'showResource']);
