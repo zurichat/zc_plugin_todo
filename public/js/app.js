@@ -17945,7 +17945,7 @@ Axios.prototype.request = function request(config) {
     var chain = [dispatchRequest, undefined];
 
     Array.prototype.unshift.apply(chain, requestInterceptorChain);
-    chain.concat(responseInterceptorChain);
+    chain = chain.concat(responseInterceptorChain);
 
     promise = Promise.resolve(config);
     while (chain.length) {
@@ -19717,6 +19717,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TodoCard.vue?vue&type=script&lang=js":
 /*!**************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TodoCard.vue?vue&type=script&lang=js ***!
@@ -19890,6 +19891,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TodoNav.vue?vue&type=script&lang=js ***!
   \*************************************************************************************************************************************************************************************************/
+=======
+<<<<<<< HEAD
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTodo.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTodo.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************************************************************************************************/
+=======
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTaskForm.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTaskForm.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************************************************************************************************************/
+>>>>>>> upstream/develop
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -19898,6 +19912,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+<<<<<<< HEAD
   name: "TodoNav"
 });
 
@@ -20002,6 +20017,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.createTask(this.todoDetails);
     }
   })
+=======
+<<<<<<< HEAD
+  name: "addTodo",
+  data: {
+    id: 1,
+    todoText: '',
+    done: false,
+    todos: []
+  },
+  methods: {
+    addTodo: function addTodo() {
+      var todo = {
+        id: this.id,
+        todoText: this.todoText,
+        done: this.done
+      };
+      console.log(todo);
+      this.todos.push(todo);
+      this.reset();
+    }
+  },
+  mounted: function mounted() {
+    this.addTodo();
+  }
+=======
+  name: 'AddTaskForm'
+>>>>>>> upstream/develop
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 });
 
 /***/ }),
@@ -20164,6 +20207,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+<<<<<<< HEAD
 /* harmony import */ var _components_Empty_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Empty.vue */ "./resources/js/components/Empty.vue");
 /* harmony import */ var _components_Newcard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Newcard.vue */ "./resources/js/components/Newcard.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
@@ -20172,7 +20216,17 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+=======
+/* harmony import */ var _components_Search_Input_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Search-Input.vue */ "./resources/js/components/Search-Input.vue");
+/* harmony import */ var _components_taskCard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/taskCard.vue */ "./resources/js/components/taskCard.vue");
+<<<<<<< HEAD
+/* harmony import */ var _components_addTodo_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/addTodo.vue */ "./resources/js/components/addTodo.vue");
+=======
+/* harmony import */ var _components_addTaskForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/addTaskForm.vue */ "./resources/js/components/addTaskForm.vue");
+/* harmony import */ var _components_AddTaskBtn_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/AddTaskBtn.vue */ "./resources/js/components/AddTaskBtn.vue");
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 
+>>>>>>> upstream/develop
 
 
 
@@ -20188,8 +20242,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   methods: {},
   components: {
+<<<<<<< HEAD
     NewCard: _components_Newcard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Empty: _components_Empty_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+=======
+    taskCard: _components_taskCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    SearchInput: _components_Search_Input_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+<<<<<<< HEAD
+    addTodo: _components_addTodo_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+=======
+    AddTaskBtn: _components_AddTaskBtn_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AddTaskForm: _components_addTaskForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+>>>>>>> upstream/develop
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
   }
 });
 
@@ -20499,10 +20564,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Newcard.vue?vue&type=template&id=1e0da615&scoped=true":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Newcard.vue?vue&type=template&id=1e0da615&scoped=true ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************/
+=======
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTodo.vue?vue&type=template&id=2673fae8":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTodo.vue?vue&type=template&id=2673fae8 ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************/
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20513,6 +20585,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
+<<<<<<< HEAD
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-1e0da615");
 
 var _hoisted_1 = {
@@ -20749,11 +20822,52 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.value]])]);
+=======
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Content of the modal. ");
+
+var _hoisted_2 = {
+  "class": "flex justify-between"
+};
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Add Todo");
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_t_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("t-button");
+
+  var _component_t_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("t-modal");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_t_modal, {
+    header: "Title of the modal"
+  }, {
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_t_button, {
+        type: "button"
+      }, {
+        "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_3];
+        }),
+        _: 1
+        /* STABLE */
+
+      })])];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 }
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TodoCard.vue?vue&type=template&id=40dea23e&scoped=true":
+=======
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/taskCard.vue?vue&type=template&id=9f010e00&scoped=true":
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 /*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/TodoCard.vue?vue&type=template&id=40dea23e&scoped=true ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************/
@@ -40031,6 +40145,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
       var type = index + 1,
           isFilter = type == LAZY_FILTER_FLAG || type == LAZY_WHILE_FLAG;
 
+<<<<<<< HEAD
       LazyWrapper.prototype[methodName] = function(iteratee) {
         var result = this.clone();
         result.__iteratees__.push({
@@ -40045,6 +40160,42 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
     // Add `LazyWrapper` methods for `_.head` and `_.last`.
     arrayEach(['head', 'last'], function(methodName, index) {
       var takeName = 'take' + (index ? 'Right' : '');
+=======
+<<<<<<< HEAD
+/***/ "./resources/js/components/addTodo.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/addTodo.vue ***!
+  \*********************************************/
+=======
+/***/ "./resources/js/components/addTaskForm.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/addTaskForm.vue ***!
+  \*************************************************/
+>>>>>>> upstream/develop
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+<<<<<<< HEAD
+/* harmony import */ var _addTodo_vue_vue_type_template_id_2673fae8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addTodo.vue?vue&type=template&id=2673fae8 */ "./resources/js/components/addTodo.vue?vue&type=template&id=2673fae8");
+/* harmony import */ var _addTodo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addTodo.vue?vue&type=script&lang=js */ "./resources/js/components/addTodo.vue?vue&type=script&lang=js");
+
+
+
+_addTodo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"].render = _addTodo_vue_vue_type_template_id_2673fae8__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_addTodo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"].__file = "resources/js/components/addTodo.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_addTodo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
+=======
+/* harmony import */ var _addTaskForm_vue_vue_type_template_id_5e9d75af__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addTaskForm.vue?vue&type=template&id=5e9d75af */ "./resources/js/components/addTaskForm.vue?vue&type=template&id=5e9d75af");
+/* harmony import */ var _addTaskForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addTaskForm.vue?vue&type=script&lang=js */ "./resources/js/components/addTaskForm.vue?vue&type=script&lang=js");
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 
       LazyWrapper.prototype[methodName] = function() {
         return this[takeName](1).value()[0];
@@ -40064,9 +40215,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
       return this.filter(identity);
     };
 
+<<<<<<< HEAD
     LazyWrapper.prototype.find = function(predicate) {
       return this.filter(predicate).head();
     };
+=======
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_addTaskForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
+>>>>>>> upstream/develop
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 
     LazyWrapper.prototype.findLast = function(predicate) {
       return this.reverse().find(predicate);
@@ -40269,6 +40425,7 @@ var process = module.exports = {};
 // wrapped in strict mode code which doesn't define any globals.  It's inside a
 // function because try/catches deoptimize in certain engines.
 
+<<<<<<< HEAD
 var cachedSetTimeout;
 var cachedClearTimeout;
 
@@ -40320,6 +40477,34 @@ function runTimeout(fun) {
             return cachedSetTimeout.call(this, fun, 0);
         }
     }
+=======
+<<<<<<< HEAD
+/***/ "./resources/js/components/addTodo.vue?vue&type=script&lang=js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/addTodo.vue?vue&type=script&lang=js ***!
+  \*********************************************************************/
+=======
+/***/ "./resources/js/components/addTaskForm.vue?vue&type=script&lang=js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/addTaskForm.vue?vue&type=script&lang=js ***!
+  \*************************************************************************/
+>>>>>>> upstream/develop
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+<<<<<<< HEAD
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTodo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTodo_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./addTodo.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTodo.vue?vue&type=script&lang=js");
+=======
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTaskForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTaskForm_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./addTaskForm.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTaskForm.vue?vue&type=script&lang=js");
+>>>>>>> upstream/develop
+ 
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 
 
 }
@@ -41303,15 +41488,30 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Newcard.vue?vue&type=style&index=0&id=1e0da615&lang=scss&scoped=true":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Newcard.vue?vue&type=style&index=0&id=1e0da615&lang=scss&scoped=true ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+=======
+<<<<<<< HEAD
+/***/ "./resources/js/components/addTodo.vue?vue&type=template&id=2673fae8":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/addTodo.vue?vue&type=template&id=2673fae8 ***!
+  \***************************************************************************/
+=======
+/***/ "./resources/js/components/addTaskForm.vue?vue&type=template&id=5e9d75af":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/addTaskForm.vue?vue&type=template&id=5e9d75af ***!
+  \*******************************************************************************/
+>>>>>>> upstream/develop
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+<<<<<<< HEAD
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
@@ -41327,6 +41527,17 @@ options.singleton = false;
 
 var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Newcard_vue_vue_type_style_index_0_id_1e0da615_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
+=======
+<<<<<<< HEAD
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTodo_vue_vue_type_template_id_2673fae8__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTodo_vue_vue_type_template_id_2673fae8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./addTodo.vue?vue&type=template&id=2673fae8 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTodo.vue?vue&type=template&id=2673fae8");
+=======
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTaskForm_vue_vue_type_template_id_5e9d75af__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_addTaskForm_vue_vue_type_template_id_5e9d75af__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./addTaskForm.vue?vue&type=template&id=5e9d75af */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/addTaskForm.vue?vue&type=template&id=5e9d75af");
+>>>>>>> upstream/develop
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Newcard_vue_vue_type_style_index_0_id_1e0da615_lang_scss_scoped_true__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
@@ -65944,7 +66155,7 @@ var index = {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"axios","version":"0.21.2","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://axios-http.com","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.14.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.3","_inBundle":false,"_integrity":"sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.3.tgz","_shasum":"f85d9b747f9b66d59ca463605cedf1844872b82e","_spec":"axios@^0.21","_where":"C:\\\\Users\\\\Jay3ee\\\\Desktop\\\\zc_plugin_todo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.3"}');
 
 /***/ })
 
@@ -66244,7 +66455,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.2","description":"P
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunktodo"] = self["webpackChunktodo"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();

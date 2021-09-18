@@ -47,6 +47,7 @@ gap-4
         </div>
 </template>
 <script>
+<<<<<<< HEAD
 import Empty from "../components/Empty.vue";
 import NewCard from "../components/Newcard.vue";
 import { mapGetters } from "vuex";
@@ -69,5 +70,28 @@ export default {
     Empty,
   },
 };
+=======
+import SearchInput from '../components/Search-Input.vue'
+    import taskCard from '../components/taskCard.vue'
+<<<<<<< HEAD
+    import addTodo from '../components/addTodo.vue'
+=======
+    import AddTaskForm from '../components/addTaskForm.vue'
+    import AddTaskBtn from '../components/AddTaskBtn.vue'
+>>>>>>> upstream/develop
+    export default {
+        name: 'Main',
+        components: {
+            taskCard,
+            SearchInput,
+<<<<<<< HEAD
+            addTodo
+=======
+            AddTaskBtn,
+            AddTaskForm
+>>>>>>> upstream/develop
+        }
+    }
+>>>>>>> 70e5aad73842fc8d7433bd3e811bee94ba7ae3c4
 </script>
 <style lang="scss"></style>
