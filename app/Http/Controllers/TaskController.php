@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
+use App\Services\TaskService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
@@ -70,6 +73,12 @@ class TaskController extends Controller
 
 
 
+    public function search(Request $request)
+    {
+        return response()->json($this->taskService->search($request->query('key'), $request->query('q')));
+    }
+
+
     public function getTasksByCategory(Request $request)
     {
         // Validation of input
@@ -79,14 +88,13 @@ class TaskController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'Error' => 'Request failed',
+                'Error'=>'Request failed',
                 'message' => $validator->errors()
             ], 400);
         }
         // Search for the category
         $allTasks = $this->taskService->all();
-        $newArr = [];
         foreach ($allTasks as $value) {
-            if (isset($value['category_id']) && $value['category_id'] == $request->category_id) {
                 array_push($newArr, $value);
             }
         }
@@ -193,5 +201,6 @@ class TaskController extends Controller
             'message' => 'Request success',
             'data' => $newArr
         ], 200);
+        ],200);
     }
 }

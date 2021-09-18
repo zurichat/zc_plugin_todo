@@ -3,13 +3,23 @@
 namespace App\Services;
 
 use App\Helpers\Response;
+use App\Repositories\Cache\CacheRepository;
+use App\Repositories\Cache\TaskCacheRepository;
+use App\Repositories\HTTP\HTTPRepository;
 use App\Repositories\TaskRepository;
 
 class TaskService extends TaskRepository
 {
+<<<<<<< HEAD
+=======
+    protected $taskRepository;
+    {
+        $this->taskRepository = $taskRepository;
+    }
+
+>>>>>>> d06069ebbd65ecc96c6657afbcf312221185aa8f
     /**
      * @return mixed
-     */
     public function all()
     {
         return Response::checkAndServe($this->httpRepository->all());
@@ -60,12 +70,10 @@ class TaskService extends TaskRepository
     {
         return Response::checkAndServe($this->httpRepository->delete($id));
     }
-
     public function showResource()
     {
         return Response::checkAndServe($this->httpRepository->all());
     }
-    /**
      * @return mixed
      * @author {@omoh}
      */
@@ -89,4 +97,10 @@ class TaskService extends TaskRepository
         }
     }
 
+     /**
+     *  return mixed
+     */
+    public function search($key, $data)
+        return $this->taskRepository->search($key, $data);
+    }
 }

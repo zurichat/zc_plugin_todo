@@ -16,5 +16,14 @@ class TaskRepository extends Centrifugo
     {
         $this->httpRepository = new HTTPRepository($this->modelName);
         $this->cacheRepository = new CacheRepository($this->modelName);
+use App\Repositories\HTTP\HTTPRepository;
+
+class TaskRepository extends HTTPRepository
+{
+    protected $modelName = 'TodoDemoTask';
+
+    public function __construct()
+    {
+        parent::__construct($this->modelName);
     }
 }

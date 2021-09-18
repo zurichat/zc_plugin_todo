@@ -18,5 +18,9 @@ composer.phar
 /mongodb
 /journal
 /diagnostic.data
+<<<<<<< HEAD
 docker-compose.yml
 composer.lock
+=======
+docker-compose.yml
+>>>>>>> d06069ebbd65ecc96c6657afbcf312221185aa8f
