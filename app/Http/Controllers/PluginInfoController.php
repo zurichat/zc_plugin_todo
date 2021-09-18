@@ -20,7 +20,7 @@ class PluginInfoController extends Controller
             'team' => 'HNG-8.0/Team-Kant',
             'ping_url' => 'https://todo.zuri.chat/api/ping',
             'html_url' => 'https://todo.zuri.chat/#/main',
-            'sidebar_url' => 'https://todo.zuri.chat/#/main',
+            'sidebar_url' => 'https://todo.zuri.chat/api/sidebar',
         ];
         return response()->json([
             'status' => 'success',

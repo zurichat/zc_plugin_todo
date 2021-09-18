@@ -1,13 +1,9 @@
 <template>
-  <div class="modal shadow-md">
-    <div class="grid overflow-visible text-sm rounded-md shadow-md modal-items w-44 grid-row-5 ">
-      <button class="flex mb-2 border content-right mx-right justify-items-end position-absolute btn-close"
-        type="button" @click="close">
-        x
-      </button>
-      <div class="flex flex-col mt-8 mb-0 items">
-        <span class="rounded-sm py-2 px-4 cursor-pointer" v-for="(link, index) in links" :key="index" @click="link.action" :class=" link.type === 'default' ? 'hover:bg-green-100' : 'hover:bg-red-500 hover:text-white'" >{{link.name}}</span>
-        
+  <div class="modal shadow-md ">
+    <div class="grid overflow-visible bg-green-500 text-sm rounded-md shadow-md modal-items w-28 grid-row-5 ">
+      <div class="flex flex-col mb-0 items">
+        <span class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer border-b border-green-400" >Edit</span>
+        <span class="rounded-sm py-3 px-4 text-white font-bold cursor-pointer "   >Delete</span>
       </div>
 
     </div>
@@ -39,7 +35,7 @@
     z-index: 100;
     overflow: auto;
     overflow-y: auto;
-    background-color: white;
+    /* background-color: white; */
   }
 
   .btn-close {
