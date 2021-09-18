@@ -19513,12 +19513,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _plugins_links_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugins/links.js */ "./resources/js/plugins/links.js");
 /* harmony import */ var _components_TodoNav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TodoNav */ "./resources/js/components/TodoNav.vue");
 /* harmony import */ var _components_AddTaskBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/AddTaskBtn */ "./resources/js/components/AddTaskBtn.vue");
 /* harmony import */ var _components_TodoForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TodoForm */ "./resources/js/components/TodoForm.vue");
 /* harmony import */ var _components_shareModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/shareModal */ "./resources/js/components/shareModal.vue");
 /* harmony import */ var _components_Search_Input__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Search-Input */ "./resources/js/components/Search-Input.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -19532,17 +19541,24 @@ __webpack_require__.r(__webpack_exports__);
       showTodoForm: false
     };
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapActions)({
+    searchValue: 'todos/SEARCH'
+  })), {}, {
     toggleModal: function toggleModal() {
       console.log("hi");
       this.showTodoForm = !this.showTodoForm;
+    },
+    searchTodo: function searchTodo(val) {
+      this.searchValue(val);
     }
-  },
+  }),
   beforeMount: function beforeMount() {// this.appendLinks()
   },
-  searchTodo: function searchTodo(val) {
-    this.searchValue(val);
-  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)({
+    allTodos: "todos/allTodos",
+    result: "todos/searchedTodo",
+    showAll: "todos/showAll"
+  })),
   components: {
     TodoForm: _components_TodoForm__WEBPACK_IMPORTED_MODULE_3__["default"],
     TodoNav: _components_TodoNav__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -20389,7 +20405,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_todo_form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("todo-form");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" view for all pages "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" the todo nav component "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SearchInput, {
-    onSearchTodo: _ctx.searchTodo
+    onSearchTodo: $options.searchTodo
   }, null, 8
   /* PROPS */
   , ["onSearchTodo"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_TodoNav, {

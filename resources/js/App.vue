@@ -21,6 +21,8 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
+import { mapGetters } from "vuex";
 import links from "./plugins/links.js";
 import TodoNav from './components/TodoNav';
 import AddTaskBtn from './components/AddTaskBtn';
@@ -36,17 +38,27 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      searchValue: 'todos/SEARCH'
+    }),
     toggleModal() {
             console.log("hi");
             this.showTodoForm = !this.showTodoForm;
         },
+    searchTodo(val) {
+      this.searchValue(val);
+    },
   },
   beforeMount() {
     // this.appendLinks()
   },
-  searchTodo(val) {
-        this.searchValue(val);
-      },
+  computed: {
+        ...mapGetters({
+          allTodos: "todos/allTodos",
+          result: "todos/searchedTodo",
+          showAll: "todos/showAll",
+        }),
+  },
   components: {
     TodoForm,
     TodoNav,
