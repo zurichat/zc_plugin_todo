@@ -2,7 +2,8 @@ name: Lint - [Frontend]
 
 # Triggers the workflow on pull requests
 on:
-  pull_request:
+  workflow_dispatch:
+  #pull_request:
   
 jobs:
   run-linters:
@@ -15,10 +16,9 @@ jobs:
     - name: Use cached node_modules
       uses: c-hive/gha-yarn-cache@v2
       with:
-        directory: client
+        directory: .
       
     - name: Install yarn dependencies and Run ESLint
       run: |
-        cd client
         yarn install
         yarn run lint

@@ -134,6 +134,15 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
+    public function search_todo(Request $request)
+    {
+        $search = $this->taskService->search($request->query('key'), $request->query('q'));
+        if (isset($search['status']) && $search['status'] == 'error' || empty($search)) {
+           return response()->json(['message' => 'No result found'], 404);
+        }
+        return response()->json($search, 200);
+    }
+
     public function store(TaskRequest $request)
     {
         $data = $request->except('org', 'token');

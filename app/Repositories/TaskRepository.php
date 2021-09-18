@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Repositories\Cache\CacheRepository;
 use App\Repositories\HTTP\HTTPRepository;
+use App\Repositories\Rtc\Centrifugo;
 
-class TaskRepository
+class TaskRepository extends Centrifugo
 {
     protected $modelName = 'DemoTask';
     protected $httpRepository;

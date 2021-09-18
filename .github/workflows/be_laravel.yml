@@ -1,8 +1,9 @@
 name: Laravel
 
 on:
-  pull_request:
-    branches: [ master, develop ]
+  workflow_dispatch:
+  #pull_request:
+  #branches: [ master, develop ]
 
 jobs:
   laravel-tests:
@@ -14,8 +15,8 @@ jobs:
       with:
         php-version: '8.0'
     - uses: actions/checkout@v2
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      #- name: Copy .env
+      #run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Cache Composer dependencies
       uses: actions/cache@v2
       with:
