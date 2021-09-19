@@ -1,17 +1,16 @@
-require('./bootstrap');
+import { h, createApp } from 'vue';
+import singleSpaVue from 'single-spa-vue';
 import 'primevue/resources/primevue.min.css'; //corecss
 import 'primeicons/primeicons.css';
 import 'primevue/resources/themes/saga-green/theme.css';
 import router from './router';
 import store from './store'
 import axios from "axios";
+import "./assets/styles/app.css"
 axios.defaults.baseURL = 'https://todo.zuri.chat/api/v1'
 import VueClickAway from "vue3-click-away";
 import App from './App.vue'
-const app = createApp(App);
-import './set-public-path';
-import { h, createApp } from 'vue';
-import singleSpaVue from 'single-spa-vue';
+
 const vueLifecycles = singleSpaVue({
     createApp,
     appOptions: {
@@ -32,7 +31,7 @@ const vueLifecycles = singleSpaVue({
         app.use(router);
         app.use(VueClickAway)
         app.use(store);
-        app.mount("#app")
+
     },
 });
 
