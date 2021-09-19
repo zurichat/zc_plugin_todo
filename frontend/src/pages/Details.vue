@@ -87,11 +87,14 @@
           </div>
         </div>
       </div> -->
+      <!-- <TextArea /> -->
     </div>
    
 </template>
 <script>
 import Checkbox from 'primevue/checkbox';
+// import TextArea from '../components/TextArea.vue\
+// import CommentBox from '../components/CommentBox.vue'
 import {mapGetters} from 'vuex'
 export default {
     name: 'TodoDetails',
@@ -111,6 +114,7 @@ export default {
       }
     },
     components: {
+      
       Checkbox
     },
   methods: {
@@ -125,7 +129,9 @@ export default {
          this.$router.push({path: '/main'})
          
        }
-
+       else {
+         //
+       }
       console.log(this.selectedTodo)
     },
     

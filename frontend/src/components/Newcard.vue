@@ -6,7 +6,7 @@
             </div>
             <CardMenu :links="links" v-show="isModalVisible" @toggleMenu="toggleMenu" />
         </div>
-        <div @click="alert()">
+        <div @click="details()">
         <div class="flex justify-between">
             <div id="card_title py-3">
                 <p class="title font-bold  ">{{todo.title}}</p>
@@ -225,13 +225,12 @@ export default {
         archive: 'todos/ADD_ARCHIVE'
       }),
       
-      ClickAway(event) {
-        console.log(event)
+      ClickAway() {
         this.isModalVisible = false;
       },
-      details(any) {
-                  console.log(any)
-        this.$router.push({ name: 'Details', params: { id: this.todo.card_id } })
+      details() {
+          console.log(this.todo._id)
+        this.$router.push({ name: 'Details', params: { id: this.todo._id } })
       },
       toggleMenu() {
         this.isModalVisible = !this.isModalVisible;

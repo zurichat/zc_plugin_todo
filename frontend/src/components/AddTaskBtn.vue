@@ -4,7 +4,7 @@
         <path d="M9 3.74994V14.2499" stroke="white" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M3.74988 8.99994H14.2499" stroke="white" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span class="px-2">Create a New Task</span>
+        <span class="px-2">Create a New Todo</span>
     </button>
 </template>
 <script>

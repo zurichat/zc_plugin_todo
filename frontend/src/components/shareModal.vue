@@ -79,8 +79,7 @@
             }),
         },
         methods: {
-            ClickAway(event){
-            console.log(event)
+            ClickAway(){
             this.isModalVisible = false;
         },
             ...mapActions({

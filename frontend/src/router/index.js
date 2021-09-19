@@ -3,7 +3,7 @@ import Busy from '../pages/Busy.vue';
 import Main from '../pages/Main.vue';
 import New from '../pages/New.vue';
 import Trash from '../pages/Trash.vue';
-import Archive from '../pages/Archive';
+import Archive from '../pages/Archive.vue';
 import DisplayNewTask from '../pages/DisplayNewTask.vue';
 const routes = [{
         path: '',

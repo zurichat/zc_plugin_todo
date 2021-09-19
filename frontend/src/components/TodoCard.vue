@@ -1,6 +1,7 @@
 <template>
   <div class="p-4 shadow-md mx-auto my-4 taskcard sm:mx-0 relative" v-click-away="ClickAway">
     <CardMenu :links="links" v-show="isModalVisible" @toggleMenu="toggleMenu" />
+    <div @click="details()">
     <div class="flex justify-between items-center ">
         <h1 class="text-md capitalize font-bold">{{todo.title}}</h1>
        
@@ -77,6 +78,7 @@
         </span>
       </div>
     </div>
+    </div>
   </div>
 </template>
 <script>
@@ -140,12 +142,11 @@
         delete: 'todos/ADD_TRASH',
         archive: 'todos/ADD_ARCHIVE'
       }),
-      ClickAway(event) {
-        console.log(event)
+      ClickAway() {
         this.isModalVisible = false;
       },
-      details(any) {
-        console.log(any)
+      details() {
+        console.log(this.todo.card_id)
         this.$router.push({ name: 'Details', params: { id: this.todo.card_id } })
       },
       toggleMenu() {

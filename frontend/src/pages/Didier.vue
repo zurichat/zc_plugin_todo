@@ -2,7 +2,7 @@
     <div class="px-2">
         <div id="header">
             <div id="logo " class="flex items-center flex-row">
-                <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
+                <img class="w-8 m-4" src="assets/img/zuri-logo.svg" />
                 <span class="font-bold text-lg">Zuri</span>
             </div>
         </div>

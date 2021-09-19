@@ -1,22 +1,22 @@
 <template>
   <div class="topnav">
     <router-link to="/new">
-      <img src="/img/task.svg" />
+      <img src="../assets/img/task.svg" />
       <span>Task</span>
     </router-link>
 
     <a href="#" @click.prevent="$emit('showLabel')">
-      <img src="/img/label.svg" />
+      <img src="../assets/img/label.svg" />
       <span>Labels</span>
     </a>
 
     <router-link :to="{ name: 'Archive' }">
-      <img src="/img/archive.svg" />
+      <img src="../assets/img/archive.svg" />
       <span>Archive</span>
     </router-link>
 
     <router-link :to="{ name: 'Trash' }">
-      <img src="/img/trash.svg" />
+      <img src="../assets/img/trash.svg" />
       <span>Trash</span>
     </router-link>
   </div>

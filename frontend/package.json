@@ -1,63 +1,59 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve --port 8085",
-    "build": "rm -rf ../public/{js,css,img} && vue-cli-service build --no-clean",
-    "serve:standalone": "vue-cli-service serve --mode standalone",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "primeicons": "^4.1.0",
-    "primevue": "3.7.0",
-    "sass-loader": "10",
-    "single-spa": "^5.9.3",
-    "single-spa-vue": "^2.1.0",
-    "systemjs-webpack-interop": "^2.3.7",
-    "tailwindcss": "^2.2.9",
-    "vue": "^3.2.6",
-    "vue-router": "^4.0.11",
-    "vue3-click-away": "^1.2.1",
-    "vue3-mq": "^3.0.0",
-    "vuex": "^4.0.2"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.0",
-    "@vue/cli-plugin-eslint": "^4.5.0",
-    "@vue/cli-service": "^4.5.0",
-    "@vue/compiler-sfc": "^3.2.6",
-    "axios": "^0.21",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "laravel-mix": "^6.0.6",
-    "lodash": "^4.17.19",
-    "postcss": "^8.1.14",
-    "resolve-url-loader": "^3.1.2",
-    "sass": "^1.32.11",
-    "vue-cli-plugin-single-spa": "~3.1.2",
-    "vue-loader": "^16.5.0",
-    "vue-template-compiler": "^2.6.12"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "todo",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
+        "serve:standalone": "vue-cli-service serve --mode standalone"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "dependencies": {
+        "axios": "^0.21.4",
+        "core-js": "^3.6.5",
+        "primeicons": "^4.1.0",
+        "primevue": "3.7.0",
+        "sass-loader": "^10.1.1",
+        "single-spa": "^5.9.3",
+        "single-spa-vue": "^2.1.0",
+        "systemjs-webpack-interop": "^2.3.7",
+        "vue": "^3.0.0",
+        "vue-router": "^4.0.11",
+        "vue3-click-away": "^1.2.1",
+        "vue3-mq": "^3.0.0",
+        "vuex": "^4.0.2"
     },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~4.5.0",
+        "@vue/cli-plugin-eslint": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "@vue/compiler-sfc": "^3.0.0",
+        "autoprefixer": "^9.8.6",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-vue": "^7.0.0",
+        "postcss": "^7.0.36",
+        "sass": "^1.32.11",
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
+        "vue-cli-plugin-single-spa": "~3.1.2"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/vue3-essential",
+            "eslint:recommended"
+        ],
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "rules": {}
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
 }

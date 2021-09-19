@@ -2,18 +2,7 @@ import axios from 'axios'
 export default {
     namespaced: true,
     state: {
-        todos: [{
-            _id: "6142162c9fd1f4f655d44596",
-            title: "Didier",
-            type: " public ",
-            description: "Let my People go!!!",
-            labels: [],
-            user_id: "6139 a43559842c7444fb01ef ",
-            channel: "6142162 c6d - Didier ",
-            tasks: [{}, {}, {}],
-            colaborators: [],
-            created_at: "2021-09-15T15:50:04.448212Z "
-        }],
+        todos: [],
         names: [],
         archive: [],
         trash: [],
@@ -104,7 +93,7 @@ export default {
             return state.todos.splice(location, 1);
             //return commit('ADD_ARCHIVE', state.todos.location)
         },
-        async SEARCH({ commit, dispatch}, any) {
+        async SEARCH({ commit, dispatch }, any) {
             let value = any
             if (value === "") {
                 dispatch('TOGGLESHOW', true);
