@@ -2,7 +2,18 @@ import axios from 'axios'
 export default {
     namespaced: true,
     state: {
-        todos: [],
+        todos: [{
+            _id: "6142162c9fd1f4f655d44596",
+            title: "Didier",
+            type: " public ",
+            description: "Let my People go!!!",
+            labels: [],
+            user_id: "6139 a43559842c7444fb01ef ",
+            channel: "6142162 c6d - Didier ",
+            tasks: [{}, {}, {}],
+            colaborators: [],
+            created_at: "2021-09-15T15:50:04.448212Z "
+        }],
         names: [],
         archive: [],
         trash: [],
@@ -55,11 +66,24 @@ export default {
                 .then(response => (commit('ADD_TODOS', response.data.data)))
                 .catch(error => console.log(error))
         },
-        createTask({ commit }, data) {
-            return commit('ADD_TODOS', data)
-                // await axios.post('/https://todo.zuri.chat/api/add_task', data)
-                //     .then((response) => { return commit('ALL_NAMES', response.data.data) })
-                //     .catch((error) => { return (error) })
+        async createTodo({ commit }, data) {
+            await axios.post('/create-todo', data)
+                .then((response) => commit('ADD_TODOS', response.data.data))
+                .catch((error) => {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.warn(error.response.data);
+
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered the Error
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config)
+                })
         },
         ADD_TRASH({ commit, state }, any) {
             let location = state.todos.findIndex(todo => todo.card_id.toLowerCase() === (any.toLowerCase()));
@@ -86,10 +110,10 @@ export default {
                 dispatch('TOGGLESHOW', true);
             } else {
                 await axios.get(`https://todo.zuri.chat/api/search?key=title&q=${value}`)
-                .then((res) => {
-                    console.log(res.data);
-                    commit('RESULT', res.data)
-                })
+                    .then((res) => {
+                        console.log(res.data);
+                        commit('RESULT', res.data)
+                    })
                 dispatch('TOGGLESHOW', false);
             }
 

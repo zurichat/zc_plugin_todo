@@ -1,23 +1,13 @@
 <template>
-    <div>
-        
-        <!-- <transition name="fade">
-            <edit-label-modal
-                v-if="showEditModal"
-                @close="showEditModal = false"
-            />
-        </transition>
-         -->
-        <div>
-            <div class="flex-grow px-4" :class="isComment ? 'hide' : 'show'">
-                <div id="header">
-                    <div id="logo " class="flex items-center flex-row">
-                        <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
-                        <span class="font-bold text-lg">Zuri</span>
-                    </div>
-                </div>
+    <div class="px-2">
+        <div id="header">
+            <div id="logo " class="flex items-center flex-row">
+                <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
+                <span class="font-bold text-lg">Zuri</span>
+            </div>
+        </div>
                 <transition name="fade">
-                    <TodoForm v-if="isModal" @toggleModal="toggleModal" />
+                    <TaskForm v-if="isModal" @toggleModal="toggleModal" />
                 </transition>
                 <transition name="fade">
                     <shareModal
@@ -25,32 +15,25 @@
                         @toggleShareModal="toggleShareModal"
                     />
                 </transition>
-                <!-- the create task button -->
-                <!-- <AddTaskBtn @click="isComment = !isComment" /> -->
-                <AddTaskBtn @click="toggleModal" />
-                <!-- the search input component working -->
-                <div class="flex flex-col md:flex-row flex-start  justify-start md:items-center md:justify-between">
-                <SearchInput @searchTodo="searchTodo" /> <TodoNav @showLabel="showEditModal = true" />
-                </div>
-            </div>
-            <div class="px-1">
-                <router-view />
-            </div>
-            
+         <AddTaskBtn @click="toggleModal" />
+         <div class="flex flex-col md:flex-row flex-start  justify-start md:items-center md:justify-between">
+            <SearchInput @searchTodo="searchTodo" /> <TodoNav @showLabel="showEditModal = true" />
+         </div>
+        <!-- <TodoCard /> -->
+        <div class="sm:grid p-2 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 ">
+            <NewCard v-for="i in 8" :key="i++" />
         </div>
-        
-    
     </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import {mapActions} from 'vuex';
-import TodoForm from "../components/TodoForm";
+import TaskForm from "../components/TaskForm";
 import TodoNav from '../components/TodoNav'
 import AddTaskBtn from '../components/AddTaskBtn'
 import SearchInput from '../components/Search-Input'
 import shareModal from "../components/shareModal";
-// import TodoCard from "../components/TodoCard.vue";
+ import NewCard from "../components/Newcard.vue";
 export default {
     name: 'New Main',
     data() {
@@ -108,11 +91,11 @@ export default {
         },
     },
     components: {
-        // TodoCard,
+        NewCard,
         AddTaskBtn,
         SearchInput,
         shareModal,
-        TodoForm,
+        TaskForm,
         TodoNav
     }
 }

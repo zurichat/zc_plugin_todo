@@ -4,8 +4,9 @@ namespace App\Repositories;
 
 use App\Repositories\Cache\CacheRepository;
 use App\Repositories\HTTP\HTTPRepository;
+use App\Repositories\Rtc\Centrifugo;
 
-class TaskCommentRepository
+class TaskCommentRepository extends Centrifugo
 {
     protected $modelName = 'TodoTaskComment';
     protected $httpRepository;
@@ -13,6 +14,7 @@ class TaskCommentRepository
 
     public function __construct()
     {
+
         $this->httpRepository = new HTTPRepository($this->modelName);
         $this->cacheRepository = new CacheRepository($this->modelName);
     }
