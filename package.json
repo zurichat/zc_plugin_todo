@@ -1,4 +1,5 @@
 {
+  "name": "zuri",
   "private": true,
   "scripts": {
     "dev": "npm run development",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.6",
     "axios": "^0.21",
+    "event-hooks-webpack-plugin": "^2.2.0",
     "laravel-mix": "^6.0.6",
     "lodash": "^4.17.19",
     "postcss": "^8.1.14",
