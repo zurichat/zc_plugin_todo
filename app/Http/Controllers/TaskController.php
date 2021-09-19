@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Http\Requests\AddTaskRequest;
 use App\Services\TaskService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,15 +11,18 @@ use App\Http\Resources\TodoResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
 
+
 class TaskController extends Controller
 {
 
     protected $taskService;
 
+
     public function __construct(TaskService $taskService)
     {
         $this->taskService = $taskService;
     }
+
 
     /**
      * Show the search results.
@@ -195,34 +199,51 @@ class TaskController extends Controller
         ], 200);
     }
 
-    public function addTask(TaskRequest $request) {
-        $data = $request->only('tasks', 'admins', 'user_id', 'user', '_id');
-        $admin = $data['admins'][]=$data['user_id']=$request->input('user');
-        $data['tasks'] = [];
-        $tasks = $request->input('tasks');
-        $todoId = $data['_id'];
-        if($admin == $todoId) {
-            foreach ($tasks as $task) {
-                $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
-                $i++;
-            }
-             $data['status'] = $request->input('status');
-            $response = $this->taskService->create($data);
-            if($response) {
-                return response()->json([
-                    'status' => true,
-                    'type' => 'success',
-                    'message' => 'Task added successfully',
-                    'data' => $data
-                ]);
-            }
-        }
-        else {
-            return response()->json([
-                'status' => false,
-                'type' => 'error',
-                'message' => 'You are not allowed to perform this action'
-            ]);
-        }
+    // public function addTask(AddTaskRequest $request) {
+    //     $data = $request->only('tasks');
+    //     $admin = $data['admins'][]=$data['user_id']=$request->input('user');
+    //     $data['tasks'] = [];
+    //     $tasks = $request->input('tasks');
+    //     $todoId = $data['_id'];
+    //     if($admin == $todoId) {
+    //         foreach ($tasks as $task) {
+    //             $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
+    //             $i++;
+    //         }
+    //          $data['status'] = $request->input('status');
+    //         $response = $this->taskService->create($data);
+    //         if($response) {
+    //             return response()->json([
+    //                 'status' => true,
+    //                 'type' => 'success',
+    //                 'message' => 'Task added successfully',
+    //                 'data' => $data
+    //             ]);
+    //         }
+    //     }
+    //     else {
+    //         return response()->json([
+    //             'status' => false,
+    //             'type' => 'error',
+    //             'message' => 'You are not allowed to perform this action'
+    //         ]);
+    //     }
+    // }
+    // AddTaskRequest $AddTaskRequest, TaskRequest $request, $id
+    public function addTask(AddTaskRequest $request, $id) {
+       $todo = $this->taskService->findBy('_id', $id);
+
+        $data = array();
+
+        $data['description'] = $request->input('description');
+
+
+        return response()->json($this->taskService->update($id, $data));
     }
 }
+// 0098
+// 45
+// 60
+// 52
+// access
+// sunday

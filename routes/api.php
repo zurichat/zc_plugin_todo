@@ -3,10 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PingContoller;
-use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PluginInfoController;
-use App\Http\Controllers\TaskSearchController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
@@ -77,5 +75,8 @@ Route::get('ping', function () {
 });
 
 
+
+Route::put('add/{id}/update', [TaskController::class, 'addTask']);
+Route::get('/get', [TaskController::class, 'addTask']);
 
 
