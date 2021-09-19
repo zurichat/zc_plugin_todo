@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TaskCommentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class TaskCommentController extends Controller
 {
@@ -17,18 +18,33 @@ class TaskCommentController extends Controller
 
     public function index()
     {
-        return response()->json($this->taskCommentService->all());
+
+        $result = $this->taskCommentService->all();
+        return $result;
+        if ($result['status'] == 200 && isset($result["data"])) {
+            return response()->json([
+                'status' => 'success',
+                'type' => 'comments',
+                'count' => count($result),
+                'data' => $result
+            ], 200);
+        }
+        return response()->json(['message' => $result['message']], 400);
     }
 
     public function getCommentsPerTask($taskId)
     {
-        $comments = $this->taskCommentService->commentsPerTask('task_id', $taskId);
-        return response()->json([
-            'status' => 'success',
-            'type' => 'comments',
-            'count' => count($comments),
-            'data' => $comments
-        ], 200);
+        $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
+        if ($result['status'] == 200 && isset($result["data"])) {
+            return response()->json([
+                'status' => 'success',
+                'type' => 'comments',
+                'count' => count($result),
+                'data' => $result
+            ], 200);
+        }
+
+        return response()->json(['message' => $result['message']], 400);
     }
 
     public function saveComment(Request $request)
@@ -58,4 +74,5 @@ class TaskCommentController extends Controller
     {
         return response()->json($this->taskCommentService->delete($id));
     }
+
 }

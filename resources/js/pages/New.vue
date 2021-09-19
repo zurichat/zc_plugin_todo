@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <transition name="fade">
-                    <TaskForm v-if="isModal" @toggleModal="toggleModal" />
+                    <TodoForm v-if="isModal" @toggleModal="toggleModal" />
                 </transition>
                 <transition name="fade">
                     <shareModal
@@ -45,7 +45,7 @@
 <script>
 import { mapGetters } from "vuex";
 import {mapActions} from 'vuex';
-import TaskForm from "../components/TaskForm";
+import TodoForm from "../components/TodoForm";
 import TodoNav from '../components/TodoNav'
 import AddTaskBtn from '../components/AddTaskBtn'
 import SearchInput from '../components/Search-Input'
@@ -112,7 +112,7 @@ export default {
         AddTaskBtn,
         SearchInput,
         shareModal,
-        TaskForm,
+        TodoForm,
         TodoNav
     }
 }

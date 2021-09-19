@@ -4,20 +4,9 @@ import Main from '../pages/Main.vue';
 import New from '../pages/New.vue';
 import Trash from '../pages/Trash.vue';
 import Archive from '../pages/Archive';
+import DisplayNewTask from '../pages/DisplayNewTask.vue';
 const routes = [{
-        path: '/',
-        //this is main page where users land
-        name: 'Busy',
-        component: Busy
-    }, {
-        path: '/main',
-        //this is where the main work lies
-        name: 'Main',
-        component: Main,
-
-    },
-    {
-        path: '/main',
+        path: '',
         //this is the page that contains todo trash
         name: 'New',
         component: New,
@@ -37,6 +26,11 @@ const routes = [{
             //this is the page that contains todo trash
             name: 'Trash',
             component: Trash
+        }, {
+            path: '/newtask',
+            //this is the page that contains new tasks
+            name: 'DisplayNewTask',
+            component: DisplayNewTask
         }]
     },
     {
@@ -44,6 +38,11 @@ const routes = [{
         name: 'Details',
         component: () =>
             import ( /* webpackChunkName: "Transactions" */ '../pages/Details.vue')
+    }, {
+        path: '/didier',
+        name: 'Didier',
+        component: () =>
+            import ( /* webpackChunkName: "Transactions" */ '../pages/Didier.vue')
     },
     {
         path: '/:pathMatch(.*)*',
