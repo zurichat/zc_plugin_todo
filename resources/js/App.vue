@@ -1,7 +1,8 @@
 <template>
   <!-- view for all pages -->
-  <div id="view_section">
+  <div id="view_section" class="mx-5">
     <!-- the todo nav component -->
+    <SearchInput @searchTodo="searchTodo" />
     <div
       class="
         flex flex-col
@@ -20,11 +21,14 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
+import { mapGetters } from "vuex";
 import links from "./plugins/links.js";
 import TodoNav from './components/TodoNav';
 import AddTaskBtn from './components/AddTaskBtn';
 import TodoForm from "./components/TodoForm";
 import ShareModal from "./components/shareModal";
+import SearchInput from './components/Search-Input';
 
 export default {
   name: "view",
@@ -34,19 +38,33 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      searchValue: 'todos/SEARCH'
+    }),
     toggleModal() {
             console.log("hi");
             this.showTodoForm = !this.showTodoForm;
         },
+    searchTodo(val) {
+      this.searchValue(val);
+    },
   },
   beforeMount() {
     // this.appendLinks()
+  },
+  computed: {
+        ...mapGetters({
+          allTodos: "todos/allTodos",
+          result: "todos/searchedTodo",
+          showAll: "todos/showAll",
+        }),
   },
   components: {
     TodoForm,
     TodoNav,
     AddTaskBtn,
-    ShareModal
+    ShareModal,
+    SearchInput
   }
 }
 </script>
