@@ -13,5 +13,10 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+composer.phar
 /docker
+/mongodb
+/journal
+/diagnostic.data
 docker-compose.yml
+composer.lock
