@@ -19577,14 +19577,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'modal',
+  name: "modal",
   methods: {
     close: function close() {
-      this.$emit('toggleMenu');
+      this.$emit("toggleMenu");
     },
     archive: function archive() {
       axios.post({
-        url: '/task/'
+        url: "/task/"
       });
     }
   },
@@ -20474,23 +20474,35 @@ __webpack_require__.r(__webpack_exports__);
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-11d7327a");
 
 var _hoisted_1 = {
-  "class": "modal shadow-md "
+  "class": "modal shadow-md"
 };
 var _hoisted_2 = {
-  "class": "grid overflow-visible border text-sm rounded-md shadow-md modal-items w-48 grid-row-5 "
+  "class": "\r\n        grid\r\n        overflow-visible\r\n        border\r\n        text-sm\r\n        rounded-md\r\n        shadow-md\r\n        modal-items\r\n        w-48\r\n        grid-row-5\r\n      "
 };
 var _hoisted_3 = {
   "class": "flex flex-col mb-0 items"
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "rounded-sm py-3 px-4 text-gray-900 font-normal text-sm cursor-pointer border-b hover:bg-green-400 hover:text-white"
-}, "Edit", -1
+  "class": "\r\n            rounded-sm\r\n            py-3\r\n            px-4\r\n            text-gray-900\r\n            font-normal\r\n            text-sm\r\n            cursor-pointer\r\n            border-b\r\n            hover:bg-green-400\r\n            hover:text-white\r\n          "
+}, "Assign Collaborators", -1
 /* HOISTED */
 );
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "rounded-sm py-3 px-4 text-gray-900 font-normal text-sm cursor-pointer "
+  "class": "\r\n            rounded-sm\r\n            py-3\r\n            px-4\r\n            text-gray-900\r\n            font-normal\r\n            text-sm\r\n            cursor-pointer\r\n            border-b\r\n            hover:bg-green-400\r\n            hover:text-white\r\n          "
+}, "Get notified about new replies", -1
+/* HOISTED */
+);
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "\r\n            rounded-sm\r\n            py-3\r\n            px-4\r\n            text-gray-900\r\n            font-normal\r\n            text-sm\r\n            cursor-pointer\r\n            border-b\r\n            hover:bg-green-400\r\n            hover:text-white\r\n          "
+}, "Remind me about this", -1
+/* HOISTED */
+);
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "\r\n            rounded-sm\r\n            py-3\r\n            px-4\r\n            text-gray-900\r\n            font-normal\r\n            text-sm\r\n            cursor-pointer\r\n            hover:bg-green-400\r\n            hover:text-white\r\n          "
 }, "Delete", -1
 /* HOISTED */
 );
@@ -20498,12 +20510,12 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, _hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.archive && $options.archive.apply($options, arguments);
     }),
-    "class": "rounded-sm py-3 px-4 text-gray-900 font-normal text-sm cursor-pointer border-b"
-  }, "Archive"), _hoisted_5])])]);
+    "class": "\r\n            rounded-sm\r\n            py-3\r\n            px-4\r\n            text-gray-900\r\n            font-normal\r\n            text-sm\r\n            cursor-pointer\r\n            border-b\r\n            hover:bg-green-400\r\n            hover:text-white\r\n          "
+  }, "Archive"), _hoisted_7])])]);
 }
 
 /***/ }),
@@ -22852,7 +22864,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".modal-items[data-v-11d7327a] {\n  position: absolute;\n  top: 50px;\n  right:-190px;\n  z-index: 100;\n  overflow: auto;\n  overflow-y: auto;\n  /* background-color: white; */\n}\n.btn-close[data-v-11d7327a] {\n  position: absolute;\n  top: 20px;\n  right: 0;\n  z-index: 100;\n  overflow: auto;\n  overflow-y: auto;\n  background-color: white;\n}\n.btn-close[data-v-11d7327a] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  border: none;\n  font-size: 20px;\n  padding: 10px;\n  cursor: pointer;\n  font-weight: bold;\n  color: #4AAE9B;\n  background: transparent;\n}\r\n\r\n  \r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".modal-items[data-v-11d7327a] {\n  position: absolute;\n  top: 50px;\n  right: -190px;\n  z-index: 100;\n  overflow: auto;\n  overflow-y: auto;\n  /* background-color: white; */\n}\n.btn-close[data-v-11d7327a] {\n  position: absolute;\n  top: 20px;\n  right: 0;\n  z-index: 100;\n  overflow: auto;\n  overflow-y: auto;\n  background-color: white;\n}\n.btn-close[data-v-11d7327a] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  border: none;\n  font-size: 20px;\n  padding: 10px;\n  cursor: pointer;\n  font-weight: bold;\n  color: #4aae9b;\n  background: transparent;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
