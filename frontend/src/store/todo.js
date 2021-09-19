@@ -95,15 +95,15 @@ export default {
         },
         async SEARCH({ commit, dispatch }, any) {
             let value = any
-            if (value === "") {
-                dispatch('TOGGLESHOW', true);
-            } else {
-                await axios.get(`https://todo.zuri.chat/api/search?key=title&q=${value}`)
+            if (value != "") {
+                await axios.get(`https://todo.zuri.chat/api/v1/search?key=title&q=${value}`)
                     .then((res) => {
                         console.log(res.data);
                         commit('RESULT', res.data)
                     })
                 dispatch('TOGGLESHOW', false);
+            } else {
+                dispatch('TOGGLESHOW', true)
             }
 
         },
