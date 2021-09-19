@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\AssignTaskUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PluginInfoController;
+use App\Http\Controllers\TaskSearchController;
+use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
-use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Api\TodoResourceController;
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,3 +96,5 @@ Route::prefix('v1')->group(function () {
 });
 
 // Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
+
+Route::get('/todo/users-in-room', [UsersController::class, 'usersInRoom']);
