@@ -17,4 +17,18 @@ class TodoRepository extends Centrifugo
         $this->httpRepository = new HTTPRepository($this->modelName);
         $this->cacheRepository = new CacheRepository($this->modelName);
     }
+
+    /**
+     * Mark task as completed
+     * This will change task status
+     * 
+     * @param string $task_id Task Id
+     * 
+     * @return mixed
+     */
+    public function markTaskCompleted($task_id)
+    {
+        $attributes = ['status' => 1];
+        return $this->httpRepository->update($task_id, $attributes);
+    }
 }
