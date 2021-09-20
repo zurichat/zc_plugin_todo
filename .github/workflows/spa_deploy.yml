@@ -17,24 +17,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use cached node_modules
-        uses: c-hive/gha-yarn-cache@v2
-        with:
-          directory: frontend
-      - name: Install yarn dependencies and build react-spa project
-        run: |
-          cd frontend
-          yarn install
-          yarn build
+      #- name: Use cached node_modules
+        #uses: c-hive/gha-yarn-cache@v2
+        #with:
+        #directory: frontend
+      #- name: Install yarn dependencies and build react-spa project
+        #run: |
+          #cd frontend
+          #yarn install
+          #yarn build
  
-      - name: Copy epictetus folder to server
-        uses: Creepios/sftp-action@v1.0.1
-        with:
-          password: ${{ secrets.SSH_PASS }}
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          localPath: './frontend/public/'
-          remotePath: '/var/www/zc_plugin_company_sales_prospect/frontend/public/'
+      #- name: Copy epictetus folder to server
+        #uses: Creepios/sftp-action@v1.0.1
+        #with:
+          #password: ${{ secrets.SSH_PASS }}
+          #host: ${{ secrets.SSH_HOST }}
+          #username: ${{ secrets.SSH_USER }}
+          #localPath: './frontend/public/'
+          #remotePath: '/var/www/zc_plugin_company_sales_prospect/frontend/public/'
 
       - name: Deployment
         uses: appleboy/ssh-action@master
