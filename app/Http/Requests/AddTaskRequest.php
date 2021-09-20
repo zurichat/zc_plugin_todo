@@ -24,8 +24,7 @@ class AddTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'tasks' => 'required|array|min:1',
-            'description' => 'required'
+            'tasks' => 'required|array|min:1',
         ];
     }
 }

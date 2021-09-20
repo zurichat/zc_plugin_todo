@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskRequest;
-use App\Http\Requests\AddTaskRequest;
-use App\Services\TaskService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\TaskService;
+use App\Services\TodoService;
+use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TodoResource;
+use App\Http\Requests\AddTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
 
@@ -16,11 +17,13 @@ class TaskController extends Controller
 {
 
     protected $taskService;
+    protected $todoService;
 
-
-    public function __construct(TaskService $taskService)
+    public function __construct(TaskService $taskService, TodoService $todoService)
     {
         $this->taskService = $taskService;
+        $this->todoService = $todoService;
+
     }
 
 
@@ -199,46 +202,19 @@ class TaskController extends Controller
         ], 200);
     }
 
-    // public function addTask(AddTaskRequest $request) {
-    //     $data = $request->only('tasks');
-    //     $admin = $data['admins'][]=$data['user_id']=$request->input('user');
-    //     $data['tasks'] = [];
-    //     $tasks = $request->input('tasks');
-    //     $todoId = $data['_id'];
-    //     if($admin == $todoId) {
-    //         foreach ($tasks as $task) {
-    //             $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
-    //             $i++;
-    //         }
-    //          $data['status'] = $request->input('status');
-    //         $response = $this->taskService->create($data);
-    //         if($response) {
-    //             return response()->json([
-    //                 'status' => true,
-    //                 'type' => 'success',
-    //                 'message' => 'Task added successfully',
-    //                 'data' => $data
-    //             ]);
-    //         }
-    //     }
-    //     else {
-    //         return response()->json([
-    //             'status' => false,
-    //             'type' => 'error',
-    //             'message' => 'You are not allowed to perform this action'
-    //         ]);
-    //     }
-    // }
-    // AddTaskRequest $AddTaskRequest, TaskRequest $request, $id
+
     public function addTask(AddTaskRequest $request, $id) {
-       $todo = $this->taskService->findBy('_id', $id);
-
+       $todo = $this->todoService->findBy('_id', $id);
+        // return $this->todoService->all();
         $data = array();
+        $tasks = $request->input('tasks');
 
-        $data['description'] = $request->input('description');
-
-
-        return response()->json($this->taskService->update($id, $data));
+        $i = 0;
+            foreach ($tasks as $task) {
+                $data['tasks'][] = ['serial_no' => $i, 'title' => $task, 'status' => 'undone'];
+                $i++;
+            }
+        return response()->json($this->todoService->update($data, $id));
     }
 }
 // 0098
