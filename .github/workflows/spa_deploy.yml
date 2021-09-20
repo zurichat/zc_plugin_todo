@@ -43,8 +43,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           script: |
             cd /var/www/zc_plugin_todo/
-            cd public/js
-            rm -f -- app.js
+            cd public
+            rm -rf js
             cd /var/www/zc_plugin_todo/
             git checkout develop
             git stash
