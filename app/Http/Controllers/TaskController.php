@@ -214,12 +214,24 @@ class TaskController extends Controller
                 $data['tasks'][] = ['serial_no' => $i, 'title' => $task, 'status' => 'undone'];
                 $i++;
             }
-        return response()->json($this->todoService->update($data, $id));
+
+        $response = $this->todoService->update($data, $id);
+
+        if (isset($response['status']) && $response['status'] == "404")
+        {
+            return response()->json([
+                'status' => false,
+                'type' => error,
+                'message' => 'Task could not be added'
+            ], 500);
+        }
+        return response()->json([
+            'status' => true,
+            'type' => 'success',
+            'message' => 'Task has been added successfully',
+            'data' => $data
+        ], 201);
     }
+    
 }
-// 0098
-// 45
-// 60
-// 52
-// access
-// sunday
+
