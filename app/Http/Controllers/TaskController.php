@@ -209,10 +209,8 @@ class TaskController extends Controller
         $data = array();
         $tasks = $request->input('tasks');
 
-        $i = 0;
             foreach ($tasks as $task) {
-                $data['tasks'][] = ['serial_no' => $i, 'title' => $task, 'status' => 'undone'];
-                $i++;
+                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 0, 'created_at' => Carbon::now() ];
             }
 
         $response = $this->todoService->update($data, $id);
@@ -232,6 +230,7 @@ class TaskController extends Controller
             'data' => $data
         ], 201);
     }
-    
+
+
 }
 
