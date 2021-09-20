@@ -122,13 +122,6 @@ class TodoController extends Controller
     {
         $this->todoService->delete($id);
         return response()->json(['status' => 'success', 'message' => 'Successfully deleted todo'], 200);
-    
-        // $search = $this->taskService->search($request->query('key'), $request->query('q'));
-        // if (empty($search)) {
-        //    return response()->json(['message' => 'No result found'], 404);
-        // }
-
-        // return response()->json($search, 200);
     }
 
     //Function to test the resource
