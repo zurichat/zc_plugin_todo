@@ -35,6 +35,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
+    Route::put('add/{id}', [TaskController::class, 'addTask']);
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
@@ -50,6 +51,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/task/archived', [TaskController::class, 'archived']);
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
     Route::get('/search', [TodoController::class, 'search_todo']);
+
+
+
 
     // Resource End ponits
     Route::get('/taskresource', [TaskController::class, 'showResource']);
@@ -81,6 +85,5 @@ Route::prefix('v1')->group(function () {
 
 
 
-Route::put('add/{id}/update', [TaskController::class, 'addTask']);
-Route::get('/get', [TaskController::class, 'addTask']);
+
 
