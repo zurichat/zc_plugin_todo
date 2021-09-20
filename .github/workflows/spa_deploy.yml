@@ -50,4 +50,4 @@ jobs:
             composer update
             cd frontend
             yarn install
-            #yarn run build-linux
+            #yarn run build
