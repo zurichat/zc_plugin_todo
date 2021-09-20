@@ -52,5 +52,6 @@ jobs:
             yarn install
             cd ..
             cd public
+            cd js
             cp *.js app.js
             #yarn run build
