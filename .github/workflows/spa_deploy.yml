@@ -25,7 +25,6 @@ jobs:
         run: |
           cd frontend
           yarn install
-          yarn build
  
       - name: Copy epictetus folder to server
         uses: Creepios/sftp-action@v1.0.1
@@ -58,6 +57,5 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           script: |
-            ls
             cd /var/www/zc_plugin_todo/public/js
             ls
