@@ -6,7 +6,7 @@ use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Carbon;
 
 class TodoController extends Controller
 {
@@ -58,5 +58,18 @@ class TodoController extends Controller
            return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
+    }
+
+    public function toggleArchiveStatus($id, Request $request)
+    {
+        
+        $todo = $this->todoService->findBy('_id', $id);
+
+        $archived = array_key_exists('archived_at', $todo) && $todo['archived_at'] == 1  ?  '' : Carbon::now()->toDateTime(); // Set new date if it is null or empty, else set back to empty
+
+        $data = array();
+        $data['archived_at'] = $archived;
+
+        return response()->json($this->todoService->update($data, $id)); 
     }
 }
