@@ -1,5 +1,5 @@
 {
-    "name": "zuri-todo",
+    "name": "zuri-plugin-todo",
     "version": "0.1.0",
     "private": true,
     "scripts": {
