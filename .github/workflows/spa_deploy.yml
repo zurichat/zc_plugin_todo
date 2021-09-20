@@ -53,5 +53,5 @@ jobs:
             cd ..
             cd public
             cd js
-            cp *.js app.js
+            cp app.*.js app.js
             #yarn run build
