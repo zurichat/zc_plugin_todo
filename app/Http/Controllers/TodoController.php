@@ -12,6 +12,7 @@ class TodoController extends Controller
 {
 
     protected $todoService;
+    protected $sam;
 
     public function __construct(TodoService $todoService)
     {
@@ -20,7 +21,6 @@ class TodoController extends Controller
 
     public function createTodo(TodoRequest $request)
     {
-
         $channel = substr(uniqid(), 0, 10) . "-$request->title";
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
@@ -31,7 +31,6 @@ class TodoController extends Controller
             "colaborators" => [],
             "created_at" => now()
         ]);
-
 
         $result = $this->todoService->create($todoObject);
 
@@ -46,7 +45,7 @@ class TodoController extends Controller
         return response()->json(['message' => $result['message']], 404);
     }
 
-    // - This method and assoc endpoint are basically for testing purposes
+    // - This meythod and assoc endpoint are basically for testing purposes
     public function index()
     {
         $result = $this->todoService->all();
