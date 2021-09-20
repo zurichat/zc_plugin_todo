@@ -27,7 +27,7 @@ jobs:
           yarn install
           yarn build
  
-      #- name: Copy epictetus folder to server
+      - name: Copy epictetus folder to server
         uses: Creepios/sftp-action@v1.0.1
         with:
           password: ${{ secrets.SSH_PASS }}
