@@ -41,7 +41,7 @@ Route::prefix('v1')->group(function () {
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
     Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
-    Route::delete('task/remove/{user_id}', [AssignTaskUserController::class, 'remove']);  
+    Route::delete('task/remove/{user_id}', [AssignTaskUserController::class, 'remove']);
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
@@ -90,6 +90,18 @@ Route::prefix('v1')->group(function () {
 });
 
 
+// Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
+Route::prefix('v1')->group(function () {
+    Route::get('/todo', [SideBarTodoController::class, 'index']);
+    Route::post('/todo', [SideBarTodoController::class, 'store']);
+    Route::delete('/todo', [SideBarTodoController::class, 'delete']);
+    Route::get('/sidebar', [SideBarTodoController::class, 'sidebar']);
+    Route::get('/all-rooms', [SideBarTodoController::class, 'allRooms']);
+    Route::get('/users-in-room', [SideBarTodoController::class, 'usersInRoom']);
+    Route::post('/auth/login', [AuthController::class, 'login']);
+});
+
+// Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
 
 
 
