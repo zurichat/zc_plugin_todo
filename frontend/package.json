@@ -18,7 +18,6 @@
         "sass-loader": "^10.1.1",
         "single-spa": "^5.9.3",
         "single-spa-vue": "^2.1.0",
-        "systemjs-webpack-interop": "^2.3.7",
         "vue": "^3.0.0",
         "vue-router": "^4.0.11",
         "vue3-click-away": "^1.2.1",
