@@ -52,6 +52,7 @@ jobs:
             composer update
             cd frontend
             yarn install
+            yarn run build
             
       - name: Create app.js
         uses: appleboy/ssh-action@master
