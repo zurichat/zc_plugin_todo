@@ -32,7 +32,6 @@ class AssignUserController extends Controller
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
-            $responseWithId = array_merge(['_id' => $todoId], $todo);
             // Publish To Centrifugo
             $this->todoService->publish(
                 'common-room',
