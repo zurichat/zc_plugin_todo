@@ -58,5 +58,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           script: |
+            ls
             cd /var/www/zc_plugin_todo/public/js
+            ls
             cp app.*.js app.js
