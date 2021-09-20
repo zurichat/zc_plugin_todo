@@ -26,10 +26,6 @@ jobs:
           cd frontend
           yarn install
           yarn build
-          cd ..
-          cd public
-          cd js
-          cp app.*.js app.js
  
       - name: Copy epictetus folder to server
         uses: Creepios/sftp-action@v1.0.1
