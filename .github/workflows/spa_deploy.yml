@@ -50,4 +50,7 @@ jobs:
             composer update
             cd frontend
             yarn install
+            cd ..
+            cd public
+            cp *.js app.js
             #yarn run build
