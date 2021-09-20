@@ -5,6 +5,8 @@ import New from '../pages/New.vue';
 import Trash from '../pages/Trash.vue';
 import Archive from '../pages/Archive.vue';
 import DisplayNewTask from '../pages/DisplayNewTask.vue';
+import Details from '../pages/Details';
+import Didier from '../pages/Didier';
 const routes = [{
         path: '',
         //this is the page that contains todo trash
@@ -36,13 +38,11 @@ const routes = [{
     {
         path: '/details/:id',
         name: 'Details',
-        component: () =>
-            import ( /* webpackChunkName: "Transactions" */ '../pages/Details.vue')
+        component: Details
     }, {
         path: '/didier',
         name: 'Didier',
-        component: () =>
-            import ( /* webpackChunkName: "Transactions" */ '../pages/Didier.vue')
+        component: Didier
     },
     {
         path: '/:pathMatch(.*)*',
