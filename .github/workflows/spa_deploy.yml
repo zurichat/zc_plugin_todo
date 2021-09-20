@@ -34,7 +34,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           localPath: './public/'
-          remotePath: '/var/www/zc_plugin_company_sales_prospect/public/'
+          remotePath: '/var/www/zc_plugin_todo/public/'
 
       - name: Deployment
         uses: appleboy/ssh-action@master
@@ -43,7 +43,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           script: |
-            cd /var/www/zc_plugin_company_sales_prospect/
+            cd /var/www/zc_plugin_todo/
             git checkout develop
             git stash
             git pull origin develop
