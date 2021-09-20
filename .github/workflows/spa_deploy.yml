@@ -61,4 +61,3 @@ jobs:
             ls
             cd /var/www/zc_plugin_todo/public/js
             ls
-            cp app.*.js app.js
