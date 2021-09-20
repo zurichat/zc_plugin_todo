@@ -5,7 +5,7 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "bnnn": "vue-cli-service build --no-clean",
-        "build": "rm -rf ../public/{js,css,img} && vue-cli-service build --no-clean",
+        "build": "vue-cli-service build --no-clean",
         "build-linux": "rm -rf ../public/js/app.js && rm -rf ../public/css/app.css && vue-cli-service build --no-clean && cp ../public/js/*.js ../public/js/app.js",
         "build-win": "rm -rf ../public/{js,css,img} && vue-cli-service build --no-clean",
         "lint": "vue-cli-service lint",
