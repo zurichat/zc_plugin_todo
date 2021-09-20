@@ -141,7 +141,7 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
-  
+
 
     public function store(TaskRequest $request)
     {
@@ -223,7 +223,6 @@ class TaskController extends Controller
             'data' => $data
         ], 201);
     }
-
 
 }
 
