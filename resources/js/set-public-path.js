@@ -1,3 +1,3 @@
 import { setPublicPath } from 'systemjs-webpack-interop';
 
-setPublicPath('zuri');
+setPublicPath('zuri', 2);
