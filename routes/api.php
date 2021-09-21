@@ -1,8 +1,8 @@
 <?php
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PingContoller;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PluginInfoController;
 use App\Http\Controllers\UploadFilesController;
@@ -10,18 +10,14 @@ use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\AssignUserController;
+use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSearchController;
 
 /*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
@@ -40,6 +36,12 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
+    Route::put('add/{id}', [TaskController::class, 'addTask']);
+
+    // api to assign and remove user from a todo room
+    Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
+    Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
+    Route::delete('task/remove/{user_id}', [AssignTaskUserController::class, 'remove']);
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
@@ -56,6 +58,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/task/archived', [TaskController::class, 'archived']);
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
     Route::get('/search', [TodoController::class, 'search_todo']);
+
+
+
 
     // Resource End ponits
     Route::get('/taskresource', [TaskController::class, 'showResource']);
@@ -86,9 +91,6 @@ Route::prefix('v1')->group(function () {
 });
 
 
-
-
-
 // Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
 Route::prefix('v1')->group(function () {
     Route::get('/todo', [SideBarTodoController::class, 'index']);
@@ -101,3 +103,7 @@ Route::prefix('v1')->group(function () {
 });
 
 // Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
+
+
+
+
