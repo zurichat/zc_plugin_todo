@@ -9,6 +9,7 @@ export default {
         showAll: true,
         isComment: false,
         selectedTodo: null,
+        isAssign: false,
         searchedTodo: [],
         errMessage: "No Result Found"
     },
@@ -16,8 +17,14 @@ export default {
         ADD_TODOS(state, data) {
             state.todos.push(data)
         },
+        TOG_ASSIGN(state) {
+            state.isAssign = !state.isAssign
+        },
         ADD_ARCHIVE(state, data) {
             state.archive.push(data)
+        },
+        SET_TODOS(state, data) {
+            state.todos = data
         },
         ADD_TRASH(state, data) {
             state.trash.push(data)
@@ -42,6 +49,9 @@ export default {
         allTrash(state) {
             return state.trash
         },
+        isAssign(state) {
+            return state.isAssign
+        },
         searchedTodo(state) {
             return state.searchedTodo
         },
@@ -51,9 +61,14 @@ export default {
     },
     actions: {
         async getAllTodos({ commit }) {
-            await axios.get('https://todo.zuri.chat/api/get-tasks')
-                .then(response => (commit('ADD_TODOS', response.data.data)))
+            await axios.get('https://todo.zuri.chat/api/v1/all-todo')
+                .then(response => (commit('SET_TODOS', response.data.data)))
                 .catch(error => console.log(error))
+        },
+        toggleAssign({ commit }) {
+            console.log('heloo')
+            commit('TOG_ASSIGN');
+
         },
         async createTodo({ commit }, data) {
             await axios.post('/create-todo', data)

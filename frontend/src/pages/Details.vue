@@ -10,8 +10,9 @@
         <span><i class="pi text-green-500 px-4 pi-user-plus" /></span>
       </div>
     </div>
-    <div class="sub-header flex py-3 items-center border-b-2">
-      <div class="button px-4 py-2 mr-2 bg-green-500 font-bold cursor-pointer rounded text-white">+ Add a new Task</div>
+    <div class="sub-header flex py-3 justify-between items-center border-b-2">
+      <div class="flex"> 
+        <div class="button px-4 py-2 mr-2 bg-green-500 font-bold cursor-pointer rounded text-white">+ Add a new Task</div>
       <div class="amt_completed px-4 py-2 flex items-center">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9999 1.82458H4.99988C4.17145 1.82458 3.49988 2.49616 3.49988 3.32459V15.3246C3.49988 16.153 4.17145 16.8246 4.99988 16.8246H13.9999C14.8283 16.8246 15.4999 16.153 15.4999 15.3246V6.32459L10.9999 1.82458Z" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
@@ -23,14 +24,16 @@
 <!-- 07060961923 -->
         <span class="font-bold ">3 completed</span>
       </div>
+      </div>
+        <div class="progress_container flex flex-col">
+      <span class="progress_text self-end text-sm font-medium ">{{percent}}/100%</span>
+      <progress id="progress" class="w-full mx-auto" :value="percent" max="100"> 32% </progress>
+    </div>
     </div>
     <div class="description py-2 ">
       <span>Our todo plugin is a collection which means more than one todo can be made. Each todo can contain multiple tasks containing which includes: the title, the description, list of check able task. Note each todo is a room, when you create a todo you’ve automatically created a channel with the  same name (visible in the side bar) and everyone assigned to it will be in that channel. At the point of creating the todo you can decide to make it private or public </span>
     </div>
-    <div class="progress_container flex flex-col">
-      <span class="progress_text self-end text-sm font-medium ">100% Completed</span>
-      <progress id="progress" class="w-full mx-auto" :value="percent" max="100"> 32% </progress>
-    </div>
+    
     <div class="tasks_container py-4">
       <span class="task_head font-bold my-2">Pending</span>
       <div v-for="(i, index) in alltasks" :key="index++" class="pl-4 m-2 task_box flex py-2 hover:shadow rounded hover:border">
@@ -54,7 +57,7 @@
       </div>
     </div>
   </div>
-  <div id="Comment" class="w-1/4 flex-shrink-0 border"></div>
+  <!-- <div id="Comment" class="w-1/4 flex-shrink-0 border"></div> -->
     <!-- <div class="flex flex-row justify-between items-center"> 
       {{this.$route.params.id}}
       <div @click="close" class="font-bold text-green-500">X</div>
@@ -158,5 +161,8 @@ progress[value]::-webkit-progress-bar {
 progress[value]::-webkit-progress-value {
   background-color: #00B87C;
   border-radius: 2px;
+}
+#progress_container {
+  min-width: 15em
 }
 </style>

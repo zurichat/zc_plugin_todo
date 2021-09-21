@@ -25,6 +25,12 @@
                         @toggleShareModal="toggleShareModal"
                     />
                 </transition>
+                <transition name="fade">
+                    <AssignForm 
+                        v-if="isAssign"
+                        @toggleShareModal="toggleShareModal"
+                    />
+                </transition>
                 <!-- the create task button -->
                 <!-- <AddTaskBtn @click="isComment = !isComment" /> -->
                 <AddTaskBtn @click="toggleModal" />
@@ -43,6 +49,7 @@
     </div>
 </template>
 <script>
+import AssignForm from '../components/AssignForm';
 import { mapGetters } from "vuex";
 import {mapActions} from 'vuex';
 import TodoForm from "../components/TodoForm";
@@ -59,12 +66,13 @@ export default {
             isShareModal: false,
             showAll: true,
             isComment: false,
+            
             showEditModal: false,
         };
     },computed: {
         ...mapGetters({
             allTodos: "todos/allTodos",
-            
+            isAssign: 'todos/isAssign'
         }),
     },
     methods: {
@@ -110,6 +118,7 @@ export default {
     components: {
         // TodoCard,
         AddTaskBtn,
+        AssignForm,
         SearchInput,
         shareModal,
         TodoForm,
