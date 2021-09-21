@@ -32,13 +32,13 @@ class AssignUserController extends Controller
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
-            // // Publish To Centrifugo
-            // $this->todoService->publish(
-            //     'common-room',
-            //     ['user_id' => $request->user_id, 'channel' => $todo['channel']]
-            // );
+            // Publish To Centrifugo
+            $this->todoService->publish(
+                'common-room',
+                ['user_id' => $request->user_id, 'channel' => $todo['channel']]
+            );
 
-            // $this->todoService->publish($todo['channel'], $todo['colaborators']);
+            $this->todoService->publish($todo['channel'], $todo['colaborators']);
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         }
 
