@@ -1,10 +1,10 @@
 {
-    "name": "zuri-plugin-todo",
+    "name": "@zuri/zuri-plugin-todo",
     "version": "0.1.0",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "rm -rf ../public/{js,css,img} && vue-cli-service build --name=zuri-plugin-todo --no-clean && cd .. && cd public/js && cp app.*.js app.js",
+        "build": "rm -rf ../public/{js,css,img} && vue-cli-service build --name=@zuri/zuri-plugin-todo --no-clean && cd .. && cd public/js && cp app.*.js app.js",
         "lint": "vue-cli-service lint",
         "serve:standalone": "vue-cli-service serve --mode standalone"
     },
