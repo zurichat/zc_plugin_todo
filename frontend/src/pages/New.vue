@@ -10,25 +10,25 @@
         </transition>
          -->
          
-        <div>
-            <div class="flex-grow px-4" >
+        <div class="td-py-4">
+            <div class="td-flex-grow td-px-4" >
                 
                 <SearchInput @searchTodo="searchTodo" />
                 <div
       class="
-        flex flex-col
-        md:flex-row
-        flex-start
-        justify-start
-        md:items-center
-        md:justify-between
+        td-flex td-flex-col
+        md:td-flex-row
+        td-flex-start
+        td-justify-start
+        md:td-items-center
+        md:td-justify-between
       "
     >
       <TodoNav @showLabel="showEditModal = true" />
       <AddTaskBtn @click="toggleModal" />
     </div>
             </div>
-            <div class="px-1">
+            <div class="td-px-1">
                 <router-view />
             </div>
             <transition name="fade">

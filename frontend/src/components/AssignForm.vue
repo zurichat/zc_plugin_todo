@@ -1,24 +1,24 @@
 <template>
     <div class="overlay">
-      <div class="bg-white list_container p-2 rounded ">
-      <div class="flex justify-between items-center">
-      <h3 class="font-bold text-lg mb-2">Assign Collaborator</h3>
-              <div @click="assign()" class="cursor-default p-2"><i class="pi pi-times"></i></div>
+      <div class="td-bg-white list_container td-p-2 td-rounded ">
+      <div class="td-flex td-justify-between td-items-center">
+      <h3 class="td-font-bold text-lg mb-2">Assign Collaborator</h3>
+              <div @click="assign()" class="td-cursor-default td-p-2"><i class="pi pi-times"></i></div>
       </div>
           <div class="box">
           <div class="input-box">
-            <input @input="search()" v-model=value class="rounded w-full border py-2 px-2 hover:border-green-500 outline-none" type="text"/>
-          </div>
+          </div>            <input @input="search()" v-model=value class="td-rounded td-w-full td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none" type="text"/>
+
           <div>
-            <label :for="user.name.first" v-for="(user, index) in users" :key="index" class="flex hover:border hover:shadow border-b p-2 my-2 pb-2 items-center"><Checkbox v-model="checked" :id="user.name.first" name="name" :value="user.name['first']" /> <span class="px-2 tracking-wide">{{user.name.first + ' ' + user.name.last}}</span></label>
+            <label @click="assign()" :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border hover:td-shadow td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"> <span  class="td-px-2 tracking-wide">{{user.name.first + ' ' + user.name.last}}</span></label>
           </div>
           </div>
-          <button class="px-4 py-2 bg-green-500 text-white rounded shadow" @click="assign()">Assign</button>
+          
       </div>
     </div>
 </template>
 <script>
-import Checkbox from 'primevue/checkbox'
+// // import Checkbox from 'primevue/checkbox'
 import { mapActions } from 'vuex'
 import axios from 'axios'
 export default {
@@ -31,7 +31,7 @@ export default {
       }
   },
     components : {
-      Checkbox
+      // Checkbox
     },
     methods: {
       ...mapActions({
