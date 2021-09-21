@@ -1,7 +1,7 @@
 <template>
     <div
         id="main_view"
-        class="section_grid p-2"
+        class="section_grid td-p-2"
     >
         <div>
             <template v-if="showAll">
@@ -15,10 +15,10 @@
                     v-else
                     class="
                          todo_container
- sm:grid sm:grid-cols-2
-gap-4
- md:grid-cols-3
- lg:grid-cols-4 
+ sm:td-grid sm:td-grid-cols-2
+td-gap-4
+ md:td-grid-cols-3
+ lg:td-grid-cols-4 
                     "
                 >
                     <NewCard
@@ -31,10 +31,10 @@ gap-4
         <template v-else>
             <div class="
                         todo_container
-                        sm:grid sm:grid-cols-2
-                        gap-4
-                        md:grid-cols-3
-                        lg:grid-cols-4
+                        sm:td-grid sm:td-grid-cols-2
+                        td-gap-4
+                        md:td-grid-cols-3
+                        lg:td-grid-cols-4
                     ">
                 <NewCard
                     v-for="(todo, index) in result"

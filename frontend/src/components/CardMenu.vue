@@ -1,93 +1,93 @@
 <template>
-<div class="modal shadow-md">
+<div class="td-modal td-shadow-md">
     <div
       class="
-        grid
-        overflow-visible
-        border
-        text-sm
-        rounded-md
-        shadow-md
-        modal-items
-        w-48
-        bg-white
-        grid-row-5
+        td-grid
+        td-overflow-visible
+        td-border
+        td-text-sm
+        td-rounded-md
+        td-shadow-md
+        td-modal-items
+        td-w-48
+        td-bg-white
+        td-grid-row-5
       "
     >
-      <div class="flex flex-col mb-0 items">
+      <div class="td-flex td-flex-col td-mb-0 items">
         <span
           class="
-            rounded-sm
-            py-3
-            px-4
-            text-gray-900
-            font-normal
-            text-sm
-            cursor-pointer
-            border-b
-            hover:bg-green-400
-            hover:text-white
+            td-rounded-sm
+            td-py-3
+            td-px-4
+            td-text-gray-900
+            td-font-normal
+            td-text-sm
+            td-cursor-pointer
+            td-border-b
+            hover:td-bg-green-400
+            hover:td-text-white
           "
           @click="assign()"
           >Assign Collaborators</span
         >
         <span
           class="
-            rounded-sm
-            py-3
-            px-4
-            text-gray-900
-            font-normal
-            text-sm
-            cursor-pointer
-            border-b
-            hover:bg-green-400
-            hover:text-white
+            td-rounded-sm
+            td-py-3
+            td-px-4
+            td-text-gray-900
+            td-font-normal
+            td-text-sm
+            td-cursor-pointer
+            td-border-b
+            hover:td-bg-green-400
+            hover:td-text-white
           "
           >Get notified about new replies</span
         >
         <span
           class="
-            rounded-sm
-            py-3
-            px-4
-            text-gray-900
-            font-normal
-            text-sm
-            cursor-pointer
-            border-b
-            hover:bg-green-400
-            hover:text-white
+            td-rounded-sm
+            td-py-3
+            td-px-4
+            td-text-gray-900
+            td-font-normal
+            td-text-sm
+            td-cursor-pointer
+            td-border-b
+            hover:td-bg-green-400
+            hover:td-text-white
           "
           >Remind me about this</span
         >
         <span
           @click="archive"
           class="
-            rounded-sm
-            py-3
-            px-4
-            text-gray-900
-            font-normal
-            text-sm
-            cursor-pointer
-            border-b
-            hover:bg-green-400
-            hover:text-white
+            td-rounded-sm
+            td-py-3
+            td-px-4
+            td-text-gray-900
+            td-font-normal
+            td-text-sm
+            td-cursor-pointer
+            td-border-b
+            hover:td-bg-green-400
+            hover:td-text-white
           "
           >Archive</span
         >
         <span
           class="
-            rounded-sm
-            py-3
-            px-4
-            text-gray-900
-            font-normal
-            text-sm
-            cursor-pointer
-            hover:bg-green-400
-            hover:text-white
+            td-rounded-sm
+            td-py-3
+            td-px-4
+            td-text-gray-900
+            td-font-normal
+            td-text-sm
+            td-cursor-pointer
+            hover:td-bg-green-400
+            hover:td-text-white
           "
           >Delete</span
         >
@@ -100,7 +100,7 @@
 import axios from 'axios'
 import { mapActions } from 'vuex'
 export default {
-  name: "modal",
+  name: "td-modal",
   methods: {
     ...mapActions({
       tog_assign: 'todos/toggleAssign'
@@ -139,7 +139,7 @@ export default {
 </script>
 
 <style scoped>
-.modal-items {
+.td-modal-items {
   position: absolute;
   top: 40px;
   right: 10px;

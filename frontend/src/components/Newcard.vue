@@ -1,7 +1,7 @@
 <template>
-    <div class="px-4 py-2 mx-auto hover:border cursor-pointer my-4 sm:my-0 taskcard sm:mx-0 relative">
+    <div class="td-px-4 td-py-2 td-mx-auto hover:td-border td-cursor-pointer td-my-4 sm:td-my-0 taskcard sm:td-mx-0 td-relative">
      <div v-click-away="ClickAway">
-            <div class="menu_btn px-6 py-3 absolute top-0 right-0" @click="toggleMenu">
+            <div class="menu_btn td-px-6 td-py-3 td-absolute td-top-0 td-right-0" @click="toggleMenu">
                 <i class="pi pi-ellipsis-h"></i>
             </div>
              <CardMenu 
@@ -14,16 +14,16 @@
              /> 
         </div>
         <div @click="details()">
-        <div class="flex justify-between">
-            <div id="card_title py-3">
-                <p class="title font-bold  capitalize">{{todo.title}}</p>
-                <p class="description text-gray-400 font-bold text-sm ">{{description}}...</p>
+        <div class="td-flex td-justify-between">
+            <div id="card_title td-py-3">
+                <p class="title td-font-bold  td-capitalize">{{todo.title}}</p>
+                <p class="description td-text-gray-400 td-font-bold td-text-sm ">{{description}}...</p>
             </div>
            
         </div>
-        <div class="flex justify-between items-center">
-            <div class="collaborators font-medium text-sm">
-                <span class="font-bold text-gray-700">Collaborators</span>
+        <div class="td-flex td-justify-between td-items-center">
+            <div class="collaborators td-font-medium td-text-sm">
+                <span class="td-font-bold td-text-gray-700">Collaborators</span>
                 <img src="../assets/img/collaborators.svg" /> 
                 </div>
             <div class="percent">
@@ -50,12 +50,12 @@
           </svg>
             </div>
         </div>
-        <div class="flex justify-between my-2">
-            <div class="flex items-center text-gray-400  text-sm">
+        <div class="td-flex td-justify-between td-my-2">
+            <div class="td-flex td-items-center td-text-gray-400  td-text-sm">
                 <i class="pi pi-calendar"></i>
-                <span class="px-1">{{time}}</span>
+                <span class="td-px-1">{{time}}</span>
             </div>
-            <div class="flex items-center text-gray-400  text-sm">
+            <div class="td-flex td-items-center td-text-gray-400  td-text-sm">
                 <svg
                     width="20"
                     height="20"
@@ -71,7 +71,7 @@
                     >
                         </path>
                         </svg>
-                        <span class="px-1">{{todo.tasks.length}} tasks</span>
+                        <span class="td-px-1">{{todo.tasks.length}} tasks</span>
             </div>
         </div>
         </div>
