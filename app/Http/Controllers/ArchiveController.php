@@ -48,13 +48,14 @@ class ArchiveController extends Controller
         // but for the ime being, leave for now
 
         $all  = $this->todoService->all();
+
         $archived = [];
         if (isset($all['status']) && $all['status'] == 404) {
             return response()->json(['status' => 'error', 'message' => $all], 404);
         }
 
-        foreach ($all as $key => $value) {
-            if (isset($all['status']) && $all['status'] !== null) {
+        foreach ($all as $value) {
+            if (isset($value['archived_at']) && $value['archived_at'] !== null) {
                 array_push($archived, $value);
             }
         }

@@ -49,10 +49,19 @@ class TodoController extends Controller
     public function index()
     {
         $result = $this->todoService->all();
+        $activeTodo = [];
+
         if (isset($result['status']) && $result['stutus'] == 404) {
             return response()->json($result, 404);
         }
-        return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $result],  200);
+
+        foreach ($result as $value) {
+            if (!isset($value['archived_at']) || $value['archived_at'] === null) {
+                array_push($activeTodo, $value);
+            }
+        }
+
+        return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $activeTodo],  200);
     }
 
     public function search_todo(Request $request)
