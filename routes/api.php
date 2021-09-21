@@ -57,7 +57,6 @@ use App\Http\Controllers\AssignUserController;
     Route::get('ping', function () {
         return response()->json(['message' => 'Server is live'], 200);
     });
-});
 
 
 // Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
