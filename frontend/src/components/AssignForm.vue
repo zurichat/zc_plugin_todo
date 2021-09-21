@@ -10,15 +10,15 @@
           </div>            <input @input="search()" v-model=value class="td-rounded td-w-full td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none" type="text"/>
 
           <div>
-            <label :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border hover:td-shadow td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"><Checkbox v-model="checked" :id="user.name.first" name="name" :value="user.name['first']" /> <span class="td-px-2 tracking-wide">{{user.name.first + ' ' + user.name.last}}</span></label>
+            <label @click="assign()" :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border hover:td-shadow td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"> <span  class="td-px-2 tracking-wide">{{user.name.first + ' ' + user.name.last}}</span></label>
           </div>
           </div>
-          <button class="td-px-4 td-py-2 td-bg-green-500 td-text-white td-rounded td-shadow" @click="assign()">Assign</button>
+          
       </div>
     </div>
 </template>
 <script>
-import Checkbox from 'primevue/checkbox'
+// // import Checkbox from 'primevue/checkbox'
 import { mapActions } from 'vuex'
 import axios from 'axios'
 export default {
@@ -31,7 +31,7 @@ export default {
       }
   },
     components : {
-      Checkbox
+      // Checkbox
     },
     methods: {
       ...mapActions({
