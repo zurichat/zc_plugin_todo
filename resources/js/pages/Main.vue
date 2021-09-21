@@ -51,12 +51,14 @@ gap-4
 import SearchInput from '../components/Search-Input.vue'
     import taskCard from '../components/taskCard.vue'
     import addTodo from '../components/addTodo.vue'
+    import addTodo from '../components/Contributors.vue'
     export default {
         name: 'Main',
         components: {
             taskCard,
             SearchInput,
-            addTodo
+            addTodo,
+            collaborators
         }
     }
 

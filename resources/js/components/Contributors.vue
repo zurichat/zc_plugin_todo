@@ -44,7 +44,7 @@
 
 <script>
 export default {
-    name: 'Collaborators',
+    name: 'collaborators',
     methods: {
         closeModal() {
             

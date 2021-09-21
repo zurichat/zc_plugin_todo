@@ -1,15 +1,4 @@
 {
-<<<<<<< HEAD
-  "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
-=======
-
     "name": "zuri",
     "private": true,
     "scripts": {
@@ -34,38 +23,18 @@
         "vue3-click-away": "^1.2.1",
         "vue3-mq": "^3.0.0",
         "vuex": "^4.0.2"
->>>>>>> 21473dac696a5fa9494a9dbb7481de9c6fc569a7
     },
     "devDependencies": {
         "@vue/compiler-sfc": "^3.2.6",
         "axios": "^0.21",
-<<<<<<< HEAD
-=======
         "event-hooks-webpack-plugin": "^2.2.0",
->>>>>>> 21473dac696a5fa9494a9dbb7481de9c6fc569a7
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.11",
-        "sass-loader": "^11.0.1",
-<<<<<<< HEAD
-        "vue": "^3.2.6",
-        "vue-loader": "^16.5.0",
-        "vue-template-compiler": "^2.6.12"
-    },
-    "dependencies": {
-        "primeicons": "^4.1.0",
-        "primevue": "3.7.0",
-        "tailwindcss": "^2.2.9",
-        "vue-router": "^4.0.11",
-        "vuex": "^4.0.2"
-    }
-}
-=======
         "vue-cli-plugin-single-spa": "~3.1.2",
         "vue-loader": "^16.5.0",
         "vue-template-compiler": "^2.6.12"
     }
 }
->>>>>>> 21473dac696a5fa9494a9dbb7481de9c6fc569a7

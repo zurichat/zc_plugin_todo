@@ -2,23 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskRequest;
-use App\Services\TaskService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\TaskService;
+use App\Services\TodoService;
+use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TodoResource;
+use App\Http\Requests\AddTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
+
 
 class TaskController extends Controller
 {
 
     protected $taskService;
+    protected $todoService;
 
-    public function __construct(TaskService $taskService)
+    public function __construct(TaskService $taskService, TodoService $todoService)
     {
         $this->taskService = $taskService;
+        $this->todoService = $todoService;
+
     }
+
 
     /**
      * Show the search results.
@@ -134,14 +141,7 @@ class TaskController extends Controller
         return $collectionTasks;
     }
 
-    public function search_todo(Request $request)
-    {
-        $search = $this->taskService->search($request->query('key'), $request->query('q'));
-        if (isset($search['status']) && $search['status'] == 'error' || empty($search)) {
-           return response()->json(['message' => 'No result found'], 404);
-        }
-        return response()->json($search, 200);
-    }
+
 
     public function store(TaskRequest $request)
     {
@@ -194,4 +194,35 @@ class TaskController extends Controller
             'data' => $newArr
         ], 200);
     }
+
+
+    public function addTask(AddTaskRequest $request, $id) {
+       $todo = $this->todoService->findBy('_id', $id);
+        // return $this->todoService->all();
+        $data = array();
+        $tasks = $request->input('tasks');
+
+            foreach ($tasks as $task) {
+                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 0, 'created_at' => Carbon::now()->toDateTimeString() ];
+            }
+
+        $response = $this->todoService->update($data, $id);
+
+        if (isset($response['status']) && $response['status'] == "404")
+        {
+            return response()->json([
+                'status' => false,
+                'type' => error,
+                'message' => 'Task could not be added'
+            ], 500);
+        }
+        return response()->json([
+            'status' => true,
+            'type' => 'success',
+            'message' => 'Task has been added successfully',
+            'data' => $data
+        ], 201);
+    }
+
 }
+
