@@ -106,6 +106,7 @@ export default {
       tog_assign: 'todos/toggleAssign'
     }),
    assign(){
+     this.$emit("toggleMenu");
      this.tog_assign()
    },
     close() {

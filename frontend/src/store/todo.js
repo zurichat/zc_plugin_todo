@@ -15,7 +15,7 @@ export default {
     },
     mutations: {
         ADD_TODOS(state, data) {
-            state.todos.push(data)
+            state.todos.unshift(data)
         },
         TOG_ASSIGN(state) {
             state.isAssign = !state.isAssign

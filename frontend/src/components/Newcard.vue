@@ -141,7 +141,7 @@ export default {
       this.isModalVisible = false;
     },
     details() {
-      this.$router.push({ name: "Details", params: { id: this.todo.card_id } });
+      this.$router.push({ name: "Details", params: { id: this.todo._id } });
     },
     toggleMenu() {
       this.isModalVisible = !this.isModalVisible;
