@@ -2,7 +2,7 @@
     <div class="empty">
     <p class="text-gray-300 font-bold  text-lg md:text-xl  text-center ">{{title}}</p>
     <div class="image my-4">
-      <img src="/img/BigTrash.svg" />
+      <img src="../assets/img/BigTrash.svg" />
       <span class="text-gray-300 font-bold  text-md md:text-lg  text-center">{{subtitle}}</span>
     </div>
   </div>

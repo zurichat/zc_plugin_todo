@@ -3,10 +3,10 @@
 </template>
 <script>
     export default {
-        name: "Todo-Item"
+        name: "Todo-Item" 
     }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scoped> 
     .todo_item {
         min-height: 10rem;
     }
