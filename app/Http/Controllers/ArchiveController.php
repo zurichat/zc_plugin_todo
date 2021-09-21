@@ -44,6 +44,9 @@ class ArchiveController extends Controller
 
     public function fetchArchived(Request $request)
     {
+        // This function should normally be user centric
+        // but for the ime being, leave for now
+
         $all  = $this->todoService->all();
         $archived = [];
         if (isset($all['status']) && $all['status'] == 404) {
