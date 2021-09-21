@@ -1,24 +1,17 @@
 <template>
   <div class="topnav">
-    <router-link to="/new">
-      <img src="../assets/img/task.svg" />
-      <span>Task</span>
+      <router-link to="/new">
+      <span>Pending</span>
     </router-link>
 
-    <a href="#" @click.prevent="$emit('showLabel')">
-      <img src="../assets/img/label.svg" />
-      <span>Labels</span>
-    </a>
-
     <router-link :to="{ name: 'Archive' }">
-      <img src="../assets/img/archive.svg" />
       <span>Archive</span>
     </router-link>
 
     <router-link :to="{ name: 'Trash' }">
-      <img src="../assets/img/trash.svg" />
       <span>Trash</span>
     </router-link>
+  
   </div>
 </template>
 
