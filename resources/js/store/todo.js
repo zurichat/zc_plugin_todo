@@ -30,6 +30,9 @@ export default {
         SET_TODOS(state, data) {
             state.todos = [...data]
         },
+        SET_ARCHIVED(state, data) {
+            state.archive = [...data]
+        },
         ADD_ARCHIVE(state, data) {
             state.archive.push(data)
         },
@@ -67,6 +70,11 @@ export default {
         async getAllTodos({ commit }) {
             await axios.get('https://todo.zuri.chat/api/v1/all-todo')
                 .then(response => (commit('SET_TODOS', response.data.data)))
+                .catch(error => console.log(error))
+        },
+        async getAllArchivedTodos({ commit }) {
+            await axios.get('get-archived')
+                .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
         async createTodo({ commit }, data) {

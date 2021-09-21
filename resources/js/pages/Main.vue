@@ -22,6 +22,7 @@
             v-for="(todo, index) in allTodos"
             :key="index"
             :todo="todo"
+            @archived="handleArchivedTodo(todo)"
           />
         </div>
       </template>
@@ -44,7 +45,7 @@
 <script>
 import Empty from "../components/Empty.vue";
 import NewCard from "../components/Newcard.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Main",
@@ -62,7 +63,16 @@ export default {
     }),
   },
   methods: {
-    ...mapActions({getAllTodos: "todos/getAllTodos"}),
+    ...mapActions({ getAllTodos: "todos/getAllTodos" }),
+    ...mapMutations({ setTodo: "todos/SET_TODOS" }),
+
+    handleArchivedTodo(todo) {
+      const newTodos = this.allTodos.filter((item) => {
+        return !(item._id === todo._id);
+      });
+      console.log({newTodos, allTodos:this.allTodos});
+      this.setTodo(newTodos);
+    },
   },
   components: {
     NewCard,

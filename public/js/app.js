@@ -19608,7 +19608,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       console.log(this.todo._id);
-      axios.post("task/".concat(this.todo._id, "/toggleArchiveStatus"), {
+      axios.put("archive-todo/".concat(this.todo._id), {
         archived_at: 1
       }).then(function () {
         _this.$emit("archived");
@@ -20146,10 +20146,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Empty: _components_Empty_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     TodoCard: _components_TodoCard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
+  mounted: function mounted() {
+    this.getAllArchivedTodos();
+  },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
-    archive: "todos/allArchive",
-    searchedTodo: "todos/searchedTodo",
+    archivedTodos: "todos/allArchive",
+    // result: "todos/searchedTodo",
     showAll: "todos/showAll"
+  })),
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)({
+    getAllArchivedTodos: "todos/getAllArchivedTodos"
   }))
 });
 
@@ -20251,9 +20257,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     // result: "todos/searchedTodo",
     showAll: "todos/showAll"
   })),
-  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)({
+  methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)({
     getAllTodos: "todos/getAllTodos"
-  })),
+  })), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapMutations)({
+    setTodo: "todos/SET_TODOS"
+  })), {}, {
+    handleArchivedTodo: function handleArchivedTodo(todo) {
+      var newTodos = this.allTodos.filter(function (item) {
+        return !(item._id === todo._id);
+      });
+      console.log({
+        newTodos: newTodos,
+        allTodos: this.allTodos
+      });
+      this.setTodo(newTodos);
+    }
+  }),
   components: {
     NewCard: _components_Newcard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Empty: _components_Empty_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -21788,11 +21807,11 @@ var _hoisted_1 = {
 };
 var _hoisted_2 = {
   key: 1,
-  "class": "\r\n                                 todo_container\r\n sm:grid sm:grid-cols-2\r\ngap-4\r\n md:grid-cols-3\r\n lg:grid-cols-4 \r\n                            "
+  "class": "\r\n          todo_container\r\n          sm:grid sm:grid-cols-2\r\n          gap-4\r\n          md:grid-cols-3\r\n          lg:grid-cols-4\r\n        "
 };
 var _hoisted_3 = {
   key: 1,
-  "class": "\r\n                                todo_container\r\n                                sm:grid sm:grid-cols-2\r\n                                gap-4\r\n                                md:grid-cols-3\r\n                            "
+  "class": "todo_container sm:grid sm:grid-cols-2 gap-4 md:grid-cols-3"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Empty = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Empty");
@@ -21801,10 +21820,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_ctx.showAll ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
-  }, [_ctx.archive.length <= 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Empty, {
+  }, [_ctx.archivedTodos.length <= 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Empty, {
     title: 'Your Archived Tasks will be added here',
     subtitle: 'No Tasks in Archive'
-  })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.archive, function (todo, index) {
+  })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.archivedTodos, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_TodoCard, {
       key: index++,
       todo: todo
@@ -22000,10 +22019,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.allTodos, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_NewCard, {
       key: index,
-      todo: todo
+      todo: todo,
+      onArchived: function onArchived($event) {
+        return $options.handleArchivedTodo(todo);
+      }
     }, null, 8
     /* PROPS */
-    , ["todo"]);
+    , ["todo", "onArchived"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]))], 2112
@@ -22424,6 +22446,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     SET_TODOS: function SET_TODOS(state, data) {
       state.todos = _toConsumableArray(data);
     },
+    SET_ARCHIVED: function SET_ARCHIVED(state, data) {
+      state.archive = _toConsumableArray(data);
+    },
     ADD_ARCHIVE: function ADD_ARCHIVE(state, data) {
       state.archive.push(data);
     },
@@ -22481,7 +22506,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }, _callee);
       }))();
     },
-    createTodo: function createTodo(_ref2, data) {
+    getAllArchivedTodos: function getAllArchivedTodos(_ref2) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -22490,6 +22515,29 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
               case 0:
                 commit = _ref2.commit;
                 _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get('get-archived').then(function (response) {
+                  return commit('SET_ARCHIVED', response.data.data);
+                })["catch"](function (error) {
+                  return console.log(error);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    createTodo: function createTodo(_ref3, data) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit;
+                _context3.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/create-todo', data).then(function (response) {
                   return commit('ADD_TODOS', response.data.data);
                 })["catch"](function (error) {
@@ -22510,23 +22558,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 3:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     },
-    ADD_TRASH: function ADD_TRASH(_ref3, any) {
-      var commit = _ref3.commit,
-          state = _ref3.state;
+    ADD_TRASH: function ADD_TRASH(_ref4, any) {
+      var commit = _ref4.commit,
+          state = _ref4.state;
       var location = state.todos.findIndex(function (todo) {
         return todo.card_id.toLowerCase() === any.toLowerCase();
       });
       commit('ADD_TRASH', state.todos[location]);
       return state.todos.splice(location, 1);
     },
-    FIND_TODO: function FIND_TODO(_ref4, any) {
-      var state = _ref4.state;
+    FIND_TODO: function FIND_TODO(_ref5, any) {
+      var state = _ref5.state;
       var location = state.todos.findIndex(function (todo) {
         return todo.card_id.toLowerCase() === any.toLowerCase();
       }); //let location = state.todos.findIndex(todo => todo.card_id.toLowerCase() === (id.toLowerCase()));
@@ -22534,37 +22582,37 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       return location;
     },
-    ADD_ARCHIVE: function ADD_ARCHIVE(_ref5, any) {
-      var commit = _ref5.commit,
-          dispatch = _ref5.dispatch,
-          state = _ref5.state;
+    ADD_ARCHIVE: function ADD_ARCHIVE(_ref6, any) {
+      var commit = _ref6.commit,
+          dispatch = _ref6.dispatch,
+          state = _ref6.state;
       var location = state.todos.findIndex(function (todo) {
         return todo.card_id.toLowerCase() === any.toLowerCase();
       });
       commit('ADD_ARCHIVE', state.todos[location]);
       return state.todos.splice(location, 1); //return commit('ADD_ARCHIVE', state.todos.location)
     },
-    SEARCH: function SEARCH(_ref6, any) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    SEARCH: function SEARCH(_ref7, any) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var commit, dispatch, state, value;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                commit = _ref6.commit, dispatch = _ref6.dispatch, state = _ref6.state;
+                commit = _ref7.commit, dispatch = _ref7.dispatch, state = _ref7.state;
                 value = any;
 
                 if (!(value === "")) {
-                  _context3.next = 6;
+                  _context4.next = 6;
                   break;
                 }
 
                 dispatch('TOGGLESHOW', true);
-                _context3.next = 9;
+                _context4.next = 9;
                 break;
 
               case 6:
-                _context3.next = 8;
+                _context4.next = 8;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default().get("https://todo.zuri.chat/api/v1/search?key=title&q=".concat(value)).then(function (res) {
                   console.log(res.data);
                   commit('RESULT', res.data);
@@ -22575,14 +22623,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
               case 9:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
-    TOGGLESHOW: function TOGGLESHOW(_ref7, any) {
-      var commit = _ref7.commit;
+    TOGGLESHOW: function TOGGLESHOW(_ref8, any) {
+      var commit = _ref8.commit;
       commit('TOGGLESHOW', any);
     }
   }
