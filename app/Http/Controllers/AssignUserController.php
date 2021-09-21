@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collaborator;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class AssignUserController extends Controller
 {
@@ -16,35 +18,30 @@ class AssignUserController extends Controller
 
     public function assign(Request $request, $todoId)
     {
+
         $todo = $this->todoService->find($todoId);
+
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
 
+        $newColabo = ['user_id' => $request->user_id, 'admin_status' => $request->admin_status];
+        array_push($todo['colaborators'], $newColabo);
+        unset($todo['_id']);
 
+        $result = $this->todoService->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
-        // [
-        //     "user_id" => $request->user_id,
-        //     "channel_id" => "blank-for-now",
-        //     "admin" => $request->admin_status
-        // ];
+            // Publish To Centrifugo
+            $this->todoService->publish(
+                'common-room',
+                ['user_id' => $request->user_id, 'channel' => $todo['channel']]
+            );
 
+            $this->todoService->publish($todo['channel'], $todo['colaborators']);
+            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+        }
 
-
-        // $data = array();
-        // $data['status_id'] = $task['status_id'];
-        // $data['parent_id'] = $task['parent_id'];
-        // $data['start_date'] = $task['start_date'];
-        // $data['created_at'] = $task['created_at'];
-        // $data['archived_at'] = $task['archived_at'];
-        // $data['recurring'] = $task['recurring'];
-        // $data['reminder'] = $task['reminder'];
-        // $data['assigned_users'] = [];
-
-        // $data['assigned_users'] = array_push($data['assigned_users'], $request->user_id);
-
-        // $response = $this->taskService->update($data, $request->task_id);
-
-        // return response()->json($response);
+        return response()->json(['status' => "error", 'message' => $result], 500);
     }
 }
