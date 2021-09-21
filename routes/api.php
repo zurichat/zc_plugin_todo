@@ -15,7 +15,6 @@ use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Api\TodoResourceController;
 use App\Http\Controllers\AssignUserController;
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 
 /*
@@ -104,4 +103,4 @@ Route::prefix('v1')->group(function () {
 
 // Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
 
-Route::get('/todo/users-in-room', [UsersController::class, 'usersInRoom']);
+Route::get('/todo/{id}/collaborators', [UsersController::class, 'usersInRoom']);

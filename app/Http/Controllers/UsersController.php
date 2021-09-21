@@ -1,29 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Repositories\RoomRepository;
 use Illuminate\Http\Request;
-use App\Repositories\TodoRepository;
-use App\Traits\HTTPRepoResponseHandler;
+use App\Services\TodoService;
+
 class UsersController extends Controller
 {
 
-    use HTTPRepoResponseHandler;
+    protected $todoService;
 
-    protected $todoRepository, $roomRepository;
 
-     function __construct(TodoRepository $todoRepository, RoomRepository $roomRepository)
+    public function __construct(TodoService $todoService)
     {
-        $this->todoRepository = $todoRepository;
-        $this->roomRepository = $roomRepository;
+        $this->todoService = $todoService;
     }
 
-   public function usersInRoom(Request $request)
+   public function usersInRoom($id)
     {
       //Get the room we want to users from.
-      $roomData = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org, 'room_id' => $request->room]);
+      $roomData = $result = $this->todoService->find($id);
       
-      $users_ids = $roomData[0]['users'];
+      $users_ids = $roomData['colaborators'];
 
 
       // $usersInfo = [];
@@ -46,6 +43,6 @@ class UsersController extends Controller
     //   }
 
     //   return response()->json(["users" => $usersInfo], 200);
-    return reponse()->json(['users' => $users_ids], 200);
+    return response()->json(['users' => $users_ids], 200);
     }
 }
