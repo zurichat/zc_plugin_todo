@@ -12,12 +12,7 @@
          
         <div>
             <div class="flex-grow px-4" >
-                <div id="header">
-                    <div id="logo " class="flex items-center flex-row">
-                        <img class="w-8 m-4" src="../assets/img/zuri-logo.svg" />
-                        <span class="font-bold text-lg">Zuri</span>
-                    </div>
-                </div>
+                
                 <SearchInput @searchTodo="searchTodo" />
                 <div
       class="
