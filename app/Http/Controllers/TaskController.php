@@ -203,7 +203,7 @@ class TaskController extends Controller
         $tasks = $request->input('tasks');
 
             foreach ($tasks as $task) {
-                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 0, 'created_at' => Carbon::now()->toDateTimeString() ];
+                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => http_response_code(), 'created_at' => Carbon::now()->toDateTimeString(), 'recurring' => '' ];
             }
 
         $response = $this->todoService->update($data, $id);
