@@ -19605,14 +19605,22 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("toggleMenu");
     },
     archive: function archive() {
-      axios.post({
-        url: "/task/"
+      var _this = this;
+
+      console.log(this.todo._id);
+      axios.post("task/".concat(this.todo._id, "/toggleArchiveStatus"), {
+        archived_at: 1
+      }).then(function () {
+        _this.$emit("archived");
       });
     }
   },
   props: {
     links: {
       type: Array
+    },
+    todo: {
+      type: Object
     }
   }
 });
@@ -19673,21 +19681,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       isModalVisible: false,
       links: [{
-        name: 'Edit',
+        name: "Edit",
         action: function action() {
           _this.toggleMenu(); // this.$emit('toggleShareModal')
           //alert('You cant assign tasks now')
 
         },
-        type: 'default'
+        type: "default"
       }, {
-        name: 'Delete',
+        name: "Delete",
         action: function action() {
           _this.toggleMenu();
 
-          alert('completed');
+          alert("completed");
         },
-        type: 'default'
+        type: "default"
       }]
     };
   },
@@ -19695,15 +19703,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     CardMenu: _CardMenu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
-    "delete": 'todos/ADD_TRASH',
-    archive: 'todos/ADD_ARCHIVE'
+    "delete": "todos/ADD_TRASH",
+    archive: "todos/ADD_ARCHIVE"
   })), {}, {
     ClickAway: function ClickAway(event) {
       this.isModalVisible = false;
     },
     details: function details(any) {
       this.$router.push({
-        name: 'Details',
+        name: "Details",
         params: {
           id: this.todo.card_id
         }
@@ -19726,8 +19734,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return alert;
     }(function () {
-      alert('hi');
-    })
+      alert("hi");
+    }),
+    handleArchivedTodo: function handleArchivedTodo() {
+      this.$emit("archived", this.todo);
+    }
   }),
   props: {
     todo: {
@@ -19794,60 +19805,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       isModalVisible: false,
       links: [{
-        name: 'Assign task',
+        name: "Assign task",
         action: function action() {
           _this.toggleMenu();
 
-          alert('You cant assign tasks now');
+          alert("You cant assign tasks now");
         },
-        type: 'default'
+        type: "default"
       }, {
-        name: 'Share',
+        name: "Share",
         action: function action() {
           _this.toggleMenu(); // this.$emit('toggleShareModal')
           //alert('You cant assign tasks now')
 
         },
-        type: 'default'
+        type: "default"
       }, {
-        name: 'Mark as completed',
+        name: "Mark as completed",
         action: function action() {
           _this.toggleMenu();
 
-          alert('completed');
+          alert("completed");
         },
-        type: 'default'
+        type: "default"
       }, {
-        name: 'Archive',
+        name: "Archive",
         action: function action() {
           _this.archive(_this.todo.card_id);
 
           _this.toggleMenu(); // alert('You cant assign tasks now')
 
         },
-        type: 'default'
+        type: "default"
       }, {
-        name: 'Delete',
+        name: "Delete",
         action: function action() {
           _this["delete"](_this.todo.card_id);
 
           _this.toggleMenu(); // alert('You cant assign tasks now')
 
         },
-        type: 'danger'
+        type: "danger"
       }]
     };
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
-    "delete": 'todos/ADD_TRASH',
-    archive: 'todos/ADD_ARCHIVE'
+    "delete": "todos/ADD_TRASH",
+    archive: "todos/ADD_ARCHIVE"
   })), {}, {
     ClickAway: function ClickAway(event) {
       this.isModalVisible = false;
     },
     details: function details(any) {
       this.$router.push({
-        name: 'Details',
+        name: "Details",
         params: {
           id: this.todo.card_id
         }
@@ -19858,6 +19869,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     closeModal: function closeModal() {
       this.isModalVisible = false;
+    },
+    handleArchivedTodo: function handleArchivedTodo() {
+      this.$emit('archived', this.todo);
     }
   }),
   components: {
@@ -20229,12 +20243,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {};
   },
+  mounted: function mounted() {
+    this.getAllTodos();
+  },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     allTodos: "todos/allTodos",
-    result: "todos/searchedTodo",
+    // result: "todos/searchedTodo",
     showAll: "todos/showAll"
   })),
-  methods: {},
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)({
+    getAllTodos: "todos/getAllTodos"
+  })),
   components: {
     NewCard: _components_Newcard_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Empty: _components_Empty_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -20506,7 +20525,7 @@ var _hoisted_1 = {
   "class": "modal shadow-md"
 };
 var _hoisted_2 = {
-  "class": "\r\n        grid\r\n        overflow-visible\r\n        border\r\n        text-sm\r\n        rounded-md\r\n        shadow-md\r\n        modal-items\r\n        w-48\r\n        grid-row-5\r\n      "
+  "class": "\r\n        grid\r\n        overflow-visible\r\n        border\r\n        text-sm\r\n        rounded-md\r\n        shadow-md\r\n        modal-items\r\n        w-48\r\n        bg-white\r\n        grid-row-5\r\n      "
 };
 var _hoisted_3 = {
   "class": "flex flex-col mb-0 items"
@@ -20614,7 +20633,7 @@ __webpack_require__.r(__webpack_exports__);
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-1e0da615");
 
 var _hoisted_1 = {
-  "class": "px-4 py-2 mx-auto hover:border cursor-pointer my-4 sm:my-0 taskcard sm:mx-0 relative"
+  "class": "\r\n      px-4\r\n      py-2\r\n      mx-auto\r\n      hover:border\r\n      cursor-pointer\r\n      my-4\r\n      sm:my-0\r\n      taskcard\r\n      sm:mx-0\r\n      relative\r\n    "
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
@@ -20631,10 +20650,10 @@ var _hoisted_5 = {
   id: "card_title py-3"
 };
 var _hoisted_6 = {
-  "class": "title font-bold  "
+  "class": "title font-bold"
 };
 var _hoisted_7 = {
-  "class": "description text-gray-400 font-bold text-sm "
+  "class": "description text-gray-400 font-bold text-sm"
 };
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -20745,7 +20764,7 @@ var _hoisted_9 = {
   "class": "flex justify-between my-2"
 };
 var _hoisted_10 = {
-  "class": "flex items-center text-gray-400  text-sm"
+  "class": "flex items-center text-gray-400 text-sm"
 };
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
@@ -20758,7 +20777,7 @@ var _hoisted_12 = {
   "class": "px-1"
 };
 var _hoisted_13 = {
-  "class": "flex items-center text-gray-400  text-sm"
+  "class": "flex items-center text-gray-400 text-sm"
 };
 
 var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
@@ -20794,10 +20813,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardMenu, {
     links: $data.links,
-    onToggleMenu: $options.toggleMenu
+    todo: $props.todo,
+    onToggleMenu: $options.toggleMenu,
+    onArchived: $options.handleArchivedTodo
   }, null, 8
   /* PROPS */
-  , ["links", "onToggleMenu"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]])], 512
+  , ["links", "todo", "onToggleMenu", "onArchived"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]])], 512
   /* NEED_PATCH */
   ), [[_directive_click_away, $options.ClickAway]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
@@ -20805,9 +20826,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description.slice(0, 20)) + "...", 1
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.description.description ? $props.todo.description.description.slice(0, 20) : "") + "... ", 1
   /* TEXT */
-  )])]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.created_at.slice(0, 10)), 1
+  )])]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.created_at), 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.tasks.length) + " tasks", 1
   /* TEXT */
@@ -20871,7 +20892,7 @@ var _hoisted_1 = {
   "class": "p-4 shadow-md mx-auto my-4 taskcard sm:mx-0 relative"
 };
 var _hoisted_2 = {
-  "class": "flex justify-between items-center "
+  "class": "flex justify-between items-center"
 };
 var _hoisted_3 = {
   "class": "text-md capitalize font-bold"
@@ -20916,7 +20937,7 @@ var _hoisted_6 = {
   "class": "py-1"
 };
 var _hoisted_7 = {
-  "class": "text-md text-gray-500 "
+  "class": "text-md text-gray-500"
 };
 var _hoisted_8 = {
   "class": "flex"
@@ -20943,7 +20964,7 @@ var _hoisted_12 = {
 };
 
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-  "class": "text-sm text-gray-500 tracking-wide "
+  "class": "text-sm text-gray-500 tracking-wide"
 }, "COLLABORATORS", -1
 /* HOISTED */
 );
@@ -21035,10 +21056,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CardMenu, {
     links: $data.links,
-    onToggleMenu: $options.toggleMenu
+    onToggleMenu: $options.toggleMenu,
+    todo: $props.todo,
+    onArchived: $options.handleArchivedTodo
   }, null, 8
   /* PROPS */
-  , ["links", "onToggleMenu"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 1
+  , ["links", "onToggleMenu", "todo", "onArchived"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.isModalVisible]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.todo.title), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     onClick: _cache[0] || (_cache[0] = function () {
@@ -21052,7 +21075,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $options.details($props.todo.card_id);
     }),
-    "class": "py-2 text-green-600 text-xs font-bold cursor-pointer uppercase hover:underline"
+    "class": "\r\n              py-2\r\n              text-green-600 text-xs\r\n              font-bold\r\n              cursor-pointer\r\n              uppercase\r\n              hover:underline\r\n            "
   }, "view task")])])])], 512
   /* NEED_PATCH */
   )), [[_directive_click_away, $options.ClickAway]]);
@@ -21207,20 +21230,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $data.todoDetails.description = $event;
+      return _ctx.DateTime = $event;
     }),
     required: "",
     type: "text",
     id: "description",
     "class": "\r\n            border\r\n            hover:border-green-400\r\n            bg-white\r\n            py-3\r\n            outline-none\r\n            text-md\r\n            w-full\r\n            px-2\r\n            rounded\r\n          ",
-    placeholder: "Type task description"
+    placeholder: "DateTime"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.todoDetails.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.DateTime]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.token = $event;
     }),
-    required: "",
     type: "text",
     id: "token",
     "class": "\r\n            border\r\n            hover:border-green-400\r\n            bg-white\r\n            py-3\r\n            outline-none\r\n            text-md\r\n            w-full\r\n            px-2\r\n            rounded\r\n          ",
@@ -21231,7 +21253,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.todoDetails.user_id = $event;
     }),
-    required: "",
     type: "text",
     id: "user_id",
     "class": "\r\n            border\r\n            hover:border-green-400\r\n            bg-white\r\n            py-3\r\n            outline-none\r\n            text-md\r\n            w-full\r\n            px-2\r\n            rounded\r\n          ",
@@ -21978,7 +21999,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     subtitle: 'Click Create Task Button'
   })])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.allTodos, function (todo, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_NewCard, {
-      key: index++,
+      key: index,
       todo: todo
     }, null, 8
     /* PROPS */
@@ -22359,6 +22380,18 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
@@ -22387,6 +22420,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mutations: {
     ADD_TODOS: function ADD_TODOS(state, data) {
       state.todos.push(data);
+    },
+    SET_TODOS: function SET_TODOS(state, data) {
+      state.todos = _toConsumableArray(data);
     },
     ADD_ARCHIVE: function ADD_ARCHIVE(state, data) {
       state.archive.push(data);
@@ -22431,8 +22467,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 commit = _ref.commit;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get('https://todo.zuri.chat/api/get-tasks').then(function (response) {
-                  return commit('ADD_TODOS', response.data.data);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get('https://todo.zuri.chat/api/v1/all-todo').then(function (response) {
+                  return commit('SET_TODOS', response.data.data);
                 })["catch"](function (error) {
                   return console.log(error);
                 });
@@ -22701,7 +22737,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".todo_item[data-v-40dea23e] {\n  min-height: 10rem;\n}\n.taskcard[data-v-40dea23e] {\n  background: #ffffff;\n  border: 1px solid #dadada;\n  box-sizing: border-box;\n  border-radius: 4px;\n  max-width: 30em;\n}\n.task_title[data-v-40dea23e] {\n  color: #101010;\n  font-size: 1.26rem;\n  font-weight: bold;\n}\n.task_description[data-v-40dea23e] {\n  color: #959595;\n  font-size: 13px;\n}\n.link_color[data-v-40dea23e] {\n  color: #1a61db;\n  font-size: 1rem;\n  font-weight: 700;\n}\n.line[data-v-40dea23e] {\n  background-color: #dadada;\n  width: 100%;\n  height: 1px;\n  margin-top: 1rem;\n  margin-bottom: 4px;\n}\n.collab[data-v-40dea23e] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 11px;\n  line-height: 13px;\n  letter-spacing: 0.1em;\n  color: rgba(0, 0, 0, 0.6);\n  margin-top: 8px;\n  margin-bottom: 12px;\n}\n.gray_link[data-v-40dea23e] {\n  color: #7c7c7c;\n  -webkit-text-decoration-line: underline;\n          text-decoration-line: underline;\n}\nprogress[value][data-v-40dea23e] {\n  /* Reset the default appearance */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n       appearance: none;\n  border-radius: 0.6em;\n  height: 5px;\n}\nprogress[value][data-v-40dea23e]::-webkit-progress-bar {\n  border-radius: 2px;\n  background-color: #E2ECF8;\n}\nprogress[value][data-v-40dea23e]::-webkit-progress-value {\n  background-color: #00B87C;\n  border-radius: 2px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".todo_item[data-v-40dea23e] {\n  min-height: 10rem;\n}\n.taskcard[data-v-40dea23e] {\n  background: #ffffff;\n  border: 1px solid #dadada;\n  box-sizing: border-box;\n  border-radius: 4px;\n  max-width: 30em;\n}\n.task_title[data-v-40dea23e] {\n  color: #101010;\n  font-size: 1.26rem;\n  font-weight: bold;\n}\n.task_description[data-v-40dea23e] {\n  color: #959595;\n  font-size: 13px;\n}\n.link_color[data-v-40dea23e] {\n  color: #1a61db;\n  font-size: 1rem;\n  font-weight: 700;\n}\n.line[data-v-40dea23e] {\n  background-color: #dadada;\n  width: 100%;\n  height: 1px;\n  margin-top: 1rem;\n  margin-bottom: 4px;\n}\n.collab[data-v-40dea23e] {\n  font-style: normal;\n  font-weight: normal;\n  font-size: 11px;\n  line-height: 13px;\n  letter-spacing: 0.1em;\n  color: rgba(0, 0, 0, 0.6);\n  margin-top: 8px;\n  margin-bottom: 12px;\n}\n.gray_link[data-v-40dea23e] {\n  color: #7c7c7c;\n  -webkit-text-decoration-line: underline;\n          text-decoration-line: underline;\n}\nprogress[value][data-v-40dea23e] {\n  /* Reset the default appearance */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n       appearance: none;\n  border-radius: 0.6em;\n  height: 5px;\n}\nprogress[value][data-v-40dea23e]::-webkit-progress-bar {\n  border-radius: 2px;\n  background-color: #e2ecf8;\n}\nprogress[value][data-v-40dea23e]::-webkit-progress-value {\n  background-color: #00b87c;\n  border-radius: 2px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -67,7 +67,7 @@
           >Due Date<span>(optional)</span></label
         >
         <input
-          v-model="todoDetails.description"
+          v-model="DateTime"
           required
           type="text"
           id="description"
@@ -82,7 +82,7 @@
             px-2
             rounded
           "
-          placeholder="Type task description"
+          placeholder="DateTime"
         />
       </div>
       <div class="form-group flex flex-col pb-4">
@@ -91,7 +91,6 @@
         >
         <input
           v-model="token"
-          required
           type="text"
           id="token"
           class="
@@ -114,7 +113,6 @@
         >
         <input
           v-model="todoDetails.user_id"
-          required
           type="text"
           id="user_id"
           class="

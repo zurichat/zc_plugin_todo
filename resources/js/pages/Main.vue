@@ -20,7 +20,7 @@
         >
           <NewCard
             v-for="(todo, index) in allTodos"
-            :key="index++"
+            :key="index"
             :todo="todo"
           />
         </div>
@@ -44,21 +44,26 @@
 <script>
 import Empty from "../components/Empty.vue";
 import NewCard from "../components/Newcard.vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Main",
   data() {
     return {};
   },
+  mounted() {
+    this.getAllTodos();
+  },
   computed: {
     ...mapGetters({
       allTodos: "todos/allTodos",
-      result: "todos/searchedTodo",
+      // result: "todos/searchedTodo",
       showAll: "todos/showAll",
     }),
   },
-  methods: {},
+  methods: {
+    ...mapActions({getAllTodos: "todos/getAllTodos"}),
+  },
   components: {
     NewCard,
     Empty,

@@ -10,6 +10,7 @@
         shadow-md
         modal-items
         w-48
+        bg-white
         grid-row-5
       "
     >
@@ -29,7 +30,7 @@
           "
           >Assign Collaborators</span
         >
-         <span
+        <span
           class="
             rounded-sm
             py-3
@@ -44,7 +45,7 @@
           "
           >Get notified about new replies</span
         >
-         <span
+        <span
           class="
             rounded-sm
             py-3
@@ -102,14 +103,26 @@ export default {
       this.$emit("toggleMenu");
     },
     archive() {
-      axios.post({
-        url: "/task/",
-      });
+      console.log(this.todo._id);
+      axios
+        .post(
+          `task/${this.todo._id}/toggleArchiveStatus`,
+            
+          {
+            archived_at: 1,
+          }
+        )
+        .then(() => {
+          this.$emit("archived");
+        });
     },
   },
   props: {
     links: {
       type: Array,
+    },
+    todo: {
+      type: Object,
     },
   },
 };
