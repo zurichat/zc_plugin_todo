@@ -9,6 +9,7 @@ use App\Http\Controllers\UploadFilesController;
 use App\Http\Controllers\SideBarItemsController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\Api\TodoResourceController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AssignUserController;
 use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Auth\AuthController;
@@ -38,6 +39,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
     Route::put('add/{id}', [TaskController::class, 'addTask']);
 
+
+
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
     Route::post('task/assign', [AssignTaskUserController::class, 'assign']);
@@ -46,13 +49,15 @@ Route::prefix('v1')->group(function () {
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
 
+    // Archiving Endpoints
+    Route::post('archive-todo/{todoId}', [ArchiveController::class, 'archiveTodo']);
 
     Route::get('task/sort', [TaskController::class, 'sort']);
     Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
     Route::post('add-task', [TaskController::class, 'store']);
     Route::put('update-task/{id}', [TaskDemoController::class, 'update']);
     Route::delete('delete-task/{id}', [TaskDemoController::class, 'delete']);
-    Route::post('task/{id}/toggleArchiveStatus', [TaskController::class, 'toggleArchiveStatus']);
+
     Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
     Route::get('/task/archived', [TaskController::class, 'archived']);
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
@@ -102,7 +107,3 @@ Route::prefix('v1')->group(function () {
 });
 
 // Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
-
-
-
-
