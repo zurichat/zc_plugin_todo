@@ -15,11 +15,11 @@
           <!-- <a class="commentIcon"><img src="/img/Rectangle 892.png" alt="reply"></a> -->
           <div class="todo-profileImg flex items-center">
             <div class="todo-profile profileOne">
-              <img src="/img/Rectangle 892.png" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
+              <img src="assets/img/Rectangle 892.png" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
             </div>
-            <div class="todo-profile profileTwo"><img src="/img/Rectangle 894.png" style="border: 1px solid rgb  (1, 216, 146); border-radius: 4px;">
+            <div class="todo-profile profileTwo"><img src="assets/img/Rectangle 894.png" style="border: 1px solid rgb  (1, 216, 146); border-radius: 4px;">
             </div>
-            <div class="todo-profile profileThree"><img src="/img/Rectangle 896.png" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
+            <div class="todo-profile profileThree"><img src="assets/img/Rectangle 896.png" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
             </div>
             <p class="text-300">300</p>
           </div>
