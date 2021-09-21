@@ -40,6 +40,7 @@ gap-4
                     v-for="(todo, index) in result"
                     :key="index"
                     :todo="todo"
+                   
                 />
             </div>
         </template>
@@ -50,7 +51,7 @@ gap-4
 import Empty from "../components/Empty.vue";
 import NewCard from "../components/Newcard.vue";
 import { mapGetters } from "vuex";
-
+import { mapActions } from "vuex";
 export default {
   name: "Main",
   data() {
@@ -63,11 +64,17 @@ export default {
       showAll: "todos/showAll",
     }),
   },
-  methods: {},
+  methods: {
+       ...mapActions({getAllTodos: "todos/getAllTodos"}),
+       
+  },
   components: {
     NewCard,
     Empty,
   },
+  mounted() {
+    this.getAllTodos();
+  }
 };
 </script>
 <style lang="scss"></style>
