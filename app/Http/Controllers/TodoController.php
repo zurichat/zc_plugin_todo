@@ -51,7 +51,7 @@ class TodoController extends Controller
         $result = $this->todoService->all();
         $activeTodo = [];
 
-        if (isset($result['status']) && $result['stutus'] == 404) {
+        if (isset($result['status']) && $result['status'] == 404) {
             return response()->json($result, 404);
         }
 
