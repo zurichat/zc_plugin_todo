@@ -46,38 +46,37 @@
         <input v-model='title' required type="text" id="name"
           class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded" placeholder="name of your task" />
       </div>
-
+      <!--
       <div class="form-group td-flex td-flex-col td-pb-4">
         <label class="td-pb-2 td-font-bold" for="description">Description<span>(optional)</span></label>
         <input v-model="desc" required type="text" id="description"
           class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded" placeholder="Type task description" />
       </div>
     
-        <!-- <div class="form-group td-flex td-flex-col td-pb-4">
+       <div class="form-group td-flex td-flex-col td-pb-4">
           <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
           <input required type="date" class="border hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" id="dueDate"
             v-model="todoDetails.dueDate" />
-        </div> -->
+        </div> --><br>
       <div class="cta-container">
         
-        <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right" type="submit">Create Task</button>
+        <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold" type="submit">Create Task</button>
       </div>
     </form>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     name: 'AddTaskForm',
     data() {
       return {
-          token: '',
-        todoDetails: {
-          title: "",
-          
          
-          desc: "",
+          title:"",
+          id:"",
          
-        },
+         
+        
       };
     },
     methods:{
@@ -85,6 +84,24 @@ export default {
        
         this.$emit("toggleModal");
       },
+      addTodo(){
+
+         
+          //let res = await axios.put('https://todo.zuri.chat/api/v1/add/61490fc9e4b2aebf8ec8cf14', { hello: 'world' });
+            let res = axios.put('https://todo.zuri.chat/api/v1/add/'+this.id, { tasks: this.title })
+            .then((response) =>{
+                console.log('welcome')
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+           
+          this.$emit("toggleModal");
+      }
+    },
+     mounted(){
+     this.id = this.$route.params.id;
+    
     }
 }
 </script>
