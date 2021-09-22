@@ -14,7 +14,7 @@ td-gap-4
  lg:td-grid-cols-4 
                             "
                         >                            
-<TodoCard
+<Newcard
                                 v-for="(todo, index) in trash"
                                 :key="index++"
                                 :todo="todo"
@@ -32,7 +32,7 @@ td-gap-4
                                 md:td-grid-cols-3
                             "
                         >
-                            <TodoCard
+                            <Newcard
                                 v-for="(todo, index) in searchedTodo"
                                 :key="index"
                                 :todo="todo"
@@ -46,13 +46,13 @@ td-gap-4
 
 <script>
 import Empty from '../components/Empty.vue'
-import TodoCard from '../components/TodoCard.vue'
+import Newcard from '../components/Newcard.vue'
 import {mapGetters} from 'vuex'
 export default {
   name: "Trash",
   components : {
     Empty,
-    TodoCard
+    Newcard
   },
   computed: {
     ...mapGetters({
