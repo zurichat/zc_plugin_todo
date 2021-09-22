@@ -212,7 +212,7 @@ class TaskController extends Controller
         {
             return response()->json([
                 'status' => false,
-                'type' => error,
+                'type' => 'error',
                 'message' => 'Task could not be added'
             ], 500);
         }
