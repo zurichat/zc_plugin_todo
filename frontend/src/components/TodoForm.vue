@@ -3,7 +3,7 @@
     <form @submit.prevent="addTodo" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
       <div class="td-mb-4 ">
         <div class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center">
-            <h1 class="td-font-bold td-text-xl td-capitalize">Create a new task</h1>
+            <h1 class="td-font-bold td-text-xl td-capitalize">Create a New Todo</h1>
             <div @click="closeModal" class="td-cursor-pointer"><i class="pi pi-times"></i></div>
         </div>
         <h4 class="td-text-gray-400 td-text-sm td-font-medium">Todos help you keep track of tasks. They are best when created specifically for a task with subsequent sub tasks</h4>
@@ -29,7 +29,7 @@
         </div> -->
       <div class="cta-container">
         
-        <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right" type="submit">Create task</button>
+        <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right" type="submit">Create Todo</button>
       </div>
     </form>
   </div>

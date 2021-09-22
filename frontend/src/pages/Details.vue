@@ -26,7 +26,7 @@
     </div>
     <div class="sub-header td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
       <div class="td-flex"> 
-        <div class="button td-px-4 td-py-2 mr-2 td-bg-green-500 font-bold td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
+        <div class="button td-px-4 td-py-2 mr-2 td-bg-green-500 font-bold td-cursor-pointer td-rounded td-text-white" @click="toggleModal" >+ Add a new Task</div>
       <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9999 1.82458H4.99988C4.17145 1.82458 3.49988 2.49616 3.49988 3.32459V15.3246C3.49988 16.153 4.17145 16.8246 4.99988 16.8246H13.9999C14.8283 16.8246 15.4999 16.153 15.4999 15.3246V6.32459L10.9999 1.82458Z" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
@@ -84,6 +84,8 @@
       </div>
     </div>
   </div>
+   <AddTaskForm v-if="isModal===false" v-on:toggleModal="toggleModal2" />
+  
   <!-- <div id="Comment" class="w-1/4 flex-shrink-0 border"></div> -->
     <!-- <div class="flex flex-row td-justify-between td-items-center"> 
       {{this.$route.params.id}}
@@ -123,6 +125,9 @@
 </template>
 <script>
 import Checkbox from 'primevue/checkbox';
+ import AddTaskForm from '../components/AddTaskForm';
+
+ 
 // import TextArea from '../components/TextArea.vue\
 // import CommentBox from '../components/CommentBox.vue'
 import {mapGetters} from 'vuex'
@@ -132,7 +137,11 @@ export default {
       return {
         selectedTodo: '',
         checked: [],
-        alltasks: ['','','','','','','','','','']
+        alltasks: ['','','','','','','','','',''],
+        isModal: true,
+        todoid:'1',
+        //////////////////////////////////////
+        
       }
     },
         computed: {
@@ -144,15 +153,17 @@ export default {
       }
     },
     components: {
-      
+      AddTaskForm,
       Checkbox
     },
   methods: {
     close(){
       this.$emit('hideComment')
     },
+    
     check(){
-      let id = this.$route.params.id
+      let id = this.$route.params.id;
+       
       this.selectedTodo = this.allTodos.find( todo => todo.card_id.toLowerCase() === (id.toLowerCase()));
        if(this.selectedTodo <= 0 || this.selectedTodo === undefined){
          this.$emit('hideComment')
@@ -164,10 +175,19 @@ export default {
        }
       console.log(this.selectedTodo)
     },
+   toggleModal() {
+          
+            this.isModal = !this.isModal;
+        },
+     toggleModal2() {
+          
+           this.isModal = !this.isModal;
+        },
     
   },
   mounted(){
-      // this.check();
+     let id = this.$route.params.id;
+    
     }
 }
 </script>
