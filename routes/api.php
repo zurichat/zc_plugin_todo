@@ -43,6 +43,7 @@ Route::post('comment', [\App\Http\Controllers\TaskCommentController::class, 'sto
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
     Route::post('create-todo', [TodoController::class, 'createTodo']);
+    Route::delete('/delete/{id}', [TodoController::class, 'deleteTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
     Route::get('task', [TaskController::class, 'index']);
     Route::get('task/{id}/show', [TaskController::class, 'show']);
@@ -69,7 +70,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
     Route::get('/search', [TodoController::class, 'search_todo']);
     
-    Route::delete('/delete/{id}', [TodoController::class, 'deleteTodo']);
+   
 
     // Resource End ponits
     Route::get('/taskresource', [TaskController::class, 'showResource']);

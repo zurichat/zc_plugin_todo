@@ -118,11 +118,7 @@ class TodoController extends Controller
         return response()->json($search, 200);
     }
 
-    public function deleteTodo($id) 
-    {
-        $this->todoService->delete($id);
-        return response()->json(['status' => 'success', 'message' => 'Successfully deleted todo'], 200);
-    }
+
 
     //Function to test the resource
      public function showResource() : TodoResource
@@ -147,4 +143,11 @@ class TodoController extends Controller
         ];
         return new TodoResource($data);
     }
+    
+    public function deleteTodo($id) 
+    {
+        $this->todoService->delete($id);
+        return response()->json(['status' => 'success', 'message' => 'Successfully deleted todo'], 200);
+    }
 }
+
