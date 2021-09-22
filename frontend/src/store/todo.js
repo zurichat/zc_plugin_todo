@@ -20,6 +20,9 @@ export default {
         TOG_ASSIGN(state) {
             state.isAssign = !state.isAssign
         },
+        SET_ARCHIVED(state, data) {
+            state.archive = [...data]
+        },
         ADD_ARCHIVE(state, data) {
             state.archive.push(data)
         },
@@ -69,6 +72,11 @@ export default {
             console.log('heloo')
             commit('TOG_ASSIGN');
 
+        },
+        async getAllArchivedTodos({ commit }) {
+            await axios.get('get-archived')
+                .then(response => (commit('SET_ARCHIVED', response.data.data)))
+                .catch(error => console.log(error))
         },
         async createTodo({ commit }, data) {
             await axios.post('/create-todo', data)

@@ -21,7 +21,16 @@
             <p class="text-300">300</p>
           </div>
         </div>
-        <span><i class="pi td-text-green-500 td-px-4 pi-user-plus td-cursor-pointer"/></span>
+        
+        <div class="td-relative" v-click-away="ClickAway">
+                  <span @click="assign()" class="td-bg-green-500 td-h-10 td-w-10 td-mx-2 td-justify-center td-flex td-items-center td-rounded-xl"><i class="pi td-text-white pi-user-plus td-cursor-pointer"/></span>
+                  <div v-if="isAssign" class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border  td-mt-12  td-top-0 td-right-0">
+                      <input @input="search()" v-model=value class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none" type="text"/>
+                      <div class="td-h-64 td-w-64 td-overflow-y-scroll">
+                        <label @click="assign()" :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"> <span  class="td-px-2 td-font-bold tracking-wide">{{user.name.first + ' ' + user.name.last}}</span></label>
+                      </div>
+                  </div>
+        </div>
       </div>
     </div>
     <div class="sub-header td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
@@ -123,6 +132,7 @@
 </template>
 <script>
 import Checkbox from 'primevue/checkbox';
+import axios from 'axios'
 // import TextArea from '../components/TextArea.vue\
 // import CommentBox from '../components/CommentBox.vue'
 import {mapGetters} from 'vuex'
@@ -132,13 +142,17 @@ export default {
       return {
         selectedTodo: '',
         checked: [],
-        alltasks: ['','','','','','','','','','']
+        isAssign: false,
+        alltasks: ['','','','','','','','','',''],
+        users: [],
+        value: ''
       }
     },
         computed: {
       ...mapGetters({
         allTodos: 'todos/allTodos'
       }),
+      
       percent(){
        return (this.checked.length / this.alltasks.length) * 100
       }
@@ -151,6 +165,12 @@ export default {
     close(){
       this.$emit('hideComment')
     },
+    ClickAway(){
+      this.isAssign = false
+    },
+    assign(){
+        this.isAssign = !this.isAssign
+      },
     check(){
       let id = this.$route.params.id
       this.selectedTodo = this.allTodos.find( todo => todo.card_id.toLowerCase() === (id.toLowerCase()));
@@ -164,10 +184,14 @@ export default {
        }
       console.log(this.selectedTodo)
     },
-    
+    getUser(){
+        axios.get('https://randomuser.me/api/?results=15').
+        then(response => this.users = (response.data.results))
+      },
   },
   mounted(){
       // this.check();
+      this.getUser()
     }
 }
 </script>
