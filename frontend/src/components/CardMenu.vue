@@ -120,7 +120,7 @@ export default {
     archive() {
       console.log(this.todo._id);
       axios
-        .post(
+        .put(
           `task/${this.todo._id}/toggleArchiveStatus`,
             
           {
