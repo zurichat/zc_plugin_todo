@@ -121,7 +121,7 @@ export default {
       console.log(this.todo._id);
       axios
         .put(
-          `archive-todo/${this.todo._id}`,
+          `task/${this.todo._id}/toggleArchiveStatus`,
             
           {
             archived_at: 1,
