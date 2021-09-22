@@ -42,7 +42,7 @@ Route::prefix('v1')->group(function () {
 
 
     // Admin privilege
-    Route::post('admin-privilege/{todoId}',[AdminController::class, 'adminPrivilege']);
+    Route::put('admin-privilege/{todoId}',[AdminController::class, 'adminPrivilege']);
 
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);

@@ -32,16 +32,19 @@ class AdminController extends Controller
         if($validator->fails()) return response()->json(['errors'=>$validator->errors()],400);
 
         // find the collaborator and grant or revoke the privilege admin privilege
-        $count = 0;
-        foreach ($todo['colaborators'] as $collaborator) {
+        foreach ($todo['colaborators'] as $key => $value) {
             # code...
-            if($collaborator['user_id'] == $request->collaborator_id) {
-                $todo['colaborators'][$count]['admin_status'] = $request->privilege;
-                $this->todoService->update($todo,$todoId);
-                return response()->json($todo, 200);
+            if($todo['colaborators'][$key]['admin_status'] == $request->collaborator_id) {
+                $todo['colaborators'][$key]['admin_status'] = $request->privilege;
             }
-            $count++;
         }
-        return response()->json('Collaborator not found',404);
+        unset($todo['_id']);
+
+        $result = $this->todoService->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+        }
+        return response()->json(['status' => "error", 'message' => $result], 500);
+
     }
 }
