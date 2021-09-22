@@ -1,35 +1,35 @@
 <template>
   <div class="overlay">
-    <form @submit.prevent="addTodo" class="w-4/5 md:w-6/12 p-4 bg-white rounded ">
-      <div class="mb-4 ">
-        <div class="flex flex-row justify-between pb-4 items-center">
-            <h1 class="font-bold text-xl capitalize">Create a new task</h1>
-            <div @click="closeModal" class="cursor-pointer"><i class="pi pi-times"></i></div>
+    <form @submit.prevent="addTodo" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
+      <div class="td-mb-4 ">
+        <div class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center">
+            <h1 class="td-font-bold td-text-xl td-capitalize">Create a new task</h1>
+            <div @click="closeModal" class="td-cursor-pointer"><i class="pi pi-times"></i></div>
         </div>
-        <h4 class="text-gray-400 text-sm font-medium">Todos help you keep track of tasks. They are best when created specifically for a task with subsequent sub tasks</h4>
+        <h4 class="td-text-gray-400 td-text-sm td-font-medium">Todos help you keep track of tasks. They are best when created specifically for a task with subsequent sub tasks</h4>
       </div>
 
 
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 font-bold" for="name">Name</label>
+      <div class="form-group td-flex td-flex-col pb-4">
+        <label class="td-pb-2 td-font-bold" for="name">Name</label>
         <input v-model='todoDetails.title' required type="text" id="name"
-          class="border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded" placeholder="e.g. title" />
+          class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded" placeholder="e.g. title" />
       </div>
 
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 font-bold" for="description">Description<span>(optional)</span></label>
+      <div class="form-group td-flex td-flex-col td-pb-4">
+        <label class="td-pb-2 td-font-bold" for="description">Description<span>(optional)</span></label>
         <input v-model="todoDetails.description" required type="text" id="description"
-          class="border hover:border-green-400 bg-white py-3 outline-none text-md w-full px-2 rounded" placeholder="Type task description" />
+          class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded" placeholder="Type task description" />
       </div>
     
-        <!-- <div class="form-group flex flex-col pb-4">
-          <label class="pb-2 font-bold" for="dueDate">Due Date</label>
-          <input required type="date" class="border hover:border-green-400 bg-white outline-none text-gray-500 py-3 text-md w-full px-2 rounded" id="dueDate"
+        <!-- <div class="form-group td-flex td-flex-col td-pb-4">
+          <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
+          <input required type="date" class="border hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" id="dueDate"
             v-model="todoDetails.dueDate" />
         </div> -->
       <div class="cta-container">
         
-        <button class="submit bg-green-500 py-3 px-4 rounded text-white font-bold float-right" type="submit">Create task</button>
+        <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right" type="submit">Create task</button>
       </div>
     </form>
   </div>

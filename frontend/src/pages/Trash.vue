@@ -8,10 +8,10 @@
                         <div v-else
                             class="
                                  todo_container
- sm:grid sm:grid-cols-2
-gap-4
- md:grid-cols-3
- lg:grid-cols-4 
+ sm:td-grid sm:td-grid-cols-2
+td-gap-4
+ md:td-grid-cols-3
+ lg:td-grid-cols-4 
                             "
                         >                            
 <TodoCard
@@ -27,9 +27,9 @@ gap-4
                         <div
                             class="
                                 todo_container
-                                sm:grid sm:grid-cols-2
-                                gap-4
-                                md:grid-cols-3
+                                sm:td-grid sm:td-grid-cols-2
+                                td-gap-4
+                                md:td-grid-cols-3
                             "
                         >
                             <TodoCard

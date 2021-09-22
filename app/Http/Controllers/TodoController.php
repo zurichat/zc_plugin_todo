@@ -37,8 +37,8 @@ class TodoController extends Controller
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
 
-            $this->todoService->publish($channel, $responseWithId);
-            $this->todoService->publish('common-room', ['user_id' => $request->user_id, 'channel' => $channel]);
+            // $this->todoService->publish($channel, $responseWithId);
+            // $this->todoService->publish('common-room', ['user_id' => $request->user_id, 'channel' => $channel]);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
@@ -71,5 +71,37 @@ class TodoController extends Controller
             return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
+    }
+
+    // Get users in a todo room
+    public function usersInRoom($id)
+    {
+      //Get the room we want to users from.
+      $roomData = $result = $this->todoService->find($id);
+      
+      $users_ids = $roomData['colaborators'];
+
+
+      // $usersInfo = [];
+      // foreach($users_ids as $id){
+      //     $data['user_id'] = $id;
+      //     $data['session_id'] = $request->token;
+      //   $user = $this->todoRepository->findUser($data);
+
+      // }
+      //   $data = [
+      //     'token' => $request->token,
+      //     'org' => $request->org
+      //   ];
+      //   $users_ids = $usersInRoom[0]['users'];
+      //   $usersInfo = [];
+      //   for ($i = 0; $i < count($users_ids); $i++) {
+      //     $data['user_id'] = $users_ids[$i];
+      //     $user = $this->todoRepository->findUser($data);
+      //     $usersInfo[] = collect($user)->only(['display_name', 'email', 'first_name', 'last_name', 'phone']);
+      //   }
+      
+      //   return response()->json(["users" => $usersInfo], 200);
+      return response()->json(['users' => $users_ids], 200);
     }
 }

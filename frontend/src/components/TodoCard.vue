@@ -1,9 +1,9 @@
 <template>
-  <div class="p-4 shadow-md mx-auto my-4 taskcard sm:mx-0 relative" v-click-away="ClickAway">
+  <div class="td-p-4 td-shadow-md td-mx-auto td-my-4 taskcard sm:td-mx-0 td-relative" v-click-away="ClickAway">
     <CardMenu :links="links" v-show="isModalVisible" @toggleMenu="toggleMenu" />
     <div @click="details()">
-    <div class="flex justify-between items-center ">
-        <h1 class="text-md capitalize font-bold">{{todo.title}}</h1>
+    <div class="td-td-flex td-justify-between td-items-center ">
+        <h1 class="td-text-md td-capitalize td-font-bold">{{todo.title}}</h1>
        
         <div @click="toggleMenu">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,10 +22,10 @@
       </div>
       
      
-    <div class="py-1">
-        <h1 class="text-md text-gray-500 ">{{todo.description}}</h1>
+    <div class="td-py-1">
+        <h1 class="td-text-md td-text-gray-500 ">{{todo.description}}</h1>
       </div>
-    <span class="flex">
+    <span class="td-flex">
       <svg class="self-center" width="18" height="18" viewBox="0 0 18 18" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -38,13 +38,13 @@
         <path d="M2.24988 7.49995H15.7499" stroke="#1A61DB" stroke-width="1.22693" stroke-linecap="round"
           stroke-linejoin="round" />
       </svg>
-      <a href="#" class="px-1 font-bold block text-blue-600">{{todo.startDate}}</a>
+      <a href="#" class="px-1 td-font-bold block text-blue-600">{{todo.startDate}}</a>
     </span>
-    <progress id="progress" class="w-full mx-auto" value="60" max="100"> 32% </progress>
+    <progress id="progress" class="w-full td-mx-auto" value="60" max="100"> 32% </progress>
     <div class="">
-      <h1 class="text-sm text-gray-500 tracking-wide ">COLLABORATORS</h1>
-      <div class="flex items-center flex-wrap justify-between">
-        <div class="flex">
+      <h1 class="text-sm td-text-gray-500 tracking-wide ">COLLABORATORS</h1>
+      <div class="td-flex td-items-center td-flex-wrap td-justify-between">
+        <div class="td-flex">
           <svg width="44" height="40" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink">
             <circle cx="23" cy="20" r="18.5" fill="#F8FFCD" stroke="#00B87C" />
@@ -74,7 +74,7 @@
         </div>
         <span class="">
           <span @click="details(todo.card_id)"
-            class="py-2 text-green-600 text-xs font-bold cursor-pointer uppercase hover:underline">view task</span>
+            class="py-2 text-green-600 text-xs td-font-bold cursor-pointer uppercase hover:underline">view task</span>
         </span>
       </div>
     </div>
