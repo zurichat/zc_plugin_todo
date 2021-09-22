@@ -31,6 +31,19 @@ class TaskCommentController extends Controller
         }
         return response()->json(['message' => $result['message']], 400);
     }
+    /*
+    author : @Alpha2Chris14
+    */
+    public function store(){
+        $input = $request->validate([
+            'user_id' => 'required',
+            'task_id' => 'required',
+            'body' => 'required',
+            'parent_id' => 'required',
+        ]);
+        $data = array_merge($input, ['created_at' => Carbon::now()->toDateTime()]);
+        return response()->json($this->taskCommentService->create($data));
+    }
 
     public function getCommentsPerTask($taskId)
     {
@@ -46,6 +59,8 @@ class TaskCommentController extends Controller
 
         return response()->json(['message' => $result['message']], 400);
     }
+
+    
 
     public function saveComment(Request $request)
     {
