@@ -31,16 +31,11 @@
             <div class="td-px-1">
                 <router-view />
             </div>
-            <transition name="fade">
-                    <shareModal
-                        v-if="isShareModal"
-                        @toggleShareModal="toggleShareModal"
-                    />
-                </transition>
+            
                 <transition name="fade">
                     <AssignForm 
                         v-if="isAssign"
-                        @toggleShareModal="toggleShareModal"
+                        @toggleDeleteModal="toggleDeleteModal"
                     />
                 </transition>
             <transition name="fade">
@@ -59,14 +54,14 @@ import TodoForm from "../components/TodoForm";
 import TodoNav from '../components/TodoNav'
 import AddTaskBtn from '../components/AddTaskBtn'
 import SearchInput from '../components/Search-Input'
-import shareModal from "../components/shareModal";
+
 // import TodoCard from "../components/TodoCard.vue";
 export default {
     name: 'New Main',
     data() {
         return {
             isModal: false,
-            isShareModal: false,
+            
             showAll: true,
             isComment: false,
             
@@ -86,10 +81,7 @@ export default {
             console.log("hi");
             this.isModal = !this.isModal;
         },
-        toggleShareModal() {
-            console.log("hi");
-            this.isShareModal = !this.isShareModal;
-        },
+        
         isMobile() {
             if (
                 /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -123,7 +115,7 @@ export default {
         AddTaskBtn,
         AssignForm,
         SearchInput,
-        shareModal,
+        
         TodoForm,
         TodoNav
     }
