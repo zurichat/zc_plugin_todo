@@ -1,13 +1,13 @@
 <template>
   <label
     class="
-      rounded-lg
-      border-2 border-gray-200
-      p-2
-      text-gray-300
-      max-w-md
-      flex
-      justify-between
+      td-rounded-lg
+      td-border-2 td-border-gray-200
+      td-p-2
+      td-text-gray-300
+      td-max-w-md
+      td-flex
+      td-justify-between
     "
     for="search"
   >

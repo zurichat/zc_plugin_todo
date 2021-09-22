@@ -49,10 +49,14 @@ Route::prefix('v1')->group(function () {
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
 
+
     // Archiving Endpoints
     Route::put('archive-todo/{todoId}', [ArchiveController::class, 'archiveTodo']);
     Route::put('unarchive-todo/{todoId}', [ArchiveController::class, 'unArchiveTodo']);
     Route::get('get-archived', [ArchiveController::class, 'fetchArchived']);
+    // Archiving Endpoints
+    Route::put('archive-all', [ArchiveController::class, 'all']);
+
 
     Route::get('task/sort', [TaskController::class, 'sort']);
     Route::get('find-task/{id}', [TaskDemoController::class, 'show']);
