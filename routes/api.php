@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PingContoller;
@@ -40,6 +41,8 @@ Route::prefix('v1')->group(function () {
     Route::put('add/{id}', [TaskController::class, 'addTask']);
 
 
+    // Admin privilege
+    Route::post('admin-privilege/{todoId}',[AdminController::class, 'adminPrivilege']);
 
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
