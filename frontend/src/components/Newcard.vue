@@ -8,7 +8,7 @@
               :links="links"
         v-show="isModalVisible"
         :todo="todo"
-        
+        @toggleDeleteModal="toggleDeleteModal"
         @toggleMenu="toggleMenu"
         @archived="handleArchivedTodo"
              /> 
@@ -79,10 +79,19 @@
             </div>
         </div>
         </div>
+        <transition name="fade">
+                    <DeleteModal
+                        v-if="isDeleteModal"
+                        :title="todo.title"
+                        :id="todo._id"
+                        @toggleDeleteModal="toggleDeleteModal"
+                    />
+                </transition>
     </div>
 </template>
 <script>
 //  import Progress from './Progress';
+import DeleteModal from "./DeleteModal";
  import CardMenu from "./CardMenu.vue";
   import {mapActions} from 'vuex'
 export default {
@@ -90,6 +99,7 @@ export default {
   data(){
       return {
           isModalVisible: false,
+          isDeleteModal: false,
           links: [{
             name: 'Edit',
             action: () => {
@@ -114,6 +124,7 @@ export default {
   components: {
       CardMenu,
       // Progress
+      DeleteModal
   },
   computed: {
     time(){
@@ -140,7 +151,9 @@ export default {
         delete: 'todos/ADD_TRASH',
         archive: 'todos/ADD_ARCHIVE'
       }),
-      
+      toggleDeleteModal() {
+            this.isDeleteModal = !this.isDeleteModal;
+        },
       ClickAway() {
       this.isModalVisible = false;
     },
