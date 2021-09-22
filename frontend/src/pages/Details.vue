@@ -24,10 +24,10 @@
         
         <div class="td-relative" v-click-away="ClickAway">
                   <span @click="assign()" class="td-bg-green-500 td-h-10 td-w-10 td-mx-2 td-justify-center td-flex td-items-center td-rounded-xl"><i class="pi td-text-white pi-user-plus td-cursor-pointer"/></span>
-                  <div v-if="isAssign" class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border  td-mt-12  td-top-0 td-right-0">
+                  <div v-if="isAssign" class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0">
                       <input @input="search()" v-model=value class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none" type="text"/>
                       <div class="td-h-64 td-w-64 td-overflow-y-scroll">
-                        <label @click="assign()" :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"> <span  class="td-px-2 td-font-bold tracking-wide">{{user.name.first + ' ' + user.name.last}}</span></label>
+                        <label @click="assign()" :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"> <span  class="tracking-wide td-px-2 td-font-bold">{{user.name.first + ' ' + user.name.last}}</span></label>
                       </div>
                   </div>
         </div>
@@ -35,7 +35,7 @@
     </div>
     <div class="sub-header td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
       <div class="td-flex"> 
-        <div class="button td-px-4 td-py-2 mr-2 td-bg-green-500 font-bold td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
+        <div class="mr-2 font-bold button td-px-4 td-py-2 td-bg-green-500 td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
       <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9999 1.82458H4.99988C4.17145 1.82458 3.49988 2.49616 3.49988 3.32459V15.3246C3.49988 16.153 4.17145 16.8246 4.99988 16.8246H13.9999C14.8283 16.8246 15.4999 16.153 15.4999 15.3246V6.32459L10.9999 1.82458Z" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
@@ -45,7 +45,7 @@
         <path d="M7.99988 7.07458H7.24988H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 <!-- 07060961923 -->
-        <span class="td-font-bold ">3 completed</span>
+        <span class="td-font-bold ">{{ itemsTodo.length }}   completed</span>
       </div>
       </div>
         <div class="progress_container td-flex td-flex-col">
@@ -53,15 +53,19 @@
       <progress id="progress" class="td-w-full td-mx-auto" :value="percent" max="100"> 32% </progress>
     </div>
     </div>
-    <!-- <div class="description py-2 ">
+    <!-- <div class="py-2 description ">
       <span>Our todo plugin is a collection which means more than one todo can be made. Each todo can contain multiple tasks containing which includes: the title, the description, list of check able task. Note each todo is a room, when you create a todo you’ve automatically created a channel with the  same name (visible in the side bar) and everyone assigned to it will be in that channel. At the point of creating the todo you can decide to make it private or public </span>
     </div> -->
     
     <div class="tasks_container td-py-4">
-      <div class="td-my-4">
-        <span class="task_head td-font-bold  td-mr-4 td-text-green-500">Pending</span>
-        <span class="task_head td-font-bold">Completed</span>
-      </div>
+      
+      <div class="td-my-4 tabMenu">
+        <span class="task_head td-font-bold td-mr-4 td-text-green-500"  @click="isSelect('1')">Pending</span>
+        <span class="ml-8 task_head td-font-bold" @click="isSelect('2')" >Completed</span>
+          
+      <div class="tabContents">
+      <div v-if="isActive === '1'">    
+
       
       <div v-for="(i, index) in alltasks" :key="index++" class="td-pl-4 td-m-4 task_box td-flex td-py-2 hover:shadow td-rounded hover:border">
         <Checkbox v-model="checked" :id="'city' + index++" name="city" :value="'Chicago' + index++" />
@@ -92,17 +96,25 @@
         </div>  
       </div>
     </div>
+    
+      <div v-else-if="isActive === '2'">
+       {{ checked }}
+        
+      </div>
+    </div>
   </div>
-  <!-- <div id="Comment" class="w-1/4 flex-shrink-0 border"></div> -->
+</div>
+  </div>
+  <!-- <div id="Comment" class="flex-shrink-0 w-1/4 border"></div> -->
     <!-- <div class="flex flex-row td-justify-between td-items-center"> 
       {{this.$route.params.id}}
       <div @click="close" class="font-bold text-green-500">X</div>
       </div>
-      <p class="text-green-500 font-bold ">
+      <p class="font-bold text-green-500 ">
         This is the todo details section,
         
       </p>
-      <p class="text-lg font-bold text-wrap text-red-500">Still under construction</p> -->
+      <p class="text-lg font-bold text-red-500 text-wrap">Still under construction</p> -->
       <!-- <div>
         <div>
           <p>Task Title</p>
@@ -140,6 +152,7 @@ export default {
     name: 'TodoDetails',
     data(){
       return {
+        isActive: '1',
         selectedTodo: '',
         checked: [],
         isAssign: false,
@@ -155,13 +168,23 @@ export default {
       
       percent(){
        return (this.checked.length / this.alltasks.length) * 100
-      }
+      },
+      
+      itemsTodo() {
+      return this.checked.filter(todo => !todo.completed)
+    }
+
     },
     components: {
       
       Checkbox
     },
   methods: {
+    
+      isSelect: function (num) {
+      this.isActive = (num);
+     },
+
     close(){
       this.$emit('hideComment')
     },
@@ -261,4 +284,8 @@ progress[value]::-webkit-progress-value {
     z-index: 100;
     color: #000;
 }
+.tabMenu span {
+  cursor: pointer;
+}
+
 </style>
