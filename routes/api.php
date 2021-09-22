@@ -51,6 +51,7 @@ Route::prefix('v1')->group(function () {
 
     // Archiving Endpoints
     Route::put('archive-todo/{todoId}', [ArchiveController::class, 'archiveTodo']);
+    Route::put('unarchive-todo/{todoId}', [ArchiveController::class, 'unArchiveTodo']);
     Route::get('get-archived', [ArchiveController::class, 'fetchArchived']);
 
     Route::get('task/sort', [TaskController::class, 'sort']);
