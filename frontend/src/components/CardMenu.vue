@@ -86,9 +86,10 @@
             td-font-normal
             td-text-sm
             td-cursor-pointer
-            hover:td-bg-green-400
+            hover:td-bg-red-500
             hover:td-text-white
           "
+          @click="toggleDelete"
           >Delete</span
         >
       </div>
@@ -108,6 +109,10 @@ export default {
    assign(){
      this.$emit("toggleMenu");
      this.tog_assign()
+   },
+   toggleDelete(){
+     this.$emit("toggleMenu");
+     this.$emit('toggleDeleteModal')
    },
     close() {
       this.$emit("toggleMenu");

@@ -1,6 +1,6 @@
 <template>
-<div class="td-w-full td-flex-grow td-px-6">
-  <div id="Details" class="td-px-2">
+<div class="td-w-full td-flex-grow ">
+  <div id="Details" class="">
     <div class="todo-nav td-bg-green-500 td-flex td-items-center">
       <h1 class="td-px-4 td-py-2 td-text-white td-text-3xl"># To-do-list</h1>
         

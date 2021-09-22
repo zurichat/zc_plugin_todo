@@ -98,7 +98,7 @@ export default {
                 })
         },
         ADD_TRASH({ commit, state }, any) {
-            let location = state.todos.findIndex(todo => todo.card_id.toLowerCase() === (any.toLowerCase()));
+            let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
 
             commit('ADD_TRASH', state.todos[location])
             return state.todos.splice(location, 1);
