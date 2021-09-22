@@ -16,18 +16,19 @@ class AdminController extends Controller
     }
 
     public function adminPrivilege($todoId, Request $request){
+        // Find the todo and check if it exists
         $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
+        // Some extra validations to check if the user performing this action is the creator 
         if($request->creator_id != $todo['user_id']){
             return response()->json('This action can only be performed by the owner of this todo', 400);
         }
         $validator = Validator::make($request->all(),[
             'privilege' => 'required|integer|digits_between:0,1'
         ]);
-
         if($validator->fails()) return response()->json(['errors'=>$validator->errors()],400);
 
         // find the collaborator and grant or revoke the privilege admin privilege
