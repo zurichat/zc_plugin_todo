@@ -34,7 +34,8 @@ class AdminController extends Controller
         // find the collaborator and grant or revoke the privilege admin privilege
         foreach ($todo['colaborators'] as $key => $value) {
             # code...
-            if($todo['colaborators'][$key]['admin_status'] == $request->collaborator_id) {
+
+            if($todo['colaborators'][$key]['user_id'] == $request->collaborator_id) {
                 $todo['colaborators'][$key]['admin_status'] = $request->privilege;
             }
         }
@@ -43,8 +44,9 @@ class AdminController extends Controller
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+        }else{
+            return response()->json(["status" => "error", "data" => $result], 500);
         }
-        return response()->json(['status' => "error", 'message' => $result], 500);
 
     }
 }
