@@ -51,6 +51,7 @@ Route::prefix('v1')->group(function () {
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
+    Route::delete('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
 
 
     // Archiving Endpoints

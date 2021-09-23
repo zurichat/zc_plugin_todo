@@ -17,6 +17,7 @@ class AssignUserController extends Controller
     }
 
     public function assign(Request $request, $todoId)
+
     {
 
         $todo = $this->todoService->find($todoId);
@@ -44,4 +45,35 @@ class AssignUserController extends Controller
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
+
+    public function remove(Request $request, $todoId)
+
+    {
+
+        $todo = $this->todoService->find($todoId);
+
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+
+        $removeColabo = ['user_id' => $request->user_id;
+        unset($todo['colaborators'], $removeColabo);
+        unset($todo['_id']);
+
+        $result = $this->todoService->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+
+            // Publish To Centrifugo
+            $this->todoService->publish(
+                'common-room',
+                ['user_id' => $request->user_id, 'channel' => $todo['channel']]
+            );
+
+            $this->todoService->publish($todo['channel'], $todo['colaborators']);
+            return response()->json(["status" => "success", "type" => "Todo", "data" => "User removed successfully"], 200);
+        }
+
+        return response()->json(['status' => "error", 'message' => $result], 500);
+    }
+    
 }
