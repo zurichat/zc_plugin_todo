@@ -10,11 +10,13 @@ class Centrifugo implements CentrifugoInterface
 
     // protected $url = "http://localhost:8000/api";
 
+    protected $url = "https://realtime.zuri.chat/api";
+
     public function publish($channel, $data)
     {
         $response = Http::withHeaders([
             'Content-type' => 'application/json',
-            'Authorization' => 'apikey ' . env("CENTRIFUGO_APIKEY")
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' // . env("CENTRIFUGO_APIKEY")
         ])->post($this->url, [
             'method' => 'publish',
             'params' => [

@@ -1,6 +1,6 @@
 import { h, createApp } from 'vue';
 import singleSpaVue from 'single-spa-vue';
-
+// import auth from "plugins/auth";
 import 'primevue/resources/primevue.min.css'; //corecss
 import 'primeicons/primeicons.css';
 import 'primevue/resources/themes/saga-green/theme.css';
