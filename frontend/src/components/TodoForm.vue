@@ -1,6 +1,6 @@
 <template>
   <div class="overlay">
-    <form @submit.prevent="addTodo" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
+    <form @submit.prevent="addTodo" v-click-away="ClickAway" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
       <div class="td-mb-4 ">
         <div class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center">
             <h1 class="td-font-bold td-text-xl td-capitalize">Create a New Todo</h1>
@@ -68,6 +68,9 @@
         console.log("hgey");
         this.$emit("toggleModal");
       },
+      ClickAway(){
+        this.$emit("toggleModal");
+      },
       addTodo() {
           
           axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
@@ -90,15 +93,20 @@
 //   }
 
    .overlay {
-     width: 100%;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     position: fixed;
-     top: 0;
-     bottom: 0;
-     left: 0;
-     z-index: 2;
+     
+    line-height: 1.46666667;
+    align-items: center;
+    background: rgba(0,0,0,.6);
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    // opacity: 0;
+    position: fixed;
+    top: 0;
+    transition: 80ms linear;
+    width: 100%;
+    z-index: 1012;
    }
 
 //   form {
@@ -194,8 +202,6 @@
 //   }
 
   
-.overlay {
-      background: rgba(0, 0, 0, 0.14901960784313725);
-    }
+
   
 </style>

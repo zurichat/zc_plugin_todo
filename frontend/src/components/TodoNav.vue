@@ -1,6 +1,6 @@
 <template>
   <div class="topnav">
-      <router-link to="/new">
+      <router-link to="/">
       <span>Pending</span>
     </router-link>
 

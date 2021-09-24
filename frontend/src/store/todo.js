@@ -20,6 +20,9 @@ export default {
         TOG_ASSIGN(state) {
             state.isAssign = !state.isAssign
         },
+        SET_ARCHIVED(state, data) {
+            state.archive = [...data]
+        },
         ADD_ARCHIVE(state, data) {
             state.archive.push(data)
         },
@@ -70,6 +73,11 @@ export default {
             commit('TOG_ASSIGN');
 
         },
+        async getAllArchivedTodos({ commit }) {
+            await axios.get('get-archived')
+                .then(response => (commit('SET_ARCHIVED', response.data.data)))
+                .catch(error => console.log(error))
+        },
         async createTodo({ commit }, data) {
             await axios.post('/create-todo', data)
                 .then((response) => commit('ADD_TODOS', response.data.data))
@@ -90,7 +98,7 @@ export default {
                 })
         },
         ADD_TRASH({ commit, state }, any) {
-            let location = state.todos.findIndex(todo => todo.card_id.toLowerCase() === (any.toLowerCase()));
+            let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
 
             commit('ADD_TRASH', state.todos[location])
             return state.todos.splice(location, 1);

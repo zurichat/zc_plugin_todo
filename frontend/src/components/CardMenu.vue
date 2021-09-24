@@ -86,9 +86,10 @@
             td-font-normal
             td-text-sm
             td-cursor-pointer
-            hover:td-bg-green-400
+            hover:td-bg-red-500
             hover:td-text-white
           "
+          @click="toggleDelete"
           >Delete</span
         >
       </div>
@@ -109,13 +110,17 @@ export default {
      this.$emit("toggleMenu");
      this.tog_assign()
    },
+   toggleDelete(){
+     this.$emit("toggleMenu");
+     this.$emit('toggleDeleteModal')
+   },
     close() {
       this.$emit("toggleMenu");
     },
     archive() {
       console.log(this.todo._id);
       axios
-        .post(
+        .put(
           `task/${this.todo._id}/toggleArchiveStatus`,
             
           {

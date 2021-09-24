@@ -203,7 +203,7 @@ class TaskController extends Controller
         $tasks = $request->input('tasks');
 
             foreach ($tasks as $task) {
-                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 0, 'created_at' => Carbon::now()->toDateTimeString() ];
+                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 1, 'created_at' => Carbon::now()->toDateTimeString()];
             }
 
         $response = $this->todoService->update($data, $id);
@@ -212,7 +212,7 @@ class TaskController extends Controller
         {
             return response()->json([
                 'status' => false,
-                'type' => error,
+                'type' => 'error',
                 'message' => 'Task could not be added'
             ], 500);
         }
