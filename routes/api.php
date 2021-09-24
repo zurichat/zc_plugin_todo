@@ -84,9 +84,6 @@ Route::prefix('v1')->group(function () {
     });
 });
 
-Route::post('publish/message', [TodoController::class, 'update']);
-
-
 
 // Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
 Route::prefix('v1')->group(function () {
