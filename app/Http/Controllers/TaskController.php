@@ -223,24 +223,23 @@ class TaskController extends Controller
             'data' => $data
         ], 201);
     }
-    
-    public function markTask(Request $request, $id)
+    public function markTask(Request $request, $todoId)
     {
-        $collaboratorExist = false;
-        $todo = $this->todoService->findBy('_id', $id);
+        $adminExist = false;
+        $todo = $this->todoService->findBy('_id', $todoId);
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
         if ($todo['user_id'] != $request->user_id) {
             foreach($todo['colaborators'] as $key => $value){
-                if($value['user_id'] == $request->user_id){
-                    $collaboratorExist = true;
+                if($value['user_id'] == $request->user_id && $value['admin_status'] == 1){
+                    $adminExist = true;
                 }
             }
         }else{
-            $collaboratorExist = true;
+            $adminExist = true;
         }
-        if($collaboratorExist == false) return response()->json('Unauthorized', 404);
+        if($adminExist == false) return response()->json('Unauthorized', 404);
         foreach ($todo['tasks'] as $key => $value) {
             # code...
             if($value['task_id'] == $request->task_id){
@@ -248,13 +247,13 @@ class TaskController extends Controller
             }
         }
         unset($todo['_id']);
-        $result = $this->todoService->update($todo, $id);
+        $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             $this->todoService->publish(
                 $todo['channel'],
                 ['user_id' => $request->user_id, 'message' => 'Task status updated', 'data' => $todo]
             );
-            return response()->json(["status" => "success", "data" => array_merge(['_id' => $id], $todo)], 200);
+            return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         } else {
             return response()->json(["status" => "error", "data" => $result], 500);
         }
