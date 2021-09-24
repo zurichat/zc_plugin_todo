@@ -66,6 +66,7 @@ export default {
             isComment: false,
             
             showEditModal: false,
+            centrifuge: null
         };
     },computed: {
         ...mapGetters({
@@ -109,6 +110,7 @@ export default {
                 this.hideComment();
             }
         },
+        
     },
     components: {
         // TodoCard,
@@ -118,6 +120,13 @@ export default {
         
         TodoForm,
         TodoNav
+    },
+    mounted(){
+        // this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket');
+        // this.centrifuge.connect();
+        // this.centrifuge.subscribe('Didier', function(messageCtx) {
+        //     console.log(messageCtx);
+        // })
     }
 }
 </script>

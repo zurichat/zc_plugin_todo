@@ -5,19 +5,19 @@
 </template>
 
 <script>
-//  let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
+ let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
 export default {
   name: 'App',
   components: {
     
   },
    methods: {
-    //  async auth(){
-    //     GetUserInfo();
-    //   }
+      async auth(){
+         GetUserInfo();
+       }
    },
      mounted(){
-        // this.auth()
+         this.auth()
   }
 }
 </script>
