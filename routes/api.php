@@ -39,6 +39,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
     Route::put('/todo/{id}/add-task', [TaskController::class, 'addTask']);
+    Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
 
 
     // Admin privilege
