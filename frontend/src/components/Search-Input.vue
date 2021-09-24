@@ -1,24 +1,24 @@
 <template>
-  <label
-    class="
-      td-rounded-lg
-      td-border-2 td-border-gray-200
-      td-p-2
-      td-text-gray-300
-      td-max-w-md
-      td-flex
-      td-justify-between
-    "
-    for="search"
-  >
+ 
+  
     <input
       type="text"
       @input="search"
       v-model="value"
-      placeholder="Search here"
-      class="ml-8 bg-transparent text-black outline-none w-4/5"
+      
+      class="ml-8 bg-transparent text-black outline-none td-rounded-lg
+      td-border td-border-gray-200
+      td-p-2
+      td-text-gray-500
+      td-max-w-md
+      td-text-base
+      md:td-m-6/12
+      td-h-14
+      td-w-full
+      td-flex
+      td-justify-between"
     />
-  </label>
+  
 </template>
 <script>
 export default {

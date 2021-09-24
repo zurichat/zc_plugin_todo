@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { GetUserInfo } from "zuricontrol"
 //  let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
 export default {
   name: 'App',
@@ -12,12 +13,12 @@ export default {
     
   },
    methods: {
-    //  async auth(){
-    //     GetUserInfo();
-    //   }
+      async auth(){
+         GetUserInfo();
+       }
    },
      mounted(){
-        // this.auth()
+         this.auth()
   }
 }
 </script>
