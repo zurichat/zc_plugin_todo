@@ -224,7 +224,7 @@ class TaskController extends Controller
         ], 201);
     }
     
-    public function MarkTaskRequest(Request $request, $id)
+    public function markTask(MarkTaskRequest $request, $id)
     {
         $collaboratorExist = false;
         $todo = $this->todoService->findBy('_id', $id);
