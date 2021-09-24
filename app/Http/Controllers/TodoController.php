@@ -21,8 +21,7 @@ class TodoController extends Controller
 
     public function createTodo(TodoRequest $request)
     {
-       // $channel = substr(uniqid(), 0, 10) . "-$request->title";
-        $channel = "Didier";
+        $channel = substr(uniqid(), 0, 10) . "-$request->title";
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
@@ -38,8 +37,8 @@ class TodoController extends Controller
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
 
-             $this->todoService->publish($channel, $responseWithId);
-            // $this->todoService->publish('common-room', ['user_id' => $request->user_id, 'channel' => $channel]);
+            //$userId = $request->user_id;
+            //$this->todoService->publish('common-room', ['id' => "1234"], $channel, $request->user_id, "todo", null);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 

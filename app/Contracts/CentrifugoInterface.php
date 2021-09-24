@@ -10,7 +10,7 @@ interface CentrifugoInterface
      * @return
      */
 
-    public function publish(string $channel, array $data);
+    public function publish(string $channel, array $data, string $newChannel, string $subscriberId, string $collection, string $unSubsciberId);
 
     /**
      * pass user id 
