@@ -197,31 +197,73 @@ class TaskController extends Controller
 
 
     public function addTask(AddTaskRequest $request, $id) {
-       $todo = $this->todoService->findBy('_id', $id);
-        // return $this->todoService->all();
-        $data = array();
-        $tasks = $request->input('tasks');
+        $validated = $request->validated();
+        $todo = $this->todoService->findBy('_id', $id);
 
-            foreach ($tasks as $task) {
-                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 1, 'created_at' => Carbon::now()->toDateTimeString()];
-            }
-
-        $response = $this->todoService->update($data, $id);
-
-        if (isset($response['status']) && $response['status'] == "404")
-        {
-            return response()->json([
-                'status' => false,
-                'type' => 'error',
-                'message' => 'Task could not be added'
-            ], 500);
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
         }
-        return response()->json([
-            'status' => true,
-            'type' => 'success',
-            'message' => 'Task has been added successfully',
-            'data' => $data
-        ], 201);
+        if($todo['user_id'] != $request->user_id){
+            return response()->json('Unauthorized', 404);
+        }
+        $tasks = [
+            'task_id' => uniqid(),
+            'title' => $request->title,
+            'recurring' => $request->recurring,
+            'status' => 0,
+        ];
+        
+        array_push($todo['tasks'], $tasks);
+        
+        unset($todo['_id']);
+
+        $result = $this->todoService->update($todo, $id);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            $this->todoService->publish(
+                $todo['channel'],
+                ['user_id' => $request->user_id, 'message' => 'Task created', 'data' => $tasks]
+            );
+            return response()->json(["status" => "success", "data" => array_merge(['_id' => $id], $todo)], 200);
+        } else {
+            return response()->json(["status" => "error", "data" => $result], 500);
+        }
+    }
+    public function markTask(Request $request, $id)
+    {
+        $collaboratorExist = false;
+        $todo = $this->todoService->findBy('_id', $id);
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+        if ($todo['user_id'] != $request->user_id) {
+            foreach($todo['colaborators'] as $key => $value){
+                if($value['user_id'] == $request->user_id){
+                    $collaboratorExist = true;
+                }
+            }
+        }else{
+            $collaboratorExist = true;
+        }
+        if($collaboratorExist == false) return response()->json('Unauthorized', 404);
+        foreach ($todo['tasks'] as $key => $value) {
+            # code...
+            if($value['task_id'] == $request->task_id){
+                $value['status'] = $request->status;
+            }
+        }
+
+        unset($todo['_id']);
+
+        $result = $this->todoService->update($todo, $id);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            $this->todoService->publish(
+                $todo['channel'],
+                ['user_id' => $request->user_id, 'message' => 'Task status updated', 'data' => $todo]
+            );
+            return response()->json(["status" => "success", "data" => array_merge(['_id' => $id], $todo)], 200);
+        } else {
+            return response()->json(["status" => "error", "data" => $result], 500);
+        }
     }
 
 }

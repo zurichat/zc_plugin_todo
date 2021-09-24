@@ -38,7 +38,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
-    Route::put('add/{id}', [TaskController::class, 'addTask']);
+    Route::put('/todo/{id}/add-task', [TaskController::class, 'addTask']);
 
 
     // Admin privilege
