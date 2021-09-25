@@ -7,7 +7,7 @@
 <script>
 import { GetUserInfo } from "zuricontrol"
 import Centrifuge from 'centrifuge'
-//  let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
+// //  let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
 export default {
   name: 'App',
   data(){
