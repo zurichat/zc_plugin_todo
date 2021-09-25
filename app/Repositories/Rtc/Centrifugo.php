@@ -3,6 +3,7 @@
 namespace App\Repositories\Rtc;
 
 use App\Contracts\CentrifugoInterface;
+use App\Helpers\Constants;
 use Illuminate\Support\Facades\Http;
 
 class Centrifugo implements CentrifugoInterface
@@ -10,17 +11,17 @@ class Centrifugo implements CentrifugoInterface
 
     protected $url = "https://realtime.zuri.chat/api";
 
-    public function publishToCommonRoom($channel, $data, $newChannel, $subscriberId, $collection, $unSubsciberId = null)
+    public function publishToCommonRoom(array $data, string $newChannel, string $subscriberId, string $collection, string $unSubsciberId = null)
     {
         $response = Http::withHeaders([
 
             'Content-type' => 'application/json',
-            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b'//58c2400b-831d-411d-8fe8-31b6e337738b'
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' //58c2400b-831d-411d-8fe8-31b6e337738b'
 
         ])->post($this->url, [
             'method' => 'publish',
             'params' => [
-                "channel" => $channel,
+                "channel" => 'common-room',
                 "data" => [
                     "subscriberId" => $subscriberId,
                     "collection" => $collection,
@@ -28,7 +29,7 @@ class Centrifugo implements CentrifugoInterface
                     "details"  => $data,
                     "unSubscriberId" => $unSubsciberId
                 ],
-                
+
             ]
         ]);
 
@@ -42,7 +43,7 @@ class Centrifugo implements CentrifugoInterface
         $response = Http::withHeaders([
 
             'Content-type' => 'application/json',
-            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b'//58c2400b-831d-411d-8fe8-31b6e337738b'
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' //58c2400b-831d-411d-8fe8-31b6e337738b'
 
         ])->post($this->url, [
             'method' => 'publish',
