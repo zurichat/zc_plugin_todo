@@ -51,11 +51,17 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $tasks = $this->taskService->findBy('_id', $id);
-        if (empty($tasks)) {
-           return response()->json(['message' => 'Todo not found'], 404);
+        $result = $this->todoService->findBy('_id', $id);
+        $activeTask = [];
+
+        if (isset($result['status']) && $result['status'] == 404) {
+            return response()->json($result, 404);
         }
-        return response()->json($tasks, 200);
+
+        foreach ($result as $value) {
+            array_push($activeTask, $value);
+        }
+        return response()->json(['status' => 'success', 'type' => 'Task Collection', 'data' => $activeTask],  200);
     }
 
     public function updateTaskDate(Request $request, $id)
