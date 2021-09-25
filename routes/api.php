@@ -27,9 +27,11 @@ use App\Http\Controllers\TaskSearchController;
 
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
+
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
     Route::get('user-todo', [TodoController::class, 'userTodos']);
+
     Route::get('task', [TaskController::class, 'index']);
     Route::get('task/{id}/show', [TaskController::class, 'show']);
     Route::get('todo/{id}/{user_id}/show', [TodoController::class, 'getTodo']);
@@ -40,7 +42,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
-    Route::put('/todo/{id}/add-task', [TaskController::class, 'addTask']);
+
+    Route::put('add-task/{todoId}', [TaskController::class, 'addTask']);
     Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
 
 
