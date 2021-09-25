@@ -74,6 +74,6 @@ class TodoController extends Controller
 
     public function getTodo($id, $user_id)
     {
-       return  response()->json($this->todoService->find($id, $user_id));
+       return  response()->json($this->todoService->findTodo($id, $user_id));
     }
 }
