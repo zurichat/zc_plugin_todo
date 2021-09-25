@@ -12,7 +12,8 @@ use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\MarkTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
-
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -197,39 +198,36 @@ class TaskController extends Controller
     }
 
 
-    public function addTask(AddTaskRequest $request, $id) {
-        $validated = $request->validated();
-        $todo = $this->todoService->findBy('_id', $id);
+    public function addTask(AddTaskRequest $request, $todoId) {
+
+        $title = $request->title;
+        $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
-        if($todo['user_id'] != $request->user_id){
-            return response()->json('Unauthorized', 404);
-        }
-        $tasks = [
-            'task_id' => uniqid(),
-            'title' => $request->title,
-            'recurring' => $request->recurring,
-            'status' => 0,
-        ];
         
-        array_push($todo['tasks'], $tasks);
-        
+        $taskId = Str::uuid();
+
+        $newTasks = ["task_id" => $taskId, "title" => $title, "recurring" => null, "status" => 0];
+        array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
-        $result = $this->todoService->update($todo, $id);
+        $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-            $this->todoService->publish(
-                $todo['channel'],
-                ['user_id' => $request->user_id, 'message' => 'Task created', 'data' => $tasks]
-            );
-            return response()->json(["status" => "success", "data" => array_merge(['_id' => $id], $todo)], 200);
-        } else {
-            return response()->json(["status" => "error", "data" => $result], 500);
+
+            // Publish To Centrifugo
+            //$this->todoService->publish('common-room', [], $todo['channel'], null, "DemoTask", null);
+
+            $this->todoService->publish($todo['channel'], $todo, null, null, "DemoTask", null);
+            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         }
+
+        return response()->json(['status' => "error", 'message' => $result], 500);
+        
     }
-    public function markTask(MarkTaskRequest $request, $todoId)
+    
+    public function markTask(Request $request, $todoId)
     {
         $adminExist = false;
         $todo = $this->todoService->findBy('_id', $todoId);
