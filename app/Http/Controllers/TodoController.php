@@ -36,9 +36,7 @@ class TodoController extends Controller
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-
-            $this->todoService->publish($channel, $responseWithId);
-            // $this->todoService->publish('common-room', ['user_id' => $request->user_id, 'channel' => $channel]);
+            $this->todoService->publish('common-room', $responseWithId, $channel, $input['user_id'], 'todo', null);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
