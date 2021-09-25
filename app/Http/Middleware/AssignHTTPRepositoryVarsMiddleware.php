@@ -23,8 +23,8 @@ class AssignHTTPRepositoryVarsMiddleware
         }
         // store variables
         Config::set('organisation_id', $request->organisation_id);
-        // Config::set('plugin_id', $request->plugin_id);
-        // Config::set('user_id', $request->user_id);
+        Config::set('plugin_id', $request->plugin_id);
+        Config::set('user_id', $request->user_id);
         // continue
         return $next($request);
     }

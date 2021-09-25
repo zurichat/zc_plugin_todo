@@ -19,16 +19,28 @@ class TodoService extends TodoRepository
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
-
     public function find($id)
     {
         return Response::checkAndServe($this->httpRepository->find($id));
+    }
+
+    public function findTodo($id, $user_id)
+    {
+        $todo =  Response::checkAndServe($this->httpRepository->findWhere(['_id' => $id, 'user_id' => $user_id]));
+        if (isset($todo['data']) && $todo['data'] == null) {
+            abort(404, "Todo not found");
+        }
+        return $todo;
     }
 
 
     public function findBy($attr, $value)
     {
         return Response::checkAndServe($this->httpRepository->findBy($attr, $value));
+    }
+
+    public function findWhere($whereArray){
+        return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
     }
 
 
@@ -46,13 +58,14 @@ class TodoService extends TodoRepository
   /**
      * This will search with a specif key-value pair
      */
-    public function search($key, $data)
+    public function search($key, $data, $user_id)
     {
-        $objects = $this->all();
-        if (isset($objects['status'])) {
+        $objects = $this->httpRepository->findWhere([$key => $data, 'user_id' => $user_id]);
+
+        if (isset($objects['status']) && $objects['status'] == '404') {
             return ["status" => "error"];
         }
-        $search_data = collect($objects)->map(function($todo) use($data, $key) {
+        $search_data = collect($objects['data'])->map(function($todo) use($data, $key) {
             if(strtolower($todo[$key]) == strtolower($data)){
                 return $todo;
             }
