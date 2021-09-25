@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class AssignHTTPRepositoryVarsMiddleware
 {
@@ -16,9 +17,11 @@ class AssignHTTPRepositoryVarsMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // store session vars
-        session(['organisation_id' => $request->org]);
-        session(['plugin_id' => $request->plugin_id]);
+        // store variables
+        Config::set('organisation_id', $request->organisation_id);
+        Config::set('plugin_id', $request->plugin_id);
+        Config::set('user_id', $request->user_id);
+        // continue
         return $next($request);
     }
 }
