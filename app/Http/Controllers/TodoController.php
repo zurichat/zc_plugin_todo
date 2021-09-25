@@ -45,6 +45,29 @@ class TodoController extends Controller
 
     // - This meythod and assoc endpoint are basically for testing purposes
 
+    public function userTodos(Request $request)
+    {
+        $where = ['user_id' => $request['user_id']];
+        $result = $this->todoService->findWhere($where);
+        $activeTodo = [];
+
+        if (isset($result['status']) && $result['stutus'] == 404) {
+            return response()->json($result, 404);
+        }
+
+        foreach ($result as $value) {
+            if (!isset($value['archived_at']) || $value['archived_at'] === null) {
+                array_push($activeTodo, $value);
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'type' => 'Todo Collection',
+            'count' => count($activeTodo), 'data' => $activeTodo
+        ], 200);
+    }
+
     public function index()
     {
         $result = $this->todoService->all();
