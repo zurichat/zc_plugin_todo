@@ -56,7 +56,8 @@ class AssignUserController extends Controller
             return response()->json($todo, 404);
         }
 
-        $removeColabo = ['user_id' => $request->user_id;
+        $removeColabo = ['user_id' => $request->user_id];
+
         unset($todo['colaborators'], $removeColabo);
         unset($todo['_id']);
 
@@ -75,5 +76,4 @@ class AssignUserController extends Controller
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
-    
 }

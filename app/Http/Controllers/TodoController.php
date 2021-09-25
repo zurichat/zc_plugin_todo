@@ -21,8 +21,7 @@ class TodoController extends Controller
 
     public function createTodo(TodoRequest $request)
     {
-       // $channel = substr(uniqid(), 0, 10) . "-$request->title";
-        $channel = "Didier";
+        $channel = substr(uniqid(), 0, 10) . "-$request->title";
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
@@ -38,7 +37,7 @@ class TodoController extends Controller
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
 
-             $this->todoService->publish($channel, $responseWithId);
+            $this->todoService->publish($channel, $responseWithId);
             // $this->todoService->publish('common-room', ['user_id' => $request->user_id, 'channel' => $channel]);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
@@ -47,6 +46,7 @@ class TodoController extends Controller
     }
 
     // - This meythod and assoc endpoint are basically for testing purposes
+
     public function index()
     {
         $result = $this->todoService->all();
