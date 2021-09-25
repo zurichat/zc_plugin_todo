@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "axios": "^0.21.4",
+        "centrifuge": "^2.8.2",
         "core-js": "^3.6.5",
         "primeicons": "^4.1.0",
         "primevue": "3.7.0",
