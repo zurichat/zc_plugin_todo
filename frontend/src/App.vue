@@ -27,9 +27,7 @@ export default {
       //       // this.centrifuge.setToken('token');
       //       console.log('i go to this place');
       //       this.centrifuge.on("connect", (ctx) => {
-
       //          console.log("connected", ctx);
-
       //           this.centrifuge.subscribe("common-room", function(message) {
       //         // check if auth user id is same a subscriber id
       //           if (message.data.subscriberId == 2) {
@@ -55,7 +53,6 @@ export default {
   </script>
 
 <style>
-
 @import './assets/styles/app.css';
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 body {
