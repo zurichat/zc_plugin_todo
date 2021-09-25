@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Config;
 
 class SidebarResource extends JsonResource
 {
@@ -17,11 +18,11 @@ class SidebarResource extends JsonResource
         return [
             'name' => 'Todo Plugin',
             'description' => 'Shows todo items',
-            'plugin_id' => session('plugin_id'),
-            'organisation_id' => session('organisation_id'),
-            'user_id' => '232',
+            'plugin_id' => Config::get('organisation_id'),
+            'organisation_id' => Config::get('organisation_id'),
+            'user_id' => Config::get('organisation_id'),
             'group_name' => 'Todo',
-            'show_group' => false,
+            'sidebar_logo' => 'https://media.publit.io/file/calendar-page-with-circular-clock-symbol-svgrepo-com.svg',
             'joined_rooms' => SidebarRoomsResource::collection($this['joined_rooms']),
             'public_rooms' => SidebarRoomsResource::collection($this['public_rooms'])
         ];

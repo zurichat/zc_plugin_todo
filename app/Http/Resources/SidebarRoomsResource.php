@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Config;
 
 class SidebarRoomsResource extends JsonResource
 {
@@ -17,13 +18,7 @@ class SidebarRoomsResource extends JsonResource
         return [
             'title' => $this['title'],
             'id' => $this['_id'],
-            'unread' => null,
-            'members' => null,
-            'icon' => 'shovel',
-            'action' => 'open',
-            "organisation_id" => $this['organisation_id'],
-            "owner" => $this['owner'],
-            "user_id" => $this['user_id']
+            'unread' => null
         ];
     }
 }
