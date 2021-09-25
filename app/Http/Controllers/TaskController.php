@@ -9,9 +9,11 @@ use App\Services\TodoService;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TodoResource;
 use App\Http\Requests\AddTaskRequest;
+use App\Http\Requests\MarkTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
-
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -196,32 +198,73 @@ class TaskController extends Controller
     }
 
 
-    public function addTask(AddTaskRequest $request, $id) {
-       $todo = $this->todoService->findBy('_id', $id);
-        // return $this->todoService->all();
-        $data = array();
-        $tasks = $request->input('tasks');
+    public function addTask(AddTaskRequest $request, $todoId) {
 
-            foreach ($tasks as $task) {
-                $data['tasks'][] = ['task_id' => uniqid(), 'title' => $task, 'status' => 1, 'created_at' => Carbon::now()->toDateTimeString()];
-            }
+        $taskPayload = $request->json("tasks");
+        $title = $taskPayload["title"];
 
-        $response = $this->todoService->update($data, $id);
+        $todo = $this->todoService->find($todoId);
 
-        if (isset($response['status']) && $response['status'] == "404")
-        {
-            return response()->json([
-                'status' => false,
-                'type' => 'error',
-                'message' => 'Task could not be added'
-            ], 500);
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
         }
-        return response()->json([
-            'status' => true,
-            'type' => 'success',
-            'message' => 'Task has been added successfully',
-            'data' => $data
-        ], 201);
+        
+        $taskId = Str::uuid();
+
+        $newTasks = ["task_id" => $taskId, "title" => $title, "recurring" => null, "status" => 0];
+        array_push($todo['tasks'], $newTasks);
+        unset($todo['_id']);
+
+        $result = $this->todoService->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+    
+            // Publish To Centrifugo
+
+            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "DemoTask");
+
+            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+        }
+
+        return response()->json(['status' => "error", 'message' => $result], 500);
+        
+    }
+    
+    public function markTask(Request $request, $todoId)
+    {
+        $adminExist = false;
+        $todo = $this->todoService->findBy('_id', $todoId);
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+        if ($todo['user_id'] != $request->user_id) {
+            foreach ($todo['colaborators'] as $key => $value) {
+                if ($value['user_id'] == $request->user_id && $value['admin_status'] == 1) {
+                    $adminExist = true;
+                }
+            }
+        } else {
+            $adminExist = true;
+        }
+        if ($adminExist == false) return response()->json('Unauthorized', 404);
+        foreach ($todo['tasks'] as $key => $value) {
+            # code...
+            if ($value['task_id'] == $request->task_id) {
+                $value['status'] = $request->status;
+            }
+        }
+
+        unset($todo['_id']);
+
+        $result = $this->todoService->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            $this->todoService->publish(
+                $todo['channel'],
+                ['user_id' => $request->user_id, 'message' => 'Task status updated', 'data' => $todo]
+            );
+            return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+        } else {
+            return response()->json(["status" => "error", "data" => $result], 500);
+        }
     }
 
 }

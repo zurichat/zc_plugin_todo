@@ -21,8 +21,7 @@ class TodoController extends Controller
 
     public function createTodo(TodoRequest $request)
     {
-       // $channel = substr(uniqid(), 0, 10) . "-$request->title";
-        $channel = "Didier";
+        $channel = substr(uniqid(), 0, 10) . "-$request->title";
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
@@ -37,19 +36,18 @@ class TodoController extends Controller
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-
-             $this->todoService->publish($channel, $responseWithId);
-            // $this->todoService->publish('common-room', ['user_id' => $request->user_id, 'channel' => $channel]);
+            $this->todoService->publish('common-room', $responseWithId, $channel, $input['user_id'], 'todo', null);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
         return response()->json(['message' => $result['message']], 404);
     }
 
-    // - This meythod and assoc endpoint are basically for testing purposes
-    public function index()
+
+    public function userTodos(Request $request)
     {
-        $result = $this->todoService->all();
+        $where = ['user_id' => $request['user_id']];
+        $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
         if (isset($result['status']) && $result['stutus'] == 404) {
@@ -62,15 +60,24 @@ class TodoController extends Controller
             }
         }
 
-        return response()->json(['status' => 'success', 'type' => 'Todo Collection', 'data' => $activeTodo],  200);
+        return response()->json([
+            'status' => 'success',
+            'type' => 'Todo Collection',
+            'count' => count($activeTodo), 'data' => $activeTodo
+        ], 200);
     }
 
     public function search_todo(Request $request)
     {
-        $search = $this->todoService->search($request->query('key'), $request->query('q'));
+        $search = $this->todoService->search($request->query('key'), $request->query('q'), $request->query('user_id'));
         if (count($search) < 1 || isset($search['status'])) {
             return response()->json(['message' => 'No result found'], 404);
         }
         return response()->json($search, 200);
+    }
+
+    public function getTodo($id, $user_id)
+    {
+        return  response()->json($this->todoService->findTodo($id, $user_id));
     }
 }

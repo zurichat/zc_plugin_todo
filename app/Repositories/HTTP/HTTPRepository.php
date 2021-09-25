@@ -4,6 +4,7 @@ namespace App\Repositories\HTTP;
 
 use App\Contracts\RepositoryInterface;
 use App\Helpers\HelperFnc;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 
 class HTTPRepository implements RepositoryInterface
@@ -12,18 +13,14 @@ class HTTPRepository implements RepositoryInterface
 
     protected $modelName;
     protected $model;
-    protected $org = '613a3ac959842c7444fb0240';
     protected $plugin_id = '6138deac99bd9e223a37d8f5';
-    protected $organisation_id = '613a3ac959842c7444fb0240'; // same as $org but let's keep for now
+    protected $organisation_id;// = '613a3ac959842c7444fb0240'; // same as $org but let's keep for now
 
     public function __construct($modelName = "")
     {
         $this->modelName = $modelName;
         $this->model = new Http();
-        // Had to commentout the credentials for session cause they were'nt working
-        // $this->organisation_id = session('organisation_id');
-        // $this->plugin_id = session('plugin_id');
-
+        $this->organisation_id = Config::get('organisation_id');
     }
 
     public function allWithoutDeletedWhere(array $where)
@@ -37,12 +34,12 @@ class HTTPRepository implements RepositoryInterface
 
     public function all()
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id)->json();
     }
 
     public function find($id, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?_id=' . $id)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?_id=' . $id)->json();
     }
 
     public function findOrFail($id, $attributes = ['*'])
@@ -57,7 +54,7 @@ class HTTPRepository implements RepositoryInterface
 
     public function findBy($attribute, $value, $attributes = ['*'])
     {
-        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->org . '?' . $attribute . '=' . $value)->json();
+        return $this->model::get($this->url . 'data/read/' . $this->plugin_id . '/' . $this->modelName . '/' . $this->organisation_id . '?' . $attribute . '=' . $value)->json();
     }
 
     public function findFirst($attributes = ['*'])
