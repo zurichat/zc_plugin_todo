@@ -1,159 +1,4 @@
 <template>
-  <div class="overlay">
-<<<<<<< HEAD:resources/js/components/TodoForm.vue
-    <form
-      @submit.prevent="addTodo"
-      class="w-4/5 md:w-6/12 p-4 bg-white rounded"
-    >
-      <div class="mb-4">
-        <div class="flex flex-row justify-between pb-4 items-center">
-          <h1 class="font-bold text-xl capitalize">Create a new todo</h1>
-          <div @click="closeModal" class="cursor-pointer">
-            <i class="pi pi-times"></i>
-          </div>
-        </div>
-        <h4 class="text-gray-400 text-sm font-medium">
-          Todos help you keep track of tasks. They are best when created
-          specifically for a task with subsequent sub tasks
-        </h4>
-      </div>
-
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 font-bold" for="name">Name</label>
-        <input
-          v-model="todoDetails.title"
-          required
-          type="text"
-          id="name"
-          class="
-            border
-            hover:border-green-400
-            bg-white
-            py-3
-            outline-none
-            text-md
-            w-full
-            px-2
-            rounded
-          "
-          placeholder="e.g. todo 01"
-        />
-      </div>
-
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 font-bold" for="description"
-          >Description<span>(optional)</span></label
-        >
-        <input
-          v-model="todoDetails.description"
-          required
-          type="text"
-          id="description"
-          class="
-            border
-            hover:border-green-400
-            bg-white
-            py-3
-            outline-none
-            text-md
-            w-full
-            px-2
-            rounded
-          "
-          placeholder="Design the UI for a Todo plugin"
-        />
-      </div>
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 font-bold" for="description"
-          >Due Date<span>(optional)</span></label
-        >
-        <input
-          v-model="todoDetails.description"
-          required
-          type="text"
-          id="description"
-          class="
-            border
-            hover:border-green-400
-            bg-white
-            py-3
-            outline-none
-            text-md
-            w-full
-            px-2
-            rounded
-          "
-          placeholder="Type task description"
-        />
-      </div>
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 text-red-400 capitalize font-bold" for="token"
-          >token<span>(necessary)</span></label
-        >
-        <input
-          v-model="token"
-          required
-          type="text"
-          id="token"
-          class="
-            border
-            hover:border-green-400
-            bg-white
-            py-3
-            outline-none
-            text-md
-            w-full
-            px-2
-            rounded
-          "
-          placeholder="Type user token"
-        />
-      </div>
-      <div class="form-group flex flex-col pb-4">
-        <label class="pb-2 text-red-400 capitalize font-bold" for="user_id"
-          >user_id<span>(necessary)</span></label
-        >
-        <input
-          v-model="todoDetails.user_id"
-          required
-          type="text"
-          id="user_id"
-          class="
-            border
-            hover:border-green-400
-            bg-white
-            py-3
-            outline-none
-            text-md
-            w-full
-            px-2
-            rounded
-          "
-          placeholder="Type user_id"
-        />
-      </div>
-      <!-- <div class="form-group flex flex-col pb-4">
-          <label class="pb-2 font-bold" for="dueDate">Due Date</label>
-          <input required type="date" class="border hover:border-green-400 bg-white outline-none text-gray-500 py-3 text-md w-full px-2 rounded" id="dueDate"
-            v-model="todoDetails.dueDate" />
-        </div> -->
-      <div class="cta-container">
-        <button
-          class="
-            submit
-            bg-green-500
-            py-3
-            px-4
-            rounded
-            text-white
-            font-bold
-            float-right
-          "
-          type="submit"
-        >
-          Create todo
-        </button>
-=======
     <form @submit.prevent="addTodo" v-click-away="ClickAway" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
       <div class="td-mb-4 ">
         <div class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center">
@@ -177,10 +22,62 @@
       </div>
     
         <!-- <div class="form-group td-flex td-flex-col td-pb-4">
+=======
+    <div class="overlay">
+        <form
+            @submit.prevent="addTodo"
+            v-click-away="ClickAway"
+            class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded "
+        >
+            <div class="td-mb-4 ">
+                <div
+                    class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center"
+                >
+                    <h1 class="td-font-bold td-text-xl td-capitalize">
+                        Create a new todo
+                    </h1>
+                    <div @click="closeModal" class="td-cursor-pointer">
+                        <i class="pi pi-times"></i>
+                    </div>
+                </div>
+                <h4 class="td-text-gray-400 td-text-sm td-font-medium">
+                    Todos help you keep track of tasks. They are best when
+                    created specifically for a task with subsequent sub tasks
+                </h4>
+            </div>
+
+            <div class="form-group td-flex td-flex-col pb-4">
+                <label class="td-pb-2 td-font-bold" for="name">Name</label>
+                <input
+                    v-model="todoDetails.title"
+                    required
+                    type="text"
+                    id="name"
+                    class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
+                    placeholder="e.g. title"
+                />
+            </div>
+
+            <div class="form-group td-flex td-flex-col td-pb-4">
+                <label class="td-pb-2 td-font-bold" for="description"
+                    >Description<span>(optional)</span></label
+                >
+                <input
+                    v-model="todoDetails.description"
+                    required
+                    type="text"
+                    id="description"
+                    class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
+                    placeholder="Type task description"
+                />
+            </div>
+
+            <!-- <div class="form-group td-flex td-flex-col td-pb-4">
           <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
           <input required type="date" class="border hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" id="dueDate"
             v-model="todoDetails.dueDate" />
         </div> -->
+<<<<<<< HEAD
       <div class="cta-container">
         
         <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right" type="submit">Create task</button>
@@ -190,47 +87,32 @@
   </div>
 </template>
 
+
+
 <script>
-<<<<<<< HEAD:resources/js/components/TodoForm.vue
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import axios from "axios";
 export default {
-  name: "TaskForm",
-  data() {
-    return {
-      token: "",
-      todoDetails: {
-        title: "",
-
-        type: "public",
-        description: "",
-        labels: [],
-        user_id: "",
-=======
-  import { mapActions } from "vuex";
-  import { mapGetters } from "vuex";
-  import axios from 'axios'
-  export default {
     name: "TaskForm",
     data() {
-      return {
-          token: '',
-        todoDetails: {
-          title: "",
-          
-          type: "public",
-          description: "",
-          labels: [],
-          user_id: "",
-        },
-      };
+        return {
+            token: "",
+            todoDetails: {
+                title: "",
+
+                type: "public",
+                description: "",
+                labels: [],
+                user_id: ""
+            }
+        };
     },
     computed: {
-      //function to get user object from vuex store
-      ...mapGetters({
-        user: "user/user",
-      }),
+        //function to get user object from vuex store
+        ...mapGetters({
+            user: "user/user"
+        })
     },
     methods: {
       ...mapActions({
@@ -253,45 +135,16 @@ export default {
         this.$emit("toggleModal");
         //   function to call action in the vuex store 
         this.createTodo(this.todoDetails);
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/components/TodoForm.vue
       },
-    };
-  },
-  computed: {
-    //function to get user object from vuex store
-    ...mapGetters({
-      user: "user/user",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      createTodo: "todos/createTodo",
-    }),
-    closeModal() {
-      console.log("hgey");
-      this.$emit("toggleModal");
-    },
-    addTodo() {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
-      this.todoDetails.user_id = this.user.uuid;
-      //console.log(this.todoDetails);
-      //   function to toggle modal in the main page
-      console.log(this.todoDetails);
-      this.$emit("toggleModal");
-      //   function to call action in the vuex store
-      this.createTodo(this.todoDetails);
-    },
-  },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-//   * {
-//     margin: 0;
-//     box-sizing: border-box;
-//   }
+//  * {  
+//      margin: 0;
+//      box-sizing: border-box;
+//    }
 
-<<<<<<< HEAD:resources/js/components/TodoForm.vue
 .overlay {
   width: 100%;
   display: flex;
@@ -303,26 +156,7 @@ export default {
   left: 0;
   z-index: 2;
 }
-=======
-   .overlay {
-     
-    line-height: 1.46666667;
-    align-items: center;
-    background: rgba(0,0,0,.6);
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    left: 0;
-    // opacity: 0;
-    position: fixed;
-    top: 0;
-    transition: 80ms linear;
-    width: 100%;
-    z-index: 1012;
-   }
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/components/TodoForm.vue
-
-//   form {
+// form {
 //     width: 40%;
 //     margin: 25px auto;
 //     background: #fff;
@@ -414,13 +248,4 @@ export default {
 //     color: #00b87c;
 //   }
 
-<<<<<<< HEAD:resources/js/components/TodoForm.vue
-.overlay {
-  background: rgba(0, 0, 0, 0.14901960784313725);
-}
-=======
-  
-
-  
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/components/TodoForm.vue
 </style>

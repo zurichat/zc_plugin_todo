@@ -1,6 +1,6 @@
 <template>
     <div class="mx-auto sm:w-4/5">
-        <div class="flex items-center m-4 text-black"> <img class="inline m-2 w-5" :src="'/img/Vue.js_Logo.svg'" alt="">
+         <div class="flex items-center m-4 text-black"><!-- <img class="inline m-2 w-5" :src="'/img/Vue.js_Logo.svg'" alt=""> -->
             <span class="italic">Vue Installation was Successful<span class="text-green-500">&nbsp;!!!!</span></span>
         </div>
         <div class="sm:grid sm:grid-cols-2 flex flex-col justify-center flex-start  items-center w- my-10 sm:my-20">
@@ -17,6 +17,6 @@
 </template>
 <script>
     export default {
-        name: 'Home'
+        name: 'Busy'
     }
 </script>
