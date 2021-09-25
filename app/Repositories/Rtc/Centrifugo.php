@@ -10,7 +10,7 @@ class Centrifugo implements CentrifugoInterface
 
     protected $url = "https://realtime.zuri.chat/api";
 
-    public function publish($channel, $data, $newChannel = null, $subscriberId = null, $collection =null, $unSubsciberId = null)
+    public function publishToCommonRoom($channel, $data, $newChannel, $subscriberId, $collection, $unSubsciberId = null)
     {
         $response = Http::withHeaders([
 
@@ -29,6 +29,29 @@ class Centrifugo implements CentrifugoInterface
                     "unSubscriberId" => $unSubsciberId
                 ],
                 
+            ]
+        ]);
+
+        return response()->json([
+            "data" => $response->json()
+        ], 200);
+    }
+
+    public function publishToRoomChannel($channel, $data, $collection)
+    {
+        $response = Http::withHeaders([
+
+            'Content-type' => 'application/json',
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b'//58c2400b-831d-411d-8fe8-31b6e337738b'
+
+        ])->post($this->url, [
+            'method' => 'publish',
+            'params' => [
+                "channel" => $channel,
+                "data" => [
+                    "collection" => $collection,
+                    "details"  => $data,
+                ]
             ]
         ]);
 
