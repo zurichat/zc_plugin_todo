@@ -22,7 +22,11 @@ class TodoService extends TodoRepository
 
     public function find($id, $user_id)
     {
-        return $this->httpRepository->findWhere(['_id' => $id, 'user_id' => $user_id]);
+        $todo =  Response::checkAndServe($this->httpRepository->findWhere(['_id' => $id, 'user_id' => $user_id]));
+        if (isset($todo['data']) && $todo['data'] == null) {
+            abort(404, "Todo not found");
+        }
+        return $todo;
     }
 
 
