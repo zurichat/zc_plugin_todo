@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import { GetUserInfo } from "zuricontrol"
+// import { GetUserInfo } from "zuricontrol"
 import Centrifuge from 'centrifuge'
-// //  let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
+// let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
   data(){
@@ -18,7 +18,7 @@ export default {
   components: { },
    methods: {
       async auth(){
-       GetUserInfo()
+      //  GetUserInfo()
          
        },
        callCentrifugo(){
