@@ -9,6 +9,7 @@ use App\Services\TodoService;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TodoResource;
 use App\Http\Requests\AddTaskRequest;
+use App\Http\Requests\MarkTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
 use Ramsey\Uuid\Uuid;
@@ -236,22 +237,24 @@ class TaskController extends Controller
             return response()->json($todo, 404);
         }
         if ($todo['user_id'] != $request->user_id) {
-            foreach($todo['colaborators'] as $key => $value){
-                if($value['user_id'] == $request->user_id && $value['admin_status'] == 1){
+            foreach ($todo['colaborators'] as $key => $value) {
+                if ($value['user_id'] == $request->user_id && $value['admin_status'] == 1) {
                     $adminExist = true;
                 }
             }
-        }else{
+        } else {
             $adminExist = true;
         }
-        if($adminExist == false) return response()->json('Unauthorized', 404);
+        if ($adminExist == false) return response()->json('Unauthorized', 404);
         foreach ($todo['tasks'] as $key => $value) {
             # code...
-            if($value['task_id'] == $request->task_id){
+            if ($value['task_id'] == $request->task_id) {
                 $value['status'] = $request->status;
             }
         }
+
         unset($todo['_id']);
+
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             $this->todoService->publish(

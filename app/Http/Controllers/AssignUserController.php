@@ -57,6 +57,7 @@ class AssignUserController extends Controller
         }
 
         $removeColabo = ['user_id' => $request->user_id];
+
         unset($todo['colaborators'], $removeColabo);
         unset($todo['_id']);
 
