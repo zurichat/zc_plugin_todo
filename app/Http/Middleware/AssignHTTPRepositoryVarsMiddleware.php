@@ -17,6 +17,10 @@ class AssignHTTPRepositoryVarsMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        // check if organsation_id is missig
+        if(!$request->has('organisation_id')){
+            return response()->json(['error' => 'Organisation id is required'], 422);
+        }
         // store variables
         Config::set('organisation_id', $request->organisation_id);
         // Config::set('plugin_id', $request->plugin_id);
