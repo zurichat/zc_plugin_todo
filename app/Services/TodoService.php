@@ -20,9 +20,9 @@ class TodoService extends TodoRepository
     }
 
 
-    public function find($id)
+    public function find($id, $user_id)
     {
-        return Response::checkAndServe($this->httpRepository->find($id));
+        return $this->httpRepository->findWhere(['_id' => $id, 'user_id' => $user_id]);
     }
 
 
@@ -46,13 +46,14 @@ class TodoService extends TodoRepository
   /**
      * This will search with a specif key-value pair
      */
-    public function search($key, $data)
+    public function search($key, $data, $user_id)
     {
-        $objects = $this->all();
-        if (isset($objects['status'])) {
+        $objects = $this->httpRepository->findWhere([$key => $data, 'user_id' => $user_id]);
+
+        if (isset($objects['status']) && $objects['status'] == '404') {
             return ["status" => "error"];
         }
-        $search_data = collect($objects)->map(function($todo) use($data, $key) {
+        $search_data = collect($objects['data'])->map(function($todo) use($data, $key) {
             if(strtolower($todo[$key]) == strtolower($data)){
                 return $todo;
             }
