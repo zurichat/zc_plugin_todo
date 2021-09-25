@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AddTaskRequest extends FormRequest
+class MarkTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +28,10 @@ class AddTaskRequest extends FormRequest
     {
         return [
             'user_id' => 'required|string',
-            'title' => 'required|string',
-            'recurring' => 'required|integer|digits_between:0,1',
+            'task_id' => 'required|string',
+            'status' => 'required|integer|digits_between:0,1',
         ];
     }
-
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
