@@ -98,23 +98,9 @@ Route::prefix('v1')->group(function () {
     Route::post('update', [TodoController::class, 'update']);
 
     // Plugin Info Related Enpoints
-    Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+    Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
     Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
     Route::get('ping', function () {
         return response()->json(['message' => 'Server is live'], 200);
     });
 });
-
-
-// Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
-Route::prefix('v1')->group(function () {
-    Route::get('/todo', [SideBarTodoController::class, 'index']);
-    Route::post('/todo', [SideBarTodoController::class, 'store']);
-    Route::delete('/todo', [SideBarTodoController::class, 'delete']);
-    Route::get('/sidebar', [SideBarTodoController::class, 'sidebar']);
-    Route::get('/all-rooms', [SideBarTodoController::class, 'allRooms']);
-    Route::get('/users-in-room', [SideBarTodoController::class, 'usersInRoom']);
-    Route::post('/auth/login', [AuthController::class, 'login']);
-});
-
-// Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);
