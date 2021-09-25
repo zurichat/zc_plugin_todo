@@ -118,13 +118,7 @@ export default {
         },
         async SEARCH({ commit, dispatch }, any) {
             let value = any
-<<<<<<< HEAD:resources/js/store/todo.js
-            if (value === "") {
-                dispatch('TOGGLESHOW', true);
-            } else {
-=======
             if (value != "") {
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/store/todo.js
                 await axios.get(`https://todo.zuri.chat/api/v1/search?key=title&q=${value}`)
                     .then((res) => {
                         console.log(res.data);

@@ -1,12 +1,4 @@
 <template>
-<<<<<<< HEAD:resources/js/pages/Didier.vue
-  <div class="px-2">
-    <div id="header">
-      <div id="logo " class="flex items-center flex-row">
-        <img class="w-8 m-4" :src="'./img/zuri-logo.svg'" />
-        <span class="font-bold text-lg">Zuri</span>
-      </div>
-=======
     <div class="px-2">
         <div id="header">
             <div id="logo " class="flex items-center flex-row">
@@ -31,7 +23,6 @@
         <div class="sm:grid p-2 sm:grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 ">
             <NewCard v-for="i in 8" :key="i++" />
         </div>
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/pages/Didier.vue
     </div>
     <transition name="fade">
       <TaskForm v-if="isModal" @toggleModal="toggleModal" />

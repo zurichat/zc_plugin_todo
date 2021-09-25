@@ -1,8 +1,5 @@
 
 <template>
-<<<<<<< HEAD:resources/js/pages/New.vue
-    <div></div>
-=======
     <div>
         
         <!-- <transition name="fade">
@@ -48,7 +45,6 @@
         
     
     </div>
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/pages/New.vue
 </template>
 <script>
 import AssignForm from '../components/AssignForm';
