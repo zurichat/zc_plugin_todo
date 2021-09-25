@@ -198,11 +198,8 @@ class TaskController extends Controller
     }
 
 
-    public function addTask(AddTaskRequest $request, $todoId) {
-
-        $taskPayload = $request->json("tasks");
-        $title = $taskPayload["title"];
-
+    public function addTask(AddTaskRequest $request, $todoId) 
+    {
         $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
@@ -211,7 +208,7 @@ class TaskController extends Controller
         
         $taskId = Str::uuid();
 
-        $newTasks = ["task_id" => $taskId, "title" => $title, "recurring" => null, "status" => 0];
+        $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => null, "status" => 0];
         array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
