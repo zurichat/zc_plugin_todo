@@ -36,9 +36,7 @@ class TodoController extends Controller
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-
-            //$userId = $request->user_id;
-            //$this->todoService->publish('common-room', ['id' => "1234"], $channel, $request->user_id, "todo", null);
+            $this->todoService->publish('common-room', $responseWithId, $channel, $input['user_id'], 'todo', null);
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
@@ -46,6 +44,7 @@ class TodoController extends Controller
     }
 
     // - This meythod and assoc endpoint are basically for testing purposes
+
     public function index()
     {
         $result = $this->todoService->all();

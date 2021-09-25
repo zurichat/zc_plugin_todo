@@ -19,8 +19,12 @@ class TodoService extends TodoRepository
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
+    public function find($id)
+    {
+        return Response::checkAndServe($this->httpRepository->find($id));
+    }
 
-    public function find($id, $user_id)
+    public function findTodo($id, $user_id)
     {
         $todo =  Response::checkAndServe($this->httpRepository->findWhere(['_id' => $id, 'user_id' => $user_id]));
         if (isset($todo['data']) && $todo['data'] == null) {
@@ -33,6 +37,10 @@ class TodoService extends TodoRepository
     public function findBy($attr, $value)
     {
         return Response::checkAndServe($this->httpRepository->findBy($attr, $value));
+    }
+
+    public function findWhere($whereArray){
+        return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
     }
 
 

@@ -75,5 +75,4 @@ class AssignUserController extends Controller
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
-
 }
