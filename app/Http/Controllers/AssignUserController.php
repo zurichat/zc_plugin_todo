@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collaborator;
+use App\Helpers\Collaborator;
+
 use App\Services\TodoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -17,16 +18,18 @@ class AssignUserController extends Controller
     }
 
     public function assign(Request $request, $todoId)
-
     {
 
         $todo = $this->todoService->find($todoId);
-
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
 
-        $newColabo = ['user_id' => $request->user_id, 'admin_status' => $request->admin_status];
+        if (!Collaborator::isAdmin($todo, $request['user_id'])) {
+            return response()->json(['message' => 'Lack authorization'], 401);
+        }
+
+        $newColabo = ['user_id' => $request->collaborator_id, 'admin_status' => $request->admin_status];
         array_push($todo['colaborators'], $newColabo);
         unset($todo['_id']);
 
@@ -34,20 +37,30 @@ class AssignUserController extends Controller
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
-            $this->todoService->publish(
-                'common-room',
-                ['user_id' => $request->user_id, 'channel' => $todo['channel']]
+            $this->todoService->publishToCommonRoom(
+                ['message' => "collaborator added"],
+                $todo['channel'],
+                'info',
+                $request->user_id,
+                null
             );
 
-            $this->todoService->publish($todo['channel'], $todo['colaborators']);
-            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+            return response()->json(
+                [
+                    "status" => "success",
+                    "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)
+                ],
+                200
+            );
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
 
-    public function remove(Request $request, $todoId)
 
+
+
+    public function remove(Request $request, $todoId)
     {
 
         $todo = $this->todoService->find($todoId);
@@ -56,7 +69,12 @@ class AssignUserController extends Controller
             return response()->json($todo, 404);
         }
 
-        $removeColabo = ['user_id' => $request->user_id;
+        if (!Collaborator::isAdmin($todo, $request['user_id'])) {
+            return response()->json(['message' => 'Lack authorization'], 401);
+        }
+
+        $removeColabo = ['user_id' => $request->user_id];
+
         unset($todo['colaborators'], $removeColabo);
         unset($todo['_id']);
 
@@ -64,16 +82,17 @@ class AssignUserController extends Controller
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
-            $this->todoService->publish(
-                'common-room',
-                ['user_id' => $request->user_id, 'channel' => $todo['channel']]
+            $this->todoService->publishToCommonRoom(
+                ['message' => "collaborator added"],
+                null,
+                'info',
+                $request->user_id,
+                $todo['channel']
             );
 
-            $this->todoService->publish($todo['channel'], $todo['colaborators']);
             return response()->json(["status" => "success", "type" => "Todo", "data" => "User removed successfully"], 200);
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
-    
 }

@@ -27,10 +27,14 @@ use App\Http\Controllers\TaskSearchController;
 
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
+
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
+    Route::get('user-todo', [TodoController::class, 'userTodos']);
+
     Route::get('task', [TaskController::class, 'index']);
     Route::get('task/{id}/show', [TaskController::class, 'show']);
+    Route::get('todo/{id}/{user_id}/show', [TodoController::class, 'getTodo']);
     Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
     Route::post('/task/modify/{id}', [TaskController::class, 'updateTaskDate']);
     Route::post('/task/update/category/{id}', [TaskController::class, 'updateTaskCategory']);
@@ -38,11 +42,13 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
-    Route::put('add/{id}', [TaskController::class, 'addTask']);
+
+    Route::put('add-task/{todoId}', [TaskController::class, 'addTask']);
+    Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
 
 
     // Admin privilege
-    Route::put('admin-privilege/{todoId}',[AdminController::class, 'adminPrivilege']);
+    Route::put('admin-privilege/{todoId}', [AdminController::class, 'adminPrivilege']);
 
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
@@ -97,23 +103,9 @@ Route::prefix('v1')->group(function () {
     Route::post('update', [TodoController::class, 'update']);
 
     // Plugin Info Related Enpoints
-    Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+    Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
     Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
     Route::get('ping', function () {
         return response()->json(['message' => 'Server is live'], 200);
     });
 });
-
-
-// Route::prefix('v1')->middleware(['authenticate.plugin.user'])->group(function () {
-Route::prefix('v1')->group(function () {
-    Route::get('/todo', [SideBarTodoController::class, 'index']);
-    Route::post('/todo', [SideBarTodoController::class, 'store']);
-    Route::delete('/todo', [SideBarTodoController::class, 'delete']);
-    Route::get('/sidebar', [SideBarTodoController::class, 'sidebar']);
-    Route::get('/all-rooms', [SideBarTodoController::class, 'allRooms']);
-    Route::get('/users-in-room', [SideBarTodoController::class, 'usersInRoom']);
-    Route::post('/auth/login', [AuthController::class, 'login']);
-});
-
-// Route::delete('v1/all-rooms/{room_id}', [SideBarTodoController::class, 'deleteRoom']);

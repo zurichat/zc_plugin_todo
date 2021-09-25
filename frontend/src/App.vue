@@ -11,20 +11,18 @@ import Centrifuge from 'centrifuge'
 export default {
   name: 'App',
   data(){
- return  {
-     centrifuge : null
-     }
+    return  {
+        centrifuge : null
+        }
   },
-  components: {
-    
-  },
+  components: { },
    methods: {
       async auth(){
        GetUserInfo()
          
        },
        callCentrifugo(){
-         console.log('i say i wan sleep');
+                  console.log('i say i wan sleep');
             this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', {debug: true});
             // this.centrifuge.setToken('token');
             console.log('i go to this place');
@@ -51,9 +49,10 @@ export default {
      mounted(){
          this.auth(),
          this.callCentrifugo()
-  }
-}
-</script>
+       }
+   }
+  
+  </script>
 
 <style>
 
