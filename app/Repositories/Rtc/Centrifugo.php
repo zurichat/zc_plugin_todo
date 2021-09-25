@@ -8,20 +8,27 @@ use Illuminate\Support\Facades\Http;
 class Centrifugo implements CentrifugoInterface
 {
 
-    // protected $url = "http://localhost:8000/api";
-
     protected $url = "https://realtime.zuri.chat/api";
 
-    public function publish($channel, $data)
+    public function publish($channel, $data, $newChannel = null, $subscriberId = null, $collection =null, $unSubsciberId = null)
     {
         $response = Http::withHeaders([
+
             'Content-type' => 'application/json',
-            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' // . env("CENTRIFUGO_APIKEY")
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b'//58c2400b-831d-411d-8fe8-31b6e337738b'
+
         ])->post($this->url, [
             'method' => 'publish',
             'params' => [
-                'channel' => $channel,
-                'data' => $data
+                "channel" => $channel,
+                "data" => [
+                    "subscriberId" => $subscriberId,
+                    "collection" => $collection,
+                    "channel" => $newChannel,
+                    "details"  => $data,
+                    "unSubscriberId" => $unSubsciberId
+                ],
+                
             ]
         ]);
 

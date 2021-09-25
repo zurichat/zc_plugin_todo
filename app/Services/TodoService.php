@@ -65,4 +65,38 @@ class TodoService extends TodoRepository
 
         return $search_data;
     }
+
+    /**
+     * Check if todo is archived
+     */
+    public static function isTodoArchived($item)
+    {
+        // check if key exist
+        if(isset($item['archived_at'])){
+            // if key exist, check if key is null
+            // if null, todo is not archived
+            // else todo is archived
+            return $item['archived_at'] == null ? false : true;
+        }
+        // if key does not exist
+        // todo is not archived
+        return false;
+    }
+
+    /**
+     * Check if todo is deleted
+     */
+    public static function isTodoDeleted($item)
+    {
+        // check if key exist
+        if(isset($item['deleted_at'])){
+            // if key exist, check if key is null
+            // if null, todo is not deleted
+            // else todo is deleted
+            return $item['deleted_at'] == null ? false : true;
+        }
+        // if key does not exist
+        // todo is not deleted
+        return false;
+    }
 }
