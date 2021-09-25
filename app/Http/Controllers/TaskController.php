@@ -199,7 +199,9 @@ class TaskController extends Controller
 
     public function addTask(AddTaskRequest $request, $todoId) {
 
-        $title = $request->title;
+        $taskPayload = $request->json("tasks");
+        $title = $taskPayload["title"];
+        
         $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
@@ -214,11 +216,12 @@ class TaskController extends Controller
 
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-
+    
             // Publish To Centrifugo
             //$this->todoService->publish('common-room', [], $todo['channel'], null, "DemoTask", null);
 
             $this->todoService->publish($todo['channel'], $todo, null, null, "DemoTask", null);
+
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         }
 
