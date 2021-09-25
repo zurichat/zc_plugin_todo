@@ -1,8 +1,11 @@
  module.exports = {
-   outputDir : '../public',
-   configureWebpack: {
-     externals: {
-        zuricontrol : '@zuri/zuri-control'
-     }
-   }
+     outputDir: '../public',
+     chainWebpack: config => {
+         config.externals([
+             /.*camljs.*/i,
+             {
+                 'zuricontrol': '@zuri/zuri-control',
+             },
+         ])
+     },
  };
