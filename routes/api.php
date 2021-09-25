@@ -31,6 +31,7 @@ Route::prefix('v1')->group(function () {
     Route::get('all-todo', [TodoController::class, 'index']);
     Route::get('task', [TaskController::class, 'index']);
     Route::get('task/{id}/show', [TaskController::class, 'show']);
+    Route::get('todo/{id}/{user_id}/show', [TodoController::class, 'getTodo']);
     Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
     Route::post('/task/modify/{id}', [TaskController::class, 'updateTaskDate']);
     Route::post('/task/update/category/{id}', [TaskController::class, 'updateTaskCategory']);
