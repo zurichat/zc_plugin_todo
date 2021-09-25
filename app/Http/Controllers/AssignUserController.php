@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Collaborator;
+use App\Helpers\Collaborator;
+
 use App\Services\TodoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -26,6 +27,10 @@ class AssignUserController extends Controller
             return response()->json($todo, 404);
         }
 
+        if (!Collaborator::isAdmin($todo, $request['user_id'])) {
+            return response()->json(['message' => 'Lack authorization'], 401);
+        }
+
         $newColabo = ['user_id' => $request->user_id, 'admin_status' => $request->admin_status];
         array_push($todo['colaborators'], $newColabo);
         unset($todo['_id']);
@@ -34,6 +39,7 @@ class AssignUserController extends Controller
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
+            // $this->todoService->publishToCommonRoom(,);
             $this->todoService->publish(
                 'common-room',
                 ['user_id' => $request->user_id, 'channel' => $todo['channel']]
