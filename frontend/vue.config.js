@@ -4,7 +4,7 @@
          config.externals([
              /.*camljs.*/i,
              {
-                 'zuricontrol': '@zuri/zuri-control',
+                 'zuricontrol': '@zuri/control',
              },
          ])
      },
