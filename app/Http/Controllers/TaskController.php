@@ -9,6 +9,7 @@ use App\Services\TodoService;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TodoResource;
 use App\Http\Requests\AddTaskRequest;
+use App\Http\Requests\MarkTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
 use Ramsey\Uuid\Uuid;
@@ -199,7 +200,9 @@ class TaskController extends Controller
 
     public function addTask(AddTaskRequest $request, $todoId) {
 
-        $title = $request->title;
+        $taskPayload = $request->json("tasks");
+        $title = $taskPayload["title"];
+
         $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
@@ -214,11 +217,11 @@ class TaskController extends Controller
 
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-
+    
             // Publish To Centrifugo
-            //$this->todoService->publish('common-room', [], $todo['channel'], null, "DemoTask", null);
 
-            $this->todoService->publish($todo['channel'], $todo, null, null, "DemoTask", null);
+            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "DemoTask");
+
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         }
 
@@ -234,22 +237,24 @@ class TaskController extends Controller
             return response()->json($todo, 404);
         }
         if ($todo['user_id'] != $request->user_id) {
-            foreach($todo['colaborators'] as $key => $value){
-                if($value['user_id'] == $request->user_id && $value['admin_status'] == 1){
+            foreach ($todo['colaborators'] as $key => $value) {
+                if ($value['user_id'] == $request->user_id && $value['admin_status'] == 1) {
                     $adminExist = true;
                 }
             }
-        }else{
+        } else {
             $adminExist = true;
         }
-        if($adminExist == false) return response()->json('Unauthorized', 404);
+        if ($adminExist == false) return response()->json('Unauthorized', 404);
         foreach ($todo['tasks'] as $key => $value) {
             # code...
-            if($value['task_id'] == $request->task_id){
+            if ($value['task_id'] == $request->task_id) {
                 $value['status'] = $request->status;
             }
         }
+
         unset($todo['_id']);
+
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             $this->todoService->publish(

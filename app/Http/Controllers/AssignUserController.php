@@ -47,7 +47,6 @@ class AssignUserController extends Controller
     }
 
     public function remove(Request $request, $todoId)
-
     {
 
         $todo = $this->todoService->find($todoId);

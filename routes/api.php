@@ -29,8 +29,10 @@ use App\Http\Controllers\TaskSearchController;
 Route::prefix('v1')->group(function () {
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
+    Route::get('user-todo', [TodoController::class, 'userTodos']);
     Route::get('task', [TaskController::class, 'index']);
     Route::get('task/{id}/show', [TaskController::class, 'show']);
+    Route::get('todo/{id}/{user_id}/show', [TodoController::class, 'getTodo']);
     Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
     Route::post('/task/modify/{id}', [TaskController::class, 'updateTaskDate']);
     Route::post('/task/update/category/{id}', [TaskController::class, 'updateTaskCategory']);
@@ -38,12 +40,12 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
-    Route::put('add/{id}', [TaskController::class, 'addTask']);
+    Route::put('/todo/{id}/add-task', [TaskController::class, 'addTask']);
     Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
 
 
     // Admin privilege
-    Route::put('admin-privilege/{todoId}',[AdminController::class, 'adminPrivilege']);
+    Route::put('admin-privilege/{todoId}', [AdminController::class, 'adminPrivilege']);
 
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
