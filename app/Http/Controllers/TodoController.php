@@ -18,6 +18,13 @@ class TodoController extends Controller
     {
         $this->todoService = $todoService;
     }
+    /**
+     * for testing purpose only
+     */
+    public function index()
+    {
+       return $this->todoService->all();
+    }
 
     public function createTodo(TodoRequest $request)
     {
@@ -28,7 +35,7 @@ class TodoController extends Controller
             'channel' => $channel,
             "tasks" => [],
             "labels" => $labels,
-            "colaborators" => [],
+            "collaborators" => [],
             "created_at" => now()
         ]);
 

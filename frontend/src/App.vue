@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  // import { GetUserInfo } from "zuricontrol"
+  import { GetUserInfo } from "zuricontrol"
 // import Centrifuge from 'centrifuge'
 import {mapActions} from 'vuex'
 // let { GetUserInfo } = import ( "zuricontrol");
@@ -23,8 +23,8 @@ export default {
         add_user : 'todos/ADD_USER'
       }),
         auth(){
-          // this.user = GetUserInfo()
-          // this.add_user(this.user)
+          this.user = GetUserInfo()
+          this.add_user(this.user)
         },
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
@@ -37,13 +37,13 @@ export default {
       //         // check if auth user id is same a subscriber id
       //           if (message.data.subscriberId == 2) {
       //               console.log(2);
-                    
+
       //               this.centrifuge.subscribe(message.data.details.channel, function(ctx) {
       //                   // handle new message coming from channel "news"
       //                   console.log(ctx.data);
       //               });
       //           }
-                
+
       //         });
       //    });
       //    this.centrifuge.connect();
@@ -54,7 +54,7 @@ export default {
         //  this.callCentrifugo()
        }
    }
-  
+
   </script>
 
 <style>
