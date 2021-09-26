@@ -84,32 +84,6 @@
       },
     }
   };
-  computed: {
-    //function to get user object from vuex store
-    ...mapGetters({
-      user: "user/user",
-    }),
-  },
-  methods: {
-    ...mapActions({
-      createTodo: "todos/createTodo",
-    }),
-    closeModal() {
-      console.log("hgey");
-      this.$emit("toggleModal");
-    },
-    addTodo() {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
-      this.todoDetails.user_id = this.user.uuid;
-      //console.log(this.todoDetails);
-      //   function to toggle modal in the main page
-      console.log(this.todoDetails);
-      this.$emit("toggleModal");
-      //   function to call action in the vuex store
-      this.createTodo(this.todoDetails);
-    }
-  }
-};
 </script>
 
 <style lang="scss" scoped>

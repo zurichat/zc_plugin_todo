@@ -12,7 +12,9 @@ const routes = [{
     //this is where the main work lies
     name: 'Main',
     component: Main,
-
+        children: [{ path: '',
+            name: '/new',
+            component: New
         }, {
             path: '/archive',
             //this is the page that contains todo archive

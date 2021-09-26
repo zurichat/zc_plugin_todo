@@ -23,12 +23,6 @@ export default {
         SET_ARCHIVED(state, data) {
             state.archive = [...data]
         },
-        SET_TODOS(state, data) {
-            state.todos = [...data]
-        },
-        SET_ARCHIVED(state, data) {
-            state.archive = [...data]
-        },
         ADD_ARCHIVE(state, data) {
             state.archive.push(data)
         },

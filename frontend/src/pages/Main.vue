@@ -1,8 +1,5 @@
 <template>
-    <div
-        id="main_view"
-        class="section_grid td-p-2"
-    >
+    <div id="main_view" class="section_grid td-p-2" >
         <div>
             <template v-if="showAll">
                 <div v-if="allTodos.length <= 0">
@@ -15,52 +12,37 @@
                     v-else
                     class="
                          todo_container
- sm:td-grid sm:td-grid-cols-2
-td-gap-4
- md:td-grid-cols-3
- lg:td-grid-cols-4 
-                    "
-                >
-                    <NewCard
-                        v-for="(todo, index) in allTodos"
-                        :key="index++"
-                        :todo="todo"
-                    />
-        </div>
-        </template>
-        <template v-else>
-            <div class="
-                        todo_container
                         sm:td-grid sm:td-grid-cols-2
                         td-gap-4
                         md:td-grid-cols-3
-                        lg:td-grid-cols-4
-                    ">
-                <NewCard
-                    v-for="(todo, index) in result"
-                    :key="index"
-                    :todo="todo"
-                   
-                />
-            </div>
-        </template>
+                        lg:td-grid-cols-4 
+                                            "
+                      >
+                            <NewCard
+                                v-for="(todo, index) in allTodos"
+                                :key="index++"
+                                :todo="todo"
+                            />
+                </div>
+            </template>
+            <template v-else>
+              <div class="
+                            todo_container
+                            sm:td-grid sm:td-grid-cols-2
+                            td-gap-4
+                            md:td-grid-cols-3
+                            lg:td-grid-cols-4
+                        ">
+                    <NewCard
+                        v-for="(todo, index) in result"
+                        :key="index"
+                        :todo="todo"
+                      
+                    />
+              </div>
+            </template>
         </div>
-      </template>
-      <template v-else>
-        <div
-          class="
-            todo_container
-            sm:grid sm:grid-cols-2
-            gap-4
-            md:grid-cols-3
-            lg:grid-cols-4
-          "
-        >
-          <NewCard v-for="(todo, index) in result" :key="index" :todo="todo" />
-        </div>
-      </template>
     </div>
-  </div>
 </template>
 <script>
 import Empty from "../components/Empty.vue";
@@ -72,13 +54,10 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.getAllTodos();
-  },
   computed: {
     ...mapGetters({
       allTodos: "todos/allTodos",
-      // result: "todos/searchedTodo",
+      result: "todos/searchedTodo",
       showAll: "todos/showAll",
     }),
   },
@@ -96,3 +75,4 @@ export default {
 };
 </script>
 <style lang="scss"></style>
+
