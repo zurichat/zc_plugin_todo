@@ -109,3 +109,6 @@ Route::prefix('v1')->group(function () {
         return response()->json(['message' => 'Server is live'], 200);
     });
 });
+
+// Sidevar without group
+Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
