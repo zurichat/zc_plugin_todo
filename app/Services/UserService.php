@@ -28,8 +28,8 @@ class UserService
      */
     public function isACollaborator($item)
     {
-        if(isset($item['colaborators'])){
-            return in_array(Config::get('user_id'), $item['colaborators']);
+        if(isset($item['collaborators'])){
+            return in_array(Config::get('user_id'), $item['collaborators']);
         }
         return false;
     }
