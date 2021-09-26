@@ -22,4 +22,15 @@ class UserService
         // todo is not invalid
         return false;
     }
+
+    /**
+     * Check if user is a collaborator
+     */
+    public function isACollaborator($item)
+    {
+        if(isset($item['collaborators'])){
+            return in_array(Config::get('user_id'), $item['collaborators']);
+        }
+        return false;
+    }
 }
