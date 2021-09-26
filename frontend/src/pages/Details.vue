@@ -1,6 +1,6 @@
 <template>
 <div class="td-w-full td-flex-grow ">
-  <div id="Details" class="px-2">
+  <div id="Details" class="td-px-2">
     <div class="todo-nav td-bg-green-500 td-flex td-items-center">
       <h1 class="td-px-4 td-py-2 td-text-white td-text-3xl"># To-do-list</h1>
         
@@ -8,7 +8,7 @@
     </div>
     <div class="header td-py-4 td-flex td-justify-between td-items-center td-border-b-2">
       <div>
-        <h2 class="td-text-xl td-font-bold td-text-green-500"><i class="pi pi-calendar td-px-2"></i>Todo 01- Create UI for a todo</h2>
+        <h2 class="td-text-xl td-font-bold td-text-green-500"><i class="pi pi-calendar td-px-2"></i>{{ selectedTodo.title}}</h2>
       </div>
       <div class="td-flex td-flex-row td-items-center">
         <div class="todo-headerRight">
@@ -18,7 +18,7 @@
               <img src="../assets/img/collaborators.svg" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
             </div>
             
-            <p class="text-300">300</p>
+            <p class="text-300">{{ selectedTodo.colaborators.length }}</p>
           </div>
         </div>
         
@@ -34,9 +34,9 @@
       </div>
     </div>
     <div class="sub-header td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
-      <div class="td-flex"> 
+      <div class="td-flex" @click="isModal = true"> 
         <div class="mr-2 font-bold button td-px-4 td-py-2 td-bg-green-500 td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
-      <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
+        <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9999 1.82458H4.99988C4.17145 1.82458 3.49988 2.49616 3.49988 3.32459V15.3246C3.49988 16.153 4.17145 16.8246 4.99988 16.8246H13.9999C14.8283 16.8246 15.4999 16.153 15.4999 15.3246V6.32459L10.9999 1.82458Z" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M10.9999 1.82458V6.32459H15.4999" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,9 +53,9 @@
       <progress id="progress" class="td-w-full td-mx-auto" :value="percent" max="100"> 32% </progress>
     </div>
     </div>
-    <!-- <div class="py-2 description ">
-      <span>Our todo plugin is a collection which means more than one todo can be made. Each todo can contain multiple tasks containing which includes: the title, the description, list of check able task. Note each todo is a room, when you create a todo you’ve automatically created a channel with the  same name (visible in the side bar) and everyone assigned to it will be in that channel. At the point of creating the todo you can decide to make it private or public </span>
-    </div> -->
+     <div class="py-2 description ">
+      <span>{{ selectedTodo.description }}</span>
+    </div> 
     
     <div class="tasks_container td-py-4">
       
@@ -64,37 +64,8 @@
         <span class="ml-8 task_head td-font-bold" @click="isSelect('2')" >Completed</span>
           
       <div class="tabContents">
-      <div v-if="isActive === '1'">    
-
-      
-      <div v-for="(i, index) in alltasks" :key="index++" class="td-pl-4 td-m-4 task_box td-flex td-py-2 hover:shadow td-rounded hover:border">
-        <Checkbox v-model="checked" :id="'city' + index++" name="city" :value="'Chicago' + index++" />
-        <div class="task_content td-flex-grow td-pl-2">
-           <div class="td-flex td-justify-between">
-             <p class="task_title td-pb-3 td-font-medium"><span class="task_number">Task 0{{index++}} -</span> in the main todo, every intern must complete a task succesfully to go to stage 6</p>
-             <p><i class="pi pi-ellipsis-v td-cursor-pointer"></i></p>
-            </div>  
-          
-          <div class="task_details td-flex td-flex-row td-justify-between">
-            <div class="task_comment-amt td-flex td-items-center">
-              <div class="todo-profileImg2 td-flex">
-                <div class="todo-profile profileOne">
-                  <img src="../assets/img/collaborators.svg" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
-                </div>
-                
-              </div>
-              <span class="td-pl-2 td-font-bold td-text-sm td-text-green-500">5 comments</span>
-              <span class="td-pl-2 td-text-gray-500 td-text-sm">Last Comment 12 hours ago</span>
-            </div>
-            <div class="task_tag td-flex td-flex-row td-items-center">
-              <div class="td-text-gray-500 td-pr-1"><i class="pi pi-tag"></i><span class="td-px-2 td-capitalize td-font-bold td-text-sm">General</span></div>
-              <div class="td-text-gray-500 td-pr-1"><i class="pi pi-tag"></i><span class="td-px-2 td-capitalize td-font-bold td-text-sm">HNG</span></div>
-              <div class="td-text-blue-500 td-pr-1"><i class="pi pi-calendar"></i><span class="td-px-2 td-font-bold td-text-sm">Tomorrow</span></div>
-              <div></div>
-            </div>
-          </div>
-        </div>  
-      </div>
+      <div  id="task_container" v-if="isActive === '1'">    
+      <TaskCard />
     </div>
     
       <div v-else-if="isActive === '2'">
@@ -139,11 +110,19 @@
         </div>
       </div> -->
       <!-- <TextArea /> -->
+     <transition name="fade">
+                <TaskForm
+                    v-if="isModal"
+                    @createTask = "createTask"
+                    @toggleModal="toggleModal"
+                />
+            </transition>
     </div>
    
 </template>
 <script>
-import Checkbox from 'primevue/checkbox';
+import TaskForm from '../components/TaskForm';
+import TaskCard from '../components/TaskCard';
 import axios from 'axios'
 // import TextArea from '../components/TextArea.vue\
 // import CommentBox from '../components/CommentBox.vue'
@@ -155,6 +134,7 @@ export default {
         isActive: '1',
         selectedTodo: '',
         checked: [],
+        isModal: false,
         isAssign: false,
         alltasks: ['','','','','','','','','',''],
         users: [],
@@ -163,7 +143,8 @@ export default {
     },
         computed: {
       ...mapGetters({
-        allTodos: 'todos/allTodos'
+        allTodos: 'todos/allTodos',
+        isUser : 'todos/user'
       }),
       
       percent(){
@@ -176,11 +157,13 @@ export default {
 
     },
     components: {
-      
-      Checkbox
+      TaskCard,
+      TaskForm
     },
   methods: {
-    
+    toggleModal() {
+      this.isModal = !this.isModal;
+    },
       isSelect: function (num) {
       this.isActive = (num);
      },
@@ -190,16 +173,39 @@ export default {
     },
     ClickAway(){
       this.isAssign = false
+
     },
+   async createTask(data){
+     const todo_id = this.selectedTodo._id;
+     const org_id = this.isUser.Organizations[0];
+      await axios.put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
+                .then((response) => this.selectedTodo.tasks.unshift(response.data.data))
+                .catch((error) => {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.warn(error.response.data);
+
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered the Error
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config)
+                })
+        }
+    ,
     assign(){
         this.isAssign = !this.isAssign
       },
     check(){
       let id = this.$route.params.id
-      this.selectedTodo = this.allTodos.find( todo => todo.card_id.toLowerCase() === (id.toLowerCase()));
+      this.selectedTodo = this.allTodos.find( todo => todo._id.toLowerCase() === (id.toLowerCase()));
        if(this.selectedTodo <= 0 || this.selectedTodo === undefined){
-         this.$emit('hideComment')
-         this.$router.push({path: '/main'})
+          
+         this.$router.push({path: '/'})
          
        }
        else {
@@ -213,8 +219,10 @@ export default {
       },
   },
   mounted(){
-      // this.check();
       this.getUser()
+    },
+    beforeMount(){
+      this.check();
     }
 }
 </script>

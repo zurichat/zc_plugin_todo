@@ -61,7 +61,7 @@ export default {
       searchValue: "todos/SEARCH",
     }),
     toggleModal() {
-      console.log("hi");
+     
       this.isModal = !this.isModal;
     },
 
