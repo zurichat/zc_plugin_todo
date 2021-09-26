@@ -23,8 +23,13 @@ export default {
         add_user : 'todos/ADD_USER'
       }),
         auth(){
-          this.user = GetUserInfo()
-          this.add_user(this.user)
+         GetUserInfo().then((res)=>{
+             this.user = res.data;
+             this.add_user(this.user)
+         }).catch((error)=>{
+           console.log(error)
+         })
+          // this.add_user(this.user)
         },
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
