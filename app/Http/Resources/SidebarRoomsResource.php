@@ -16,9 +16,9 @@ class SidebarRoomsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this['title'],
-            'id' => $this['_id'],
-            'unread' => null
+            'room_name' => $this['title'],
+            'room_url' => '/todo#/details/' . $this['_id'],
+            'room_image' => 'https://www.svgrepo.com/show/347559/todo.svg'
         ];
     }
 }
