@@ -2,38 +2,8 @@ import axios from 'axios'
 export default {
     namespaced: true,
     state: {
-        isUser: {
-
-            Organizations: ["613a3ac959842c7444fb0240"],
-            _id: "736363343gs65343434",
-            created_at: "2021-09-22T17:01:05.927620504+02:00",
-            deactivated: false,
-            deactivated_at: "0001-01-01T00:00:00Z",
-            email: "calebbala15@gmail.com",
-            email_verification: null,
-            first_name: "Caleb ",
-            isverified: true,
-            last_name: "Bala Gammagaci ",
-            password: "$2a$14$pEGWT3jbv0w.oq / t9tEnYeXIucnTTfNwnPgmdfj / TxNB0AbYkE51K ",
-            password_resets: null,
-            phone: "  ",
-            settings: null,
-            time_zone: "  ",
-            updated_at: "0001-01-01T00:00:00Z",
-            workspaces: null
-        },
-        todos: [{
-            _id: "614e6e9ff31a74e068e4d74a",
-            channel: "Didier",
-            colaborators: [],
-            created_at: "2021-09-25T00:34:39.477067Z",
-            labels: [],
-            organisation_id: "613a3ac959842c7444fb0240",
-            tasks: [],
-            title: "Mesh Patricia",
-            type: "0",
-            user_id: "736363343gs65343434"
-        }],
+        isUser: null,
+        todos: [],
         names: [],
         archive: [],
         trash: [],
