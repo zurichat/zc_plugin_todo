@@ -53,9 +53,10 @@
 
 <script>
 import axios from 'axios'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "td-modal",
+  computed: {...mapGetters({org_id: "todos/organization", user: "todos/user"})},
   methods: {
     ...mapActions({
       tog_assign: 'todos/toggleAssign'
@@ -67,11 +68,11 @@ export default {
     close() {
       this.$emit("toggleMenu");
     },
-    archive() {
+    restore() {
       console.log(this.todo._id);
       axios
         .put(
-          `unarchive-todo/{todoId}`,
+          `unarchive-todo/${this.todo._id}?user_id=${this.user.id}&organisation_id=${this.org_id}`,
             
           {
             restored_at: 1,

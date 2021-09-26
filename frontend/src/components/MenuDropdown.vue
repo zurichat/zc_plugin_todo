@@ -1,5 +1,5 @@
 <template>
-<div class="td-modal td-shadow-md">
+  <div class="td-modal td-shadow-md">
     <div
       class="
         td-grid
@@ -25,8 +25,7 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400
-            hover:td-text-white
+            hover:td-bg-green-400 hover:td-text-white
           "
           @click="assign()"
           >Assign Collaborators</span
@@ -41,8 +40,7 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400
-            hover:td-text-white
+            hover:td-bg-green-400 hover:td-text-white
           "
           >Get notified about new replies</span
         >
@@ -56,8 +54,7 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400
-            hover:td-text-white
+            hover:td-bg-green-400 hover:td-text-white
           "
           >Remind me about this</span
         >
@@ -72,8 +69,7 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400
-            hover:td-text-white
+            hover:td-bg-green-400 hover:td-text-white
           "
           >Archive</span
         >
@@ -86,8 +82,7 @@
             td-font-normal
             td-text-sm
             td-cursor-pointer
-            hover:td-bg-red-500
-            hover:td-text-white
+            hover:td-bg-red-500 hover:td-text-white
           "
           @click="toggleDelete"
           >Delete</span
@@ -98,22 +93,23 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapActions } from 'vuex'
+import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "td-modal",
+  computed: {...mapGetters({org_id: "todos/organization", user: "todos/user"})},
   methods: {
     ...mapActions({
-      tog_assign: 'todos/toggleAssign'
+      tog_assign: "todos/toggleAssign",
     }),
-   assign(){
-     this.$emit("toggleMenu");
-     this.tog_assign()
-   },
-   toggleDelete(){
-     this.$emit("toggleMenu");
-     this.$emit('toggleDeleteModal')
-   },
+    assign() {
+      this.$emit("toggleMenu");
+      this.tog_assign();
+    },
+    toggleDelete() {
+      this.$emit("toggleMenu");
+      this.$emit("toggleDeleteModal");
+    },
     close() {
       this.$emit("toggleMenu");
     },
@@ -121,8 +117,8 @@ export default {
       console.log(this.todo._id);
       axios
         .put(
-          `task/${this.todo._id}/toggleArchiveStatus`,
-            
+          `archive-todo/${this.todo._id}?user_id=${this.user.id}&organisation_id=${this.org_id}`,
+
           {
             archived_at: 1,
           }
