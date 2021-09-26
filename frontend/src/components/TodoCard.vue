@@ -74,7 +74,7 @@
                     class="td-flex td-items-center td-text-gray-400  td-text-sm"
                 >
                     <i class="pi pi-calendar"></i>
-                    <span class="td-px-1">{{ time }}</span>
+                    <span class="td-px-1">{{ todo.created_at.slice(0, 10)    }}</span>
                 </div>
                 <div
                     class="td-flex td-items-center td-text-gray-400  td-text-sm"
@@ -145,22 +145,14 @@ export default {
         DeleteModal
     },
     computed: {
-        time() {
-            if (this.todo.created_at === undefined) {
-                return this.todo.start_date;
-            } else {
-                return this.todo.created_at.slice(0, 10);
-            }
-        },
-        description() {
-            let value = "";
-            if (typeof this.todo.description != "string") {
-                value = this.todo.description.description.slice(0, 20);
-            } else {
-                value = this.todo.description.slice(0, 20);
-            }
-            return value;
-        }
+         
+         description() {
+             let value = "";
+             if (this.todo.description != undefined) {
+                 value = this.todo.description.slice(0, 20);
+             } 
+             return value;
+         }
     },
     methods: {
         ...mapActions({

@@ -5,22 +5,27 @@
 </template>
 
 <script>
-  import { GetUserInfo } from "zuricontrol"
+  // import { GetUserInfo } from "zuricontrol"
 // import Centrifuge from 'centrifuge'
+import {mapActions} from 'vuex'
 // let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
   data(){
     return  {
+      user: null,
         centrifuge : null
         }
   },
   components: { },
    methods: {
-      async auth(){
-        GetUserInfo()
-         
-       },
+      ...mapActions({
+        add_user : 'todos/ADD_USER'
+      }),
+        auth(){
+          // this.user = GetUserInfo()
+          // this.add_user(this.user)
+        },
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
       //       this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', {debug: true});
