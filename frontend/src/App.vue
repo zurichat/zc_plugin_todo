@@ -5,14 +5,52 @@
 </template>
 
 <script>
-
+  import { GetUserInfo } from "zuricontrol"
+// import Centrifuge from 'centrifuge'
+// let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
-  components: {
-    
-  }
-}
-</script>
+  data(){
+    return  {
+        centrifuge : null
+        }
+  },
+  components: { },
+   methods: {
+      async auth(){
+        GetUserInfo()
+         
+       },
+      //  callCentrifugo(){
+      //             console.log('i say i wan sleep');
+      //       this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', {debug: true});
+      //       // this.centrifuge.setToken('token');
+      //       console.log('i go to this place');
+      //       this.centrifuge.on("connect", (ctx) => {
+      //          console.log("connected", ctx);
+      //           this.centrifuge.subscribe("common-room", function(message) {
+      //         // check if auth user id is same a subscriber id
+      //           if (message.data.subscriberId == 2) {
+      //               console.log(2);
+                    
+      //               this.centrifuge.subscribe(message.data.details.channel, function(ctx) {
+      //                   // handle new message coming from channel "news"
+      //                   console.log(ctx.data);
+      //               });
+      //           }
+                
+      //         });
+      //    });
+      //    this.centrifuge.connect();
+      // }
+   },
+     mounted(){
+         this.auth()
+        //  this.callCentrifugo()
+       }
+   }
+  
+  </script>
 
 <style>
 @import './assets/styles/app.css';

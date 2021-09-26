@@ -142,20 +142,22 @@ class TodoController extends Controller
     public function usersInRoom(Request $request)
     {
         //Get the room we want to users from.
+        //cookie passed from the client
         $usersInRoom = $this->todoRepository->allWithoutDeletedWhere(['organisation_id' => $request->org, 'room_id' => $request->room]);
         $data = [
             'token' => $request->token,
             'org' => $request->org
         ];
-        //cookie passed from the client
+
         $cookie = $request->server('HTTP_COOKIE');
 
         //IDs of all the users in a room
+         //Get the users details
         $users_ids = $usersInRoom[0]['users'];
         $usersInfo = [];
         for ($i = 0; $i < count($users_ids); $i++) {
             $data['user_id'] = $users_ids[$i];
-            //Get the users details
+
             $user = $this->todoRepository->findUser($data,  $cookie);
             if (isset($user['status'])) {
                $user = "user not found";

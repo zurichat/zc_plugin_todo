@@ -3,23 +3,56 @@
 namespace App\Repositories\Rtc;
 
 use App\Contracts\CentrifugoInterface;
+use App\Helpers\Constants;
 use Illuminate\Support\Facades\Http;
 
 class Centrifugo implements CentrifugoInterface
 {
 
-    // protected $url = "http://localhost:8000/api";
+    protected $url = "https://realtime.zuri.chat/api";
 
-    public function publish($channel, $data)
+    public function publishToCommonRoom(array $data, string $newChannel, string $subscriberId, string $collection, string $unSubsciberId = null)
     {
         $response = Http::withHeaders([
+
             'Content-type' => 'application/json',
-            'Authorization' => 'apikey ' . env("CENTRIFUGO_APIKEY")
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' //58c2400b-831d-411d-8fe8-31b6e337738b'
+
         ])->post($this->url, [
             'method' => 'publish',
             'params' => [
-                'channel' => $channel,
-                'data' => $data
+                "channel" => 'common-room',
+                "data" => [
+                    "subscriberId" => $subscriberId,
+                    "collection" => $collection,
+                    "channel" => $newChannel,
+                    "details"  => $data,
+                    "unSubscriberId" => $unSubsciberId
+                ],
+
+            ]
+        ]);
+
+        return response()->json([
+            "data" => $response->json()
+        ], 200);
+    }
+
+    public function publishToRoomChannel($channel, $data, $collection)
+    {
+        $response = Http::withHeaders([
+
+            'Content-type' => 'application/json',
+            'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' //58c2400b-831d-411d-8fe8-31b6e337738b'
+
+        ])->post($this->url, [
+            'method' => 'publish',
+            'params' => [
+                "channel" => $channel,
+                "data" => [
+                    "collection" => $collection,
+                    "details"  => $data,
+                ]
             ]
         ]);
 

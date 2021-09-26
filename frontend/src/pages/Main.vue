@@ -1,78 +1,111 @@
 <template>
-    <div id="main_view" class="section_grid td-p-2" >
-        <div>
-            <template v-if="showAll">
-                <div v-if="allTodos.length <= 0">
-                    <Empty
-                        :title="'Oops Your Todo Store is Empty'"
-                        :subtitle="'Click Create Task Button'"
-                    />
+    <div>
+        <div class="td-py-4">
+            <div class="td-flex-grow td-px-4">
+                <SearchInput @searchTodo="searchTodo" />
+                <div class="
+                        td-flex td-flex-col
+                        md:td-flex-row
+                        td-flex-start
+                        td-justify-start
+                        md:td-items-center
+                        md:td-justify-between
+                    ">        
+                    <MainNav @showLabel="showEditModal = true" />
+                    <CreateTodoBtn @click="toggleModal" />
                 </div>
-                <div
-                    v-else
-                    class="
-                         todo_container
-                        sm:td-grid sm:td-grid-cols-2
-                        td-gap-4
-                        md:td-grid-cols-3
-                        lg:td-grid-cols-4 
-                                            "
-                      >
-                            <NewCard
-                                v-for="(todo, index) in allTodos"
-                                :key="index++"
-                                :todo="todo"
-                            />
-                </div>
-            </template>
-            <template v-else>
-              <div class="
-                            todo_container
-                            sm:td-grid sm:td-grid-cols-2
-                            td-gap-4
-                            md:td-grid-cols-3
-                            lg:td-grid-cols-4
-                        ">
-                    <NewCard
-                        v-for="(todo, index) in result"
-                        :key="index"
-                        :todo="todo"
-                      
-                    />
-              </div>
-            </template>
+            </div>
+            <div class="td-px-1">
+                <router-view />
+            </div>
+
+            
+            <transition name="fade">
+                <TodoForm
+                    v-if="isModal"
+                    @toggleModal="toggleModal"
+                />
+            </transition>
         </div>
     </div>
 </template>
 <script>
-import Empty from "../components/Empty.vue";
-import NewCard from "../components/Newcard.vue";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+import TodoForm from "../components/TodoForm";
+import MainNav from "../components/MainNav";
+import CreateTodoBtn from "../components/CreateTodoBtn";
+import SearchInput from "../components/SearchInput";
+// import TodoCard from "../components/TodoCard.vue";
 export default {
-  name: "Main",
+  name: "New Main",
   data() {
-    return {};
+    return {
+      isModal: false,
+
+      showAll: true,
+      isComment: false,
+
+      showEditModal: false,
+      centrifuge: null,
+    };
   },
   computed: {
     ...mapGetters({
       allTodos: "todos/allTodos",
-      result: "todos/searchedTodo",
-      showAll: "todos/showAll",
+      isAssign: "todos/isAssign",
     }),
   },
   methods: {
-       ...mapActions({getAllTodos: "todos/getAllTodos"}),
-       
+    ...mapActions({
+      searchValue: "todos/SEARCH",
+    }),
+    toggleModal() {
+      console.log("hi");
+      this.isModal = !this.isModal;
+    },
+
+    isMobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    showComment() {
+      this.isComment = true;
+    },
+    hideComment() {
+      this.isComment = false;
+    },
+    searchTodo(val) {
+      this.searchValue(val);
+    },
+    check() {
+      if (this.$route.params.id) {
+        this.showComment();
+      } else {
+        this.hideComment();
+      }
+    },
   },
   components: {
-    NewCard,
-    Empty,
+    // TodoCard,
+    CreateTodoBtn,
+    SearchInput,
+    TodoForm,
+    MainNav,
   },
   mounted() {
-    this.getAllTodos();
-  }
+    // this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket');
+    // this.centrifuge.connect();
+    // this.centrifuge.subscribe('Didier', function(messageCtx) {
+    //     console.log(messageCtx);
+    // })
+  },
 };
 </script>
-<style lang="scss"></style>
-
