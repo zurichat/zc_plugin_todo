@@ -29,7 +29,8 @@ class UserService
     public function isACollaborator($item)
     {
         if(isset($item['collaborators'])){
-            return in_array(Config::get('user_id'), $item['collaborators']);
+            $items = collect($item['collaborators'])->flatten()->toArray();
+            return in_array(Config::get('user_id'), $items);
         }
         return false;
     }
