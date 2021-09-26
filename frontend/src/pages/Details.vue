@@ -15,9 +15,7 @@
             >
                 <div>
                     <h2 class="td-text-xl td-font-bold td-text-green-500">
-                        <i class="pi pi-calendar td-px-2"></i>Todo 01-{{
-                            getTaskTitle
-                        }}
+                        <i class="pi pi-calendar td-px-2"></i>{{ getTaskTitle }}
                     </h2>
                 </div>
                 <div class="td-flex td-flex-row td-items-center">
