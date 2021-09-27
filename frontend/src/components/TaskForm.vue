@@ -38,7 +38,7 @@
                 <label class="td-pb-2 td-font-bold" for="description"
                     >Recurring<span>(optional)</span></label
                 >
-                <div class="td-flex td-items-center"><span class="td-text-gray-500 td-px-4">Click to make task a recurring task: </span> <Checkbox id="binary" v-model="checked" :binary="true" @change="form_data.recurring == 0 ? form_data.recurring = 1 : form_data.recurring = 0 "  /></div>
+                <div class="td-flex td-items-center"><span class="td-text-gray-500 td-px-2">Click to make task a recurring task: </span> <Checkbox id="binary" v-model="checked" :binary="true" @change="form_data.recurring == 0 ? form_data.recurring = 1 : form_data.recurring = 0 "  /></div>
             </div> 
 
             <!-- <div class="form-group td-flex td-flex-col td-pb-4">
@@ -98,6 +98,7 @@ export default {
         createTask() {
             this.form_data.user_id = this.isUser.id;
             this.$emit("createTask", this.form_data);
+             this.$emit("toggleModal");
             // this.createTodo(this.todoDetails);
         }
     }
