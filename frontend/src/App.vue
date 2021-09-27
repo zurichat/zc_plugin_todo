@@ -85,7 +85,7 @@ export default {
                 console.log("connected", ctx);
                  this.centrifuge.subscribe("common-room", function(message) {
                // check if auth user id is same a subscriber id
-                 if (message.data.subscriberId === _this.isUser._id) {
+                 if (message.data.subscriberId === _this.isUser.id) {
                     //  console.log(2);
                         _this.addTodo(message.data.details)
                         console.log('hello its centrifugo');
