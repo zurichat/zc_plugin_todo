@@ -3,18 +3,7 @@ export default {
     namespaced: true,
     state: {
         isUser: null,
-        todos: [{
-            _id: "614e6e9ff31a74e068e4d74a",
-            channel: "Didier",
-            colaborators: [],
-            created_at: "2021-09-25T00:34:39.477067Z",
-            labels: [],
-            organisation_id: "613a3ac959842c7444fb0240",
-            tasks: [],
-            title: "Mesh Patricia",
-            type: "0",
-            user_id: "736363343gs65343434"
-        }],
+        todos: [],
         names: [],
         archive: [],
         trash: [],
@@ -85,8 +74,8 @@ export default {
         async getAllTodos({ commit, state }) {
             console.log(state)
 
-            const user_id = state.isUser._id;
-            const org_id = state.isUser.Organizations[0];
+            const user_id = state.isUser.id //state.isUser._id;
+            const org_id = "614679ee1a5607b13c00bcb7" //            state.isUser.Organizations[0];
             await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_TODOS', response.data.data)))
                 .catch(error => console.log(error))
