@@ -46,7 +46,7 @@
 import Empty from "../components/Empty.vue";
 import TodoCard from "../components/TodoCard.vue";
 import { mapGetters } from "vuex";
-
+import { mapActions } from "vuex";
 export default {
   name: "Main",
   data() {
@@ -76,7 +76,7 @@ export default {
   mounted() {
 
     console.log(this.user)
-    // this.getAllTodos();
+    this.getAllTodos();
   }
 
 };
