@@ -62,9 +62,9 @@ class TodoController extends Controller
             return response()->json($result, 404);
         }
 
-        foreach ($result as $value) {
-            if (!isset($value['archived_at']) || $value['archived_at'] === null || !isset($value['deleted_at'])) {
-                array_push($activeTodo, $value);
+        for ($i=0; $i < count($result); $i++) {
+            if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
+                array_push($activeTodo, $result[$i]);
             }
         }
 
