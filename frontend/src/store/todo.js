@@ -2,7 +2,7 @@ import axios from 'axios'
 export default {
     namespaced: true,
     state: {
-
+        isUser: null,
         todos: [{
             _id: "614e6e9ff31a74e068e4d74a",
             channel: "Didier",
@@ -15,19 +15,6 @@ export default {
             type: "0",
             user_id: "736363343gs65343434"
         }],
-
-        myData: {
-            _id: "614e6e9ff31a74e068e4d74a",
-            channel: "Didier",
-            colaborators: [],
-            created_at: "2021-09-25T00:34:39.477067Z",
-            labels: [],
-            organisation_id: "613a3ac959842c7444fb0240",
-            tasks: [],
-            title: "Mesh Patricia",
-            type: "0",
-            user_id: "736363343gs65343434"
-        },
         names: [],
         archive: [],
         trash: [],
@@ -44,7 +31,7 @@ export default {
             state.todos.unshift(data)
         },
         IS_USER(state, data) {
-            state.myData[0] = data
+            state.isUser = data
         },
         TOG_ASSIGN(state) {
             state.isAssign = !state.isAssign
@@ -79,7 +66,7 @@ export default {
             return state.archive
         },
         user(state) {
-            return state.myData[0]
+            return state.isUser
         },
         allTrash(state) {
             return state.trash
@@ -98,8 +85,8 @@ export default {
         async getAllTodos({ commit, state }) {
             console.log(state)
 
-            const user_id = state.myData[0]._id;
-            const org_id = state.myData[0].Organizations[0];
+            const user_id = state.isUser._id;
+            const org_id = state.isUser.Organizations[0];
             await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_TODOS', response.data.data)))
                 .catch(error => console.log(error))
@@ -118,7 +105,7 @@ export default {
                 .catch(error => console.log(error))
         },
         async createTodo({ commit, state }, data) {
-            const org_id = state.myData.Organizations[0];
+            const org_id = state.isUser.Organizations[0];
             await axios.post(`/create-todo?organisation_id=${org_id}`, data)
                 .then((response) => commit('ADD_TODOS', response.data.data))
                 .catch((error) => {

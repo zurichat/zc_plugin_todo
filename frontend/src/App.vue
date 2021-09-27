@@ -22,10 +22,10 @@ export default {
       ...mapActions({
         add_user : 'todos/ADD_USER'
       }),
-        auth(){
-          // this.user = GetUserInfo()
-          // console.log( this.user )
-          // this.add_user(this.user)
+       async auth(){
+           this.user = await GetUserInfo()
+           console.log( this.user )
+           this.add_user(this.user)
         },
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
