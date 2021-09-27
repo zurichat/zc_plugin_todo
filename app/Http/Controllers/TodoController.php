@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Manipulate;
 use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
@@ -24,12 +25,13 @@ class TodoController extends Controller
      */
     public function index()
     {
-       return $this->todoService->all();
+        return $this->todoService->all();
     }
 
     public function createTodo(TodoRequest $request)
     {
-        $channel = substr(uniqid(), 0, 10) . "-$request->title";
+
+        $channel = Manipulate::buildChannel($request->title, substr(uniqid(), 0, 12));
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
@@ -62,7 +64,7 @@ class TodoController extends Controller
             return response()->json($result, 404);
         }
 
-        for ($i=0; $i < count($result); $i++) {
+        for ($i = 0; $i < count($result); $i++) {
             if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
                 array_push($activeTodo, $result[$i]);
             }
