@@ -30,7 +30,7 @@ class AssignUserController extends Controller
         }
 
         $newColabo = ['user_id' => $request->collaborator_id, 'admin_status' => $request->admin_status];
-        array_push($todo['colaborators'], $newColabo);
+        array_push($todo['collaborators'], $newColabo);
         unset($todo['_id']);
 
         $result = $this->todoService->update($todo, $todoId);
@@ -75,7 +75,7 @@ class AssignUserController extends Controller
 
         $removeColabo = ['user_id' => $request->user_id];
 
-        unset($todo['colaborators'], $removeColabo);
+        unset($todo['collaborators'], $removeColabo);
         unset($todo['_id']);
 
         $result = $this->todoService->update($todo, $todoId);

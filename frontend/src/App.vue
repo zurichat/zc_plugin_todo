@@ -5,25 +5,111 @@
 </template>
 
 <script>
- let { GetUserInfo } = import (/* webpackIgnore: true */ "@zuri/zuri-control");
+// import { GetUserInfo } from "zuricontrol"
+import Centrifuge from 'centrifuge'
+import { mapActions } from "vuex";
+import {mapGetters} from 'vuex';
+// let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
-  components: {
-    
+  data(){
+    return  {
+      user: null,
+        centrifuge : null
+        }
+  },
+  components: { },
+  computed:  {
+    ...mapGetters({
+      isUser: "todos/user"
+    })
   },
    methods: {
-      async auth(){
-         GetUserInfo();
-       }
+      ...mapActions({
+        getAllTodos: "todos/getAllTodos",
+        add_user : 'todos/ADD_USER',
+        addTodo : 'todos/centrifugeAddTodo'
+      }),
+       async auth(){
+        // this.user = await GetUserInfo();
+
+         if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+
+    // On localhost return this
+    console.log('local')
+        
+        this.user = { created_at: "2021-09-22T15:01:05.927620504Z",
+                    display_name: "",
+                    email: "calebbala15@gmail.com",
+                    first_name: "Caleb",
+                    id: "614b453144a9bd81cedc0b25",
+                    last_name: "Bala Gammagaci ",
+                    phone: "",
+                    status: 0,
+                    time_zone: "",
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOiJNVFl6TWpjME1UZ3pNbnhIZDNkQlIwUlplRTVVUm1oUFYwMDBUbnBWTWs5RWJHeFBSMUp0VFZSb2JVNHlSVFZPUVQwOWZJcFFPaDFIMlVaaGVKNlNmeWEyYjE3TnFTUE9ycWJYSk9Dc2tmaGRBSUQzIiwiZW1haWwiOiJjYWxlYmJhbGExNUBnbWFpbC5jb20iLCJpZCI6IjYxNTFhOWM4NzU2ODllOGRmMThmN2E5NCIsIm9wdGlvbnMiOnsiUGF0aCI6Ii8iLCJEb21haW4iOiIiLCJNYXhBZ2UiOjc5Mzk5MzcxOTYsIlNlY3VyZSI6ZmFsc2UsIkh0dHBPbmx5IjpmYWxzZSwiU2FtZVNpdGUiOjB9LCJzZXNzaW9uX25hbWUiOiJmNjgyMmFmOTRlMjliYTExMmJlMzEwZDNhZjQ1ZDVjNyJ9.uemzEdAX3e5wKSvc2oyAKd4MuxK9DVAdTFdQvWNmwEQ",
+                    updated_at: "0001-01-01T00:00:00Z"
+                    }
+        this.add_user(this.user);
+        } else {
+          console.log('live')
+          this.user = JSON.parse(sessionStorage.getItem("user"));
+          this.add_user(this.user);
+          if (!this.user) {
+            // Not Logged In, so return anonymous user info
+           this.user = { created_at: "2021-09-22T15:01:05.927620504Z",
+                    display_name: "",
+                    email: "calebbala15@gmail.com",
+                    first_name: "Caleb",
+                    id: "614b453144a9bd81cedc0b25",
+                    last_name: "Bala Gammagaci ",
+                    phone: "",
+                    status: 0,
+                    time_zone: "",
+                    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOiJNVFl6TWpjME1UZ3pNbnhIZDNkQlIwUlplRTVVUm1oUFYwMDBUbnBWTWs5RWJHeFBSMUp0VFZSb2JVNHlSVFZPUVQwOWZJcFFPaDFIMlVaaGVKNlNmeWEyYjE3TnFTUE9ycWJYSk9Dc2tmaGRBSUQzIiwiZW1haWwiOiJjYWxlYmJhbGExNUBnbWFpbC5jb20iLCJpZCI6IjYxNTFhOWM4NzU2ODllOGRmMThmN2E5NCIsIm9wdGlvbnMiOnsiUGF0aCI6Ii8iLCJEb21haW4iOiIiLCJNYXhBZ2UiOjc5Mzk5MzcxOTYsIlNlY3VyZSI6ZmFsc2UsIkh0dHBPbmx5IjpmYWxzZSwiU2FtZVNpdGUiOjB9LCJzZXNzaW9uX25hbWUiOiJmNjgyMmFmOTRlMjliYTExMmJlMzEwZDNhZjQ1ZDVjNyJ9.uemzEdAX3e5wKSvc2oyAKd4MuxK9DVAdTFdQvWNmwEQ",
+                    updated_at: "0001-01-01T00:00:00Z"
+                    }
+            this.add_user(this.user);
+          }
+         
+         }
+          this.getAllTodos()
+        },
+        callCentrifugo(){
+                   console.log('i say i wan sleep');
+                   const _this = this
+             this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', {debug: true});
+             // this.centrifuge.setToken('token');
+             console.log('_this.isUser');
+             this.centrifuge.on("connect", (ctx) => {
+                console.log("connected", ctx);
+                 this.centrifuge.subscribe("common-room", function(message) {
+               // check if auth user id is same a subscriber id
+                 if (message.data.subscriberId === _this.isUser.id) {
+                    //  console.log(2);
+                        _this.addTodo(message.data.details)
+                        console.log('hello its centrifugo');
+                        console.log(message.data.details);
+                    //  this.centrifuge.subscribe(message.data.channel, function(ctx) {
+                    //      // handle new message coming from channel "news"
+                    //      console.log(ctx.data);
+                    //  });
+                 }
+
+               });
+          });
+        this.centrifuge.connect();
+    }
    },
      mounted(){
          this.auth()
-  }
-}
-</script>
+         this.callCentrifugo()
+       }
+   }
+
+  </script>
 
 <style>
-
 @import './assets/styles/app.css';
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 body {

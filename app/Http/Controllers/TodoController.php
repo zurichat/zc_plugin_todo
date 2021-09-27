@@ -6,6 +6,7 @@ use App\Helpers\Manipulate;
 use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -19,18 +20,25 @@ class TodoController extends Controller
     {
         $this->todoService = $todoService;
     }
+    /**
+     * for testing purpose only
+     */
+    public function index()
+    {
+        return $this->todoService->all();
+    }
 
     public function createTodo(TodoRequest $request)
     {
 
-        $channel = substr(uniqid(), 0, 10) . "-$request->title";
+        $channel = Manipulate::buildChannel($request->title, substr(uniqid(), 0, 12));
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
             'channel' => $channel,
             "tasks" => [],
             "labels" => $labels,
-            "colaborators" => [],
+            "collaborators" => [],
             "created_at" => now()
         ]);
 
@@ -52,13 +60,13 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
-        if (isset($result['status']) && $result['stutus'] == 404) {
+        if (isset($result['status']) && $result['status'] == 404) {
             return response()->json($result, 404);
         }
 
-        foreach ($result as $value) {
-            if (!isset($value['archived_at']) || $value['archived_at'] === null) {
-                array_push($activeTodo, $value);
+        for ($i = 0; $i < count($result); $i++) {
+            if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
+                array_push($activeTodo, $result[$i]);
             }
         }
 
@@ -81,5 +89,14 @@ class TodoController extends Controller
     public function getTodo($id, $user_id)
     {
         return  response()->json($this->todoService->findTodo($id, $user_id));
+    }
+
+    public function delete($todoId)
+    {
+        $todo = $this->todoService->findWhere(['_id' => $todoId]);
+        $deleted_at = ['deleted_at' => Carbon::now()];
+        $update = $this->todoService->update($deleted_at, $todoId);
+
+        return response()->json(['message' => 'Todo deleted', 'todo' => $update]);
     }
 }
