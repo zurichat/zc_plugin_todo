@@ -18,7 +18,7 @@
               <img src="../assets/img/collaborators.svg" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
             </div>
             
-            <p class="text-300">{{ selectedTodo.colaborators.length }}</p>
+            <p class="text-300">{{ Collaborators }}</p>
           </div>
         </div>
         
@@ -64,14 +64,19 @@
         <span class="ml-8 task_head td-font-bold" @click="isSelect('2')" >Completed</span>
           
       <div class="tabContents">
-      <div  id="task_container" v-if="isActive === '1'">    
-      <TaskCard />
-    </div>
-    
-      <div v-else-if="isActive === '2'">
-       {{ checked }}
+          <template  id="task_container" v-if="selectedTodo.tasks.length <= 0" > 
+             <div >
+                    <Empty
+                        :title="'Oops Your Have no tasks yet'"
+                        :subtitle="'Click Create Task Button'"
+                    />
+                </div>  
+          </template>
         
-      </div>
+          <template v-else>
+                      <TaskCard v-for="(task, index) in selectedTodo.tasks" :key="index++"/>
+
+          </template>
     </div>
   </div>
 </div>
@@ -122,6 +127,7 @@
 </template>
 <script>
 import TaskForm from '../components/TaskForm';
+import Empty from '../components/Empty'
 import TaskCard from '../components/TaskCard';
 import axios from 'axios'
 // import TextArea from '../components/TextArea.vue\
@@ -146,7 +152,15 @@ export default {
         allTodos: 'todos/allTodos',
         isUser : 'todos/user'
       }),
-      
+       collaborators() {
+             let value = "";
+             if (this.todo.colaborators === undefined) {
+                 value = this.todo.collaborators.length;
+             } else {
+                 value = this.todo.colaborators.length;
+             }
+             return value;
+         },
       percent(){
        return (this.checked.length / this.alltasks.length) * 100
       },
@@ -158,7 +172,8 @@ export default {
     },
     components: {
       TaskCard,
-      TaskForm
+      TaskForm,
+      Empty
     },
   methods: {
     toggleModal() {
@@ -177,7 +192,8 @@ export default {
     },
    async createTask(data){
      const todo_id = this.selectedTodo._id;
-     const org_id = this.isUser.Organizations[0];
+     const org_id = "614679ee1a5607b13c00bcb7" 
+     //this.isUser.Organizations[0];
       await axios.put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
                 .then((response) => this.selectedTodo.tasks.unshift(response.data.data))
                 .catch((error) => {

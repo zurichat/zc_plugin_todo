@@ -70,7 +70,8 @@ export default {
     Empty,
   },
   mounted() {
-    this.getAllTodos();
+    console.log(this.user)
+    // this.getAllTodos();
   }
 };
 </script>
