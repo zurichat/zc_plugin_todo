@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -62,7 +63,7 @@ class TodoController extends Controller
         }
 
         foreach ($result as $value) {
-            if (!isset($value['archived_at']) || $value['archived_at'] === null) {
+            if (!isset($value['archived_at']) || $value['archived_at'] === null || !isset($value['deleted_at'])) {
                 array_push($activeTodo, $value);
             }
         }
@@ -86,5 +87,14 @@ class TodoController extends Controller
     public function getTodo($id, $user_id)
     {
         return  response()->json($this->todoService->findTodo($id, $user_id));
+    }
+
+    public function delete($todoId)
+    {
+        $todo = $this->todoService->findWhere(['_id' => $todoId]);
+        $deleted_at = ['deleted_at' => Carbon::now()];
+        $update = $this->todoService->update($deleted_at, $todoId);
+
+        return response()->json(['message' => 'Todo deleted', 'todo' => $update]);
     }
 }
