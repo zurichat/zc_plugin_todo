@@ -122,13 +122,12 @@ export default {
         centrifugeAddTodo({ commit }, data) {
             commit('ADD_TODOS', data)
         },
-       async ADD_TRASH({ commit, state }, any) {
+       async ADD_TRASH({ state }, any) {
             let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
-            console.log(any.toLowerCase())
-            commit('ADD_TRASH', state.todos[location])
+            // commit('ADD_TRASH', state.todos[location])
           
             // FUNCTION TO DELETE TODO FROM DATABASE
-            await axios.get(`https://todo.zuri.chat/api/v1/todo${any.toLowerCase()}/delete?organisation_id=614679ee1a5607b13c00bcb7`)
+            await axios.delete(`https://todo.zuri.chat/api/v1/todo/${any.toLowerCase()}/delete?organisation_id=614679ee1a5607b13c00bcb7`)
             // .then(response => (commit('SET_ARCHIVED', response.data.data)))
             .then((response)=>{
                 console.log(response);
