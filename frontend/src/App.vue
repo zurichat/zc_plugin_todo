@@ -25,8 +25,7 @@ export default {
         auth(){
          GetUserInfo()
          .then((res)=>{
-             console.log("User:" + Object.keys(res))
-             this.user =  Object.keys(res);
+             this.user =  res;
              this.add_user(this.user)
          })
          .catch((error)=>{
