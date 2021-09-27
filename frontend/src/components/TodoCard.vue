@@ -39,9 +39,18 @@
                     >
                     <div class="td-flex ">
                         <img src="../assets/img/collaborators.svg" />
-                        <span
+                        <span 
                             class="td-text-white td-mx-0.5 td-bg-green-500 td-h-6 td-rounded td-px-2 td-py-1 td-text-xs td-select-none"
-                            >{{ todo.colaborators.length }}</span
+                            >
+                            <span v-if="!todo.colaborators">
+                                0
+                            </span>
+                            <span v-else>  
+                            {{ todo.colaborators.length }}
+
+                            </span>
+                            </span
+                                   
                         >
                     </div>
                 </div>
@@ -93,7 +102,7 @@
                             fill="#999999"
                         ></path>
                     </svg>
-                    <span class="td-px-1">{{ todo.tasks.length }} tasks</span>
+                    <!-- <span class="td-px-1">{{ todo.tasks.length }} tasks</span> -->
                 </div>
             </div>
         </div>
@@ -145,7 +154,6 @@ export default {
         DeleteModal
     },
     computed: {
-         
          description() {
              let value = "";
              if (this.todo.description != undefined) {

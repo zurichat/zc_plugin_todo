@@ -105,7 +105,6 @@ export default {
             this.todoDetails.user_id = this.isUser._id;
             //console.log(this.todoDetails);
             //   function to toggle modal in the main page
-            console.log(this.todoDetails);
             this.$emit("toggleModal");
             //   function to call action in the vuex store
             this.createTodo(this.todoDetails);
