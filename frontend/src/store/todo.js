@@ -93,26 +93,9 @@ export default {
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
-        async createTodo({ state }, data) {
-            const org_id = state.isUser.Organizations[0];
-            await axios.post(`/create-todo?organisation_id=${org_id}`, data)
-                .then((response) => console.log('todo created ' + response))
-                .catch((error) => {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.warn(error.response.data);
+        // async createTodo() {
 
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered the Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config)
-                })
-        },
+        // },
         centrifugeAddTodo({ commit }, data) {
             commit('ADD_TODOS', data)
         },
