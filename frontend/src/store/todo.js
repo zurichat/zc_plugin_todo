@@ -104,10 +104,10 @@ export default {
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
-        async createTodo({ commit, state }, data) {
+        async createTodo({ state }, data) {
             const org_id = state.isUser.Organizations[0];
             await axios.post(`/create-todo?organisation_id=${org_id}`, data)
-                .then((response) => commit('ADD_TODOS', response.data.data))
+                .then((response) => console.log('todo created ' + response))
                 .catch((error) => {
                     if (error.response) {
                         // The request was made and the server responded with a status code
@@ -123,6 +123,9 @@ export default {
                     }
                     console.log(error.config)
                 })
+        },
+        centrifugeAddTodo({ commit }, data) {
+            commit('ADD_TODOS', data)
         },
         ADD_TRASH({ commit, state }, any) {
             let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
