@@ -1,12 +1,17 @@
 <template>
 <div class="td-w-full td-flex-grow ">
-  <div id="Details" class="td-px-2">
-    <div class="todo-nav td-bg-green-500 td-flex td-items-center">
-      <h1 class="td-px-4 td-py-2 td-text-white td-text-3xl"># To-do-list</h1>
-        
-      <span class="btn"><i class="pi td-td- td-px-4 pi-chevron-down"/></span>
+  <div id="Details" class="">
+    <div class="todo-nav td-px-4 td-bg-green-500 td-flex td-justify-between td-items-center">
+      <div class="p-2" @click="() => {this.$router.push({name : 'Main'})}">
+        <i class="pi pi-arrow-left td-text-white"></i>
+      </div>
+      <div class="td-flex td-items-center">
+        <h1 class="td-px-2 td-py-2 td-text-white td-text-2xl"># To-do-list</h1>
+      <span class="btn"><i class="pi td-px- td-text-white pi-chevron-down"/></span>
+      </div>
+      
     </div>
-    <div class="header td-py-4 td-flex td-justify-between td-items-center td-border-b-2">
+    <div class="header td-px-2 td-py-4 td-flex td-justify-between td-items-center td-border-b-2">
       <div>
         <h2 class="td-text-xl td-font-bold td-text-green-500"><i class="pi pi-calendar td-px-2"></i>{{ selectedTodo.title}}</h2>
       </div>
@@ -33,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="sub-header td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
+    <div class="sub-header td-px-2 td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
       <div class="td-flex" @click="isModal = true"> 
         <div class="mr-2 font-bold button td-px-4 td-py-2 td-bg-green-500 td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
         <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
@@ -44,7 +49,7 @@
         <path d="M12.4999 13.0747H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M7.99988 7.07458H7.24988H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-<!-- 07060961923 -->
+
         <span class="td-font-bold ">{{ itemsTodo.length }}   completed</span>
       </div>
       </div>
@@ -53,13 +58,13 @@
       <progress id="progress" class="td-w-full td-mx-auto" :value="percent" max="100"> 32% </progress>
     </div>
     </div>
-     <div class="py-2 description ">
+     <div class="td-p-2 description ">
       <span>{{ selectedTodo.description }}</span>
     </div> 
     
-    <div class="tasks_container td-py-4">
+    <div class="tasks_container td-px-2 td-py-4">
       
-      <div class="td-my-4 tabMenu">
+      <div class="td-my-4 td-px-2 tabMenu">
         <span class="task_head td-font-bold td-mr-4 td-text-green-500"  @click="isSelect('1')">Pending</span>
         <span class="ml-8 task_head td-font-bold" @click="isSelect('2')" >Completed</span>
           
@@ -74,7 +79,7 @@
           </template>
         
           <template v-else>
-                      <TaskCard v-for="(task, index) in selectedTodo.tasks" :key="index++"/>
+                      <TaskCard :task="task" :index = "index" v-for="(task, index) in selectedTodo.tasks" :key="index"/>
 
           </template>
     </div>
