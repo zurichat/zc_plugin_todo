@@ -7,7 +7,7 @@
 <script>
 import { GetUserInfo } from "zuricontrol"
 // import Centrifuge from 'centrifuge'
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 // let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
@@ -20,17 +20,21 @@ export default {
   components: { },
    methods: {
       ...mapActions({
+        getAllTodos: "todos/getAllTodos",
         add_user : 'todos/ADD_USER'
       }),
-     auth(){
-        GetUserInfo()
-            .then((res) => {
-                this.user = res;
-                this.add_user(this.user)
-            })
-            .catch((error) => {
-            console.log(error)
-            })
+       async auth(){
+         console.log('auth()')
+           this.user = await GetUserInfo().then(
+             () => {
+             console.log('inside auth()')
+              console.log( this.user )
+              this.add_user(this.user);
+              this.getAllTodos();
+           }
+           )
+          
+          
         },
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
