@@ -41,7 +41,7 @@
                         <img src="../assets/img/collaborators.svg" />
                         <span
                             class="td-text-white td-mx-0.5 td-bg-green-500 td-h-6 td-rounded td-px-2 td-py-1 td-text-xs td-select-none"
-                            >{{ todo.colaborators.length }}</span
+                            >{{ collaborators   }}</span
                         >
                     </div>
                 </div>
@@ -152,7 +152,17 @@ export default {
                  value = this.todo.description.slice(0, 20);
              } 
              return value;
+         },
+          collaborators() {
+             let value = "";
+             if (this.todo.colaborators === undefined) {
+                 value = this.todo.collaborators.length;
+             } else {
+                 value = this.todo.colaborators.length;
+             }
+             return value;
          }
+
     },
     methods: {
         ...mapActions({
