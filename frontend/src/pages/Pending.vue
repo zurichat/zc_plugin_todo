@@ -72,7 +72,7 @@ export default {
   },
   mounted() {
     console.log(this.user)
-    this.getAllTodos();
+    // this.getAllTodos();
   }
 };
 </script>

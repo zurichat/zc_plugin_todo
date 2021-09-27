@@ -25,14 +25,13 @@ export default {
       }),
        async auth(){
          console.log('auth()')
-           this.user = await GetUserInfo().then(
-             () => {
-             console.log('inside auth()')
-              console.log( this.user )
-              this.add_user(this.user);
-              this.getAllTodos();
-           }
-           )
+           await GetUserInfo().then((res)=>{
+             this.user = res.data;
+             this.add_user(this.user)
+             this.getAllTodos();
+         }).catch((error)=>{
+           console.log(error)
+         })
           
           
         },
