@@ -12,7 +12,7 @@ class Collaborator
             $isAdmin = true;
         } else {
             foreach ($todo['colaborators'] as $collaborator) {
-                if ($collaborator['admin_status'] == $userId) {
+                if ($collaborator['admin_status'] == 1) {
                     $isAdmin = true;
                 }
             }

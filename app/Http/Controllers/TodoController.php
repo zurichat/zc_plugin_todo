@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Manipulate;
 use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
@@ -21,6 +22,7 @@ class TodoController extends Controller
 
     public function createTodo(TodoRequest $request)
     {
+
         $channel = substr(uniqid(), 0, 10) . "-$request->title";
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
