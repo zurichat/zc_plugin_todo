@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { GetUserInfo } from "zuricontrol"
+import { GetUserInfo } from "zuricontrol"
 // import Centrifuge from 'centrifuge'
 import {mapActions} from 'vuex'
 // let { GetUserInfo } = import ( "zuricontrol");
@@ -22,9 +22,15 @@ export default {
       ...mapActions({
         add_user : 'todos/ADD_USER'
       }),
-        auth(){
-          this.user = GetUserInfo()
-          this.add_user(this.user)
+     auth(){
+        GetUserInfo()
+            .then((res) => {
+                this.user = res;
+                this.add_user(this.user)
+            })
+            .catch((error) => {
+            console.log(error)
+            })
         },
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
