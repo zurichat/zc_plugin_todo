@@ -22,8 +22,8 @@ export default {
       ...mapActions({
         add_user : 'todos/ADD_USER'
       }),
-    async auth(){
-       await GetUserInfo()
+     auth(){
+        GetUserInfo()
             .then((res) => {
                 this.user = res;
                 this.add_user(this.user)
