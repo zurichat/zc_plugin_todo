@@ -45,6 +45,7 @@ Route::prefix('v1')->group(function () {
 
     Route::put('add-task/{todoId}', [TaskController::class, 'addTask']);
     Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
+    Route::delete('/todo/{todoId}/delete', [TodoController::class, 'delete']);
 
 
     // Admin privilege
