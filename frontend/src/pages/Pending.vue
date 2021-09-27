@@ -46,7 +46,7 @@
 import Empty from "../components/Empty.vue";
 import TodoCard from "../components/TodoCard.vue";
 import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+
 export default {
   name: "Main",
   data() {
@@ -67,15 +67,18 @@ export default {
 
       this.$store.commit('todos/SET_TODOS', todos)
     }
+
   },
   components: {
     TodoCard,
     Empty,
   },
   mounted() {
-    console.log(this.user);
-    this.getAllTodos();
-  },
+
+    console.log(this.user)
+    // this.getAllTodos();
+  }
+
 };
 </script>
 <style lang="scss"></style>
