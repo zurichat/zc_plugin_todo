@@ -109,6 +109,13 @@ Route::prefix('v1')->group(function () {
     Route::get('ping', function () {
         return response()->json(['message' => 'Server is live'], 200);
     });
+
+    //Trashing Endpoints
+    Route::put('trash-todo/{todoId}', [TrashController::class, 'trashTodo']);
+    Route::get('get-trashed', [TrashController::class, 'fetchTrashed']);
+    Route::put('untrash-todo/{todoId}', [TrashController::class, 'unTrashTodo']);
+    // Trashing Endpoints
+    Route::put('trash-all', [TrashController::class, 'all']);
 });
 
 // Sidevar without group
