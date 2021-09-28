@@ -40,7 +40,7 @@ class TodoService extends TodoRepository
     }
 
     public function findWhere($whereArray){
-       
+
         return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
     }
 

@@ -11,8 +11,8 @@ class Collaborator
         if ($todo['user_id'] == $userId) {
             $isAdmin = true;
         } else {
-            foreach ($todo['colaborators'] as $collaborator) {
-                if ($collaborator['admin_status'] == $userId) {
+            foreach ($todo['collaborators'] as $collaborator) {
+                if ($collaborator['admin_status'] == 1) {
                     $isAdmin = true;
                 }
             }

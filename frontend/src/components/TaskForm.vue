@@ -1,31 +1,31 @@
 <template>
     <div class="overlay">
         <form
-            @submit.prevent="addTodo"
+            @submit.prevent="createTask"
             v-click-away="ClickAway"
-            class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded "
+            class="td-4/5 md:td-w-6/12 td-p-4 td-bg-white td-rounded "
         >
             <div class="td-mb-4 ">
                 <div
                     class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center"
                 >
                     <h1 class="td-font-bold td-text-xl td-capitalize">
-                        Create a new todo
+                        Create a new Task
                     </h1>
                     <div @click="closeModal" class="td-cursor-pointer">
                         <i class="pi pi-times"></i>
                     </div>
                 </div>
-                <h4 class="td-text-gray-400 td-text-sm td-font-medium">
+                <!-- <h4 class="td-text-gray-400 td-text-sm td-font-medium">
                     Todos help you keep track of tasks. They are best when
                     created specifically for a task with subsequent sub tasks
-                </h4>
+                </h4> -->
             </div>
 
             <div class="form-group td-flex td-flex-col pb-4">
-                <label class="td-pb-2 td-font-bold" for="name">Name</label>
+                <label class="td-pb-2 td-font-bold" for="name">Title</label>
                 <input
-                    v-model="todoDetails.title"
+                    v-model="form_data.title"
                     required
                     type="text"
                     id="name"
@@ -34,19 +34,12 @@
                 />
             </div>
 
-            <div class="form-group td-flex td-flex-col td-pb-4">
+             <div class="form-group td-flex td-flex-col td-pb-4">
                 <label class="td-pb-2 td-font-bold" for="description"
-                    >Description<span>(optional)</span></label
+                    >Recurring<span>(optional)</span></label
                 >
-                <input
-                    v-model="todoDetails.description"
-                    required
-                    type="text"
-                    id="description"
-                    class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
-                    placeholder="Type task description"
-                />
-            </div>
+                <div class="td-flex td-items-center"><span class="td-text-gray-500 td-px-2">Click to make task a recurring task: </span> <Checkbox id="binary" v-model="checked" :binary="true" @change="form_data.recurring == 0 ? form_data.recurring = 1 : form_data.recurring = 0 "  /></div>
+            </div> 
 
             <!-- <div class="form-group td-flex td-flex-col td-pb-4">
           <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
@@ -58,7 +51,7 @@
                     class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right"
                     type="submit"
                 >
-                    Create todo
+                    Create task
                 </button>
             </div>
         </form>
@@ -68,18 +61,17 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
-import axios from "axios";
+import Checkbox from 'primevue/checkbox'
+// import axios from "axios";
 export default {
-    name: "TodoForm",
+    name: "TaskForm",
     data() {
         return {
-            
-            todoDetails: {
+            checked: false,
+            form_data: {
                 title: "",
-                type: "public",
-                description: "",
-                labels: [],
-                user_id: ""
+                recurring: false,
+                user_id: ''
             }
         };
     },
@@ -88,6 +80,9 @@ export default {
         ...mapGetters({
             isUser: "todos/user"
         })
+    },
+    components : {
+        Checkbox
     },
     methods: {
         ...mapActions({
@@ -100,29 +95,11 @@ export default {
         ClickAway() {
             this.$emit("toggleModal");
         },
-       async addTodo() {
-            
-            this.todoDetails.user_id = this.isUser.id;
-            const data = this.todoDetails
-            const org_id = "614679ee1a5607b13c00bcb7" //state.isUser.Organizations[0];
-            await axios.post(`/create-todo?organisation_id=${org_id}`, data)
-                .then((response) => console.log('todo created ' + response))
-                .catch((error) => {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.warn(error.response.data);
-
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered the Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config)
-                })
-                this.$emit("toggleModal");
+        createTask() {
+            this.form_data.user_id = this.isUser.id;
+            this.$emit("createTask", this.form_data);
+             this.$emit("toggleModal");
+            // this.createTodo(this.todoDetails);
         }
     }
 };
