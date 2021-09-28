@@ -1,10 +1,6 @@
 <template>
   <div class="topnav">
-<<<<<<< HEAD:resources/js/components/TodoNav.vue
-    <router-link to="/new">
-=======
       <router-link to="/">
->>>>>>> f2362dccbdcd57d4cba59e4cb8e0f81e00e67a6c:frontend/src/components/TodoNav.vue
       <span>Pending</span>
     </router-link>
 

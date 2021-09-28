@@ -6,21 +6,27 @@
 
 <script>
   import { GetUserInfo } from "zuricontrol"
+  import { mapActions} from 'vuex'
 // import Centrifuge from 'centrifuge'
 // let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
   data(){
     return  {
-        centrifuge : null
+        centrifuge : null,
+        user: null,
         }
   },
   components: { },
    methods: {
+     ...mapActions({
+       add_user: "todos/ADD_USER"
+     }),
       async auth(){
-        GetUserInfo()
-         
+       this.user = GetUserInfo()
+        this.add_user(this.user)
        },
+       
       //  callCentrifugo(){
       //             console.log('i say i wan sleep');
       //       this.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', {debug: true});
