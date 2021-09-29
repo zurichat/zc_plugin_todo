@@ -96,7 +96,7 @@ export default {
             this.$emit("toggleModal");
         },
         createTask() {
-            this.form_data.user_id = this.isUser.id;
+            this.form_data.user_id = this.isUser._id;
             this.$emit("createTask", this.form_data);
              this.$emit("toggleModal");
             // this.createTodo(this.todoDetails);
