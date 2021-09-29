@@ -31,7 +31,7 @@ class TodoController extends Controller
     public function createTodo(TodoRequest $request)
     {
 
-        $channel = Manipulate::buildChannel($request->title, substr(uniqid(), 0, 12));
+        $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
