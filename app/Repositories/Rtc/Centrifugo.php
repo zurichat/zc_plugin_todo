@@ -38,7 +38,7 @@ class Centrifugo implements CentrifugoInterface
         ], 200);
     }
 
-    public function publishToRoomChannel($channel, $data, $collection)
+    public function publishToRoomChannel($channel, $data, $collection, $action)
     {
         $response = Http::withHeaders([
 
@@ -51,6 +51,7 @@ class Centrifugo implements CentrifugoInterface
                 "channel" => $channel,
                 "data" => [
                     "collection" => $collection,
+                    "action" => $action,
                     "details"  => $data,
                 ]
             ]
