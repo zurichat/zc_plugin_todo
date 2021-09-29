@@ -102,9 +102,9 @@ export default {
         },
        async addTodo() {
             
-            this.todoDetails.user_id = this.isUser.id;
+            this.todoDetails.user_id = this.isUser._id;
             const data = this.todoDetails
-            const org_id = "614679ee1a5607b13c00bcb7" //state.isUser.Organizations[0];
+            const org_id = this.isUser.Organizations[0];
             await axios.post(`/create-todo?organisation_id=${org_id}`, data)
                 .then((response) => console.log('todo created ' + response))
                 .catch((error) => {
