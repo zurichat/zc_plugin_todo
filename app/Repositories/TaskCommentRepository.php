@@ -8,7 +8,7 @@ use App\Repositories\Rtc\Centrifugo;
 
 class TaskCommentRepository extends Centrifugo
 {
-    protected $modelName = 'TodoTaskComment';
+    protected $modelName = 'TaskComment';
     protected $httpRepository;
     protected $cacheRepository;
 
