@@ -73,9 +73,8 @@ export default {
     actions: {
         async getAllTodos({ commit, state }) {
             console.log(state)
-
-            const user_id = state.isUser.id //state.isUser._id;
-            const org_id = "614679ee1a5607b13c00bcb7" //            state.isUser.Organizations[0];
+            const user_id = state.isUser._id;
+            const org_id = state.isUser.Organizations[0];
             await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_TODOS', response.data.data)))
                 .catch(error => console.log(error))
