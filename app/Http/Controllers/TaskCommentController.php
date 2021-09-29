@@ -57,7 +57,7 @@ class TaskCommentController extends Controller
         $result = $this->taskCommentService->create($payload);
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $payload);
-            $this->taskCommentService->publishToRoomChannel($todo['channel'], $responseWithId, 'comment');
+            $this->taskCommentService->publishToRoomChannel($todo['channel'], $responseWithId, 'comment', 'create');
             return response()->json(['status' => 'success', 'type' => 'Comment', 'data' => $responseWithId], 200);
         }
 
@@ -65,18 +65,36 @@ class TaskCommentController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $taskId, $channel)
     {
-        $comment = $this->taskCommentService->find($id);
-        if (!$comment) {
+        $comment = $this->taskCommentService->find($taskId);
+        if (isset($comment['status']) && $comment['status'] == 404) {
             return response()->json(['message' => 'Comment not found'], 404);
         }
-        return response()->json($this->taskCommentService->update($request->all(), $comment['_id']));
+
+        if (!Collaborator::isCreator($comment, $request->user_id)) {
+            return response()->json(['message' => 'Lack Authorization'], 401);
+        }
+
+        $comment['body'] = $request->body;
+        unset($comment['_id']);
+        $result = $this->taskCommentService->update($comment, $taskId);
+
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            $commentWithId = array_merge(['_id' => $taskId], $comment);
+
+            $this->taskCommentService->publishToRoomChannel($channel, $commentWithId, 'comment', 'update');
+
+            return response()->json(['status' => 'success', 'message' => 'Comment Updated successfully'], 200);
+        }
+
+        return response()->json(['status' => 'error', 'message' => $result], 500);
     }
 
 
     public function delete($id)
     {
+
         return response()->json($this->taskCommentService->delete($id));
     }
 }

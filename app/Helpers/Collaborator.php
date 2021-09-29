@@ -36,4 +36,9 @@ class Collaborator
 
         return $haveAccess;
     }
+
+    public static function isCreator(array $comment, $userId): bool
+    {
+        return $comment['user_id'] == $userId ? true : false;
+    }
 }
