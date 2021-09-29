@@ -22,7 +22,6 @@ class TaskCommentController extends Controller
     }
 
 
-
     public function getCommentsPerTask($taskId)
     {
         $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
