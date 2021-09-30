@@ -89,7 +89,7 @@
         >
       </div>
     </div>
-    <reminderModal v-show="isReminder" :links="links" :todo="todo" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
+    <reminderModal v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
   </div>
 </template>
 

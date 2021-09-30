@@ -68,19 +68,12 @@
 
       
       <div v-for="(i, index) in alltasks" :key="index++" class="td-pl-4 td-m-4 task_box td-flex td-py-2 hover:shadow td-rounded hover:border">
-        <Checkbox v-model="checked" :id="'city' + index++" name="city" :value="'Chicago' + index++" />
-        <div class="task_content td-flex-grow td-pl-2">
+       <Checkbox v-model="checked" :id="'city' + index++" name="city" :value="'Chicago' + index++" />
+        <!--  <div class="task_content td-flex-grow td-pl-2">
            <div class="td-flex td-justify-between">
              <p class="task_title td-pb-3 td-font-medium"><span class="task_number">Task 0{{index++}} -</span> in the main todo, every intern must complete a task succesfully to go to stage 6</p>
               <div class="">
               <div @click="toggleMenu(index)"><i class="pi pi-ellipsis-v td-cursor-pointer"></i></div>
-              <taskDropdown 
-              :links="links" 
-              v-show="isModalVisible" 
-              :todo="todo" 
-              @toggleDeleteModal="toggleDeleteModal"
-              @toggleMenu="toggleMenu" 
-              @archived="handleArchivedTodo" />
               </div>
               
             </div>  
@@ -103,7 +96,8 @@
               <div></div>
             </div>
           </div>
-        </div>  
+        </div>   -->
+      <task />
       </div>
     </div>
     
@@ -153,7 +147,8 @@
    
 </template>
 <script>
-import taskDropdown from '../components/taskDropDown'
+
+import task from '../components/task'
 import Checkbox from 'primevue/checkbox';
 import axios from 'axios'
 // import TextArea from '../components/TextArea.vue\
@@ -167,17 +162,7 @@ export default {
         selectedTodo: '',
         checked: [],
         isAssign: false,
-        alltasks: [
-          {detail: '', isModalVisible: false}, 
-        { detail: '', isModalVisible: false }, 
-        { detail: '', isModalVisible: false }, 
-        { detail: '', isModalVisible: false }, 
-        { detail: '', isModalVisible: false }, 
-        { detail: '', isModalVisible: false }, 
-        { detail: '', isModalVisible: false }, 
-        { detail: '', isModalVisible: false },
-        { detail: '', isModalVisible: false },
-        { detail: '', isModalVisible: false }],
+        alltasks: ['', '', '', '', '', '',],
         users: [],
         value: '',
       }
@@ -199,7 +184,7 @@ export default {
     components: {
       
       Checkbox, 
-      taskDropdown
+      task
     },
   methods: {
     
@@ -216,9 +201,6 @@ export default {
     assign(){
         this.isAssign = !this.isAssign
       },
-      toggleMenu() {
-      console.log(this.alltasks)
-    },
     check(){
       let id = this.$route.params.id
       this.selectedTodo = this.allTodos.find( todo => todo.card_id.toLowerCase() === (id.toLowerCase()));

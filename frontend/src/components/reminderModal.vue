@@ -13,6 +13,7 @@
         td-grid-row-5
       ">
 			<div class="td-flex td-flex-col td-mb-0 items">
+				<div @click="closeModal" class="td-cursor-pointer td-flex td-justify-end py-2"><i class="pi pi-times"></i></div>
 				<span class="
             td-rounded-sm
             td-py-3
@@ -84,12 +85,14 @@
 								td-border-b
 								hover:td-bg-green-400
 								hover:td-text-white
+								td-flex
+								td-justify-between
 								"
-								@click="cusReminder">Custom</span>
+								@click="cusReminder">Custom <i v-show="!isReminder" class="pi pi-angle-right td-self-end"></i></span>
 			</div>
 		</div>
 		<transition name="fade">
-			<cusReminderForm v-if="iscusReminder" :title="todo.title" :id="todo._id" @cusReminderForm="cusReminderForm" />
+			<cusReminderForm v-if="iscusReminder" @cusReminderForm="cusReminderForm" />
 		</transition>
 	</div>
 </template>
@@ -109,8 +112,8 @@
 				this.$emit("toggleMenu");
 				this.$emit('cusReminderForm')
 			},
-			close() {
-				this.$emit("toggleMenu");
+			closeModal() {
+				this.$emit("reminder")
 			},
 			cusReminderForm() {
 				this.iscusReminder = !this.iscusReminder
@@ -136,8 +139,8 @@
 <style scoped>
 	.td-modal-items {
 		position: absolute;
-		top: 100px;
-		right: 0px;
+		top: 180px;
+		right: 5px;
 		z-index: 100;
 		overflow: auto;
 		overflow-y: auto;

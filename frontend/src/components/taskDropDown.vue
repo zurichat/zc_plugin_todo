@@ -13,7 +13,7 @@
         td-grid-row-5
       ">
 			<div class="td-flex td-flex-col td-mb-0 items">
-			<span @click="archive" class="
+			<span class="
             td-rounded-sm
             td-py-3
             td-px-4
@@ -24,7 +24,7 @@
             td-border-b
             hover:td-bg-green-400
             hover:td-text-white
-          ">Archive</span>
+          ">Edit</span>
 				<span class="
             td-rounded-sm
             td-py-3
@@ -38,54 +38,41 @@
           " @click="toggleDelete">Delete</span>
 			</div>
 		</div>
+		<transition name="fade">
+			<DeleteModal v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
+		</transition>
 	</div>
 </template>
 
 <script>
-	import axios from 'axios'
-	import { mapActions } from 'vuex'
+	import DeleteModal from './DeleteModal'
 	export default {
 		name: "td-modal",
+		data(){
+			return{
+				isDeleteModal: false,
+			}
+		},
 		methods: {
-			...mapActions({
-				tog_assign: 'todos/toggleAssign'
-			}),
 			toggleDelete() {
-				this.$emit("toggleMenu");
+				this.isDeleteModal = !this.isDeleteModal;
 				this.$emit('toggleDeleteModal')
 			},
-			close() {
-				this.$emit("toggleMenu");
-			},
-			archive() {
-				console.log(this.todo._id);
-				axios
-					.put(
-						`task/${this.todo._id}/toggleArchiveStatus`,
-
-						{
-							archived_at: 1,
-						}
-					)
-					.then(() => {
-						this.$emit("archived");
-					});
+			toggleDeleteModal() {
+				this.isDeleteModal = !this.isDeleteModal;
 			},
 		},
-		props: {
-			links: {
-				type: Array,
-			},
-			todo: {
-				type: Object,
-			},
-		},
+		components: {
+			DeleteModal
+		}
 	};
 </script>
 
 <style scoped>
 	.td-modal-items {
-		
+		position: absolute;
+		top: 10px;
+		right: 10px;
 		z-index: 100;
 		overflow: auto;
 		overflow-y: auto;
