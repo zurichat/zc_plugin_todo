@@ -5,8 +5,9 @@ namespace App\Helpers;
 
 class Manipulate
 {
-    public static function buildChannel(string $name, string $uuid)
+    public static function buildChannel(string $name)
     {
+        $uuid = substr(uniqid(), 0, 12);
         $wordArray = explode(" ", $name);
         $reformedStrng = "";
         for ($i = 0; $i < count($wordArray); $i++) {

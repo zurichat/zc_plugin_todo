@@ -24,14 +24,10 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
-            'description' => 'required|max:255',
-            'end_date' => 'required|max:255',
-            'labels' => 'required|max:255',
-            'tasks' => 'required|array|min:1',
-            'owner' => 'required|max:255',
-            'status' => 'required',
-            'user' => 'required',
+            'user_id' => 'required',
+            'task_id' => 'required',
+            'body' => 'required',
+            'organisation_id' => 'required'
         ];
     }
 }
