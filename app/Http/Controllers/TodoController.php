@@ -89,12 +89,8 @@ class TodoController extends Controller
         return  response()->json($this->todoService->findTodo($id, $user_id));
     }
 
-    public function delete($todoId)
+    public function delete($todoId, $user_id)
     {
-        $todo = $this->todoService->findWhere(['_id' => $todoId]);
-        $deleted_at = ['deleted_at' => Carbon::now()];
-        $update = $this->todoService->update($deleted_at, $todoId);
-
-        return response()->json(['message' => 'Todo deleted', 'todo' => $update]);
+       return response()->json($this->todoService->delete($todoId, $user_id));
     }
 }

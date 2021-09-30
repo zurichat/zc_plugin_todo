@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Helpers\Response;
-use App\Providers\AppServiceProvider;
 use App\Repositories\TodoRepository;
+use App\Providers\AppServiceProvider;
 
 class TodoService extends TodoRepository
 {
@@ -51,9 +52,22 @@ class TodoService extends TodoRepository
     }
 
 
-    public function delete($id)
+    public function delete($todoId, $user_id)
     {
-        return Response::checkAndServe($this->httpRepository->delete($id));
+        $todo = $this->todoService->findWhere(['_id' => $todoId]);
+        //check if the Todo is found
+        //if not Throw exception
+        if (isset($todo['data']) && $todo['data'] == null) {
+            abort(404, "Todo not found");
+        }
+        //if the user that is trying to delete is not the user that created, no one else can delete
+        if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
+
+        $deleted_at = ['deleted_at' => Carbon::now()];
+        $update = $this->todoService->update($deleted_at, $todoId);
+
+        $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
+        return $response;
     }
 
   /**
