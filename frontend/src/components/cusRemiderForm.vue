@@ -1,7 +1,7 @@
 <template>
 	<div class="overlay">
 		<form @submit.prevent="addTodo" v-click-away="ClickAway"
-			class="td-w-3/5 td-h-3/5 td-flex td-flex-col td-justify-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded ">
+			class="td-w-3/5 md:td-w-2/5 td-h-4/5 td-flex td-flex-col td-justify-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded ">
 			
 			<div class="td-mb-4 ">
 				<div class="td-flex td-flex-row td-w-full td-justify-between td-pb-1">
@@ -15,12 +15,12 @@
 				<input required type="date"
 					class="td-border td-border-gray-400 hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" />
 			</div>
-			<div class="td-form-group td-flex td-flex-col td-pb-4">
+			<div class="td-form-group td-flex td-flex-col td-py-4">
 				<label class="td-pb-2 td-font-bold" for="dueDate">Time</label>
 				<input required type="time" 
 					class="td-border td-border-gray-400 hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" />
 			</div>
-			<div class="td-form-group td-flex td-flex-col td-pb-4">
+			<div class="td-form-group td-flex td-flex-col td-py-4">
 				<label class="td-pb-2 td-font-bold" for="dueDate">Repeat</label>
 				<select name="sel" id="sel" class="td-border td-border-gray-400 td-outline-none hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded">
 					<option class="hover:td-bg-green-400 hover:td-text-white" value="daily">Daily</option>
