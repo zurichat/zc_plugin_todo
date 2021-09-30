@@ -72,7 +72,7 @@
 	.td-modal-items {
 		position: absolute;
 		top: 10px;
-		right: 10px;
+		right: 5px;
 		z-index: 100;
 		overflow: auto;
 		overflow-y: auto;
