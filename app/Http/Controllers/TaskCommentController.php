@@ -54,6 +54,7 @@ class TaskCommentController extends Controller
         }
 
         $result = $this->taskCommentService->create($payload);
+
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $payload);
             $this->taskCommentService->publishToRoomChannel($todo['channel'], $responseWithId, 'comment', 'create');

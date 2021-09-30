@@ -60,9 +60,21 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
-        if (isset($result['status']) && ($result['status'] == 404) || ($result['data'] == null)) {
-            return response()->json(['status' => 'success', 'message' => 'No collection', 'data' => []], 404);
+        if ((isset($result['status']) && $result['status'] == 404)) {
+            return response()->json(["message" => "error"], 404);
         }
+
+        if (count($result) < 1) {
+            return response()->json(["status" => 404, 'message' => 'resource not found', 'data' => $activeTodo], 404);
+        }
+
+        // if (isset($result['status']) && $result['status'] == 404) {
+        //     return response()->json(['status' => 'success', 'message' => 'No collection', 'data' => []], 404);
+        // }
+
+        // if (count($result) < 1) {
+        //     return response()->json(["status" => 404, 'message' => 'Resourse not found', 'data' => $activeTodo], 404);
+        // }
 
         for ($i = 0; $i < count($result); $i++) {
             if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
