@@ -22,7 +22,6 @@ class TaskCommentController extends Controller
     }
 
 
-
     public function getCommentsPerTask($taskId)
     {
         $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
@@ -37,6 +36,8 @@ class TaskCommentController extends Controller
 
         return response()->json(['message' => $result['message']], 400);
     }
+
+
 
     public function saveComment(TaskRequest $request, $todoId)
     {
@@ -55,6 +56,7 @@ class TaskCommentController extends Controller
         }
 
         $result = $this->taskCommentService->create($payload);
+
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $payload);
             $this->taskCommentService->publishToRoomChannel($todo['channel'], $responseWithId, 'comment', 'create');
@@ -89,12 +91,5 @@ class TaskCommentController extends Controller
         }
 
         return response()->json(['status' => 'error', 'message' => $result], 500);
-    }
-
-
-    public function delete($id)
-    {
-
-        return response()->json($this->taskCommentService->delete($id));
     }
 }
