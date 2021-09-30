@@ -90,8 +90,8 @@ Route::prefix('v1')->group(function () {
     Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
     Route::get('all-comment', [TaskCommentController::class, 'index']);
     Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
-    Route::put('update-comment/{commentId}', [TaskCommentController::class, 'update']);
-    Route::delete('comment_delete/{commentId}', [TaskCommentController::class, 'delete']);
+    Route::put('update-comment/{commentId}/{channel}', [TaskCommentController::class, 'update']);
+    Route::delete('comment_delete/{commentId}/{channel}', [TaskCommentController::class, 'delete']);
 
 
     // File Related Endpoints

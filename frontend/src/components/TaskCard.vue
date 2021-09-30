@@ -1,9 +1,9 @@
 <template>
-<div  class="td-pl-4 td-m-4 task_box td-flex td-py-2 hover:shadow td-rounded hover:border">
-        <Checkbox v-model="checked" :id="'city' + index++" name="city" :value="'Chicago' + index++" />
+<div  class="td-pl-4 td-m-4 task_box td-flex td-py-2 hover:td-shadow td-border-b ">
+        <Checkbox v-model="checked" :id="'city' + index" name="city" :value="'Chicago' + index" />
         <div class="task_content td-flex-grow td-pl-2">
            <div class="td-flex td-justify-between">
-             <p class="task_title td-pb-3 td-font-medium"><span class="task_number">Task 0{{index++}} -</span> in the main todo, every intern must complete a task succesfully to go to stage 6</p>
+             <p class="task_title td-pb-3 td-font-medium"><span class="task_number">Task 0{{index + 1}} -</span> {{task.title}}</p>
              <p><i class="pi pi-ellipsis-v td-cursor-pointer"></i></p>
             </div>  
           
@@ -38,6 +38,9 @@ export default {
     props: {
         task : {
             type : Object
+                },
+                index: {
+                  type: String
                 }
     }
 }

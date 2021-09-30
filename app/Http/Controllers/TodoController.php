@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Manipulate;
 use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
@@ -24,12 +25,13 @@ class TodoController extends Controller
      */
     public function index()
     {
-       return $this->todoService->all();
+        return $this->todoService->all();
     }
 
     public function createTodo(TodoRequest $request)
     {
-        $channel = substr(uniqid(), 0, 10) . "-$request->title";
+
+        $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
@@ -58,11 +60,23 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
-        if (isset($result['status']) && $result['status'] == 404) {
-            return response()->json($result, 404);
+        if ((isset($result['status']) && $result['status'] == 404)) {
+            return response()->json(["message" => "error"], 404);
         }
 
-        for ($i=0; $i < count($result); $i++) {
+        if (count($result) < 1) {
+            return response()->json(["status" => 404, 'message' => 'resource not found', 'data' => $activeTodo], 404);
+        }
+
+        // if (isset($result['status']) && $result['status'] == 404) {
+        //     return response()->json(['status' => 'success', 'message' => 'No collection', 'data' => []], 404);
+        // }
+
+        // if (count($result) < 1) {
+        //     return response()->json(["status" => 404, 'message' => 'Resourse not found', 'data' => $activeTodo], 404);
+        // }
+
+        for ($i = 0; $i < count($result); $i++) {
             if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
                 array_push($activeTodo, $result[$i]);
             }
