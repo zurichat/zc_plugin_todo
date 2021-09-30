@@ -25,7 +25,6 @@ class TaskController extends Controller
     {
         $this->taskService = $taskService;
         $this->todoService = $todoService;
-
     }
 
 
@@ -39,7 +38,7 @@ class TaskController extends Controller
     {
         $task = $this->taskService->all();
         if (isset($task['status']) && $task['status'] == '404') {
-           return response()->json(['message' => 'Tasks not found'], 404);
+            return response()->json(['message' => 'Tasks not found'], 404);
         }
         return response()->json(new TodoResourceCollection($task), 200);
     }
@@ -53,7 +52,7 @@ class TaskController extends Controller
     {
         $tasks = $this->taskService->findBy('_id', $id);
         if (empty($tasks)) {
-           return response()->json(['message' => 'Todo not found'], 404);
+            return response()->json(['message' => 'Todo not found'], 404);
         }
         return response()->json($tasks, 200);
     }
@@ -217,13 +216,12 @@ class TaskController extends Controller
 
             // Publish To Centrifugo
 
-            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "DemoTask");
+            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "Task", "create");
 
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
-
     }
 
     public function markTask(Request $request, $todoId)
@@ -263,6 +261,4 @@ class TaskController extends Controller
             return response()->json(["status" => "error", "data" => $result], 500);
         }
     }
-
 }
-
