@@ -58,7 +58,8 @@ export default {
     ...mapGetters({
       allTodos: "todos/allTodos",
       result: "todos/searchedTodo",
-      showAll: "todos/showAll",
+      user: "todos/user",
+      showAll: "todos/showAll"
     }),
   },
   methods: {
@@ -70,7 +71,8 @@ export default {
     Empty,
   },
   mounted() {
-    this.getAllTodos();
+    console.log(this.user)
+    // this.getAllTodos();
   }
 };
 </script>

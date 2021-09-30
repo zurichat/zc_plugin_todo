@@ -198,14 +198,14 @@ class TaskController extends Controller
     }
 
 
-    public function addTask(AddTaskRequest $request, $todoId) 
+    public function addTask(AddTaskRequest $request, $todoId)
     {
         $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
-        
+
         $taskId = Str::uuid();
 
         $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => null, "status" => 0];
@@ -214,7 +214,7 @@ class TaskController extends Controller
 
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-    
+
             // Publish To Centrifugo
 
             $this->todoService->publishToRoomChannel($todo['channel'], $todo, "DemoTask");
@@ -223,9 +223,9 @@ class TaskController extends Controller
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
-        
+
     }
-    
+
     public function markTask(Request $request, $todoId)
     {
         $adminExist = false;
@@ -234,7 +234,7 @@ class TaskController extends Controller
             return response()->json($todo, 404);
         }
         if ($todo['user_id'] != $request->user_id) {
-            foreach ($todo['colaborators'] as $key => $value) {
+            foreach ($todo['collaborators'] as $key => $value) {
                 if ($value['user_id'] == $request->user_id && $value['admin_status'] == 1) {
                     $adminExist = true;
                 }

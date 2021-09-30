@@ -47,7 +47,7 @@ class AssignHTTPRepositoryVarsMiddleware
     {
         // store variables
         Config::set('organisation_id', $request->organisation_id ?? $request->org);
-        Config::set('plugin_id', $request->plugin_id);
+        Config::set('plugin_id', '6138deac99bd9e223a37d8f5');
         Config::set('user_id', $request->user_id ?? $request->user);
     }
 
