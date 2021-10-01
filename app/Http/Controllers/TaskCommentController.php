@@ -25,7 +25,7 @@ class TaskCommentController extends Controller
 
     public function getCommentsPerTask($taskId)
     {
-        $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
+        $result = $this->taskCommentService->commentsByKey('task_id', $taskId);
         if ($result['status'] == 200 && isset($result["data"])) {
             return response()->json([
                 'status' => 'success',
@@ -96,7 +96,7 @@ class TaskCommentController extends Controller
 
     public function getCommentPerTodo($todoId)
     {
-        $result = $this->taskCommentService->commentsPerTask('todo_id', $todoId);
+        $result = $this->taskCommentService->commentsByKey('todo_id', $todoId);
         if ($result['status'] == 200 && isset($result["data"])) {
             return response()->json([
                 'status' => 'success',
