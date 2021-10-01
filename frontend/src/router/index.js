@@ -6,35 +6,35 @@ import Archive from '../pages/Archive.vue';
 import Details from '../pages/Details';
 
 const routes = [{
-        //landing page
+    //landing page
+    path: '',
+    name: 'Main',
+    component: Main,
+    children: [{
         path: '',
-        name: 'Main',
-        component: Main,
-        children: [{
-            path: '',
-            name: 'Pending',
-            component: Pending,
-        }, {
-            path: '/archive',
-            name: 'Archive',
-            component: Archive
-        }, {
-            path: '/trash',
-            name: 'Trash',
-            component: Trash
-        }]
-    },
-    {
-        path: '/details/:id',
-        name: 'Details',
-        component: Details
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        //wrong urls redirection
-        name: 'PageNotFound',
-        component: Main
-    }
+        name: 'Pending',
+        component: Pending,
+    }, {
+        path: '/archive',
+        name: 'Archive',
+        component: Archive
+    }, {
+        path: '/trash',
+        name: 'Trash',
+        component: Trash
+    }]
+},
+{
+    path: '/details/:id',
+    name: 'Details',
+    component: Details
+},
+{
+    path: '/:pathMatch(.*)*',
+    //wrong urls redirection
+    name: 'PageNotFound',
+    component: Main
+}
 ];
 const router = createRouter({
     history: createWebHashHistory(),

@@ -147,9 +147,9 @@ export default {
         checked: [],
         isModal: false,
         isAssign: false,
-        alltasks: ['','','','','','','','','',''],
+        alltasks: ['', '', '', '', '', '',],
         users: [],
-        value: ''
+        value: '',
       }
     },
         computed: {
@@ -187,7 +187,7 @@ export default {
       isSelect: function (num) {
       this.isActive = (num);
      },
-
+  
     close(){
       this.$emit('hideComment')
     },

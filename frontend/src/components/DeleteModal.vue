@@ -3,10 +3,11 @@
         <div
             @submit.prevent="addTodo"
             v-click-away="ClickAway"
-            class="td-w-4/5 td-flex td-flex-col td-justify-center td-items-center td-text-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded "
+            class="td-w-2/5 td-h-2/5 td-flex td-flex-col td-justify-center td-items-center td-text-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded "
         >
             <img src="../assets/img/delete_icon.svg" />
-            <span class="td-md-w-4/ td-text-sm"
+            <h1 class="td-text-lg td-font-semibold td-py-5">Delete Task</h1>
+            <span class="td-text-sm td-px-4 td-pb-5 tracking-wider"
                 >You are about to delete your {{ title }}. Todos deleted are
                 sent to the trash and they are automatically deleted after 30
                 days</span
