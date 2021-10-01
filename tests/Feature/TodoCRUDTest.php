@@ -25,7 +25,6 @@ class TodoCRUDTest extends TestCase
             "user_id" => "614b453144a9bd81cedc0b25"
         ]);
         $response->assertStatus(200)
-                ->dump()
                 ->assertJson([
                     "status" => "success",
                     "type" => "Todo",
@@ -54,7 +53,6 @@ class TodoCRUDTest extends TestCase
             "user_id" => ""
         ])
         ->assertStatus(422)
-        ->dump()
         ->assertJsonValidationErrors(
            ["user_id"]
         );
@@ -72,5 +70,21 @@ class TodoCRUDTest extends TestCase
         );
     }
 
+    public function test_get_user_todo()
+    {
+        $response = $this->getJson('/api/v1/todo/615072e9dfe7da5d9f90ae8a/'. $this->user_id .'/show'. $this->organisation_id .'');
+        $response->assertStatus(200)
+                ->assertJson([
+                    "_id" => $response['_id'],
+                    "channel" => $response['channel'],
+                    "collaborators" => [],
+                    "created_at" => $response['created_at'],
+                    "labels" => [],
+                    "title" => $response['title'],
+                    "tasks" => [],
+                    "type" => $response['type']
+                ]);
+
+    }
 
 }
