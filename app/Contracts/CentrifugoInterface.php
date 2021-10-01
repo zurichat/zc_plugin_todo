@@ -18,9 +18,9 @@ interface CentrifugoInterface
      * @return
      */
 
-    public function publishToRoomChannel(string $channel, array $data, string $collection);
+    public function publishToRoomChannel(string $channel, array $data, string $collection, string $action);
 
-    /**
+    /**   
      * pass user id 
      * @param $data
      * @return
