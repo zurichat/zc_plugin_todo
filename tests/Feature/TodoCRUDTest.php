@@ -21,7 +21,7 @@ class TodoCRUDTest extends TestCase
     public function test_create_todo()
     {
         $data = [
-                    "title" => $this->faker->realTextBetween(15, 20),
+                    "title" => "Random title showing here",
                     "type" => "public",
                     "user_id" => "614b453144a9bd81cedc0b25"
                 ];
@@ -29,9 +29,12 @@ class TodoCRUDTest extends TestCase
         $response->assertStatus(200)
                 ->assertJson([
                     "status" => "success",
-                    "type" => "Todo",
+                    "type" => $response['type'],
                     "data" => [
-                        '*'
+                        '_id' => $response['data']['_id'],
+                        'title' => $response['data']['title'],
+                        'user_id' => $response['data']['user_id']
+
                     ]
                 ]);
     }
@@ -78,14 +81,14 @@ class TodoCRUDTest extends TestCase
         $response = $this->getJson('/api/v1/todo/615072e9dfe7da5d9f90ae8a/'. $this->user_id .'/show'. $this->organisation_id .'');
         $response->assertStatus(200)
                 ->assertJson([
-                    "_id",
-                    "channel",
-                    "collaborators" ,
-                    "created_at",
-                    "labels",
-                    "title",
-                    "tasks",
-                    "type"
+                    "_id" => $response['_id'],
+                    "channel" => $response['channel'],
+                    "collaborators" => [],
+                    "created_at" => $response['created_at'],
+                    "labels" => [],
+                    "title" => $response['title'],
+                    "tasks" => [],
+                    "type" => $response['type']
                 ]);
 
     }
@@ -100,7 +103,7 @@ class TodoCRUDTest extends TestCase
     public function test_update_todo()
     {
         $data = [
-            "title" => $this->faker->realTextBetween(15, 20),
+            "title" => 'title update',
             "type" => "public"
         ];
         $response = $this->putJson('/api/v1/todo-update/615072e9dfe7da5d9f90ae8a/614b453144a9bd81cedc0b25?organisation_id=614679ee1a5607b13c00bcb7', $data);
