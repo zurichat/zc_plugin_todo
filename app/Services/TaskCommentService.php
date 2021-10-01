@@ -13,9 +13,9 @@ class TaskCommentService extends TaskCommentRepository
         return Response::checkAndServe($this->httpRepository->all());
     }
 
-    public function commentsByKey($key, $data)
+    public function commentsByKey(array $where)
     {
-        return Response::checkAndServe($this->httpRepository->findWhere($key, $data));
+        return Response::checkAndServe($this->httpRepository->findWhere($where));
     }
 
 

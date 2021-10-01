@@ -17,4 +17,9 @@ class Response
 
         return $HTTPResponse;
     }
+
+    public static function checkAndServeComment($HTTPResponse)
+    {
+        return $HTTPResponse == null ? [] : $HTTPResponse;
+    }
 }
