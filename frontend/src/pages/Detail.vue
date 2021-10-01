@@ -152,12 +152,12 @@
             <div class="tasks_container td-px-2 td-py-4">
                 <div class="td-my-4 td-px-2 tabMenu">
                     <span
-                        class="task_head td-font-bold td-mr-4 td-text-green-500"
+                        class="task_head td-font-bold td-mr-4 td-my-4 td-text-green-500"
                         @click="isSelect('1')"
                         >Pending</span
                     >
                     <span
-                        class="ml-8 task_head td-font-bold"
+                        class="ml-8 task_head td-my-4 td-font-bold"
                         @click="isSelect('2')"
                         >Completed</span
                     >
@@ -231,120 +231,146 @@
     </div>
 </template>
 <script>
-import TaskForm from "../components/TaskForm";
-import Empty from "../components/Empty";
-import TaskCard from "../components/TaskCard2";
-import axios from "axios";
+
+import CentrifugeSetup from '../plugins/realtime'
+import TaskForm from '../components/TaskForm';
+import Empty from '../components/Empty'
+import TaskCard from '../components/TaskCard2';
+import axios from 'axios'
 // import TextArea from '../components/TextArea.vue\
 // import CommentBox from '../components/CommentBox.vue'
-import { mapGetters } from "vuex";
+import {mapGetters} from 'vuex'
 export default {
-    name: "TodoDetails",
-    data() {
-        return {
-            isActive: "1",
-            selectedTodo: "",
-            checked: [],
-            isModal: false,
-            isAssign: false,
-            alltasks: ["", "", "", "", "", "", "", "", "", ""],
-            users: [],
-            value: ""
-        };
+    name: 'TodoDetails',
+    data(){
+      return {
+        isActive: '1',
+        // centrifuge: null,
+        checked: [],
+        isModal: false,
+        selectedTodo: null,
+        isAssign: false,
+        alltasks: ['','','','','','','','','',''],
+        users: [],
+        value: ''
+      }
     },
-    computed: {
-        ...mapGetters({
-            allTodos: "todos/allTodos",
-            isUser: "todos/user"
-        }),
-        collaborators() {
-            let value = "";
-            if (this.todo.colaborators === undefined) {
-                value = this.todo.collaborators.length;
-            } else {
-                value = this.todo.colaborators.length;
-            }
-            return value;
-        },
-        percent() {
-            return (this.checked.length / this.alltasks.length) * 100;
-        },
+        computed: {
+      ...mapGetters({
+        allTodos: 'todos/allTodos',
+        isUser : 'todos/user',
+        centrifuge: 'todos/centrifuge'
+      }),
+       collaborators() {
+             let value = "";
+             if (this.todo.colaborators === undefined) {
+                 value = this.todo.collaborators.length;
+             } else {
+                 value = this.todo.colaborators.length;
+             }
+             return value;
+         },
+      percent(){
+       return (this.checked.length / this.alltasks.length) * 100
+      },
+      
+      itemsTodo() {
+      return this.checked.filter(todo => !todo.completed)
+    }
 
-        itemsTodo() {
-            return this.checked.filter(todo => !todo.completed);
-        }
     },
     components: {
-        TaskCard,
-        TaskForm,
-        Empty
+      TaskCard,
+      TaskForm,
+      Empty
     },
-    methods: {
-        toggleModal() {
-            this.isModal = !this.isModal;
-        },
-        isSelect: function(num) {
-            this.isActive = num;
-        },
+  methods: {
+    toggleModal() {
+      this.isModal = !this.isModal;
+    },
+      isSelect: function (num) {
+      this.isActive = (num);
+     },
 
-        close() {
-            this.$emit("hideComment");
-        },
-        ClickAway() {
-            this.isAssign = false;
-        },
-        async createTask(data) {
-            const todo_id = this.selectedTodo._id;
-            const org_id = "614679ee1a5607b13c00bcb7";
-            //this.isUser.Organizations[0];
-            await axios
-                .put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
-                .then(response =>
-                    this.selectedTodo.tasks.unshift(response.data.data)
-                )
-                .catch(error => {
+    close(){
+      this.$emit('hideComment')
+    },
+    ClickAway(){
+      this.isAssign = false
+
+    },
+   async createTask(data){
+     const todo_id = this.selectedTodo._id;
+     const org_id = this.isUser["0"].org_id
+     //this.isUser.Organizations[0];
+      await axios.put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
+                .then((response) => console.log('task created', response))
+                .catch((error) => {
                     if (error.response) {
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
                         console.warn(error.response.data);
+
                     } else if (error.request) {
                         // The request was made but no response was received
                         console.log(error.request);
                     } else {
                         // Something happened in setting up the request that triggered the Error
-                        console.log("Error", error.message);
+                        console.log('Error', error.message);
                     }
-                    console.log(error.config);
-                });
-        },
-        assign() {
-            this.isAssign = !this.isAssign;
-        },
-        check() {
-            let id = this.$route.params.id;
-            this.selectedTodo = this.allTodos.find(
-                todo => todo._id.toLowerCase() === id.toLowerCase()
-            );
-            if (this.selectedTodo <= 0 || this.selectedTodo === undefined) {
-                this.$router.push({ path: "/" });
-            } else {
-                //
-            }
-            console.log(this.selectedTodo);
-        },
-        getUser() {
-            axios
-                .get("https://randomuser.me/api/?results=15")
-                .then(response => (this.users = response.data.results));
+                    console.log(error.config)
+                })
         }
+    ,
+    assign(){
+        this.isAssign = !this.isAssign
+      },
+      checkAction(ctx){
+        const _this = this
+               // check if auth user id is same a subscriber id
+                          console.log(ctx.data);
+                          switch(ctx.data.action){
+                          case "create" : {
+                            console.log(ctx.data.details)
+                            _this.selectedTodo = ctx.data.details
+                          } break;
+                          case "delete" : {
+                              const _task = ctx.data.details;
+                            console.log(ctx.data.details);
+                            let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
+                            _this.selectedTodo.tasks.splice(location, 1);  
+                        } break;
+                          default:
+                          }
+                 
+      },
+    check(){
+      let id = this.$route.params.id
+      const _this = this;
+      this.selectedTodo = this.allTodos.find( todo => todo._id.toLowerCase() === (id.toLowerCase()));
+       if(this.selectedTodo <= 0 || this.selectedTodo === undefined){
+          
+         this.$router.push({path: '/'})
+         
+       }
+       else {
+         
+                 CentrifugeSetup(_this.selectedTodo.channel, this.checkAction )
+       }
+      console.log(this.selectedTodo)
     },
-    mounted() {
-        this.getUser();
+    getUser(){
+        axios.get('https://randomuser.me/api/?results=15').
+        then(response => this.users = (response.data.results))
+      },
+  },
+  mounted(){
+      this.getUser()
     },
-    beforeMount() {
-        this.check();
+    beforeMount(){
+      this.check();
     }
-};
+}
 </script>
 <style lang="scss" scoped>
 .description{

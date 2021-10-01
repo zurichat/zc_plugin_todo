@@ -1,5 +1,6 @@
 import { getAllTodos, createTodo } from '../plugins/xhr';
 import axios from 'axios';
+import Centrifuge from 'centrifuge'
 export default {
     namespaced: true,
     state: {
@@ -7,6 +8,7 @@ export default {
         todos: [],
         names: [],
         archive: [],
+        centrifuge: null,
         trash: [],
         showAll: true,
         isComment: false,
@@ -22,6 +24,9 @@ export default {
             if (Array.isArray(data) === true) state.todos = data
             else state.todos.unshift(data)
             console.log(state)
+        },
+        CN_CTR(state) {
+            state.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', { debug: true });
         },
         IS_USER(state, data) {
             state.isUser = data
@@ -58,6 +63,9 @@ export default {
         allArchive(state) {
             return state.archive
         },
+        centrifuge(state) {
+            return state.centrifuge
+        },
         user(state) {
             return state.isUser
         },
@@ -92,6 +100,9 @@ export default {
             console.log('heloo')
             commit('TOG_ASSIGN');
 
+        },
+        CONNECT_CENTRIFUGE({ commit }) {
+            commit('CN_CTR')
         },
         ADD_USER({ commit }, data) {
             commit('IS_USER', data)
