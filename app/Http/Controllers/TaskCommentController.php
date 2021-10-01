@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Collaborator;
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\TaskRequest;
 use App\Services\TaskCommentService;
 use App\Services\TodoService;
@@ -24,7 +25,7 @@ class TaskCommentController extends Controller
 
     public function getCommentsPerTask($taskId)
     {
-        $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
+        $result = $this->taskCommentService->commentsByKey('task_id', $taskId);
         if ($result['status'] == 200 && isset($result["data"])) {
             return response()->json([
                 'status' => 'success',
@@ -39,17 +40,18 @@ class TaskCommentController extends Controller
 
 
 
-    public function saveComment(TaskRequest $request, $todoId)
+    public function saveComment(CommentRequest $request, $todoId)
     {
 
         $todo = $this->todoService->find($todoId);
+
 
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
 
         $input = $request->only('user_id', 'task_id', 'body');
-        $payload = array_merge($input, ['created_at' => Carbon::now()]);
+        $payload = array_merge($input, ['todo_id' => $todoId, 'created_at' => Carbon::now()]);
 
         if (!Collaborator::haveAccess($todo, $request->user_id)) {
             return response()->json(['message' => 'User Lack Access'], 401);
@@ -91,5 +93,17 @@ class TaskCommentController extends Controller
         }
 
         return response()->json(['status' => 'error', 'message' => $result], 500);
+    }
+
+    public function getCommentPerTodo($todoId)
+    {
+        $result = $this->taskCommentService->commentsByKey(['todo_id' => $todoId]);
+
+        return response()->json([
+            'status' => 'success',
+            'type' => 'comments',
+            'count' => count($result),
+            'data' => $result
+        ], 200);
     }
 }

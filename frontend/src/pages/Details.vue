@@ -247,7 +247,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 progress[value] {
   /* Reset the default appearance */
   -webkit-appearance: none;

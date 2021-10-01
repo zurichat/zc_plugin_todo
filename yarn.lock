@@ -2210,6 +2210,11 @@ core-js-compat@^3.14.0, core-js-compat@^3.16.0:
     browserslist "^4.16.8"
     semver "7.0.0"
 
+core-js@^3.0.1:
+  version "3.18.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.18.1.tgz#289d4be2ce0085d40fc1244c0b1a54c00454622f"
+  integrity sha512-vJlUi/7YdlCZeL6fXvWNaLUPh/id12WXj3MbkMw5uOyF0PfWPBNOCNbs53YqgrvtujLNlt9JQpruyIKkUZ+PKA==
+
 core-util-is@~1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
@@ -2648,6 +2653,14 @@ dotenv@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+
+easy-circular-progress@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/easy-circular-progress/-/easy-circular-progress-1.0.4.tgz#85500d0148ee5ced9241ed0063db8c024ab9a9cc"
+  integrity sha512-Spfg9Oo/PvxKL92SRghg5lk2z2ooWNbfPdvv2dJPgo16kgfT4bhFo4v/KM5lgadyos88SobPz/Qv9647nd4K4g==
+  dependencies:
+    core-js "^3.0.1"
+    vue "^2.6.10"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -5898,6 +5911,11 @@ vue3-mq@^3.0.0:
     vue "^3.0.5"
     vue-router "^4.0.10"
     vue3-icon "^2.0.0"
+
+vue@^2.6.10:
+  version "2.6.14"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
+  integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
 vue@^3.0.5:
   version "3.2.9"
