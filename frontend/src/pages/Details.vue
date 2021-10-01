@@ -23,7 +23,7 @@
               <img src="../assets/img/collaborators.svg" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
             </div>
             
-            <p class="text-300">{{ Collaborators }}</p>
+            <p class="text-300">2</p>
           </div>
         </div>
         
@@ -131,6 +131,7 @@
    
 </template>
 <script>
+// import Centrifuge from 'centrifuge'
 import TaskForm from '../components/TaskForm';
 import Empty from '../components/Empty'
 import TaskCard from '../components/TaskCard';
@@ -143,9 +144,10 @@ export default {
     data(){
       return {
         isActive: '1',
-        selectedTodo: '',
+        // centrifuge: null,
         checked: [],
         isModal: false,
+        selectedTodo: null,
         isAssign: false,
         alltasks: ['','','','','','','','','',''],
         users: [],
@@ -155,7 +157,8 @@ export default {
         computed: {
       ...mapGetters({
         allTodos: 'todos/allTodos',
-        isUser : 'todos/user'
+        isUser : 'todos/user',
+        centrifuge: 'todos/centrifuge'
       }),
        collaborators() {
              let value = "";
@@ -197,10 +200,10 @@ export default {
     },
    async createTask(data){
      const todo_id = this.selectedTodo._id;
-     const org_id = "614679ee1a5607b13c00bcb7" 
+     const org_id = this.isUser["0"].org_id
      //this.isUser.Organizations[0];
       await axios.put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
-                .then((response) => this.selectedTodo.tasks.unshift(response.data.data))
+                .then((response) => console.log('task created', response))
                 .catch((error) => {
                     if (error.response) {
                         // The request was made and the server responded with a status code
@@ -223,6 +226,7 @@ export default {
       },
     check(){
       let id = this.$route.params.id
+      const _this = this;
       this.selectedTodo = this.allTodos.find( todo => todo._id.toLowerCase() === (id.toLowerCase()));
        if(this.selectedTodo <= 0 || this.selectedTodo === undefined){
           
@@ -230,7 +234,19 @@ export default {
          
        }
        else {
-         //
+         
+                 _this.centrifuge.subscribe(_this.selectedTodo.channel, function(ctx) {
+               // check if auth user id is same a subscriber id
+                          console.log(ctx.data);
+                          switch(ctx.data.action){
+                          case "create" : {
+                            console.log(ctx.data.details)
+                            _this.selectedTodo = ctx.data.details
+                          } break;
+                          default:
+                          }
+                 }
+                )
        }
       console.log(this.selectedTodo)
     },
