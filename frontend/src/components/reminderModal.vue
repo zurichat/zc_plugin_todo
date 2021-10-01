@@ -13,7 +13,7 @@
         td-grid-row-5
       ">
 			<div class="td-flex td-flex-col td-mb-0 items">
-				<div @click="closeModal" class="td-cursor-pointer td-flex td-justify-end py-2"><i class="pi pi-times"></i></div>
+				<div @click="closeModal" class="td-p-2 td-cursor-pointer td-w-8 td-h-6 td-text-red-500 td-rounded-lg td-shadow-md td-flex"><i class="pi pi-times"></i></div>
 				<span class="
             td-rounded-sm
             td-py-3
@@ -37,7 +37,7 @@
 					td-border-b
 					hover:td-bg-green-400
 					hover:td-text-white
-					">In 1hour</span>
+					">In 1 hour</span>
 				<span class="
 						td-rounded-sm
 						td-py-3
@@ -49,7 +49,7 @@
 						td-border-b
 						hover:td-bg-green-400
 						hover:td-text-white
-						">In 2hours</span>
+						">In 2 hours</span>
 				<span class="
 						td-rounded-sm
 						td-py-3
@@ -73,7 +73,7 @@
 						td-border-b
 						hover:td-bg-green-400
 						hover:td-text-white
-						">In 1week</span>
+						">1 week</span>
 						<span class="
 								td-rounded-sm
 								td-py-3
@@ -139,8 +139,8 @@
 <style scoped>
 	.td-modal-items {
 		position: absolute;
-		top: 180px;
-		right: 5px;
+		top: 100px;
+		right: 10px;
 		z-index: 100;
 		overflow: auto;
 		overflow-y: auto;

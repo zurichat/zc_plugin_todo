@@ -25,6 +25,20 @@
             hover:td-bg-green-400
             hover:td-text-white
           ">Edit</span>
+		<span @click="reminder" class="
+				td-rounded-sm
+				td-px-4
+				td-text-gray-900
+				td-font-normal
+				td-text-sm
+				td-cursor-pointer
+				hover:td-text-white 
+				td-flex
+				td-justify-between
+				td-border-b 
+				td-py-3 
+				hover:td-bg-green-400 
+				hover:td-text-white">Reminder <i v-show="!isReminder" class="pi pi-angle-right td-self-end"></i></span>
 				<span class="
             td-rounded-sm
             td-py-3
@@ -38,19 +52,22 @@
           " @click="toggleDelete">Delete</span>
 			</div>
 		</div>
+		<reminderModal v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
 		<transition name="fade">
-			<DeleteModal v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
+			<deleteTask v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
 		</transition>
 	</div>
 </template>
 
 <script>
-	import DeleteModal from './DeleteModal'
+	import deleteTask from './deleteTask'
+	import reminderModal from '../components/reminderModal'
 	export default {
 		name: "td-modal",
 		data(){
 			return{
 				isDeleteModal: false,
+				isReminder: false
 			}
 		},
 		methods: {
@@ -61,9 +78,13 @@
 			toggleDeleteModal() {
 				this.isDeleteModal = !this.isDeleteModal;
 			},
+			reminder() {
+				this.isReminder = !this.isReminder
+			}
 		},
 		components: {
-			DeleteModal
+			deleteTask,
+			reminderModal
 		}
 	};
 </script>

@@ -43,18 +43,22 @@
                       hover:td-bg-green-400
                       hover:td-text-white
                     ">Get notified about new replies</span>
-        <div  class="td-border-b td-py-3 hover:td-bg-green-400 hover:td-text-white">
-          <span @click="reminder" class="
-                      td-rounded-sm
-                      td-px-4
-                      td-text-gray-900
-                      td-font-normal
-                      td-text-sm
-                      td-cursor-pointer
-                      hover:td-text-white 
-                      td-flex
-                      td-justify-between
-                    ">Remind me about this <i v-show="!isReminder" class="pi pi-angle-right td-self-end"></i></span>
+        <div  class="">
+          <span class="
+                  td-rounded-sm
+                  td-px-4
+                  td-text-gray-900
+                  td-font-normal
+                  td-text-sm
+                  td-cursor-pointer
+                  hover:td-text-white 
+                  td-flex
+                  td-justify-between
+                  td-border-b 
+                  td-py-3 
+                  hover:td-bg-green-400 
+                  hover:td-text-white
+                    ">Make Recurring </span>
         </div>
         <span
           @click="archive"
@@ -89,19 +93,16 @@
         >
       </div>
     </div>
-    <reminderModal v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import { mapActions } from 'vuex'
-import reminderModal from '../components/reminderModal'
 export default {
   name: "td-modal",
   data(){
     return{
-      isReminder: false
     }
   },
   methods: {
@@ -133,9 +134,6 @@ export default {
           this.$emit("archived");
         });
     },
-    reminder(){
-      this.isReminder = !this.isReminder      
-    }
   },
   props: {
     links: {
@@ -146,7 +144,6 @@ export default {
     },
   },
   components: {
-    reminderModal
   }
 };
 </script>

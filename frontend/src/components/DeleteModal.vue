@@ -3,7 +3,7 @@
         <div
             @submit.prevent="addTodo"
             v-click-away="ClickAway"
-            class="td-w-2/5 td-h-2/5 td-flex td-flex-col td-justify-center td-items-center td-text-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded "
+            class="td-w-3/5 md:td-w-2/5 td-h-2/5 td-flex td-flex-col td-justify-center td-items-center td-text-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded "
         >
             <img src="../assets/img/delete_icon.svg" />
             <h1 class="td-text-lg td-font-semibold td-py-5">Delete Task</h1>

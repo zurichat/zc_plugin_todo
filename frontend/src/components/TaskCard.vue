@@ -4,7 +4,7 @@
         <div class="task_content td-flex-grow td-pl-2">
            <div class="td-flex td-justify-between">
              <p class="task_title td-pb-3 td-font-medium"><span class="task_number">Task 0{{index + 1}} -</span> {{task.title}}</p>
-            <div class="">
+            <div v-click-away="ClickAway" class="">
               <div @click="toggleMenu"><i class="pi pi-ellipsis-v td-cursor-pointer"></i></div>
               <div class="td-relative">
                 <taskDropdown v-show="isModalVisible" @toggleDeleteModal="toggleDeleteModal" @toggleMenu="toggleMenu" />
@@ -35,7 +35,7 @@
 </template>
 <script>
 import Checkbox from 'primevue/checkbox';
-  import taskDropdown from '../components/taskDropDown'
+import taskDropdown from '../components/taskDropDown'
 export default {
     name: 'TaskCard',
     components: {
@@ -50,6 +50,10 @@ export default {
     methods:{
       toggleMenu() {
         this.isModalVisible = !this.isModalVisible;
+      },
+      ClickAway() {
+        this.isModalVisible = false
+        // this.$emit('toggleMenu')
       },
     },
     props: {

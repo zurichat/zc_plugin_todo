@@ -18,16 +18,15 @@
 			<div class="td-form-group td-flex td-flex-col td-py-4">
 				<label class="td-pb-2 td-font-bold" for="dueDate">Time</label>
 				<input required type="time" 
-					class="td-border td-border-gray-400 hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" />
+					class="td-border td-time td-border-gray-400 hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" />
 			</div>
 			<div class="td-form-group td-flex td-flex-col td-py-4">
-				<label class="td-pb-2 td-font-bold" for="dueDate">Repeat</label>
-				<select name="sel" id="sel" class="td-border td-border-gray-400 td-outline-none hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded">
-					<option class="hover:td-bg-green-400 hover:td-text-white" value="daily">Daily</option>
-					<option class="hover:td-bg-green-400 hover:td-text-white" value="Weekly">Weekly</option>
-					<option class="hover:td-bg-green-400 hover:td-text-white" value="custom">Custom</option>
-					<option class="hover:td-bg-green-400 hover:td-text-white" value="dnr">Do not repeat</option>
-				</select>
+				<label class="td-pb-2 td-font-bold" for="dueDate">Add Note</label>
+				<textarea 
+				class="td-border 
+				td-border-gray-400 hover:td-border-green-400 
+				td-bg-white td-outline-none text-gray-500 td-py-3 
+				td-text-md td-w-full td-px-2 td-rounded" name="" id="" cols="20" rows="3"></textarea>
 			</div>
 			<div class="td-flex td-justify-end">
 				<button @click="deleteItem"
