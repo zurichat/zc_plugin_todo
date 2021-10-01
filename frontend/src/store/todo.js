@@ -1,4 +1,6 @@
-import axios from 'axios'
+import { getAllTodos, createTodo } from '../plugins/xhr';
+import axios from 'axios';
+import Centrifuge from 'centrifuge'
 export default {
     namespaced: true,
     state: {
@@ -6,6 +8,7 @@ export default {
         todos: [],
         names: [],
         archive: [],
+        centrifuge: null,
         trash: [],
         showAll: true,
         isComment: false,
@@ -17,7 +20,13 @@ export default {
     },
     mutations: {
         ADD_TODOS(state, data) {
-            state.todos.unshift(data)
+            console.log('hey')
+            if (Array.isArray(data) === true) state.todos = data
+            else state.todos.unshift(data)
+            console.log(state)
+        },
+        CN_CTR(state) {
+            state.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', { debug: true });
         },
         IS_USER(state, data) {
             state.isUser = data
@@ -54,6 +63,9 @@ export default {
         allArchive(state) {
             return state.archive
         },
+        centrifuge(state) {
+            return state.centrifuge
+        },
         user(state) {
             return state.isUser
         },
@@ -71,18 +83,26 @@ export default {
         }
     },
     actions: {
-        async getAllTodos({ commit, state }) {
+        async HandleGetTodos({ commit, state }) {
             console.log(state)
-            const user_id = state.isUser._id;
-            const org_id = state.isUser.Organizations[0];
-            await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
-                .then(response => (commit('SET_TODOS', response.data.data)))
-                .catch(error => console.log(error))
+            const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id;
+            try {
+                const response = await getAllTodos(user_id, org_id);
+                console.log('me')
+                commit('ADD_TODOS', response.data.data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
+
         },
         toggleAssign({ commit }) {
             console.log('heloo')
             commit('TOG_ASSIGN');
 
+        },
+        CONNECT_CENTRIFUGE({ commit }) {
+            commit('CN_CTR')
         },
         ADD_USER({ commit }, data) {
             commit('IS_USER', data)
@@ -92,9 +112,18 @@ export default {
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
-        // async createTodo() {
+        async HandleCreateTodo({ state }, any) {
+            // const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id;
+            try {
+                const response = await createTodo(org_id, any);
+                console.log('todo created sucesfully', response)
+                    // commit('ADD_TODOS', data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
 
-        // },
+        },
         centrifugeAddTodo({ commit }, data) {
             commit('ADD_TODOS', data)
         },
