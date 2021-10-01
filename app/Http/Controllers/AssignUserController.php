@@ -21,6 +21,7 @@ class AssignUserController extends Controller
     {
 
         $todo = $this->todoService->find($todoId);
+
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
