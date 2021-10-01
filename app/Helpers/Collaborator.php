@@ -8,7 +8,7 @@ class Collaborator
     public static function isAdmin(array $todo, $userId): bool
     {
         $isAdmin = false;
-        if ($todo['user_id'] == $userId) {
+        if ($todo['data']['user_id'] == $userId) {
             $isAdmin = true;
         } else {
             foreach ($todo['collaborators'] as $collaborator) {
