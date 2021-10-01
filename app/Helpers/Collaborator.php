@@ -8,6 +8,7 @@ class Collaborator
     public static function isAdmin(array $todo, $userId): bool
     {
         $isAdmin = false;
+        // dd($todo);
         if ($todo['user_id'] == $userId) {
             $isAdmin = true;
         } else {
