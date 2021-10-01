@@ -54,7 +54,7 @@ class TodoService extends TodoRepository
 
     public function delete($todoId, $user_id)
     {
-        $todo = $this->todoService->findWhere(['_id' => $todoId]);
+        $todo = $this->findWhere(['_id' => $todoId]);
         //check if the Todo is found
         //if not Throw exception
         if (isset($todo['data']) && $todo['data'] == null) {
@@ -64,7 +64,7 @@ class TodoService extends TodoRepository
         if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
 
         $deleted_at = ['deleted_at' => Carbon::now()];
-        $update = $this->todoService->update($deleted_at, $todoId);
+        $update = $this->update($deleted_at, $todoId);
 
         $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
         return $response;
