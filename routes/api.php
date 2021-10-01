@@ -45,6 +45,7 @@ Route::prefix('v1')->group(function () {
 
     Route::put('add-task/{todoId}', [TaskController::class, 'addTask']);
     Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
+    Route::delete('/todo/{todoId}/delete', [TodoController::class, 'delete']);
 
 
     // Admin privilege
@@ -87,10 +88,8 @@ Route::prefix('v1')->group(function () {
 
     // Comment Related Endpoints
     Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
-    Route::get('all-comment', [TaskCommentController::class, 'index']);
     Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
-    Route::put('update-comment/{commentId}', [TaskCommentController::class, 'update']);
-    Route::delete('comment_delete/{commentId}', [TaskCommentController::class, 'delete']);
+    Route::put('update-comment/{commentId}/{channel}', [TaskCommentController::class, 'update']);
 
 
     // File Related Endpoints

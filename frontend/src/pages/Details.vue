@@ -1,12 +1,17 @@
 <template>
 <div class="td-w-full td-flex-grow ">
-  <div id="Details" class="td-px-2">
-    <div class="todo-nav td-bg-green-500 td-flex td-items-center">
-      <h1 class="td-px-4 td-py-2 td-text-white td-text-3xl"># To-do-list</h1>
-        
-      <span class="btn"><i class="pi td-td- td-px-4 pi-chevron-down"/></span>
+  <div id="Details" class="">
+    <div class="todo-nav td-px-4 td-bg-green-500 td-flex td-justify-between td-items-center">
+      <div class="p-2" @click="() => {this.$router.push({name : 'Main'})}">
+        <i class="pi pi-arrow-left td-text-white"></i>
+      </div>
+      <div class="td-flex td-items-center">
+        <h1 class="td-px-2 td-py-2 td-text-white td-text-2xl"># To-do-list</h1>
+      <span class="btn"><i class="pi td-px- td-text-white pi-chevron-down"/></span>
+      </div>
+      
     </div>
-    <div class="header td-py-4 td-flex td-justify-between td-items-center td-border-b-2">
+    <div class="header td-px-2 td-py-4 td-flex td-justify-between td-items-center td-border-b-2">
       <div>
         <h2 class="td-text-xl td-font-bold td-text-green-500"><i class="pi pi-calendar td-px-2"></i>{{ selectedTodo.title}}</h2>
       </div>
@@ -18,7 +23,7 @@
               <img src="../assets/img/collaborators.svg" style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;">
             </div>
             
-            <p class="text-300">{{ selectedTodo.colaborators.length }}</p>
+            <p class="text-300">{{ Collaborators }}</p>
           </div>
         </div>
         
@@ -33,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="sub-header td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
+    <div class="sub-header td-px-2 td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
       <div class="td-flex" @click="isModal = true"> 
         <div class="mr-2 font-bold button td-px-4 td-py-2 td-bg-green-500 td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
         <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
@@ -44,7 +49,7 @@
         <path d="M12.4999 13.0747H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M7.99988 7.07458H7.24988H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-<!-- 07060961923 -->
+
         <span class="td-font-bold ">{{ itemsTodo.length }}   completed</span>
       </div>
       </div>
@@ -53,25 +58,30 @@
       <progress id="progress" class="td-w-full td-mx-auto" :value="percent" max="100"> 32% </progress>
     </div>
     </div>
-     <div class="py-2 description ">
+     <div class="td-p-2 description ">
       <span>{{ selectedTodo.description }}</span>
     </div> 
     
-    <div class="tasks_container td-py-4">
+    <div class="tasks_container td-px-2 td-py-4">
       
-      <div class="td-my-4 tabMenu">
+      <div class="td-my-4 td-px-2 tabMenu">
         <span class="task_head td-font-bold td-mr-4 td-text-green-500"  @click="isSelect('1')">Pending</span>
         <span class="ml-8 task_head td-font-bold" @click="isSelect('2')" >Completed</span>
           
       <div class="tabContents">
-      <div  id="task_container" v-if="isActive === '1'">    
-      <TaskCard />
-    </div>
-    
-      <div v-else-if="isActive === '2'">
-       {{ checked }}
+          <template  id="task_container" v-if="selectedTodo.tasks.length <= 0" > 
+             <div >
+                    <Empty
+                        :title="'Oops Your Have no tasks yet'"
+                        :subtitle="'Click Create Task Button'"
+                    />
+                </div>  
+          </template>
         
-      </div>
+          <template v-else>
+                      <TaskCard :task="task" :index = "index" v-for="(task, index) in selectedTodo.tasks" :key="index"/>
+
+          </template>
     </div>
   </div>
 </div>
@@ -122,6 +132,7 @@
 </template>
 <script>
 import TaskForm from '../components/TaskForm';
+import Empty from '../components/Empty'
 import TaskCard from '../components/TaskCard';
 import axios from 'axios'
 // import TextArea from '../components/TextArea.vue\
@@ -146,7 +157,15 @@ export default {
         allTodos: 'todos/allTodos',
         isUser : 'todos/user'
       }),
-      
+       collaborators() {
+             let value = "";
+             if (this.todo.colaborators === undefined) {
+                 value = this.todo.collaborators.length;
+             } else {
+                 value = this.todo.colaborators.length;
+             }
+             return value;
+         },
       percent(){
        return (this.checked.length / this.alltasks.length) * 100
       },
@@ -158,7 +177,8 @@ export default {
     },
     components: {
       TaskCard,
-      TaskForm
+      TaskForm,
+      Empty
     },
   methods: {
     toggleModal() {
@@ -177,7 +197,8 @@ export default {
     },
    async createTask(data){
      const todo_id = this.selectedTodo._id;
-     const org_id = this.isUser.Organizations[0];
+     const org_id = "614679ee1a5607b13c00bcb7" 
+     //this.isUser.Organizations[0];
       await axios.put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
                 .then((response) => this.selectedTodo.tasks.unshift(response.data.data))
                 .catch((error) => {
@@ -226,7 +247,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 progress[value] {
   /* Reset the default appearance */
   -webkit-appearance: none;

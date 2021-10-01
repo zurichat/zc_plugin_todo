@@ -12,6 +12,7 @@ import "./assets/styles/app.css"
 axios.defaults.baseURL = 'https://todo.zuri.chat/api/v1'
 import VueClickAway from "vue3-click-away";
 import App from './App.vue'
+import "vue3-circle-progress/dist/circle-progress.css";
 // import './set-public-path'
 // Vue.config.productionTip = false;
 const vueLifecycles = singleSpaVue({

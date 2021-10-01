@@ -30,6 +30,8 @@ class SideBarItemsController extends Controller
         $privateTodos = $todos->filter(function ($item) {
             return  $item['type'] == 'private' && !TodoService::isTodoArchived($item) && !TodoService::isTodoDeleted($item) && (new UserService)->isACollaborator($item);
         });
+        // prepend dashboard to private todo
+        $privateTodos->prepend(['room_name' => 'Todo Dashboard','room_url' => '/todo','room_image' => 'https://www.svgrepo.com/show/346459/todo-fill.svg']);
         // return response
         return response()->json(new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
     }

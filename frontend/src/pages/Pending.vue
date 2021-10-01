@@ -73,9 +73,9 @@ export default {
     Empty,
   },
   mounted() {
-    console.log(this.user);
-    this.getAllTodos();
-  },
+    console.log(this.user)
+    // this.getAllTodos();
+  }
 };
 </script>
 <style lang="scss"></style>

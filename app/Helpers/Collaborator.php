@@ -20,4 +20,25 @@ class Collaborator
 
         return $isAdmin;
     }
+
+    public static function haveAccess(array $todo, $userId): bool
+    {
+        $haveAccess = false;
+        if ($todo['user_id'] == $userId) {
+            $haveAccess = true;
+        } else {
+            foreach ($todo['collaborators'] as $collaborator) {
+                if ($collaborator['user_id'] == $userId) {
+                    $haveAccess = true;
+                }
+            }
+        }
+
+        return $haveAccess;
+    }
+
+    public static function isCreator(array $comment, $userId): bool
+    {
+        return $comment['user_id'] == $userId ? true : false;
+    }
 }
