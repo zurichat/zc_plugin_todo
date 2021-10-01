@@ -45,6 +45,7 @@ class TaskCommentController extends Controller
 
         $todo = $this->todoService->find($todoId);
 
+
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
@@ -96,16 +97,13 @@ class TaskCommentController extends Controller
 
     public function getCommentPerTodo($todoId)
     {
-        $result = $this->taskCommentService->commentsByKey('todo_id', $todoId);
-        if ($result['status'] == 200 && isset($result["data"])) {
-            return response()->json([
-                'status' => 'success',
-                'type' => 'comments',
-                'count' => count($result),
-                'data' => $result
-            ], 200);
-        }
+        $result = $this->taskCommentService->commentsByKey(['todo_id' => $todoId]);
 
-        return response()->json(['message' => $result['message']], 400);
+        return response()->json([
+            'status' => 'success',
+            'type' => 'comments',
+            'count' => count($result),
+            'data' => $result
+        ], 200);
     }
 }
