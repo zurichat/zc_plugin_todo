@@ -100,7 +100,7 @@ class TodoController extends Controller
         $todo = $this->todoService->findWhere(['_id' => $todoId]);
         $deleted_at = ['deleted_at' => Carbon::now()];
         $update = $this->todoService->update($deleted_at, $todoId);
-
+        $this->todoService->publishToRoomChannel($todo['channel'], $todo, "Task", "delete");
         return response()->json(['message' => 'Todo deleted', 'todo' => $update]);
     }
 }

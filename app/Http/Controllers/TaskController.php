@@ -227,6 +227,7 @@ class TaskController extends Controller
     public function markTask(Request $request, $todoId)
     {
         $adminExist = false;
+        // inialize value for task
         $todo = $this->todoService->findBy('_id', $todoId);
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
@@ -252,10 +253,9 @@ class TaskController extends Controller
 
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-            $this->todoService->publish(
-                $todo['channel'],
-                ['user_id' => $request->user_id, 'message' => 'Task status updated', 'data' => $todo]
-            );
+            //publish to todo channel
+            $this->todoService->publishToRoomChannel($todo['channel'], $todo, 'todo', 'mark');
+
             return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         } else {
             return response()->json(["status" => "error", "data" => $result], 500);
