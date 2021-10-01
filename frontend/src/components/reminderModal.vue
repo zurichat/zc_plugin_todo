@@ -149,7 +149,7 @@
 	@media screen and (max-width: 768px) {
 	.td-modal-items {
 		position: absolute;
-		top: 200px;
+		top: 150px;
 		right: 0px;
 		z-index: 100;
 		overflow: auto;
