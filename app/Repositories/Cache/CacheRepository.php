@@ -24,7 +24,10 @@ class CacheRepository implements RepositoryInterface
     public function find($id, $attributes = ['*'])
     {
         $records = $this->all();
-        $key = array_search($id, array_column($records, 'id'));
+        if ($records == []) {
+            return [];
+        }
+        $key = array_search($id, array_column($records, '_id'));
         return $records[$key];
     }
 
@@ -85,8 +88,13 @@ class CacheRepository implements RepositoryInterface
 
     public function create(array $attributes = [], bool $syncRelations = false)
     {
-        $records = $this->all() ? $this->all() : [];
-        $attributes = array_merge($attributes, ['id' => count($records) + 1]);
+        $records = $this->all() != [] ? $this->all() : [];
+        //$attributes = array_merge($attributes, ['id' => count($records) + 1]);
+        
+        if ($records == []) {
+            return $this->model::put($this->modelName, $attributes);
+        }
+
         array_push($records, $attributes);
         return $this->model::put($this->modelName, $records);
     }
@@ -94,10 +102,9 @@ class CacheRepository implements RepositoryInterface
     public function update($id, array $attributes = [], bool $syncRelations = false)
     {
         $records = $this->all();
-        $key = array_search($id, array_column($records, 'id'));
-        $id = $records[$key]['id'];
+        $key = array_search($id, array_column($records, '_id'));
         unset($records[$key]);
-        $attributes = array_merge($attributes, ['id' => $id]);
+        $attributes = array_merge($attributes, ['_id' => $id]);
         array_push($records, $attributes);
         return $this->model::put($this->modelName, array_values($records));
     }
@@ -105,7 +112,7 @@ class CacheRepository implements RepositoryInterface
     public function store($id, array $attributes = [], bool $syncRelations = false)
     {
         $records = $this->all() ? $this->all() : [];
-        $attributes = array_merge($attributes, ['id' => count($records) + 1]);
+        //$attributes = array_merge($attributes, ['id' => count($records) + 1]);
         array_push($records, $attributes);
         return $this->model::put($this->modelName, $records);
     }
