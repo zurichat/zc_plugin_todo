@@ -1,9 +1,9 @@
 <template>
-    <div class="td-m-4 task_box td-flex td-p-2 hover:td-shadow td-border ">
+    <div class="td-mb-2 td-rounded-md task_box td-flex td-p-2 hover:td-shadow td-border ">
         <!-- <Checkbox v-model="checked" :id="'city' + index" name="city" :value="'Chicago' + index" /> -->
         <div class="task_content td-flex-grow">
             <div class="td-flex td-justify-between">
-                <p class="task_title td-pb-3">
+                <p class="task_title td-pb-1 td-text-lg td-font-bold">
                     <span class="task_number">Task 0{{ index + 1 }} -</span>
                     {{ task.title }}
                 </p>
@@ -11,7 +11,7 @@
             </div>
             <div class="td-flex-td-items-start td-pb-4">
                 <div>
-                    <span class="due td-border-r py-0 td-pr-4 "
+                    <span class="due td-font-semibold td-border-r py-0 td-pr-4 "
                         ><i class="pi pi-calendar"></i> Due tomorrow</span
                     >
                     <span class="td-pl-4 td-text-gray-600">
@@ -29,7 +29,7 @@
                             />
                         </div>
                     </div>
-                    <span class="td-font-bold td-text-sm td-text-green-500 td-pr-3 td-underline"
+                    <span class="td-font-bold td-text-sm td-text-green-500 td-px-3 td-underline"
                         >5 comments</span
                     > 
                     <span class="td-text-gray-500">&#8226;</span>

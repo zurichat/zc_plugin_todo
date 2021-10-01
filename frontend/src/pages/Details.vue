@@ -131,7 +131,8 @@
    
 </template>
 <script>
-// import Centrifuge from 'centrifuge'
+
+import CentrifugeSetup from '../plugins/realtime'
 import TaskForm from '../components/TaskForm';
 import Empty from '../components/Empty'
 import TaskCard from '../components/TaskCard';
@@ -224,6 +225,19 @@ export default {
     assign(){
         this.isAssign = !this.isAssign
       },
+      checkAction(ctx){
+        const _this = this
+               // check if auth user id is same a subscriber id
+                          console.log(ctx.data);
+                          switch(ctx.data.action){
+                          case "create" : {
+                            console.log(ctx.data.details)
+                            _this.selectedTodo = ctx.data.details
+                          } break;
+                          default:
+                          }
+                 
+      },
     check(){
       let id = this.$route.params.id
       const _this = this;
@@ -235,18 +249,7 @@ export default {
        }
        else {
          
-                 _this.centrifuge.subscribe(_this.selectedTodo.channel, function(ctx) {
-               // check if auth user id is same a subscriber id
-                          console.log(ctx.data);
-                          switch(ctx.data.action){
-                          case "create" : {
-                            console.log(ctx.data.details)
-                            _this.selectedTodo = ctx.data.details
-                          } break;
-                          default:
-                          }
-                 }
-                )
+                 CentrifugeSetup(_this.selectedTodo.channel, this.checkAction )
        }
       console.log(this.selectedTodo)
     },

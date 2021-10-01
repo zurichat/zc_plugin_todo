@@ -79,9 +79,12 @@ export const getLoggedInUser = () => {
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOiJNVFl6TWprek9UZzRNWHhIZDNkQlIwUlplRTVVVW1oYWFsazFUakpaZDA5RVl6Qk9lbWN4V1hwVmVGa3lUbWxhVVQwOWZIN1pubnNzZkxaN1Z3NGhMRjJtOWVibkprbGNhak5qVDM2S1drRWlTUUk0IiwiZW1haWwiOiJjYWxlYmJhbGExNUBnbWFpbC5jb20iLCJpZCI6IjYxNTRhZjY5N2YwODc0Nzg1YzUxY2NiZSIsIm9wdGlvbnMiOnsiUGF0aCI6Ii8iLCJEb21haW4iOiIiLCJNYXhBZ2UiOjc5NDAxMjYxODAsIlNlY3VyZSI6ZmFsc2UsIkh0dHBPbmx5IjpmYWxzZSwiU2FtZVNpdGUiOjB9LCJzZXNzaW9uX25hbWUiOiJmNjgyMmFmOTRlMjliYTExMmJlMzEwZDNhZjQ1ZDVjNyJ9.GimEjtK0R7lNG08QOhlYczxic5wVY01h9XOWLUkLAsc"
         }
         store.dispatch('todos/ADD_USER', user)
+        store.dispatch('todos/HandleGetTodos')
     } else {
         GetUserInfo().then(user => {
             console.log('user', user);
+            store.dispatch('todos/ADD_USER', user)
+            store.dispatch('todos/HandleGetTodos')
             return user
         });
     }
