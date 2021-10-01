@@ -68,8 +68,6 @@ class TodoController extends Controller
             return response()->json(["status" => 404, 'message' => 'resource not found', 'data' => $activeTodo], 404);
         }
 
-
-
         for ($i = 0; $i < count($result); $i++) {
             if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
                 array_push($activeTodo, $result[$i]);
