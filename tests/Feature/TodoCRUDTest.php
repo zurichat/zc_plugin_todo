@@ -87,4 +87,13 @@ class TodoCRUDTest extends TestCase
 
     }
 
+    public function test_delete_todo()
+    {
+        $response = $this->deleteJson('/api/v1/todo/615072e9dfe7da5d9f90ae8a/delete'. $this->user_id . $this->organisation_id .'');
+        $response->assertStatus(200);
+
+    }
+
+
+
 }

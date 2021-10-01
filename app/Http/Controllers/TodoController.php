@@ -101,4 +101,9 @@ class TodoController extends Controller
     {
        return response()->json($this->todoService->delete($todoId, $user_id));
     }
+
+    public function updateTodo(Request $request, $todoId, $user_id)
+    {
+       return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
+    }
 }
