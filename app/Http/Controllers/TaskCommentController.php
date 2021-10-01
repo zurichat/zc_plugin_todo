@@ -33,11 +33,17 @@ class TaskCommentController extends Controller
                 'data' => $result
             ], 200);
         }
-
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0){
+            // Publish To Centrifugo
+            $this->taskCommentService->publishToCommonRoom(
+                ['message' => "a new comment was made"],
+                null,
+                'info',
+                $request()->user_id
+            );
+        }
         return response()->json(['message' => $result['message']], 400);
     }
-
-
 
     public function saveComment(TaskRequest $request, $todoId)
     {
@@ -65,7 +71,6 @@ class TaskCommentController extends Controller
 
         return response()->json(['message' => $result['message']], 404);
     }
-
 
     public function update(Request $request, $taskId, $channel)
     {
