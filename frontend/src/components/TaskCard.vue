@@ -1,6 +1,6 @@
 <template>
 <div  class="td-pl-4 td-m-4 task_box td-flex td-py-2 hover:td-shadow td-border-b ">
-        <Checkbox v-model="checked" :id="'city' + index" name="city" :value="'Chicago' + index" />
+        <!-- <Checkbox v-model="checked" :id="'city' + index" name="city" :value="'Chicago' + index" /> -->
         <div class="task_content td-flex-grow td-pl-2">
            <div class="td-flex td-justify-between">
              <p class="task_title td-pb-3 td-font-medium"><span class="task_number">Task 0{{index + 1}} -</span> {{task.title}}</p>
@@ -29,19 +29,15 @@
       </div>
 </template>
 <script>
-import Checkbox from 'primevue/checkbox';
+// import Checkbox from 'primevue/checkbox';
 export default {
     name: 'TaskCard',
     components: {
-        Checkbox
+        // Checkbox
     },
-    props: {
-        task : {
-            type : Object
-                },
-                index: {
-                  type: String
-                }
-    }
+    props: ['task','index']
+        
+                
+    
 }
 </script>

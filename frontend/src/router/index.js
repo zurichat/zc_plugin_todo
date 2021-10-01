@@ -4,7 +4,7 @@ import Main from '../pages/Main.vue';
 import Trash from '../pages/Trash.vue';
 import Archive from '../pages/Archive.vue';
 import Details from '../pages/Details';
-
+import Detail from '../pages/Detail';
 const routes = [{
         //landing page
         path: '',
@@ -28,6 +28,11 @@ const routes = [{
         path: '/details/:id',
         name: 'Details',
         component: Details
+    },
+    {
+        path: '/detail/:id',
+        name: 'Detail',
+        component: Detail
     },
     {
         path: '/:pathMatch(.*)*',

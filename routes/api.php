@@ -88,8 +88,9 @@ Route::prefix('v1')->group(function () {
     Route::get('/taskresource', [TaskController::class, 'showResource']);
 
     // Comment Related Endpoints
-    Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
+    Route::post('add-comment/{todoId}', [TaskCommentController::class, 'saveComment']);
     Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
+    Route::get('todo-comment/{todo}', [TaskCommentController::class, 'getCommentPerTodo']);
     Route::put('update-comment/{commentId}/{channel}', [TaskCommentController::class, 'update']);
 
 
