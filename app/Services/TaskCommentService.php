@@ -32,7 +32,7 @@ class TaskCommentService extends TaskCommentRepository
 
     public function commentsByKey(array $where)
     {
-        return Response::checkAndServe($this->httpRepository->findWhere($where));
+        return Response::checkAndServeComment($this->httpRepository->findWhere($where));
     }
 
 

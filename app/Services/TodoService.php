@@ -2,15 +2,13 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Helpers\Response;
-use App\Providers\AppServiceProvider;
 use App\Repositories\TodoRepository;
-use Illuminate\Routing\ResponseFactory;
 
-//use App\Services\ServiceTrait;
-
-class TodoService extends TodoRepository
-{
+use App\Services\ServiceTrait;
+use App\Providers\AppServiceProvider;
+class TodoService extends TodoRepository{
     use ServiceTrait;
 
     public function all()
@@ -102,7 +100,28 @@ class TodoService extends TodoRepository
     }
 
 
-    public function update($data, $id)
+    public function updateTodo($data, $todoId, $user_id)
+    {
+        $todo = $this->findWhere(['_id' => $todoId]);
+
+        //Throw an exception if todo is not found
+        abort_if(isset($todo['data']) && $todo['data'] == null, 404, "Todo not found or empty");
+
+        if ($todo['user_id'] != $user_id) {
+            abort("You dont have authorization to delete", 401);
+        }
+        abort_if(empty($data), 400, "Request payload is empty");
+        $update = $this->update($todoId, $data);
+
+        if(isset($update['modified_documents']) && $update['modified_documents'] > 0){
+           $response = ['message' => 'Todo updated successfully', 'data' => $update];
+        }else {
+            abort(500, 'an error was encountered');
+        }
+        return $response;
+    }
+
+    public function update($todoId, $data)
     {
         //update cache before updating
         if($this->cacheRepository->all() == []){  
@@ -111,32 +130,33 @@ class TodoService extends TodoRepository
         }
 
         //check if cache exist else get from server and update cache
-        $response = $this->httpRepository->update($id, $data); 
+        $response = $this->httpRepository->update($todoId, $data); 
         
         if (isset($response['data']['modified_documents']) && $response['data']['modified_documents'] >= 0) {
-            $this->cacheRepository->update($id, $data);
+            $this->cacheRepository->update($todoId, $data);
             
-            return Response::checkAndServe($response);
+            return $response['data'];
         }
         
-        return Response::checkAndServe($response);
-        //return Response::checkAndServe($this->httpRepository->update($id, $data));
+        return $response['data'];
     }
 
-
-    public function delete($id)
+    public function delete($todoId, $user_id)
     {
-        //check if cache exist else get from server and delete object from cache
-        $response = $this->httpRepository->delete($id); 
-        
-        if (($response['status'] == 200 || $response['status'] == "success") && isset($response["data"])) {
-            $this->cacheRepository->delete($id);
-            
-            return Response::checkAndServe($response['data']);
+        $todo = $this->findWhere(['_id' => $todoId]);
+        //check if the Todo is found
+        //if not Throw exception
+        if (isset($todo['data']) && $todo['data'] == null) {
+            abort(404, "Todo not found");
         }
-        
-        return Response::checkAndServe($response);
-        //return Response::checkAndServe($this->httpRepository->delete($id));
+        //if the user that is trying to delete is not the user that created, no one else can delete
+        if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
+
+        $deleted_at = ['deleted_at' => Carbon::now()];
+        $update = $this->update($todoId, $deleted_at);
+
+        $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
+        return $response;
     }
 
   /**
