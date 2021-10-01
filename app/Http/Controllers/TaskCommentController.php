@@ -37,6 +37,8 @@ class TaskCommentController extends Controller
         return response()->json(['message' => $result['message']], 400);
     }
 
+
+
     public function saveComment(TaskRequest $request, $todoId)
     {
 
@@ -89,12 +91,5 @@ class TaskCommentController extends Controller
         }
 
         return response()->json(['status' => 'error', 'message' => $result], 500);
-    }
-
-
-    public function delete($id)
-    {
-
-        return response()->json($this->taskCommentService->delete($id));
     }
 }
