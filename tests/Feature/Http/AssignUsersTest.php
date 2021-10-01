@@ -21,7 +21,13 @@ class AssignUsersTest extends TestCase
         $data = ['user_id' => $this->userId, 'admin_status' => '0'];
         $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $data)
             ->assertStatus(200)
-            ->assertJson([]);
+            ->assertJson([
+                "status" => "success",
+                "type" => "Todo",
+                "data" => [
+                    '*'
+                ]
+            ]);
     }
 
 
