@@ -51,14 +51,19 @@ class TodoService extends TodoRepository
         $todo = $this->findWhere(['_id' => $todoId]);
 
         //Throw an exception if todo is not found
-        abort_if(isset($todo['data']) && $todo['data'] == null || !isset($todo['data']), 404, "Todo not found or empty");
+        abort_if(isset($todo['data']) && $todo['data'] == null, 404, "Todo not found or empty");
 
         if ($todo['user_id'] != $user_id) {
             abort("You dont have authorization to delete", 401);
         }
         abort_if(empty($data), 400, "Request payload is empty");
         $update = $this->update($todoId, $data);
-        $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo updated successfully', 'data' => $update] : abort(500, 'an error was encountered');
+
+        if(isset($update['modified_documents']) && $update['modified_documents'] > 0){
+           $response = ['message' => 'Todo updated successfully', 'data' => $update];
+        }else {
+            abort(500, 'an error was encountered');
+        }
         return $response;
     }
 
@@ -72,14 +77,14 @@ class TodoService extends TodoRepository
         $todo = $this->findWhere(['_id' => $todoId]);
         //check if the Todo is found
         //if not Throw exception
-        if (isset($todo['data']) && $todo['data'] == null || !isset($todo['data'])) {
+        if (isset($todo['data']) && $todo['data'] == null) {
             abort(404, "Todo not found");
         }
         //if the user that is trying to delete is not the user that created, no one else can delete
         if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
 
         $deleted_at = ['deleted_at' => Carbon::now()];
-        $update = $this->update($deleted_at, $todoId);
+        $update = $this->update($todoId, $deleted_at);
 
         $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
         return $response;
