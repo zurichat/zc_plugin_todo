@@ -20,28 +20,29 @@ class TodoCRUDTest extends TestCase
      */
     public function test_create_todo()
     {
-        $response = $this->postJson('/api/v1/create-todo'. $this->organisation_id .'',
-        [
-            "title" => "Test Case",
-            "type" => "public",
-            "user_id" => "614b453144a9bd81cedc0b25"
-        ]);
+        $data = [
+                    "title" => $this->faker->realTextBetween(15, 20),
+                    "type" => "public",
+                    "user_id" => "614b453144a9bd81cedc0b25"
+                ];
+        $response = $this->postJson('/api/v1/create-todo'. $this->organisation_id .'', $data);
         $response->assertStatus(200)
                 ->assertJson([
                     "status" => "success",
                     "type" => "Todo",
                     "data" => [
-                        '_id' => $response['data']['_id']
+                        '*'
                     ]
                 ]);
     }
 
     public function test_create_todo_endpoint_validate_title()
     {
-      $response = $this->postJson('/api/v1/create-todo'. $this->organisation_id .'',
-        [
+
+        $data = [
             "title" => ""
-        ]);
+        ];
+      $response = $this->postJson('/api/v1/create-todo'. $this->organisation_id .'', $data);
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(
            ["title"]
@@ -50,10 +51,10 @@ class TodoCRUDTest extends TestCase
 
      public function test_create_todo_endpoint_validate_user_id()
     {
-        $this->postJson('/api/v1/create-todo'. $this->organisation_id .'',
-        [
+        $data = [
             "user_id" => ""
-        ])
+        ];
+        $this->postJson('/api/v1/create-todo'. $this->organisation_id .'', $data)
         ->assertStatus(422)
         ->assertJsonValidationErrors(
            ["user_id"]
@@ -62,10 +63,10 @@ class TodoCRUDTest extends TestCase
 
     public function test_create_todo_endpoint_validate_type()
     {
-        $this->postJson('/api/v1/create-todo'. $this->organisation_id .'',
-        [
+        $data = [
             "type" => ""
-        ])
+        ];
+        $this->postJson('/api/v1/create-todo'. $this->organisation_id .'', $data)
         ->assertStatus(422)
         ->assertJsonValidationErrors(
            ["type"]
@@ -77,14 +78,14 @@ class TodoCRUDTest extends TestCase
         $response = $this->getJson('/api/v1/todo/615072e9dfe7da5d9f90ae8a/'. $this->user_id .'/show'. $this->organisation_id .'');
         $response->assertStatus(200)
                 ->assertJson([
-                    "_id" => $response['_id'],
-                    "channel" => $response['channel'],
-                    "collaborators" => [],
-                    "created_at" => $response['created_at'],
-                    "labels" => [],
-                    "title" => $response['title'],
-                    "tasks" => [],
-                    "type" => $response['type']
+                    "_id",
+                    "channel",
+                    "collaborators" ,
+                    "created_at",
+                    "labels",
+                    "title",
+                    "tasks",
+                    "type"
                 ]);
 
     }
@@ -98,11 +99,12 @@ class TodoCRUDTest extends TestCase
 
     public function test_update_todo()
     {
-        $response = $this->putJson('/api/v1/todo-update/615072e9dfe7da5d9f90ae8a/614b453144a9bd81cedc0b25?organisation_id=614679ee1a5607b13c00bcb7',[
-            "title" => "updated title",
+        $data = [
+            "title" => $this->faker->realTextBetween(15, 20),
             "type" => "public"
-        ]);
-        // dd($response);
+        ];
+        $response = $this->putJson('/api/v1/todo-update/615072e9dfe7da5d9f90ae8a/614b453144a9bd81cedc0b25?organisation_id=614679ee1a5607b13c00bcb7', $data);
+
         $response->assertStatus(200);
         $response->assertJson([
                     "message" => "Todo updated successfully",
