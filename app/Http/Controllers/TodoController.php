@@ -31,7 +31,7 @@ class TodoController extends Controller
     public function createTodo(TodoRequest $request)
     {
 
-        $channel = Manipulate::buildChannel($request->title, substr(uniqid(), 0, 12));
+        $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
         $todoObject = array_merge($input, [
@@ -60,9 +60,15 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
-        if (isset($result['status']) && $result['status'] == 404) {
-            return response()->json($result, 404);
+        if ((isset($result['status']) && $result['status'] == 404)) {
+            return response()->json(["message" => "error"], 404);
         }
+
+        if (count($result) < 1) {
+            return response()->json(["status" => 404, 'message' => 'resource not found', 'data' => $activeTodo], 404);
+        }
+
+
 
         for ($i = 0; $i < count($result); $i++) {
             if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {

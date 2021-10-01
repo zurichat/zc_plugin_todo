@@ -3,7 +3,7 @@
         id="TodoCard"
         class="td-px-4 td-py-2 td-mx-auto hover:td-border td-cursor-pointer td-my-4 sm:td-my-0 taskcard sm:td-mx-0 td-relative"
     >
-  
+    
         <div v-click-away="ClickAway">
             <div
                 class="menu_btn td-px-6 td-py-3 td-absolute td-top-0 td-right-0"
@@ -49,8 +49,8 @@
                     </div>
                 </div>
                 <div class="percent">
-                      <circle-progress  :size="67" :border-width="5" :border-bg-width="5" empty-color="#F6F6F6" fill-color="#00B87C"
-                       :percent="40" :show-percent="true" /> 
+                    <CircleProgress :size="67" :border-width="5" :border-bg-width="5" empty-color="#F6F6F6" fill-color="#00B87C"
+                       :percent="percent" :show-percent="true" />
                 </div>
             </div>
             <div class="td-flex td-justify-between td-my-2">
@@ -102,7 +102,9 @@
     </div>
 </template>
 <script>
+// import Progress from "easy-circular-progress";x
 //  import Progress from './Progress';
+import CircleProgress from "vue3-circle-progress";
 import DeleteModal from "./DeleteModal";
 import MenuDropdown from "./MenuDropdown.vue";
 import AssignForm from "./AssignForm.vue";
@@ -139,17 +141,25 @@ export default {
     },
     components: {
         MenuDropdown,
-        // Progress
-        DeleteModal,
-        AssignForm,
         CircleProgress,
+        DeleteModal
     },
     computed: {
          description() {
-             let value = "";
+             let value = 1;
              if (this.todo.description != undefined) {
                  value = this.todo.description.slice(0, 20);
              } 
+             return value;
+         },
+         percent(){
+             const all = this.todo.tasks;
+             let value =1
+             if(all.length != 0){
+                 const completed = all.filter((task) => task.status === 1)
+                 value = (completed.length/all.length) * 100;
+             }
+             value = value <= 0 ? 1 : value;
              return value;
          },
           collaborators() {

@@ -68,7 +68,7 @@
 <script>
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 export default {
     name: "TodoForm",
     data() {
@@ -91,7 +91,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            createTodo: "todos/createTodo"
+            createTodo: "todos/HandleCreateTodo"
         }),
         closeModal() {
             
@@ -102,32 +102,26 @@ export default {
         },
        async addTodo() {
             
-            this.todoDetails.user_id = this.isUser._id;
-            //console.log(this.todoDetails);
-            //   function to toggle modal in the main page
-            this.$emit("toggleModal");
-            //   function to call action in the vuex store
-            this.createTodo(this.todoDetails);
-            this.todoDetails.user_id = this.isUser.id;
+            this.todoDetails.user_id = this.isUser["0"]._id;
             const data = this.todoDetails
-            const org_id = "614679ee1a5607b13c00bcb7" //state.isUser.Organizations[0];
-            await axios.post(`/create-todo?organisation_id=${org_id}`, data)
-                .then((response) => console.log('todo created ' + response))
-                .catch((error) => {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.warn(error.response.data);
+            this.createTodo(data)
+            // await axios.post(`/create-todo?organisation_id=${org_id}`, data)
+            //     .then((response) => console.log('todo created ' + response))
+            //     .catch((error) => {
+            //         if (error.response) {
+            //             // The request was made and the server responded with a status code
+            //             // that falls out of the range of 2xx
+            //             console.warn(error.response.data);
 
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered the Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config)
-                })
+            //         } else if (error.request) {
+            //             // The request was made but no response was received
+            //             console.log(error.request);
+            //         } else {
+            //             // Something happened in setting up the request that triggered the Error
+            //             console.log('Error', error.message);
+            //         }
+            //         console.log(error.config)
+            //     })
                 this.$emit("toggleModal");
         }
     }

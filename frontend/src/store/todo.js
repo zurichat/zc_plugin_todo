@@ -1,4 +1,5 @@
-import axios from 'axios'
+import { getAllTodos, createTodo } from '../plugins/xhr';
+import axios from 'axios';
 export default {
     namespaced: true,
     state: {
@@ -39,7 +40,10 @@ export default {
     },
     mutations: {
         ADD_TODOS(state, data) {
-            state.todos.unshift(data)
+            console.log('hey')
+            if (Array.isArray(data) === true) state.todos = data
+            else state.todos.unshift(data)
+            console.log(state)
         },
         IS_USER(state, data) {
             state.isUser = data
@@ -93,15 +97,18 @@ export default {
         }
     },
     actions: {
-        async getAllTodos({ commit, state }) {
-         
+        async HandleGetTodos({ commit, state }) {
             console.log(state)
+            const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id;
+            try {
+                const response = await getAllTodos(user_id, org_id);
+                console.log('me')
+                commit('ADD_TODOS', response.data.data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
 
-            const user_id = state.isUser.id //state.isUser._id;
-            const org_id = "614679ee1a5607b13c00bcb7" //            state.isUser.Organizations[0];
-            await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
-                .then(response => (commit('SET_TODOS', response.data.data)))
-                .catch(error => console.log(error))
         },
         toggleAssign({ commit }) {
             console.log('heloo')
@@ -116,9 +123,18 @@ export default {
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
-        // async createTodo() {
+        async HandleCreateTodo({ state }, any) {
+            // const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id;
+            try {
+                const response = await createTodo(org_id, any);
+                console.log('todo created sucesfully', response)
+                    // commit('ADD_TODOS', data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
 
-        // },
+        },
         centrifugeAddTodo({ commit }, data) {
             commit('ADD_TODOS', data)
         },
