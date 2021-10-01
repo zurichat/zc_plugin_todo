@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Helpers\Response;
-use App\Providers\AppServiceProvider;
 use App\Repositories\TodoRepository;
+use App\Providers\AppServiceProvider;
 
 class TodoService extends TodoRepository
 {
@@ -45,15 +46,48 @@ class TodoService extends TodoRepository
     }
 
 
-    public function update($data, $id)
+    public function updateTodo($data, $todoId, $user_id)
     {
-        return Response::checkAndServe($this->httpRepository->update($id, $data));
+        $todo = $this->findWhere(['_id' => $todoId]);
+
+        //Throw an exception if todo is not found
+        abort_if(isset($todo['data']) && $todo['data'] == null, 404, "Todo not found or empty");
+
+        if ($todo['user_id'] != $user_id) {
+            abort("You dont have authorization to delete", 401);
+        }
+        abort_if(empty($data), 400, "Request payload is empty");
+        $update = $this->update($todoId, $data);
+
+        if(isset($update['modified_documents']) && $update['modified_documents'] > 0){
+           $response = ['message' => 'Todo updated successfully', 'data' => $update];
+        }else {
+            abort(500, 'an error was encountered');
+        }
+        return $response;
     }
 
-
-    public function delete($id)
+    public function update($todoId, $data)
     {
-        return Response::checkAndServe($this->httpRepository->delete($id));
+        return Response::checkAndServe($this->httpRepository->update($todoId, $data));
+    }
+
+    public function delete($todoId, $user_id)
+    {
+        $todo = $this->findWhere(['_id' => $todoId]);
+        //check if the Todo is found
+        //if not Throw exception
+        if (isset($todo['data']) && $todo['data'] == null) {
+            abort(404, "Todo not found");
+        }
+        //if the user that is trying to delete is not the user that created, no one else can delete
+        if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
+
+        $deleted_at = ['deleted_at' => Carbon::now()];
+        $update = $this->update($todoId, $deleted_at);
+
+        $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
+        return $response;
     }
 
   /**
