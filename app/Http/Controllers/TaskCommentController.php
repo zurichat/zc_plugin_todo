@@ -50,7 +50,7 @@ class TaskCommentController extends Controller
         }
 
         $input = $request->only('user_id', 'task_id', 'body');
-        $payload = array_merge($input, ['todo_id' => $todo['_id'], 'created_at' => Carbon::now()]);
+        $payload = array_merge($input, ['todo_id' => $todoId, 'created_at' => Carbon::now()]);
 
         if (!Collaborator::haveAccess($todo, $request->user_id)) {
             return response()->json(['message' => 'User Lack Access'], 401);
