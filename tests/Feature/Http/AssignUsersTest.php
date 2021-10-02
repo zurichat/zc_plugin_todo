@@ -76,20 +76,13 @@ class AssignUsersTest extends TestCase
         //Add the performaer user_id
         $collaboratorData = [
             'collaborator_id' => $this->collaborator_id,
+            'admin_status' => '0',
             'user_id' => $this->userId
         ];
-        $response = $this->json('PUT', 'api/v1/remove-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+        //Hit the endpoint to remove collaborator from a todo
+        $this->json('PUT', 'api/v1/remove-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
             ->assertStatus(200)
             //assert that the collaborator is not contained in the collaborators array of the todo response 
-            ->assertJsonMissing(['collaborator_id' => $this->collaborator_id,])
-            //assert that the structure of the Json response matches the exact response structure
-            ->assertJsonStructure([
-                "status",
-                "type",
-                "data" => [
-                    '_id', "channel", "collaborators", "created_at",
-                    "labels", "tasks", "title", "type", "user_id"
-                ]
-            ]);
+            ->assertJsonMissing(['collaborator_id' => $this->collaborator_id,]);
     }
 }
