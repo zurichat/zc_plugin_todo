@@ -207,7 +207,7 @@ class TaskController extends Controller
 
         $taskId = Str::uuid();
 
-        $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => null, "status" => 0];
+        $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => $request->recurring, "status" => 0];
         array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
