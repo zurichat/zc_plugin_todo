@@ -11,6 +11,9 @@ class SideBarItemsController extends Controller
 {
     public function sidebar()
     {
+        $org_id = Config::get('organisation_id');
+        $user_id = Config::get('user_id');
+        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
         // get all todo
         $todos = (new TodoService)->all();
         // check if response has error
@@ -34,5 +37,9 @@ class SideBarItemsController extends Controller
         $privateTodos->prepend(['room_name' => 'Todo Dashboard','room_url' => '/todo','room_image' => 'https://www.svgrepo.com/show/346459/todo-fill.svg']);
         // return response
         return response()->json(new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
+        // $data =  new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]);
+
+        // $todo = (new TodoService)->publishToRoomChannel($workspaceChannelName, $data, 'Todo', "update sidebar");
+
     }
 }
