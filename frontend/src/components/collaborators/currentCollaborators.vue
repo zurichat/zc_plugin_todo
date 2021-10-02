@@ -89,7 +89,7 @@ export default {
                         }
                     )
                     .then(response => {
-                        this.collaborators.push(response.data)
+                        // this.collaborators.push(response.data)
                         response;
                         console.log(response);
                     })
