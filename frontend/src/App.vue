@@ -33,7 +33,8 @@ export default {
         HandleAllTodos: "todos/HandleGetTodos",
         add_user : 'todos/ADD_USER',
         cn_centri : 'todos/CONNECT_CENTRIFUGE',
-        addTodo : 'todos/centrifugeAddTodo'
+        addTodo : 'todos/centrifugeAddTodo',
+        getMembers: 'todos/getAllMembers'
       }),
         welcome(){
            getLoggedInUser()
@@ -95,6 +96,10 @@ export default {
      mounted(){
          this.welcome()
          this.enterCommonRoom()
+         this.getMembers()
+        //  console.log(this.getAllMembers())
+        //  console.log(this.welcome)
+        // console.log(this.isUser[0].org_id)
        }
    }
 

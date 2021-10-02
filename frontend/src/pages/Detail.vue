@@ -123,6 +123,7 @@
                         >
                     </div> -->
     <!-- <span class="td-font-bold ">{{ itemsTodo.length }} completed</span> -->
+    
     </div>
   
             <!-- <div class="progress_container td-flex td-flex-col">
@@ -215,11 +216,11 @@
 
     <div>
         <transition name="fade">
-            <TaskForm
-                v-if="isModal"
-                @createTask="createTask"
-                @toggleModal="toggleModal"
-            />
+            <TaskForm v-if="isModal" @createTask="createTask" @toggleModal="toggleModal" />
+        </transition>
+        <transition name="fade" class="td-block lg:td-hidden">
+            <Comment class="td-rounded-md" v-if="isComment" @showComment="showComment"
+                :selectedTodo="selectedTodo.title" />
         </transition>
         <transition
             name="fade"

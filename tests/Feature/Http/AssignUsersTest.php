@@ -16,6 +16,48 @@ class AssignUsersTest extends TestCase
     protected $collaborator_id = "614f089fe35bb73a77bc2abc";
     protected $requestParam = "?user_id=614f089fe35bb73a77bc2b77&organisation_id=614679ee1a5607b13c00bcb7";
 
+    public function test_collaborator_validation_works_for_collaboratorId_omission()
+    {
+        // We attempt to build the collaborator object without the colloaborator_id 
+        $collaboratorData = [
+            "collaborator_id" => ""
+        ];
+        //Hit the endpoint to add collaborator to a todo 
+        $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert a 422 response code
+            ->assertStatus(422)
+            //we assert collaborator_id validation error
+            ->assertJsonValidationErrors(["collaborator_id"]);
+    }
+
+    public function test_collaborator_validation_works_for_adminStatus_omission()
+    {
+        // We attempt to build the collaborator object without the admin_status 
+        $collaboratorData = [
+            "admin_status" => ""
+        ];
+        //Hit the endpoint to add collaborator to a todo 
+        $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert a 422 response code
+            ->assertStatus(422)
+            //we assert admin_status validation error
+            ->assertJsonValidationErrors(["admin_status"]);
+    }
+
+    public function test_collaborator_validation_works_for_userId_omission()
+    {
+        // We attempt to build the data without entery on the user_id on the user_id field 
+        $collaboratorData = [
+            "user_id" => ""
+        ];
+        //Hit the endpoint to add collaborator to a todo 
+        $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert a 422 response code
+            ->assertStatus(422)
+            //we assert user_id validation error
+            ->assertJsonValidationErrors(["user_id"]);
+    }
+
 
     public function test_admin_status_checker_works_when_attempting_to_add_collaborators()
     {

@@ -15,7 +15,7 @@
       "
     >
       <div class="td-flex td-flex-col td-mb-0 items">
-        <span
+        <!-- <span
           class="
             td-rounded-sm
             td-py-3
@@ -29,7 +29,7 @@
           "
           @click="assign()"
           >Assign Collaborators</span
-        >
+        > -->
         <span
           class="
             td-rounded-sm
