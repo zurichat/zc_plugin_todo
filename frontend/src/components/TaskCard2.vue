@@ -34,7 +34,7 @@
                             />
                         </div>
                     </div>
-                    <span class="td-font-bold td-text-sm td-text-green-500 td-px-3 td-underline"
+                    <span @click="displayComment" class="td-cursor-pointer td-font-bold td-text-sm td-text-green-500 td-px-3 td-underline"
                         >5 comments</span
                     > 
                     <span class="td-text-gray-500">&#8226;</span>
@@ -93,6 +93,9 @@ export default {
             this.isModalVisible = false
             // this.$emit('toggleMenu')
         },
+        displayComment(){
+            this.$emit("showComment")
+        }
     }
 
 };

@@ -3,7 +3,7 @@
         <form
             @submit.prevent="createTask"
             v-click-away="ClickAway"
-            class="td-4/5 md:td-w-6/12 td-p-4 td-bg-white td-rounded "
+            class="td-w-4/5 md:td-w-6/12 td-p-4 td-bg-white td-rounded "
         >
             <div class="td-mb-4 ">
                 <div
