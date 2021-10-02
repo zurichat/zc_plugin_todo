@@ -227,6 +227,7 @@ class TaskController extends Controller
     public function markTask(Request $request, $todoId)
     {
         $adminExist = false;
+        // inialize value for task
         $todo = $this->todoService->findBy('_id', $todoId);
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
