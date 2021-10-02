@@ -15,7 +15,8 @@ class AdminController extends Controller
         $this->todoService = $todoService;
     }
 
-    public function adminPrivilege($todoId, Request $request){
+    public function adminPrivilege($todoId, Request $request)
+    {
         // Find the todo and check if it exists
         $todo = $this->todoService->find($todoId);
 
@@ -23,19 +24,19 @@ class AdminController extends Controller
             return response()->json($todo, 404);
         }
         // Some extra validations to check if the user performing this action is the creator
-        if($request->creator_id != $todo['user_id']){
-            return response()->json('This action can only be performed by the owner of this todo', 400);
+        if ($request->creator_id != $todo['user_id']) {
+            return response()->json(['message' => 'Lacks Authotization'], 401);
         }
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'privilege' => 'required|integer|digits_between:0,1'
         ]);
-        if($validator->fails()) return response()->json(['errors'=>$validator->errors()],400);
+        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         // find the collaborator and grant or revoke the privilege admin privilege
         foreach ($todo['collaborators'] as $key => $value) {
             # code...
 
-            if($todo['collaborators'][$key]['user_id'] == $request->collaborator_id) {
+            if ($todo['collaborators'][$key]['user_id'] == $request->collaborator_id) {
                 $todo['collaborators'][$key]['admin_status'] = $request->privilege;
             }
         }
@@ -44,9 +45,8 @@ class AdminController extends Controller
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
-        }else{
+        } else {
             return response()->json(["status" => "error", "data" => $result], 500);
         }
-
     }
 }
