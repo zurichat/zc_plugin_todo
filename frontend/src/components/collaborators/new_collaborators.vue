@@ -7,20 +7,28 @@
             type="text"
         />
         <div
-            class="box td-absolute td-bg-white td-w-100"
+            class="box td-absolute td-bg-white td-w-100 td-p-2 td-rounded td-shadow td-border"
             v-if="hideSearchResult == false"
         >
-            <!-- <div class="input-box"></div> -->
-            <div v-if="showLoading" class="td-w-100 td-flex td-justify-center">
+            <!-- <div v-if="showLoading" class="td-w-100 td-flex td-justify-center">
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            </div>
+            </div> -->
             <div class="td-grid td-grid-cols-1">
                 <div v-for="(user, index) in searchValue" :key="index" class="">
                     <div class="td-flex td-justify-between td-px-4">
                     <span class="td-w-100 td-py-1">{{ user.user_name.slice(0,30) }}</span>
-                    <span class=" td-text-green-500 " @click="add_collaborator(user._id)">Add</span>
+                  
+                    <span v-if="selectedTodo.collaborators.collaborator_id != user._id" class=" td-text-green-500 " @click="add_collaborator(isUser[0]._id, user._id)">
+                        <span v-if="adding == true">
+                            Adding.....
+                        </span>
+                        <span v-else-if="adding == false">
+                            Remove
+                        </span>
+                        <span v-else> Add </span>
+                    </span>
+                    <span v-else class=" td-text-green-500 ">Remove</span>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -42,14 +50,18 @@ export default {
             value: "",
             searchValue: [],
             showLoading: false,
-            org_id: "614679ee1a5607b13c00bcb7",
-            hideSearchResult: true
+            hideSearchResult: true,
+            userExist:null,
+            adding:null
         };
     },
     computed: {
         ...mapGetters({
-            selectedTodo: "todos/selectedTodo"
-        })
+            selectedTodo: "todos/selectedTodo",
+            isUser : 'todos/user',
+            org_member : 'todos/show_organisation_members'
+        }),
+       
     },
     methods: {
         ...mapActions({
@@ -59,20 +71,38 @@ export default {
             this.tog_assign();
         },
 
-        add_collaborator(user_id){
+        collab_exist(collab_user_id){
+            this.selectedTodo.collaborators.forEach(element => {
+                if(collab_user_id == element.collaborator_id){
+                    this.userExist = true
+                }else{
+                    this.userExist = false
+                }
+            });
+            return this.userExist
+        },
+        add_collaborator(logged_in_user, collaborator_id){
+            this.adding =true
+
+            console.log(this.selectedTodo)
             let data={
                 admin_status:'0',
-                collaborator_id:'',
-                user_id:user_id,
+                collaborator_id:collaborator_id,
+                user_id:logged_in_user,
             }
-            axios.put(`https://todo.zuri.chat/api/v1/assign-collaborators/${this.selectedTodo._id}?organisation_id=${this.org_id}`, data).then((request)=>{
+            axios.put(`https://todo.zuri.chat/api/v1/assign-collaborators/${this.selectedTodo._id}?organisation_id=${this.selectedTodo.organisation_id}`, data).then((request)=>{
                 console.log(request)
+            this.adding =false
+
             }).catch((error)=>{
                 console.log(error)
+            this.adding =false
+
             })
         },
 
         search() {
+            
             let value;
             if (this.value != "") {
                 this.hideSearchResult = false;
@@ -83,11 +113,13 @@ export default {
                             .toLowerCase()
                             .indexOf(this.value.toLowerCase()) >= 0
                 );
+                this.collab_exist(this.users._id)
             } else {
                 this.hideSearchResult = true;
                 // this.searchValue = value = this.users;
 
                 value = this.users;
+                this.collab_exist(this.users._id)
 
                 // this.users = value;
                 // alert(value)
@@ -97,14 +129,16 @@ export default {
         }
     },
     props: {
-        allUsers: {
-            type: Object
+        adminPrivilage: {
+            type: Boolean
         }
     },
     mounted() {
         // this.getUser();
-        this.users = this.allUsers;
-        console.log(this.allUsers)
+        // this.users = this.allUsers;
+        // console.log(this.isUser)
+        // get organisation members 
+        this.users = this.org_member
     }
 };
 </script>

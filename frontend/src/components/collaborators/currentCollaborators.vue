@@ -19,50 +19,40 @@
                             class="td-self-center td-w-9 td-h-9 td-rounded "
                             :src="user.image_url"
                         /> -->
-          <img
-            src="https://picsum.photos/200/300"
-            class="td-self-center td-w-9 td-h-9 td-rounded"
-          />
-          <div
-            class="td-px-2 td-pl-3 w-100 td-self-stretch"
-            style="width: 100%"
-          >
-            {{ user.collaborator_id }}
-            <!-- {{ user.name.first.slice(0, 20) }} -->
-            <div class="td-text-gray-400">
-              tjfaithpro@gmail.com
-              <!-- {{user.email.slice(0, 20) }} -->
-            </div>
-          </div>
-          <!-- @click="assign()"  -->
-          <div
-            class="
-              td-flex
-              td-justify-around
-              td-justify-items-center
-              td-text-green-500
-            "
-            style="width: 100%"
-          >
-            <div v-if="user.admin_status == 0">
-              <button
-                @click="Admin(user.collaborator_id)"
-                class="td-underline td-text-sm"
-              >
-                Make Admin
-              </button>
-            </div>
-            <div v-else-if="user.admin_status == 1">
-              <small><u>Make Collaborator</u></small>
-            </div>
-            <div>
-              <small><u>Remove</u></small>
+                    <img
+                        src="https://picsum.photos/200/300"
+                        class="td-self-center td-w-9 td-h-9 td-rounded "
+                    />
+                    <div
+                        class="td-px-2 td-pl-3 w-100 td-self-stretch "
+                        style=" width:100%"
+                    >
+                        {{ user.collaborator_id }}
+                        <!-- {{ user.name.first.slice(0, 20) }} -->
+                        <div class="td-text-gray-400">
+                            tjfaithpro@gmail.com
+                            <!-- {{user.email.slice(0, 20) }} -->
+                        </div>
+                    </div>
+                    <!-- @click="assign()"  -->
+                    <div
+                        class="td-flex td-justify-around  td-justify-items-center td-text-green-500 "
+                        style="width:100%;"
+                    >
+                        <div v-if="user.admin_status == 0">
+                            <small><u>Make Admin</u></small>
+                        </div>
+                        <div v-else-if="user.admin_status == 1">
+                            <small><u>Make Collaborator</u></small>
+                        </div>
+                        <div>
+                            <small><u>Remove</u></small>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -70,54 +60,52 @@ import { mapGetters } from "vuex";
 // import { GetWorkspaceUsers } from '@zuri/control'
 import axios from "axios";
 export default {
-  name: "currentCollab",
-  data() {
-    return {
-      collaborators: [],
-      showLoading: false,
-      
-    };
-  },
+    name: "currentCollab",
+    data() {
+        return {
+            collaborators: [],
+            showLoading: false
+        };
+    },
 
-  computed: {
-    ...mapGetters({
-      selectedTodo: "todos/selectedTodo",
-      user: "todos/user",
-      org_id: "todos/organization",
-    }),
-  },
-  methods: {
-    getUser() {
-      axios
-        .get(
-          `https://api.zuri.chat/organizations/${this.selectedTodo.organisation_id}/members`
-        )
-        .then((response) => {
-          console.log(response);
-          // this.organisation_members = response.data.data
+    computed: {
+        ...mapGetters({
+            selectedTodo: "todos/selectedTodo",
+            isUser: "todos/user"
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        
     },
-    getContributor() {},
-    Admin(collaborator_id) {
-        console.log(this.user[0]);
-      axios.put(
-        `admin-privilege/${this.selectedTodo._id}?user_id=${this.user[0]._id}&organisation_id=${this.selectedTodo.organisation_id}`,
-        {
-          privilege: 1,
-          creator_id: `${this.user[0].id}`,
-          collaborator_id: collaborator_id,
+    methods: {
+        getIndDetails() {
+            this.selectedTodo.collaborators.forEach(element => {
+               
+                axios
+                    .get(
+                        `https://api.zuri.chat/organizations/${this.isUser[0].org_id}/members/?query=${element.collaborator_id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${this.isUser.token}`
+                            }
+                        }
+                    )
+                    .then(response => {
+                        // this.collaborators.push(response.data)
+                        response;
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
         }
-      );
     },
-  },
-  mounted() {
-    //    this.getUser()
-    //    console.log(this.selectedTodo)
-    this.collaborators = this.selectedTodo;
-  },
+    mounted() {
+        //    this.getUser()
+        //    console.log(this.selectedTodo)
+        this.collaborators = this.selectedTodo;
+        this.getIndDetails();
+
+    }
 };
 </script>
 
