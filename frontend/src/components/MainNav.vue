@@ -8,9 +8,9 @@
       <span>Archive</span>
     </router-link>
 
-    <router-link :to="{ name: 'Trash' }">
+    <!-- <router-link :to="{ name: 'Trash' }">
       <span>Trash</span>
-    </router-link>
+    </router-link> -->
   
   </div>
 </template>

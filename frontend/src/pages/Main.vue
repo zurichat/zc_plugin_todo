@@ -2,7 +2,7 @@
     <div>
         <div class="td-py-4">
             <div class="td-flex-grow td-px-4">
-                <SearchInput @searchTodo="searchTodo" />
+                <!-- <SearchInput @searchTodo="searchTodo" /> -->
                 <div class="
                         td-flex td-flex-col
                         md:td-flex-row
@@ -33,9 +33,9 @@
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 import TodoForm from "../components/TodoForm";
-import MainNav from "../components/MainNav";
+ import MainNav from "../components/MainNav";
 import CreateTodoBtn from "../components/CreateTodoBtn";
-import SearchInput from "../components/SearchInput";
+// import SearchInput from "../components/SearchInput";
 // import TodoCard from "../components/TodoCard.vue";
 export default {
   name: "New Main",
@@ -96,7 +96,7 @@ export default {
   components: {
     // TodoCard,
     CreateTodoBtn,
-    SearchInput,
+    // SearchInput,
     TodoForm,
     MainNav,
   },

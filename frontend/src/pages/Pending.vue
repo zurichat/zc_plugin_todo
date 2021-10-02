@@ -13,8 +13,8 @@
                          todo_container
                         sm:td-grid sm:td-grid-cols-2
                         td-gap-4
-                        md:td-grid-cols-3
-                        lg:td-grid-cols-4 
+                        md:td-grid-cols-2
+                        lg:td-grid-cols-3 
                                             "
                       >
                      
@@ -30,8 +30,8 @@
                             todo_container
                             sm:td-grid sm:td-grid-cols-2
                             td-gap-4
-                            md:td-grid-cols-3
-                            lg:td-grid-cols-4
+                            md:td-grid-cols-2
+                            lg:td-grid-cols-3
                         ">
                     <TodoCard
                         v-for="(todo, index) in result"
@@ -46,7 +46,7 @@
 </template>
 <script>
 import Empty from "../components/Empty.vue";
-import TodoCard from "../components/TodoCard.vue";
+import TodoCard from "../components/NewCard.vue";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {

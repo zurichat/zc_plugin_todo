@@ -127,7 +127,7 @@
                         </svg>
 
                         <span class="td-font-bold "
-                            >{{ itemsTodo.length }} completed</span
+                            >{{ completedTask.length }} completed</span
                         >
                     </div>
                      <!-- <div class="progress_container td-flex td-flex-col">
