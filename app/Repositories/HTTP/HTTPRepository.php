@@ -174,9 +174,9 @@ class HTTPRepository implements RepositoryInterface
     /**
      * Get users details by the userID
      */
-    public function findUser($data, $cookie)
+    public function findUser($data, $bearerToken)
     {
-        $user = $this->model::withHeaders(['Cookie' => $cookie])->get($this->url . '/users/' . $data['user_id'])
+        $user = $this->model::withHeaders(['Authorization' => $bearerToken])->get($this->url . '/users/' . $data['user_id'])
                 ->json();
         if (isset($user['status']) && $user['status'] == '200') {
            return $user['data'];
