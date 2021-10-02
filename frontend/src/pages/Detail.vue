@@ -174,7 +174,8 @@
                         </div>
                         <div v-show="isComment" id="Comment"
                             class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col">
-                            <Comment @showComment="showComment" :selectedTodo="selectedTodo.title" />
+                            <Comment class="td-rounded-md" @showComment="showComment"
+                                :selectedTodo="selectedTodo.title" />
                         </div>
                     </div>
                 </div>
@@ -187,7 +188,8 @@
             <TaskForm v-if="isModal" @createTask="createTask" @toggleModal="toggleModal" />
         </transition>
         <transition name="fade" class="td-block lg:td-hidden">
-            <Comment v-if="isComment" @showComment="showComment" :selectedTodo="selectedTodo.title" />
+            <Comment class="td-rounded-md" v-if="isComment" @showComment="showComment"
+                :selectedTodo="selectedTodo.title" />
         </transition>
     </div>
 </template>

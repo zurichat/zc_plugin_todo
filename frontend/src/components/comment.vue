@@ -1,9 +1,9 @@
 <template>
 	<div class="overlay">
-		<div class="comment td-w-2/3 lg:td-w-full">
-			<div class="td-bg-gray-50 td-w-full td-flex td-justify-between">
-				<span class="td-px-3 td-py-2">
-					<h2 class="td-text-xl td-font-bold td-text-black-500 title">
+		<div class="comment td-w-2/3 lg:td-w-full td-bg-white td-rounded-md">
+			<div class="td-bg-gray-50 td-w-full td-flex td-justify-between td-px-4">
+				<span class=" td-py-4">
+					<h2 class="td-text-xl td-font-semibold title">
 						Comments
 					</h2>
 					<p class="td-text-gray-400 td-pb-1 td-text-lg td-font-medium">
@@ -12,7 +12,7 @@
 				</span>
 				<div @click="closeModal" class="td-p-2 td-cursor-pointer"><i class="pi pi-times td-text-xl"></i></div>
 			</div>
-			<div class="td-h-96 td-bg-white td-pt-5">
+			<div class="scrollbar td-h-30 lg:td-70 td-overflow-auto td-pt-3 td-px-3">
 				<div v-for="comment in comments" :key="comment" class="td-place-self-start td-flex td-px-3 td-py-3">
 					<div class="td-self-start td-flex-none td-w-10">
 						<img class="td-mr-1" src="../assets/img/zuri.svg" alt="">
@@ -27,10 +27,10 @@
 				</div>
 			</div>
 			<!-- <form class=""> -->
-			<div class="td-comment-group">
+			<div class="td-comment-group td-px-3">
 				<textarea v-on:keyup.enter="addComment" v-model="text" class="td-self-end td-w-full textarea td-pl-2 td-py-2 td-rounded td-w-full td-shadow-lg td-outline-none td-shadow-inner td-pr-7 
 														td-border hover:td-border-green-400 td-bg-white" placeholder="Add Comment..."></textarea>
-				<button @click.prevent="addComment" class="icon-user"><i
+				<button @click.prevent="addComment" class="icon-user td-outline-none"><i
 						class="pi pi-send td-text-gray-400 td-text-xl"></i></button>
 			</div>
 			<!-- </form> -->
@@ -53,9 +53,11 @@
 			},
 			addComment() {
 				const oldComment = this.comments;
-				oldComment.push(this.text);
-				this.comments = oldComment;
-				this.text = ''
+				if (this.text !== '') {
+					oldComment.push(this.text);
+					this.comments = oldComment;
+					this.text = ''
+				}
 			},
 		},
 		props: {
@@ -102,5 +104,25 @@
 			width: 100%;
 			z-index: 1012;
 		}
+	}
+
+	/* width */
+	.scrollbar::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	/* Track */
+	.scrollbar::-webkit-scrollbar-track {
+		background: #f1f1f1;
+	}
+
+	/* Handle */
+	.scrollbar::-webkit-scrollbar-thumb {
+		background: #888;
+	}
+
+	/* Handle on hover */
+	.scrollbar::-webkit-scrollbar-thumb:hover {
+		background: #555;
 	}
 </style>
