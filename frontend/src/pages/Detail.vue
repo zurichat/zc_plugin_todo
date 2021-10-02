@@ -211,7 +211,7 @@
                                 <TaskCard
                                     :task="task"
                                     :index="index"
-                                    @showComment="showComment"
+                                    @showComment="showComment($event)"
                                     v-for="(task, index) in selectedTodo.tasks"
                                     :key="index"
                                 />
@@ -239,7 +239,7 @@
         <transition name="fade" class="td-block lg:td-hidden">
             <Comment
                 v-if="isComment"
-                @showComment="showComment"
+                @showComment="isComment = false"
                 :selectedTodo="selectedTodo.title"
             />
         </transition>

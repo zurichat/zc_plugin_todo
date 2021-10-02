@@ -43,13 +43,15 @@
                         </div>
                     </div>
                     <span
-                        @click="displayComment"
+                        @click="displayComment(task)"
                         class="td-cursor-pointer td-font-bold td-text-sm td-text-green-500 td-px-3 td-underline"
-                        >5 comments</span
+                        >{{ getTaskCommentsCount(task.task_id) }} comments</span
                     >
                     <span class="td-text-gray-500">&#8226;</span>
-                    <span class="td-pl-2 td-text-gray-400 td-text-sm td-pr-4"
-                        >Last Comment 12 hours ago</span
+                    <span
+                        class="td-pl-2 td-text-gray-400 td-text-sm td-pr-4"
+                        v-if="getTaskCommentsCount(task.task_id).length<1"
+                        >{{ formattedTime }}</span
                     >
                     <div class="td-text-gray-400 td-pl-4 td-border-l-2">
                         <i class="pi pi-tag"></i
@@ -78,12 +80,29 @@
 <script>
 // import Checkbox from 'primevue/checkbox';
 import taskDropdown from "../components/taskDropDown";
+import { mapGetters, mapActions } from "vuex";
 export default {
     name: "TaskCard",
     components: {
         // Checkbox
         taskDropdown
     },
+
+    computed: {
+        ...mapGetters({
+            getTaskCommentsCount: "comment/getTaskCommentsCount",
+            getTaskLastComment: "comment/getTaskLastComment"
+        }),
+
+        formattedTime() {
+            const currentTime = Date.now();
+            const commentTime = new Date(this.getTaskLastComment);
+            const diff = (currentTime - commentTime) / 1000;
+            if (diff < 30) return "Now";
+            return `${commentTime.getHours()}:${commentTime.getMinutes()}`;
+        }
+    },
+
     props: {
         task: {
             type: Object
@@ -98,6 +117,8 @@ export default {
         };
     },
     methods: {
+        ...mapActions({}),
+
         toggleMenu() {
             this.isModalVisible = !this.isModalVisible;
         },
@@ -105,8 +126,9 @@ export default {
             this.isModalVisible = false;
             // this.$emit('toggleMenu')
         },
-        displayComment() {
-            this.$emit("showComment", this.task);
+        displayComment(task) {
+            console.log("taskin to update", task);
+            this.$emit("showComment", task);
         }
     }
 };

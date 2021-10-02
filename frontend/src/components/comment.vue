@@ -31,7 +31,9 @@
             </div>
             <div class="td-h-96 td-bg-white td-pt-5">
                 <div
-                    v-for="(comment, index) in getTaskComments"
+                    v-for="(comment, index) in getTaskComments(
+                        getCurrentTask.task_id
+                    )"
                     :key="index"
                     class="td-place-self-start td-flex td-px-3 td-py-3"
                 >
@@ -50,7 +52,9 @@
                                 {{ currentUser }}
                                 <span
                                     class="time td-ml-5 td-text-gray-700 td-text-xs td-font-normal"
-                                    >12:00</span
+                                    >{{
+                                        getCommentTime(comment.created_at)
+                                    }}</span
                                 >
                             </p>
                             <p
@@ -97,8 +101,6 @@ export default {
             getComments: "comment/getTaskComments",
             allTodos: "todos/allTodos",
             getTaskComments: "comment/getTaskComments",
-            getTaskCommentsCount: "comment/getTaskCommentsCount",
-            getTaskLastComment: "comment/getTaskLastComment",
             getCurrentTask: "comment/getCurrentTask"
         }),
 
@@ -206,6 +208,14 @@ export default {
                     console.log("error making this.comments", err);
                 });
             this.comment = "";
+        },
+
+        getCommentTime(time) {
+            const currentTime = Date.now();
+            const commentTime = new Date(time);
+            const diff = (currentTime - commentTime) / 1000;
+            if (diff < 30) return "Now";
+            return `${commentTime.getHours()}:${commentTime.getMinutes()}`;
         }
     }
 };

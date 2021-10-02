@@ -12,18 +12,18 @@ export default {
     },
 
     getters: {
-        getTaskComments: state => {
+        getTaskComments: state => task_id => {
             return state.comments.filter(comment => {
-                return comment.task_id === state.currentTask.task_id;
+                return comment.task_id === task_id;
             })
         },
 
-        getTaskCommentsCount: (state, getters) => {
-            return getters.getTaskComments().length;
+        getTaskCommentsCount: (state, getters) => task_id => {
+            return getters.getTaskComments(task_id).length;
         },
 
-        getTaskLastComment: (state, getters) => {
-            return getters.getTaskComments()[0].created_at;
+        getTaskLastComment: (state, getters) => task_id => {
+            return getters.getTaskComments(task_id)[0].created_at;
         },
 
         getCurrentTask: state => state.currentTask
