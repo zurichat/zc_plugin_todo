@@ -21,6 +21,7 @@ class AssignUserController extends Controller
     {
 
         $todo = $this->todoService->find($todoId);
+
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
@@ -29,7 +30,7 @@ class AssignUserController extends Controller
             return response()->json(['message' => 'Lack authorization'], 401);
         }
 
-        $newColabo = ['user_id' => $request->collaborator_id, 'admin_status' => $request->admin_status];
+        $newColabo = ['collaborator_id' => $request->collaborator_id, 'admin_status' => $request->admin_status];
         array_push($todo['collaborators'], $newColabo);
         unset($todo['_id']);
 
