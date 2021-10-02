@@ -252,11 +252,9 @@ class TaskController extends Controller
 
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-            $this->todoService->publish(
-                $todo['channel'],
-                ['user_id' => $request->user_id, 'message' => 'Task status updated', 'data' => $todo]
-            );
-            return response()->json(["status" => "success", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+            $todoWithId = array_merge(['_id' => $todoId], $todo);
+            $this->todoService->publishToRoomChannel($todo['channel'], $todoWithId, 'todo', 'update');
+            return response()->json(["status" => "success", "data" => $todoWithId], 200);
         } else {
             return response()->json(["status" => "error", "data" => $result], 500);
         }

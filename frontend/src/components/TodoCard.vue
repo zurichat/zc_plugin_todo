@@ -188,7 +188,7 @@ export default {
         },
         details() {
             this.$router.push({
-                name: "Details",
+                name: "Detail",
                 params: { id: this.todo._id }
             });
         },   
