@@ -65,11 +65,13 @@ export default {
     },
     methods: {
         ...mapActions({
-            tog_assign: "todos/toggleAssign"
+            tog_assign: "todos/toggleAssign",
+        getMembers: 'todos/getAllMembers'
+
         }),
         assign() {
             this.tog_assign();
-        },
+        },   
 
         collab_exist(collab_user_id){
             this.selectedTodo.collaborators.forEach(element => {
@@ -139,6 +141,8 @@ export default {
         }
     },
     mounted() {
+         this.getMembers()
+
         // this.getUser();
         // this.users = this.allUsers;
         // console.log(this.isUser)

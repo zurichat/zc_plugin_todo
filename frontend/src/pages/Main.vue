@@ -59,6 +59,7 @@ export default {
   methods: {
     ...mapActions({
       searchValue: "todos/SEARCH",
+       getMembers: 'todos/getAllMembers'
     }),
     toggleModal() {
      
@@ -106,6 +107,8 @@ export default {
     // this.centrifuge.subscribe('Didier', function(messageCtx) {
     //     console.log(messageCtx);
     // })
+         this.getMembers()
+
   },
 };
 </script>
