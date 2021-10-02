@@ -135,7 +135,7 @@
                 let data = {
                     "time_string": reminder_type
                 }
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder/?organisation_id=${this.isUser[0].org_id}`, data).then((response)=>{
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder/${this.isUser[0].org_id}`, data).then((response)=>{
                     console.log(response)
                 }).cath((error)=>{
                     console.log(error)
