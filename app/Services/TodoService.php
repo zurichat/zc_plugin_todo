@@ -6,21 +6,20 @@ use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
-use App\Services\ServiceTrait;
 
 class TodoService extends TodoRepository
 {
-    use ServiceTrait;
+    //use ServiceTrait;
     public function all()
     {
-        $this->fetchDataFromServer();
+        
         return Response::checkAndServe($this->httpRepository->all());
     }
 
 
     public function create(array $data)
     {
-        $this->fetchDataFromServer();
+        
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
@@ -45,7 +44,6 @@ class TodoService extends TodoRepository
     }
 
     public function findWhere($whereArray){
-        $this->fetchDataFromServer();
         return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
     }
 
