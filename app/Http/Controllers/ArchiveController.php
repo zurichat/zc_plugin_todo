@@ -34,6 +34,8 @@ class ArchiveController extends Controller
 
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             // Publish To Centrifugo Here
+            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "todo", "archive");
+
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $updatedTodo)], 200);
         }
 

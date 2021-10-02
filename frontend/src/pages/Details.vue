@@ -23,6 +23,7 @@
                     /></span>
                 </div>
             </div>
+<<<<<<< HEAD
             <div
                 class="header td-px-2 td-py-4 td-flex td-justify-between td-items-center td-border-b-2"
             >
@@ -42,6 +43,35 @@
                                     style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;"
                                 />
                             </div>
+=======
+            
+            <p class="text-300">2</p>
+          </div>
+        </div>
+        
+        <div class="td-relative" v-click-away="ClickAway">
+                  <span @click="assign()" class="td-bg-green-500 td-h-10 td-w-10 td-mx-2 td-justify-center td-flex td-items-center td-rounded-xl"><i class="pi td-text-white pi-user-plus td-cursor-pointer"/></span>
+                  <div v-if="isAssign" class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0">
+                      <input @input="search()" v-model=value class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none" type="text"/>
+                      <div class="td-h-64 td-w-64 td-overflow-y-scroll">
+                        <label @click="assign()" :for="user.name.first" v-for="(user, index) in users" :key="index" class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"> <span  class="tracking-wide td-px-2 td-font-bold">{{user.name.first + ' ' + user.name.last}}</span></label>
+                      </div>
+                  </div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-header td-px-2 td-flex td-py-3 td-justify-between td-items-center td-border-b-2">
+      <div class="td-flex" @click="isModal = true"> 
+        <div class="mr-2 font-bold button td-px-4 td-py-2 td-bg-green-500 td-cursor-pointer td-rounded td-text-white">+ Add a new Task</div>
+        <div class="amt_completed td-px-4 td-py-2 td-flex td-items-center">
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9999 1.82458H4.99988C4.17145 1.82458 3.49988 2.49616 3.49988 3.32459V15.3246C3.49988 16.153 4.17145 16.8246 4.99988 16.8246H13.9999C14.8283 16.8246 15.4999 16.153 15.4999 15.3246V6.32459L10.9999 1.82458Z" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10.9999 1.82458V6.32459H15.4999" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.4999 10.0747H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.4999 13.0747H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7.99988 7.07458H7.24988H6.49988" stroke="#242424" stroke-width="1.22693" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+>>>>>>> 590e7396f4aaf4f131f4e8d6a7f5bfe98fef54cf
 
                             <p class="text-300">{{ Collaborators }}</p>
                         </div>
@@ -250,14 +280,24 @@
     </div>
 </template>
 <script>
+<<<<<<< HEAD
 import TaskForm from "../components/TaskForm";
 import Empty from "../components/Empty";
 import TaskCard from "../components/TaskCard";
 import axios from "axios";
+=======
+
+import CentrifugeSetup from '../plugins/realtime'
+import TaskForm from '../components/TaskForm';
+import Empty from '../components/Empty'
+import TaskCard from '../components/TaskCard';
+import axios from 'axios'
+>>>>>>> 590e7396f4aaf4f131f4e8d6a7f5bfe98fef54cf
 // import TextArea from '../components/TextArea.vue\
 // import CommentBox from '../components/CommentBox.vue'
 import { mapGetters } from "vuex";
 export default {
+<<<<<<< HEAD
     name: "TodoDetails",
     data() {
         return {
@@ -288,6 +328,44 @@ export default {
         percent() {
             return (this.checked.length / this.alltasks.length) * 100;
         },
+=======
+    name: 'TodoDetails',
+    data(){
+      return {
+        isActive: '1',
+        // centrifuge: null,
+        checked: [],
+        isModal: false,
+        selectedTodo: null,
+        isAssign: false,
+        alltasks: ['', '', '', '', '', '',],
+        users: [],
+        value: '',
+      }
+    },
+        computed: {
+      ...mapGetters({
+        allTodos: 'todos/allTodos',
+        isUser : 'todos/user',
+        centrifuge: 'todos/centrifuge'
+      }),
+       collaborators() {
+             let value = "";
+             if (this.todo.colaborators === undefined) {
+                 value = this.todo.collaborators.length;
+             } else {
+                 value = this.todo.colaborators.length;
+             }
+             return value;
+         },
+      percent(){
+       return (this.checked.length / this.alltasks.length) * 100
+      },
+      
+      itemsTodo() {
+      return this.checked.filter(todo => !todo.completed)
+    }
+>>>>>>> 590e7396f4aaf4f131f4e8d6a7f5bfe98fef54cf
 
         itemsTodo() {
             return this.checked.filter(todo => !todo.completed);
@@ -298,6 +376,7 @@ export default {
         TaskForm,
         Empty
     },
+<<<<<<< HEAD
     methods: {
         toggleModal() {
             this.isModal = !this.isModal;
@@ -322,6 +401,26 @@ export default {
                     this.selectedTodo.tasks.unshift(response.data.data)
                 )
                 .catch(error => {
+=======
+      isSelect: function (num) {
+      this.isActive = (num);
+     },
+  
+    close(){
+      this.$emit('hideComment')
+    },
+    ClickAway(){
+      this.isAssign = false
+
+    },
+   async createTask(data){
+     const todo_id = this.selectedTodo._id;
+     const org_id = this.isUser["0"].org_id
+     //this.isUser.Organizations[0];
+      await axios.put(`/add-task/${todo_id}?organisation_id=${org_id}`, data)
+                .then((response) => console.log('task created', response))
+                .catch((error) => {
+>>>>>>> 590e7396f4aaf4f131f4e8d6a7f5bfe98fef54cf
                     if (error.response) {
                         // The request was made and the server responded with a status code
                         // that falls out of the range of 2xx
@@ -356,6 +455,40 @@ export default {
                 .get("https://randomuser.me/api/?results=15")
                 .then(response => (this.users = response.data.results));
         }
+<<<<<<< HEAD
+=======
+    ,
+    assign(){
+        this.isAssign = !this.isAssign
+      },
+      checkAction(ctx){
+        const _this = this
+               // check if auth user id is same a subscriber id
+                          console.log(ctx.data);
+                          switch(ctx.data.action){
+                          case "create" : {
+                            console.log(ctx.data.details)
+                            _this.selectedTodo = ctx.data.details
+                          } break;
+                          default:
+                          }
+                 
+      },
+    check(){
+      let id = this.$route.params.id
+      const _this = this;
+      this.selectedTodo = this.allTodos.find( todo => todo._id.toLowerCase() === (id.toLowerCase()));
+       if(this.selectedTodo <= 0 || this.selectedTodo === undefined){
+          
+         this.$router.push({path: '/'})
+         
+       }
+       else {
+         
+                 CentrifugeSetup(_this.selectedTodo.channel, this.checkAction )
+       }
+      console.log(this.selectedTodo)
+>>>>>>> 590e7396f4aaf4f131f4e8d6a7f5bfe98fef54cf
     },
     mounted() {
         this.getUser();

@@ -7,14 +7,28 @@ class Response
 {
     public static function checkAndServe($HTTPResponse)
     {
-        if ($HTTPResponse['status'] == 200 && isset($HTTPResponse["data"]) && $HTTPResponse['data'] != null) {
+        if (isset($HTTPResponse["status"]) && $HTTPResponse['status'] == 200 && isset($HTTPResponse["data"]) && $HTTPResponse['data'] != null) {
             return $HTTPResponse["data"];
         }
 
-        if ($HTTPResponse['data'] == null) {
+        if (isset($HTTPResponse["data"]) && $HTTPResponse['data'] == null) {
             return [];
         }
 
         return $HTTPResponse;
     }
+
+    public static function checkResponseStatus($HTTPResponse){
+        if (isset($HTTPResponse["status"]) && $HTTPResponse['status'] == 200 && isset($HTTPResponse["data"]) && $HTTPResponse['data'] != null) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    public static function checkAndServeComment($HTTPResponse)
+    {
+        return $HTTPResponse == null ? [] : $HTTPResponse;
+    }
 }
+ 
