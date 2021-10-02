@@ -43,6 +43,13 @@ class CacheRepository implements RepositoryInterface
 
     public function findBy($attribute, $value, $attributes = ['*'])
     {
+        $records = $this->all();
+        if ($records == []) {
+            return [];
+        }
+
+        $key = array_search($value, array_column($records, $attribute));
+        return $records[$key];
         // TODO: Implement findBy() method.
     }
 
@@ -68,7 +75,19 @@ class CacheRepository implements RepositoryInterface
 
     public function findWhere(array $where, $attributes = ['*'])
     {
-        // TODO: Implement findWhere() method.
+        $records = $this->all();
+        if ($records == []) {
+            return [];
+        }
+        //return $records[40];
+        foreach ($where as $key => $value) {
+            $record = collect($records)->filter(function($data) use($key, $value){
+                return $data[$key] == $value;
+            });
+            $records = $record;
+        }
+        
+        return $records->values()->all();
     }
 
     public function findWhereIn(array $where, $attributes = ['*'])
