@@ -5,31 +5,27 @@ export default {
     namespaced: true,
 
     state: {
-        todo: {},
         comments: [],
     },
 
     getters: {
-        getTasks: state => state.todo.tasks || [],
+        getTaskComments: state => task_id => {
+            return state.comments.filter(comment => {
+                return comment.task_id === task_id;
+            })
+        },
 
-        getComments: state => state.comments,
+        getTaskCommentsCount: (state, getters) => task_id => {
+            return getters.getTaskComments(task_id).length;
+        },
 
-        getTaskTitle: state => state.todo.description
+        getTaskLastComment: (state, getters) => task_id => {
+            return getters.getTaskComments(task_id)[0].created_at;
+        },
+
     },
 
     mutations: {
-
-        ADD_TODO: (state, todo) => {
-            state.todo = todo;
-        },
-
-        UPDATE_TASK_STATUS: (state, task_id, status) => {
-
-            state.todo.tasks.map(task =>
-                task._id === task_id ? task.status = status : task
-            )
-        },
-
         GET_COMMENTS: (state, comments) => {
             state.comments = comments;
         },
@@ -40,18 +36,18 @@ export default {
     },
 
     actions: {
-        async fetchTodoTasks({ commit }, { todo_id, user_id, org_id }) {
+        async fetchTodoComments({ commit }, { todo_id, user_id, org_id }) {
             try {
-                const response = await axios.get(`https://todo.zuri.chat/api/v1/todo/${todo_id}/${user_id}/show/?organisation_id=${org_id}`);
-                const todo = response.data;
-                commit('ADD_TODO', todo);
-                return todo;
+                const response = await axios.get(`https://todo.zuri.chat/api/v1/todo-comment/${todo_id}?user_id=${user_id}&organisation_id=${org_id}`);
+                const comments = response.data;
+                commit('GET_COMMENTS', comments);
+                return comments;
             } catch (error) {
                 console.log('error fetching tasks', error);
             }
         },
 
-        async updateTaskStatus({ commit }, { task_id, status }) {
+        async saveComment({ commit }, { task_id, status }) {
             try {
                 await axios.put(`https://todo.zuri.chat/api/v1/${task_id}`);
 

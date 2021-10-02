@@ -7,7 +7,7 @@
 <script>
 // import {getLoggedInUser} from "./plugins/auth"
 // import {getAllTodos} from './plugins/xhr'
-import { GetUserInfo } from "zuricontrol";
+// import { GetUserInfo } from "zuricontrol";
 import Centrifuge from "centrifuge";
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
@@ -17,7 +17,10 @@ export default {
     data() {
         return {
             user: null,
-            centrifuge: null
+            centrifuge: new Centrifuge(
+                "wss://realtime.zuri.chat/connection/websocket",
+                { debug: true }
+            )
         };
     },
     components: {},
@@ -32,6 +35,7 @@ export default {
             add_user: "todos/ADD_USER",
             addTodo: "todos/centrifugeAddTodo"
         }),
+
         welcome() {
             const _this = this;
             if (
@@ -39,7 +43,7 @@ export default {
                 location.hostname === "127.0.0.1"
             ) {
                 // On localhost return this
-                console.log("local");
+                console.log("local", location.hostname);
 
                 _this.user = {
                     0: {
@@ -115,13 +119,13 @@ export default {
                 this.add_user(_this.user);
                 this.HandleAllTodos();
             } else {
-                GetUserInfo().then(user => {
-                    console.log("me", user);
-                    _this.user = user;
-                    this.add_user(_this.user);
-                    this.HandleAllTodos();
-                    console.log("user", user);
-                });
+                // GetUserInfo().then(user => {
+                //     console.log("me", user);
+                //     _this.user = user;
+                //     this.add_user(_this.user);
+                //     this.HandleAllTodos();
+                //     console.log("user", user);
+                // });
                 // console.log('live')
                 // this.user = JSON.parse(sessionStorage.getItem("user"));
                 // this.add_user(this.user);
@@ -141,18 +145,22 @@ export default {
                 //           }
             }
         },
+
         callCentrifugo() {
             console.log("i say i wan sleep");
             const _this = this;
-            this.centrifuge = new Centrifuge(
-                "wss://realtime.zuri.chat/connection/websocket",
-                { debug: true }
-            );
+            // this.centrifuge = new Centrifuge(
+            //     "wss://realtime.zuri.chat/connection/websocket",
+            //     { debug: true }
+            // );
             // this.centrifuge.setToken('token');
             console.log("_this.isUser");
             this.centrifuge.on("connect", ctx => {
                 console.log("connected", ctx);
-                this.centrifuge.subscribe("common-room", function(message) {
+                this.centrifuge.subscribe("6154eb8bc134-hello", function(
+                    message
+                ) {
+                    console.log("testing subscription", message);
                     // check if auth user id is same a subscriber id
                     if (message.data.subscriberId === _this.isUser["0"]._id) {
                         //  console.log(2);
@@ -170,14 +178,14 @@ export default {
         }
     },
     mounted() {
-        this.auth();
+        // this.auth();
         this.welcome();
         this.callCentrifugo();
     }
 };
 </script>
 
-<style>
+<style lang="scss">
 @import "./assets/styles/app.css";
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap");
 body {
