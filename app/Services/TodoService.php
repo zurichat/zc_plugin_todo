@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
+use App\Services\ServiceTrait;
 
 class TodoService extends TodoRepository
 {
@@ -88,7 +89,15 @@ class TodoService extends TodoRepository
         $deleted_at = ['deleted_at' => Carbon::now()];
         $update = $this->update($deleted_at, $todoId);
 
-        $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
+        $this->publishToRoomChannel($todo['channel'], $todo, "Todo", "delete");
+
+        if (isset($update['modified_documents']) && $update['modified_documents'] > 0) {
+            $this->publishToRoomChannel($todo['channel'], $todo, "Todo", "delete");
+            $response = ['message' => 'Todo deleted successfully'];
+        }else{
+            $response = ['error'=> 'an error was encountered'];
+        }
+        
         return $response;
     }
 
