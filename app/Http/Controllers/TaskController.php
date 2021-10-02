@@ -149,60 +149,6 @@ class TaskController extends Controller
     }
 
 
-
-    public function store(TaskRequest $request)
-    {
-        $data = $request->except('org', 'token');
-        $tasks = $request->input('tasks');
-        $i = 1;
-        $data['tasks'] = [];
-        foreach ($tasks as $task) {
-            $data['tasks'][] = ['serial_no' => $i, 'title' => $task,  'status' => 'undone'];
-            $i++;
-        }
-        $data['status'] = $request->input('status');
-        $data['type'] = $request->input('type', 'public');
-        $data['admins'][] = $data['user_id'] = $request->input('user'); // user id
-        $data['parent_id'] = $request->input('parent_id');
-        $data['start_date'] = $request->input('start_date', date('Y-m-d'));
-        $data['created_at'] = date('Y-m-d');
-        $data['updated_at'] = null;
-        $data['archived_at'] = null;
-        $data['recurring'] = $request->input('recurring', false);
-        $data['reminder'] = $request->input('reminder');
-        $response = $this->taskService->create($data);
-        if (isset($response['status']) && $response['status'] == "404") {
-            return response()->json([
-                'status' =>  false,
-                'type' => 'error',
-                'message' => 'Todo not created',
-            ], 500);
-        }
-        return response()->json([
-            'status' =>  true,
-            'type' =>  'success',
-            'message' => 'Todo created successfully',
-            'data' => $data
-        ], 201);
-    }
-
-    public function archived(Request $request)
-    {
-        $tasks = $this->taskService->all();
-
-        $newArr = [];
-        foreach ($tasks as $value) {
-            if (isset($value['archived_at']) && $value['archived_at'] != null) {
-                array_push($newArr, $value);
-            }
-        }
-        return response()->json([
-            'message' => 'Request success',
-            'data' => $newArr
-        ], 200);
-    }
-
-
     public function addTask(AddTaskRequest $request, $todoId)
     {
         $todo = $this->todoService->find($todoId);
@@ -211,23 +157,27 @@ class TaskController extends Controller
             return response()->json($todo, 404);
         }
 
-        $taskId = Str::uuid();
 
-        $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => $request->recurring, "status" => 0];
+        $newTasks = [
+            "task_id" => Str::uuid(), "title" => $request->title,
+            "recurring" => $request->recurring, "status" => 0
+        ];
+
         array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
         $result = $this->todoService->update($todo, $todoId);
+
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
-
-            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "Task", "create");
-
+            $todoWithId = array_merge(['_id' => $todoId], $todo);
+            $this->todoService->publishToRoomChannel($todo['channel'], $todoWithId, "Task", "create");
             // Send Mail
             $user_ids = $this->collaboratorInstance->listAllUsersInTodo($todo);
             $this->collaboratorInstance->sendMails($user_ids, 'Task Added', 'A task with the title'.$request->title.'has been added to the todo');
-            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
+            
+            return response()->json(["status" => "success", "type" => "Todo", "data" => $todoWithId], 200);
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
@@ -250,7 +200,7 @@ class TaskController extends Controller
         } else {
             $adminExist = true;
         }
-        for ($i=0; $i < count($todo['tasks']); $i++) {
+        for ($i = 0; $i < count($todo['tasks']); $i++) {
             if ($todo['tasks'][$i]['task_id'] == $request->task_id) {
                 $todo['tasks'][$i]['status'] = $request->status;
             }
