@@ -175,96 +175,96 @@ export default {
     width: 100%;
     z-index: 1012;
 }
-// form {
-//     width: 40%;
-//     margin: 25px auto;
-//     background: #fff;
-//     border-radius: 8px;
-//   }
+form {
+    width: 40%;
+    margin: 25px auto;
+    background: #fff;
+    border-radius: 8px;
+  }
 
-//   .form-group {
-//     margin-bottom: 20px;
-//   }
+  .form-group {
+    margin-bottom: 20px;
+  }
 
-//   .form-group label {
-//     font-size: 0.8rem;
-//     font-weight: 600;
-//     display: block;
-//     margin-bottom: 10px;
-//   }
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+  }
 
-//   .form-group input,
-//   .form-group select {
-//     border: 1px solid #dadada;
-//     border-radius: 4px;
-//     background: #fff;
-//     width: 100%;
-//     padding: 12px 15px;
-//   }
+  .form-group input,
+  .form-group select {
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    padding: 12px 15px;
+  }
 
-//   .form-flex {
-//     display: flex;
-//     justify-content: space-between;
-//     margin-bottom: 20px;
-//   }
+  .form-flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
 
-//   .form-flex .form-group {
-//     width: 48.5%;
-//     margin-bottom: 0;
-//   }
+  .form-flex .form-group {
+    width: 48.5%;
+    margin-bottom: 0;
+  }
 
-//   .option {
-//     display: flex;
-//     align-items: center;
-//     margin-bottom: 25px;
-//   }
+  .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
 
-//   .option input {
-//     width: 20px;
-//     height: 20px;
-//     margin-right: 10px;
-//     cursor: pointer;
-//   }
+  .option input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
 
-//   .option p {
-//     font-size: 0.85rem;
-//   }
+  .option p {
+    font-size: 0.85rem;
+  }
 
-//   .cta-container {
-//     display: flex;
-//     justify-content: flex-end;
-//   }
+  .cta-container {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-//   .cta-container button {
-//     border: 0;
-//     outline: 0;
-//     background: transparent;
-//     cursor: pointer;
-//   }
+  .cta-container button {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    cursor: pointer;
+  }
 
-//   .cta-container button.cancel {
-//     color: #00b87c;
-//     font-size: 0.75rem;
-//     margin-right: 30px;
-//   }
+  .cta-container button.cancel {
+    color: #00b87c;
+    font-size: 0.75rem;
+    margin-right: 30px;
+  }
 
-//   .cta-container button.cancel:hover {
-//     color: #959595;
-//   }
+  .cta-container button.cancel:hover {
+    color: #959595;
+  }
 
-//   .cta-container button.submit {
-//     padding: 10px 20px;
-//     font-size: 0.75rem;
-//     background: #00b87c;
-//     color: #fff;
-//     border-radius: 4px;
-//     border: 1px solid transparent;
-//   }
+  .cta-container button.submit {
+    padding: 10px 20px;
+    font-size: 0.75rem;
+    background: #00b87c;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid transparent;
+  }
 
-//   .cta-container button.submit:hover {
-//     border-color: #00b87c;
-//     background: transparent;
-//     color: #00b87c;
-//   }
+  .cta-container button.submit:hover {
+    border-color: #00b87c;
+    background: transparent;
+    color: #00b87c;
+  }
 
 </style>

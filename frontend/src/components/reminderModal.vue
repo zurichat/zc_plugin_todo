@@ -16,7 +16,7 @@
                 <div @click="closeModal"
                     class="td-p-2 td-cursor-pointer td-w-8 td-h-6 td-text-red-500 td-rounded-lg td-shadow-md td-flex"><i
                         class="pi pi-times"></i></div>
-                <span class="
+                <span @click="saveReminder('20 mins')" class="
             td-rounded-sm
             td-py-3
             td-px-4
@@ -28,7 +28,7 @@
             hover:td-bg-green-400
             hover:td-text-white
           ">In 20mins</span>
-                <span class="
+                <span @click="saveReminder('1 hour')" class="
 					td-rounded-sm
 					td-py-3
 					td-px-4
@@ -40,7 +40,7 @@
 					hover:td-bg-green-400
 					hover:td-text-white
 					">In 1 hour</span>
-                <span class="
+                <span @click="saveReminder('2 hours')" class="
 						td-rounded-sm
 						td-py-3
 						td-px-4
@@ -52,7 +52,7 @@
 						hover:td-bg-green-400
 						hover:td-text-white
 						">In 2 hours</span>
-                <span class="
+                <span @click="saveReminder('tomorrow 9am')" class="
 						td-rounded-sm
 						td-py-3
 						td-px-4
@@ -64,7 +64,7 @@
 						hover:td-bg-green-400
 						hover:td-text-white
 						">Tomorrow</span>
-                <span class="
+                <span @click="saveReminder('1 week 9am')" class="
 						td-rounded-sm
 						td-py-3
 						td-px-4
@@ -93,7 +93,7 @@
             </div>
         </div>
         <transition name="fade">
-            <cusReminderForm v-if="iscusReminder" @cusReminderForm="cusReminderForm" />
+            <cusReminderForm :task="task" :todo="todo" v-if="iscusReminder" @cusReminderForm="cusReminderForm" />
         </transition>
     </div>
 </template>
@@ -107,12 +107,14 @@
         name: "td-modal",
         data() {
             return {
-                iscusReminder: false
+                iscusReminder: false,
+                
             }
         },
          computed: {
         ...mapGetters({
             selectedTodo: "todos/selectedTodo",
+            isUser: 'todos/user'
         })
     },
         methods: {
@@ -128,10 +130,15 @@
                 this.iscusReminder = !this.iscusReminder
             },
 
-            saveReminder(){
-                let task_id ="";
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.selectedTodo.todo_id}/task/${task_id}/add_reminder`).then((response)=>{
+            saveReminder(reminder_type){
+                
+                let data = {
+                    "time_string": reminder_type
+                }
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder/${this.isUser[0].org_id}`, data).then((response)=>{
                     console.log(response)
+                }).cath((error)=>{
+                    console.log(error)
                 })
             }
             // reminderForm(){
@@ -145,6 +152,9 @@
             todo: {
                 type: Object,
             },
+            task:{
+                type:Object,
+            }
         },
         components: {
             cusReminderForm,
