@@ -16,16 +16,18 @@ class SidebarResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => 'Todo Plugin',
-            'description' => 'Todo Plugin Sidebar',
-            'plugin_id' => Config::get('plugin_id'),
-            'organisation_id' => Config::get('organisation_id'),
-            'user_id' => Config::get('user_id'),
-            'group_name' => 'Active Todos',
-            'show_group' => false,
-            'sidebar_logo' => 'https://www.svgrepo.com/show/306859/todoist.svg',
-            'joined_rooms' => SidebarRoomsResource::collection($this['joined_rooms']),
-            'public_rooms' => SidebarRoomsResource::collection($this['public_rooms'])
+            'event' => "sidebar_update",
+            'plugin_id' => "todo.zuri.chat",
+            'data' => [
+                'name' => "Todo Plugin",
+                'description' => "Todo Plugin Sidebar",
+                'organisation_id' => Config::get('organisation_id'),
+                'user_id' => Config::get('user_id'),
+                'group_name' => 'Active Todos',
+                "show_group" => false,
+                'joined_rooms' => SidebarRoomsResource::collection($this['joined_rooms']),
+                'public_rooms' => SidebarRoomsResource::collection($this['public_rooms'])
+            ]
         ];
     }
 }
