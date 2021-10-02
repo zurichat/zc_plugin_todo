@@ -83,7 +83,7 @@ class TodoService extends TodoRepository
             abort(404, "Todo not found");
         }
         //if the user that is trying to delete is not the user that created, no one else can delete
-        if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
+        abort_if($todo['user_id'] != $user_id, 401, "You dont have authorization to delete");
 
         $deleted_at = ['deleted_at' => Carbon::now()];
         $update = $this->update($deleted_at, $todoId);
