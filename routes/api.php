@@ -28,10 +28,6 @@ use App\Http\Controllers\TaskSearchController;
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
 
-    //test cache
-    Route::post('create-todo/cache', [TodoController::class, 'cacheCreateTodo']);
-    Route::get('all-todo/cache', [TodoController::class, 'cacheIndex']);
-    Route::get('user-todo/cache', [TodoController::class, 'cacheUserTodos']);
 
     //end of test cache
 

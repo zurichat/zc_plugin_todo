@@ -11,7 +11,7 @@
                 sent to the trash and they are automatically deleted after 30
                 days</span -->
                 <span class="td-md-w-4/ td-text-sm"
-                >You are about to delete your {{ title }} Todo, are you sure about this</span
+                >You are about to delete your {{ title }} Todod, are you sure about this</span
             >
             <div class="d-flex flex-wrap ">
             <button
