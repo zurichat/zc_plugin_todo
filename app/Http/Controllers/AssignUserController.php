@@ -7,6 +7,7 @@ use App\Helpers\Collaborator;
 use App\Services\TodoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Repositories\Mail\mail;
 
 class AssignUserController extends Controller
 {
@@ -19,6 +20,10 @@ class AssignUserController extends Controller
 
     public function assign(Request $request, $todoId)
     {
+        $email = $request->email;
+        $name = $request->name;
+        // instance of email
+        $sendMail = new mail;
 
         $todo = $this->todoService->find($todoId);
 
@@ -45,6 +50,10 @@ class AssignUserController extends Controller
                 'Todo',
                 null
             );
+
+            //send mail
+            
+            $sendMail->sendMail($email, $name);
 
             return response()->json(
                 [
