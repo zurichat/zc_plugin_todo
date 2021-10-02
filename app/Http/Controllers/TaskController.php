@@ -240,11 +240,9 @@ class TaskController extends Controller
         } else {
             $adminExist = true;
         }
-        if ($adminExist == false) return response()->json('Unauthorized', 404);
-        foreach ($todo['tasks'] as $key => $value) {
-            # code...
-            if ($value['task_id'] == $request->task_id) {
-                $value['status'] = $request->status;
+        for ($i=0; $i < count($todo['tasks']); $i++) {
+            if ($todo['tasks'][$i]['task_id'] == $request->task_id) {
+                $todo['tasks'][$i]['status'] = $request->status;
             }
         }
 
