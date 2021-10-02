@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="overlay">
       <form @submit.prevent="addTodo" v-click-away="ClickAway" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
         <div class="td-mb-4 ">
           <div class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center">
@@ -161,106 +161,107 @@ export default {
 //    }
 
 .overlay {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
+   width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.14901960784313725);
 }
-// form {
-//     width: 40%;
-//     margin: 25px auto;
-//     background: #fff;
-//     border-radius: 8px;
-//   }
+form {
+    width: 40%;
+    margin: 25px auto;
+    background: #fff;
+    border-radius: 8px;
+  }
 
-//   .form-group {
-//     margin-bottom: 20px;
-//   }
+  .form-group {
+    margin-bottom: 20px;
+  }
 
-//   .form-group label {
-//     font-size: 0.8rem;
-//     font-weight: 600;
-//     display: block;
-//     margin-bottom: 10px;
-//   }
+  .form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+  }
 
-//   .form-group input,
-//   .form-group select {
-//     border: 1px solid #dadada;
-//     border-radius: 4px;
-//     background: #fff;
-//     width: 100%;
-//     padding: 12px 15px;
-//   }
+  .form-group input,
+  .form-group select {
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    padding: 12px 15px;
+  }
 
-//   .form-flex {
-//     display: flex;
-//     justify-content: space-between;
-//     margin-bottom: 20px;
-//   }
+  .form-flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
 
-//   .form-flex .form-group {
-//     width: 48.5%;
-//     margin-bottom: 0;
-//   }
+  .form-flex .form-group {
+    width: 48.5%;
+    margin-bottom: 0;
+  }
 
-//   .option {
-//     display: flex;
-//     align-items: center;
-//     margin-bottom: 25px;
-//   }
+  .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
 
-//   .option input {
-//     width: 20px;
-//     height: 20px;
-//     margin-right: 10px;
-//     cursor: pointer;
-//   }
+  .option input {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
 
-//   .option p {
-//     font-size: 0.85rem;
-//   }
+  .option p {
+    font-size: 0.85rem;
+  }
 
-//   .cta-container {
-//     display: flex;
-//     justify-content: flex-end;
-//   }
+  .cta-container {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-//   .cta-container button {
-//     border: 0;
-//     outline: 0;
-//     background: transparent;
-//     cursor: pointer;
-//   }
+  .cta-container button {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    cursor: pointer;
+  }
 
-//   .cta-container button.cancel {
-//     color: #00b87c;
-//     font-size: 0.75rem;
-//     margin-right: 30px;
-//   }
+  .cta-container button.cancel {
+    color: #00b87c;
+    font-size: 0.75rem;
+    margin-right: 30px;
+  }
 
-//   .cta-container button.cancel:hover {
-//     color: #959595;
-//   }
+  .cta-container button.cancel:hover {
+    color: #959595;
+  }
 
-//   .cta-container button.submit {
-//     padding: 10px 20px;
-//     font-size: 0.75rem;
-//     background: #00b87c;
-//     color: #fff;
-//     border-radius: 4px;
-//     border: 1px solid transparent;
-//   }
+  .cta-container button.submit {
+    padding: 10px 20px;
+    font-size: 0.75rem;
+    background: #00b87c;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid transparent;
+  }
 
-//   .cta-container button.submit:hover {
-//     border-color: #00b87c;
-//     background: transparent;
-//     color: #00b87c;
-//   }
+  .cta-container button.submit:hover {
+    border-color: #00b87c;
+    background: transparent;
+    color: #00b87c;
+  }
 
 </style>
