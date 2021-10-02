@@ -4,7 +4,6 @@ export const getLoggedInUser = () => {
 
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
         // On localhost return this
-        console.log('local')
         const user = {
             0: {
                 _id: "614f089fe35bb73a77bc2b77",
@@ -78,6 +77,7 @@ export const getLoggedInUser = () => {
             currentWorkspace: "614679ee1a5607b13c00bcb7",
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOiJNVFl6TWprek9UZzRNWHhIZDNkQlIwUlplRTVVVW1oYWFsazFUakpaZDA5RVl6Qk9lbWN4V1hwVmVGa3lUbWxhVVQwOWZIN1pubnNzZkxaN1Z3NGhMRjJtOWVibkprbGNhak5qVDM2S1drRWlTUUk0IiwiZW1haWwiOiJjYWxlYmJhbGExNUBnbWFpbC5jb20iLCJpZCI6IjYxNTRhZjY5N2YwODc0Nzg1YzUxY2NiZSIsIm9wdGlvbnMiOnsiUGF0aCI6Ii8iLCJEb21haW4iOiIiLCJNYXhBZ2UiOjc5NDAxMjYxODAsIlNlY3VyZSI6ZmFsc2UsIkh0dHBPbmx5IjpmYWxzZSwiU2FtZVNpdGUiOjB9LCJzZXNzaW9uX25hbWUiOiJmNjgyMmFmOTRlMjliYTExMmJlMzEwZDNhZjQ1ZDVjNyJ9.GimEjtK0R7lNG08QOhlYczxic5wVY01h9XOWLUkLAsc"
         }
+        console.log('local', user);
         store.dispatch('todos/ADD_USER', user)
         store.dispatch('todos/HandleGetTodos')
     } else {

@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 
 import todos from './todo';
+import comment from './comment';
 // import user from './user';
 const store = createStore({
     state: {
@@ -14,6 +15,7 @@ const store = createStore({
     },
     modules: {
         todos,
+        comment
         // user
     }
 })
