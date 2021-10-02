@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Collaborator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
@@ -12,6 +13,7 @@ use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\MarkTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
+use App\Services\UserService;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 
@@ -20,11 +22,15 @@ class TaskController extends Controller
 
     protected $taskService;
     protected $todoService;
+    protected $userService;
+    protected $collaboratorInstance;
 
-    public function __construct(TaskService $taskService, TodoService $todoService)
+    public function __construct(TaskService $taskService, TodoService $todoService, UserService $userService)
     {
         $this->taskService = $taskService;
         $this->todoService = $todoService;
+        $this->userService = $userService;
+        $this->collaboratorInstance = new Collaborator($this->userService);
     }
 
 
@@ -218,6 +224,9 @@ class TaskController extends Controller
 
             $this->todoService->publishToRoomChannel($todo['channel'], $todo, "Task", "create");
 
+            // Send Mail
+            $user_ids = $this->collaboratorInstance->listAllUsersInTodo($todo);
+            $this->collaboratorInstance->sendMails($user_ids, 'Task Added', 'A task with the title'.$request->title.'has been added to the todo');
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $todo)], 200);
         }
 
@@ -253,6 +262,10 @@ class TaskController extends Controller
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             $todoWithId = array_merge(['_id' => $todoId], $todo);
             $this->todoService->publishToRoomChannel($todo['channel'], $todoWithId, 'todo', 'update');
+
+            // Send Mail
+            $user_ids = $this->collaboratorInstance->listAllUsersInTodo($todo);
+            $this->collaboratorInstance->sendMails($user_ids, 'Task Added', 'A task with the title' . $request->title . 'has been marked in the todo');
             return response()->json(["status" => "success", "data" => $todoWithId], 200);
         } else {
             return response()->json(["status" => "error", "data" => $result], 500);

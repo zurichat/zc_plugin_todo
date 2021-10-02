@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\Collaborator;
 use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Repositories\TodoRepository;
@@ -88,6 +89,11 @@ class TodoService extends TodoRepository
 
         $deleted_at = ['deleted_at' => Carbon::now()];
         $update = $this->update($deleted_at, $todoId);
+
+        // Send a mail to all the collaborators that the todo has been deleted
+        $collaboratorInstance = new Collaborator(new UserService());
+        $user_ids = $collaboratorInstance->listAllUsersInTodo($todo);
+        $collaboratorInstance->sendMails($user_ids, 'Todo Deleted', 'A todo with the title' . $todo['title'] . 'has been deleted');
 
         $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
         return $response;
