@@ -14,7 +14,7 @@ class HTTPRepository implements RepositoryInterface
     protected $modelName;
     protected $model;
     protected $plugin_id = '6138deac99bd9e223a37d8f5';
-    protected $organisation_id;// = '613a3ac959842c7444fb0240'; // same as $org but let's keep for now
+    protected $organisation_id; // = '613a3ac959842c7444fb0240'; // same as $org but let's keep for now
 
     public function __construct($modelName = "")
     {
@@ -177,10 +177,10 @@ class HTTPRepository implements RepositoryInterface
     public function findUser($data, $cookie)
     {
         $user = $this->model::withHeaders(['Cookie' => $cookie])->get($this->url . '/users/' . $data['user_id'])
-                ->json();
+            ->json();
         if (isset($user['status']) && $user['status'] == '200') {
-           return $user['data'];
-        }else{
+            return $user['data'];
+        } else {
             return $user;
         }
     }

@@ -89,6 +89,50 @@
 
                         <span class="td-font-bold ">{{ itemsTodo.length }} completed</span>
                     </div>
+                    <div 
+          @click="admin()"
+            class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded td-flex"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 15.75V14.25C12 12.5931 10.6569 11.25 9 11.25H3.75C2.09315 11.25 0.75 12.5931 0.75 14.25V15.75"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.375 8.25C8.03185 8.25 9.375 6.90685 9.375 5.25C9.375 3.59315 8.03185 2.25 6.375 2.25C4.71815 2.25 3.375 3.59315 3.375 5.25C3.375 6.90685 4.71815 8.25 6.375 8.25Z"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15 6V10.5"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M17.25 8.25H12.75"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Admin({{collaboratorCount}})</span>
+          </div>
                     <!-- <div class="progress_container td-flex td-flex-col">
                     <span
                         class="progress_text td-self-end td-text-sm td-font-medium "
@@ -130,7 +174,8 @@
                         </div>
                         <div v-show="isComment" id="Comment"
                             class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col">
-                            <Comment @showComment="showComment" :selectedTodo="selectedTodo.title" />
+                            <Comment class="td-rounded-md" @showComment="showComment"
+                                :selectedTodo="selectedTodo.title" />
                         </div>
                     </div>
                 </div>
@@ -143,7 +188,8 @@
             <TaskForm v-if="isModal" @createTask="createTask" @toggleModal="toggleModal" />
         </transition>
         <transition name="fade" class="td-block lg:td-hidden">
-            <Comment v-if="isComment" @showComment="showComment" :selectedTodo="selectedTodo.title" />
+            <Comment class="td-rounded-md" v-if="isComment" @showComment="showComment"
+                :selectedTodo="selectedTodo.title" />
         </transition>
     </div>
 </template>
@@ -169,7 +215,9 @@
                 isAssign: false,
                 alltasks: ['', '', '', '', '', '', '', '', '', ''],
                 users: [],
-                value: ''
+                value: '',
+                 //selectedCollaborator: null,
+                 collaboratorCount: 0
             }
         },
         computed: {
@@ -261,6 +309,11 @@
                         let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
                         _this.selectedTodo.tasks.splice(location, 1);
                     } break;
+                    // case "assign":
+        //   {
+        //         _this.selectedCollaborator = ctx.data.details.collaborators;
+        //           _this.collaboratorCount ++
+        //    }
                     default:
                 }
 
