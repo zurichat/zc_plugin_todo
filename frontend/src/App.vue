@@ -14,7 +14,6 @@ import { mapGetters } from "vuex";
 import CentrifugeSetup from "./plugins/realtime";
 // let { GetUserInfo } = import ( "zuricontrol");
 export default {
-<<<<<<< HEAD
     name: "App",
     data() {
         return {
@@ -33,44 +32,14 @@ export default {
             HandleAllTodos: "todos/HandleGetTodos",
             add_user: "todos/ADD_USER",
             cn_centri: "todos/CONNECT_CENTRIFUGE",
-            addTodo: "todos/centrifugeAddTodo"
+            addTodo: "todos/centrifugeAddTodo",
+            getMembers: "todos/getAllMembers"
         }),
         welcome() {
             getLoggedInUser();
         },
-
         listenToCommonRoom(message) {
             const _this = this;
-=======
-  name: 'App',
-  data(){
-    return  {
-      user: null,
-        
-        }
-  },
-  components: { },
-  computed:  {
-    ...mapGetters({
-      isUser: "todos/user",
-      centrifuge: 'todos/centrifuge'
-    })
-  },
-   methods: {
-      ...mapActions({
-        HandleAllTodos: "todos/HandleGetTodos",
-        add_user : 'todos/ADD_USER',
-        cn_centri : 'todos/CONNECT_CENTRIFUGE',
-        addTodo : 'todos/centrifugeAddTodo',
-        getMembers: 'todos/getAllMembers'
-      }),
-        welcome(){
-           getLoggedInUser()
-           
-          }, 
-          listenToCommonRoom(message){
-            const _this = this
->>>>>>> acbbaa5f0775683537d7b055ede1c704380d009a
             // check if auth user id is same a subscriber id
             if (message.data.subscriberId === _this.isUser["0"]._id) {
                 // //  console.log(2);
@@ -111,29 +80,11 @@ export default {
         //                        _this.addTodo(message.data.details)
         //                      console.log(message);}
 
-<<<<<<< HEAD
         //                   //  _this.centrifuge.subscribe(message.data.channel, function(ctx) {
         //                   //      //  handle new message coming from channel "news"
         //                   //      console.log(ctx)
         //                   //  });
         //              }
-=======
-    //            });
-    //       });
-    //     _this.centrifuge.connect();
-    // }
-   },
-     mounted(){
-         this.welcome()
-         this.enterCommonRoom()
-         this.getMembers()
-        //  console.log(this.getAllMembers())
-        //  console.log(this.welcome)
-        // console.log(this.isUser[0].org_id)
-       }
-   }
->>>>>>> acbbaa5f0775683537d7b055ede1c704380d009a
-
         //            });
         //       });
         //     _this.centrifuge.connect();
@@ -142,8 +93,17 @@ export default {
     mounted() {
         this.welcome();
         this.enterCommonRoom();
+        this.getMembers();
+        //  console.log(this.getAllMembers())
+        //  console.log(this.welcome)
+        // console.log(this.isUser[0].org_id)
     }
 };
+
+//            });
+//       });
+//     _this.centrifuge.connect();
+// }
 </script>
 
 <style lang="scss">
