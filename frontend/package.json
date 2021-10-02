@@ -13,7 +13,6 @@
         "centrifuge": "^2.8.2",
         "core-js": "^3.6.5",
         "easy-circular-progress": "^1.0.4",
-        "emoji-mart-vue": "^2.6.6",
         "primeicons": "^4.1.0",
         "primevue": "3.7.0",
         "sass-loader": "^10.1.1",
@@ -40,7 +39,7 @@
         "sass": "^1.32.11",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
         "vue-cli-plugin-single-spa": "~3.1.2"
-    },
+    }, 
     "eslintConfig": {
         "root": true,
         "env": {

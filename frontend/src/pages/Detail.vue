@@ -149,8 +149,8 @@
             </div>
            
 
-            <div class="tasks_container td-px-2 td-py-4 ">
-                <div class="td-flex-grow td-my-4 td-px-2 tabMenu">
+            <div class="tasks_container td-px-2 td-py-4">
+                <div class="td-my-4 td-px-2 tabMenu">
                     <span
                         class="task_head td-font-bold td-mr-4 td-my-4 td-text-green-500"
                         @click="isSelect('1')"
@@ -162,39 +162,71 @@
                         >Completed</span
                     >
 
-                    <div class="td-flex ">
-                        <div class="tabContents td-flex-grow">
-                            <template id="task_container" v-if="selectedTodo.tasks.length <= 0">
-                                <div>
-                                    <Empty :title="'Oops Your Have no tasks yet'" :subtitle="'Click Create Task Button'" />
-                                </div>
-                            </template>
-                        
-                            <template v-else>
-                                <TaskCard @click="showComment" :task="task" :index="index" v-for="(task, index) in selectedTodo.tasks" :key="index" />
-                            </template>
-                        </div>
-                        <div v-show="isComment" id="Comment" class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col">
-                            <Comment @showComment="showComment" :selectedTodo="selectedTodo.title"  />
-                        </div>
+                    <div class="tabContents">
+                        <template
+                            id="task_container"
+                            v-if="selectedTodo.tasks.length <= 0"
+                        >
+                            <div>
+                                <Empty
+                                    :title="'Oops Your Have no tasks yet'"
+                                    :subtitle="'Click Create Task Button'"
+                                />
+                            </div>
+                        </template>
+
+                        <template v-else>
+                            <TaskCard
+                                :task="task"
+                                :index="index"
+                                v-for="(task, index) in selectedTodo.tasks"
+                                :key="index"
+                            />
+                        </template>
                     </div>
                 </div>
-                
             </div>
         </div>
-       
+        <!-- <div id="Comment" class="flex-shrink-0 w-1/4 border"></div> -->
+        <!-- <div class="flex flex-row td-justify-between td-items-center"> 
+      {{this.$route.params.id}}
+      <div @click="close" class="font-bold text-green-500">X</div>
+      </div>
+      <p class="font-bold text-green-500 ">
+        This is the todo details section,
         
+      </p>
+      <p class="text-lg font-bold text-red-500 text-wrap">Still under construction</p> -->
+        <!-- <div>
+        <div>
+          <p>Task Title</p>
+        <span>Created On: 12/03348n/39424</span>
+        <p>oihsoiv hwt0pu;n4wy0iohjgwklef</p>
+        </div>
+        <div>
+          <p>Task Title</p>
+          <div>
+            
+          </div>
+        </div>
+        <div class="flex">
+          <div>
+            <p>Due Date</p>
+            <span>p320409</span>
+          </div>
+          <div>
+            <p>Worked </p>
+            <span>loiwheot</span>
+          </div>
+        </div>
+      </div> -->
+        <!-- <TextArea /> -->
         <transition name="fade">
             <TaskForm
                 v-if="isModal"
                 @createTask="createTask"
                 @toggleModal="toggleModal"
             />
-        </transition>
-        <transition name="fade" class="td-block lg:td-hidden">
-            <Comment v-if="isComment" 
-            @showComment="showComment" 
-            :selectedTodo="selectedTodo.title" />
         </transition>
     </div>
 </template>
@@ -205,7 +237,8 @@ import TaskForm from '../components/TaskForm';
 import Empty from '../components/Empty'
 import TaskCard from '../components/TaskCard2';
 import axios from 'axios'
-import Comment from '../components/comment.vue'
+// import TextArea from '../components/TextArea.vue\
+// import CommentBox from '../components/CommentBox.vue'
 import {mapGetters} from 'vuex'
 export default {
     name: 'TodoDetails',
@@ -213,7 +246,6 @@ export default {
       return {
         isActive: '1',
         // centrifuge: null,
-        isComment: false,
         checked: [],
         isModal: false,
         selectedTodo: null,
@@ -250,8 +282,7 @@ export default {
     components: {
       TaskCard,
       TaskForm,
-      Empty,
-      Comment
+      Empty
     },
   methods: {
     toggleModal() {
@@ -268,9 +299,6 @@ export default {
       this.isAssign = false
 
     },
-    showComment() {
-          this.isComment = !this.isComment
-      },
    async createTask(data){
      const todo_id = this.selectedTodo._id;
      const org_id = this.isUser["0"].org_id

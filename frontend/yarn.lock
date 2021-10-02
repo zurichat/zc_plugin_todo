@@ -3598,13 +3598,6 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-emoji-mart-vue@^2.6.6:
-  version "2.6.6"
-  resolved "https://registry.yarnpkg.com/emoji-mart-vue/-/emoji-mart-vue-2.6.6.tgz#afd60da47ff0b59938b3d3cd90dacab6ab0f531e"
-  integrity sha512-844CI/Sa99G6goiZN6u+zT5XxB4wUhpYYTK8s3FrU2fl9y0ckbqe0uw7EuY0R53hb4bo9uJHVOPywE+C4vu4fg==
-  dependencies:
-    postcss-loader "^3.0.0"
-
 emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -8957,6 +8950,11 @@ vue-router@^4.0.10, vue-router@^4.0.11:
   integrity sha512-sha6I8fx9HWtvTrFZfxZkiQQBpqSeT+UCwauYjkdOQYRvwsGwimlQQE2ayqUwuuXGzquFpCPoXzYKWlzL4OuXg==
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.14"
+
+vue-simple-progress@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-simple-progress/-/vue-simple-progress-1.1.1.tgz#5159be55ce6708a98635a6280bf354fece9e7d89"
+  integrity sha512-ltLWYBA5eVQHWyt1NwZeGeK0VQC69JVh1oqUdro0po7r8Hc8SEMEyEfuwyCO4s27h5I3jbD99BKKkyPSQZgoZA==
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"
