@@ -1,5 +1,5 @@
 <template>
-	<div class="overlay" >
+	<div class="overlay">
 		<div class="comment td-w-2/3 lg:td-w-full">
 			<div class="td-bg-gray-50 td-w-full td-flex td-justify-between">
 				<span class="td-px-3 td-py-2">
@@ -38,11 +38,11 @@
 	</div>
 </template>
 <script>
-	export default{
-		components:{
+	export default {
+		components: {
 		},
-		data(){
-			return{
+		data() {
+			return {
 				comments: [],
 				text: ''
 			}
@@ -51,7 +51,7 @@
 			closeModal() {
 				this.$emit("showComment")
 			},
-			addComment(){
+			addComment() {
 				const oldComment = this.comments;
 				oldComment.push(this.text);
 				this.comments = oldComment;
@@ -59,46 +59,48 @@
 			},
 		},
 		props: {
-		selectedTodo: {
-			type: String
+			selectedTodo: {
+				type: String
+			},
 		},
-	},
 	}
 
 </script>
 <style scoped>
-.td-comment-group {
-  position: relative;  
-  height: 200px;
-  width: 100%;
-}
+	.td-comment-group {
+		position: relative;
+		height: 200px;
+		width: 100%;
+	}
 
-.td-comment-group textarea {
-  height: 200px;
-  width: 100%;
-}
-.icon-user {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  right: 30px;
-  top: 10px;
-}
-@media screen and (max-width: 768px){
-	.overlay {
-    line-height: 1.46666667;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    left: 0;
-    /* opacity: 0; */
-    position: fixed;
-    top: 0;
-    transition: 80ms linear;
-    width: 100%;
-    z-index: 1012;
-}
-}
+	.td-comment-group textarea {
+		height: 200px;
+		width: 100%;
+	}
+
+	.icon-user {
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		right: 30px;
+		top: 10px;
+	}
+
+	@media screen and (max-width: 768px) {
+		.overlay {
+			line-height: 1.46666667;
+			align-items: center;
+			background: rgba(0, 0, 0, 0.6);
+			display: flex;
+			height: 100%;
+			justify-content: center;
+			left: 0;
+			/* opacity: 0; */
+			position: fixed;
+			top: 0;
+			transition: 80ms linear;
+			width: 100%;
+			z-index: 1012;
+		}
+	}
 </style>
