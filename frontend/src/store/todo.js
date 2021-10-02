@@ -105,6 +105,9 @@ export default {
         },
         showAll(state) {
             return state.showAll
+        },
+        organization(state) {
+            return state.isUser.Organizations[0];
         }
     },
     actions: {
@@ -133,8 +136,10 @@ export default {
         ADD_USER({ commit }, data) {
             commit('IS_USER', data)
         },
-        async getAllArchivedTodos({ commit }) {
-            await axios.get('get-archived')
+        async getAllArchivedTodos({ commit, state }) {
+            const user_id = state.isUser._id;
+            const org_id = state.isUser.Organizations[0];
+            await axios.get(`get-archived?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
@@ -144,7 +149,7 @@ export default {
             try {
                 const response = await createTodo(org_id, any);
                 console.log('todo created sucesfully', response)
-                    // commit('ADD_TODOS', data);
+                // commit('ADD_TODOS', data);
             } catch (error) {
                 console.log(`Error from handleGetTodos ${error}`);
             }
