@@ -10,7 +10,7 @@
                 <div v-click-away="ClickAway" class="">
                     <div @click="toggleMenu"><i class="pi pi-ellipsis-v td-cursor-pointer"></i></div>
                     <div class="td-relative">
-                        <taskDropdown v-show="isModalVisible" @toggleDeleteModal="toggleDeleteModal"
+                        <taskDropdown :task="task" :todo="todo" v-show="isModalVisible" @toggleDeleteModal="toggleDeleteModal"
                             @toggleMenu="toggleMenu" />
                     </div>
                 </div>
@@ -64,6 +64,9 @@
         props: {
             task: {
                 type: Object
+            },
+            todo:{
+                type:Object
             },
             index: {
                 type: String

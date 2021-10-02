@@ -52,7 +52,7 @@
           " @click="toggleDelete">Delete</span>
 			</div>
 		</div>
-		<reminderModal v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
+		<reminderModal :task="task" :todo="todo" v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
 		<transition name="fade">
 			<deleteTask v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
 		</transition>
@@ -82,6 +82,14 @@
 				this.isReminder = !this.isReminder
 			}
 		},
+		props: {
+            task: {
+                type: Object
+            },
+            todo:{
+                type:Object
+            }
+        },
 		components: {
 			deleteTask,
 			reminderModal
