@@ -5,27 +5,71 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Repositories\TodoRepository;
+
+use App\Services\ServiceTrait;
 use App\Providers\AppServiceProvider;
 
-class TodoService extends TodoRepository
-{
-    //use ServiceTrait;
+class TestTodoService extends TodoRepository{
+    use ServiceTrait;
+
     public function all()
     {
-        
-        return Response::checkAndServe($this->httpRepository->all());
+        if($this->cacheRepository->all() == []){
+
+            $response = $this->httpRepository->all();
+            
+            if (Response::checkResponseStatus($response)) {
+                $this->cacheRepository->create($response['data']);
+            }
+
+            return $response['data'];
+        }
+
+        return $this->cacheRepository->all();
+        //return Response::checkAndServe($this->httpRepository->all());
     }
 
 
     public function create(array $data)
     {
+        //update cache before creating
+        if($this->cacheRepository->all() == []){  
+            //update cache
+            $this->fetchDataFromServer();
+        }
+
+        $response = $this->httpRepository->create($data); 
+        // check if response can be cache
+        if (Response::checkResponseStatus($response)) {
+
+            $object = array_merge(['_id' => $response["data"]['object_id']], $data);
+            //cache response
+            $this->cacheRepository->create($object);
+            // return response
+            return $response['data'];
+
+        }
         
-        return Response::checkAndServe($this->httpRepository->create($data));
+        return Response::checkAndServe($response);
+        //return Response::checkAndServe($this->httpRepository->create($data));
     }
 
     public function find($id)
     {
-        return Response::checkAndServe($this->httpRepository->find($id));
+        //check if cache is empty else fech from server and save to cache
+        if($this->cacheRepository->find($id) == []){
+
+            $this->fetchDataFromServer();
+            // fetch data from server
+            $response = $this->httpRepository->find($id);
+            
+            // return response data
+            return $response['data'];
+        }
+        
+        //return response
+        return $this->cacheRepository->find($id);
+        //return Response::checkAndServe($this->httpRepository->find($id));
     }
 
     public function findTodo($id, $user_id)
@@ -40,11 +84,34 @@ class TodoService extends TodoRepository
 
     public function findBy($attr, $value)
     {
-        return Response::checkAndServe($this->httpRepository->findBy($attr, $value));
+        //check if cache is empty else fech from server and save to cache
+        if($this->cacheRepository->findBy($attr, $value) == []){
+
+            $this->fetchDataFromServer();
+            // fetch data from server
+            $response = $this->httpRepository->findBy($attr, $value);
+            
+            // return response data
+            return $response['data'];
+        }
+        
+        //return response
+        return $this->cacheRepository->findBy($attr, $value);
+        //return Response::checkAndServe($this->httpRepository->findBy($attr, $value));
     }
 
     public function findWhere($whereArray){
-        return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
+        //check if cache is empty else fech from server and save to cache
+        if($this->cacheRepository->findWhere($whereArray) == []){
+
+            $this->fetchDataFromServer();
+            // fetch data from cache
+            return $this->cacheRepository->findWhere($whereArray);
+        }
+
+        //return response
+        return $this->cacheRepository->findWhere($whereArray);
+        //return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
     }
 
 
@@ -59,7 +126,7 @@ class TodoService extends TodoRepository
             abort("You dont have authorization to delete", 401);
         }
         abort_if(empty($data), 400, "Request payload is empty");
-        $update = $this->update($data, $todoId);
+        $update = $this->update($todoId, $data);
 
         if(isset($update['modified_documents']) && $update['modified_documents'] > 0){
            $response = ['message' => 'Todo updated successfully', 'data' => $update];
@@ -69,9 +136,24 @@ class TodoService extends TodoRepository
         return $response;
     }
 
-    public function update($data, $todoId)
+    public function update($todoId, $data)
     {
-        return Response::checkAndServe($this->httpRepository->update($todoId, $data));
+        //update cache before updating
+        if($this->cacheRepository->all() == []){  
+            //update cache
+            $this->fetchDataFromServer();
+        }
+
+        //check if cache exist else get from server and update cache
+        $response = $this->httpRepository->update($todoId, $data); 
+        
+        if (isset($response['data']['modified_documents']) && $response['data']['modified_documents'] >= 0) {
+            $this->cacheRepository->update($todoId, $data);
+            
+            return $response['data'];
+        }
+        
+        return $response['data'];
     }
 
     public function delete($todoId, $user_id)
@@ -83,10 +165,10 @@ class TodoService extends TodoRepository
             abort(404, "Todo not found");
         }
         //if the user that is trying to delete is not the user that created, no one else can delete
-        abort_if($todo['user_id'] != $user_id, 401, "You dont have authorization to delete");
+        if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
 
         $deleted_at = ['deleted_at' => Carbon::now()];
-        $update = $this->update($deleted_at, $todoId);
+        $update = $this->update($todoId, $deleted_at);
 
         $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
         return $response;
