@@ -99,6 +99,7 @@ export default {
         //    console.log(this.selectedTodo)
         this.collaborators = this.selectedTodo;
         this.getIndDetails();
+
     }
 };
 </script>
