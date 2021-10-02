@@ -56,7 +56,7 @@
                     <div class="td-relative td-mx-4 td-cursor-pointer " v-click-away="ClickAway">
                         <span @click="assign()" class="td-justify-center td-flex td-items-center "><i
                                 class="pi pi-user-plus td-cursor-pointer td-px-1" /> Add collaborator</span>
-                        <div v-if="isAssign"
+                        <!-- <div v-if="isAssign"
                             class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0">
                             <input @input="search()" v-model=value
                                 class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none"
@@ -68,7 +68,8 @@
                                     <span class="tracking-wide td-px-2 td-font-bold">{{user.name.first + ' ' +
                                         user.name.last}}</span></label>
                             </div>
-                        </div>
+                        </div> -->
+                        <collabModal v-if="isAssign" @assign="assign"/> 
                     </div>
 
                     <div class="amt_completed td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded ">
@@ -89,6 +90,50 @@
 
                         <span class="td-font-bold ">{{ itemsTodo.length }} completed</span>
                     </div>
+                    <div 
+          @click="admin()"
+            class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded td-flex"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 15.75V14.25C12 12.5931 10.6569 11.25 9 11.25H3.75C2.09315 11.25 0.75 12.5931 0.75 14.25V15.75"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.375 8.25C8.03185 8.25 9.375 6.90685 9.375 5.25C9.375 3.59315 8.03185 2.25 6.375 2.25C4.71815 2.25 3.375 3.59315 3.375 5.25C3.375 6.90685 4.71815 8.25 6.375 8.25Z"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15 6V10.5"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M17.25 8.25H12.75"
+                stroke="#1D1C1D"
+                stroke-width="1.22693"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Admin({{collaboratorCount}})</span>
+          </div>
                     <!-- <div class="progress_container td-flex td-flex-col">
                     <span
                         class="progress_text td-self-end td-text-sm td-font-medium "
@@ -130,7 +175,8 @@
                         </div>
                         <div v-show="isComment" id="Comment"
                             class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col">
-                            <Comment @showComment="showComment" :selectedTodo="selectedTodo.title" />
+                            <Comment class="td-rounded-md" @showComment="showComment"
+                                :selectedTodo="selectedTodo.title" />
                         </div>
                     </div>
                 </div>
@@ -143,19 +189,22 @@
             <TaskForm v-if="isModal" @createTask="createTask" @toggleModal="toggleModal" />
         </transition>
         <transition name="fade" class="td-block lg:td-hidden">
-            <Comment v-if="isComment" @showComment="showComment" :selectedTodo="selectedTodo.title" />
+            <Comment class="td-rounded-md" v-if="isComment" @showComment="showComment"
+                :selectedTodo="selectedTodo.title" />
         </transition>
     </div>
 </template>
 <script>
-
     import CentrifugeSetup from '../plugins/realtime'
     import TaskForm from '../components/TaskForm';
     import Empty from '../components/Empty'
     import TaskCard from '../components/TaskCard2';
+    import collabModal from '../components/collaborators/collaboratorModal.vue'
     import axios from 'axios'
     import Comment from '../components/comment.vue'
     import { mapGetters } from 'vuex'
+import { mapActions } from "vuex";
+
     export default {
         name: 'TodoDetails',
         data() {
@@ -169,7 +218,9 @@
                 isAssign: false,
                 alltasks: ['', '', '', '', '', '', '', '', '', ''],
                 users: [],
-                value: ''
+                value: '',
+                 //selectedCollaborator: null,
+                 collaboratorCount: 0
             }
         },
         computed: {
@@ -190,32 +241,32 @@
             percent() {
                 return (this.checked.length / this.alltasks.length) * 100
             },
-
             itemsTodo() {
                 return this.checked.filter(todo => !todo.completed)
             }
-
         },
         components: {
             TaskCard,
             TaskForm,
             Empty,
-            Comment
+            Comment,
+            collabModal
         },
         methods: {
+             ...mapActions({
+                selectTodo: 'todos/selectedTodo'
+             }),
             toggleModal() {
                 this.isModal = !this.isModal;
             },
             isSelect: function (num) {
                 this.isActive = (num);
             },
-
             close() {
                 this.$emit('hideComment')
             },
             ClickAway() {
                 this.isAssign = false
-
             },
             showComment() {
                 this.isComment = !this.isComment
@@ -231,7 +282,6 @@
                             // The request was made and the server responded with a status code
                             // that falls out of the range of 2xx
                             console.warn(error.response.data);
-
                         } else if (error.request) {
                             // The request was made but no response was received
                             console.log(error.request);
@@ -244,7 +294,9 @@
             }
             ,
             assign() {
-                this.isAssign = !this.isAssign
+            this.isAssign = !this.isAssign
+            // this.activeTodo(this.selectedTodo._id)
+            this.selectTodo(this.selectedTodo) 
             },
             checkAction(ctx) {
                 const _this = this
@@ -261,21 +313,22 @@
                         let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
                         _this.selectedTodo.tasks.splice(location, 1);
                     } break;
+                    // case "assign":
+        //   {
+        //         _this.selectedCollaborator = ctx.data.details.collaborators;
+        //           _this.collaboratorCount ++
+        //    }
                     default:
                 }
-
             },
             check() {
                 let id = this.$route.params.id
                 const _this = this;
                 this.selectedTodo = this.allTodos.find(todo => todo._id.toLowerCase() === (id.toLowerCase()));
                 if (this.selectedTodo <= 0 || this.selectedTodo === undefined) {
-
                     this.$router.push({ path: '/' })
-
                 }
                 else {
-
                     CentrifugeSetup(_this.selectedTodo.channel, this.checkAction)
                 }
                 console.log(this.selectedTodo)
@@ -297,7 +350,6 @@
     .description {
         color: #616061;
     }
-
     progress[value] {
         /* Reset the default appearance */
         -webkit-appearance: none;
@@ -306,26 +358,21 @@
         height: 5px;
         //  box-shadow: 0 0 10px rgb(0 103 69 / 28%);
     }
-
     progress[value]::-webkit-progress-bar {
         border-radius: 2px;
         background-color: #e2ecf8;
     }
-
     progress[value]::-webkit-progress-value {
         background-color: #00b87c;
         border-radius: 2px;
     }
-
     #progress_container {
         min-width: 15em;
     }
-
     #progress {
         height: 1.1rem;
         border-radius: 4px;
     }
-
     .todo-profileImg {
         position: relative;
         background: #fff;
@@ -334,7 +381,6 @@
         width: 105px;
         height: 30px;
     }
-
     .todo-profileImg2 {
         position: relative;
         background: #fff;
@@ -342,27 +388,22 @@
         width: 105px;
         height: 30px;
     }
-
     .todo-profile.profileOne {
         left: 2%;
         z-index: 1000;
     }
-
     .todo-profile {
         position: absolute;
         border-radius: 4px;
         top: 7%;
     }
-
     .todo-profile.profileTwo {
         left: 19%;
         z-index: 500;
     }
-
     .todo-profile.profileThree {
         left: 35%;
     }
-
     .text-300 {
         position: absolute;
         top: 18%;
@@ -372,11 +413,9 @@
         z-index: 100;
         color: #000;
     }
-
     .tabMenu span {
         cursor: pointer;
     }
-
     a.router-link-exact-active {
         color: #00b87c;
     }
