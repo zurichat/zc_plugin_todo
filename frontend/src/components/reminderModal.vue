@@ -150,7 +150,7 @@
             cusReminderForm,
         },
         mounted(){
-            console.log(this.selectedTodo)
+            console.log(this.todo)
         }
     };
 </script>
