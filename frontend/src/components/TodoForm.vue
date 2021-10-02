@@ -161,16 +161,19 @@ export default {
 //    }
 
 .overlay {
-   width: 100%;
-    display: flex;
-    justify-content: center;
+    line-height: 1.46666667;
     align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    // opacity: 0;
     position: fixed;
     top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    background: rgba(0, 0, 0, 0.14901960784313725);
+    transition: 80ms linear;
+    width: 100%;
+    z-index: 1012;
 }
 form {
     width: 40%;
