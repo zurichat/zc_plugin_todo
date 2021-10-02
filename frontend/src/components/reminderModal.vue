@@ -133,7 +133,7 @@
             saveReminder(reminder_type){
                 
                 let data = {
-                    "time_string": reminder_type
+                    "time_string": reminder_type,
                 }
                 // ${this.isUser[0].org_id}
                 axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder/`, data).then((response)=>{
