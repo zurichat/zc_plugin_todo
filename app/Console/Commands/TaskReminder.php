@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Services\TaskReminderService;
+use App\Services\TodoService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,8 +38,10 @@ class TaskReminder extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(?TaskReminderService $service)
     {
-        Mail::raw('Hello World!', function($msg) {$msg->to('myemail@gmail.com')->subject('Test Email'); });
+        $service->commandHandler();
+
+        // Mail::raw('Hello World!', function($msg) {$msg->to('myemail@gmail.com')->subject('Test Email'); });
     }
 }
