@@ -6,7 +6,7 @@
 					<h2 class="td-text-xl td-font-bold td-text-black-500 title">
 						Comments
 					</h2>
-					<p class="task_title td-pb-1 td-text-lg td-font-bold">
+					<p class="td-text-gray-400 td-pb-1 td-text-lg td-font-medium">
 						<span class="task_number">{{ selectedTodo }}</span>
 					</p>
 				</span>
