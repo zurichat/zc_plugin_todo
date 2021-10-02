@@ -112,6 +112,9 @@ export default {
         },
         show_organisation_members(state){
             return state.organisation_members
+        },
+        organization(state) {
+            return state.isUser.Organizations[0];
         }
     },
     actions: {
@@ -147,8 +150,10 @@ export default {
         ADD_USER({ commit }, data) {
             commit('IS_USER', data)
         },
-        async getAllArchivedTodos({ commit }) {
-            await axios.get('get-archived')
+        async getAllArchivedTodos({ commit, state }) {
+            const user_id = state.isUser._id;
+            const org_id = state.isUser.Organizations[0];
+            await axios.get(`get-archived?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },

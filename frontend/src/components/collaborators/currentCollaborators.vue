@@ -1,17 +1,21 @@
 <template>
-    <div>
-        <div class="box">
-            <!-- <div class="input-box"></div> -->
-            <div v-if="showLoading" class="td-w-100 td-flex td-justify-center">
-                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            </div>
-            <div>
-                <div
-                    v-for="(user, index) in selectedTodo.collaborators"
-                    :key="index"
-                    class="td-border-solid td-border-2 td-flex  hover:td-border hover:td-shadow td-border-b td-p-2 td-my-2 td-pb-2 "
-                >
-                    <!-- <img v-if="user.image_url != ''"
+  <div>
+    <div class="box">
+      <!-- <div class="input-box"></div> -->
+      <div v-if="showLoading" class="td-w-100 td-flex td-justify-center">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+      </div>
+      <div>
+        <div
+          v-for="(user, index) in selectedTodo.collaborators"
+          :key="index"
+          class="
+            td-border-solid td-border-2 td-flex
+            hover:td-border hover:td-shadow
+            td-border-b td-p-2 td-my-2 td-pb-2
+          "
+        >
+          <!-- <img v-if="user.image_url != ''"
                             class="td-self-center td-w-9 td-h-9 td-rounded "
                             :src="user.image_url"
                         /> -->
@@ -47,8 +51,8 @@
                     </div>
                 </div>
             </div>
+          </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -69,6 +73,7 @@ export default {
             selectedTodo: "todos/selectedTodo",
             isUser: "todos/user"
         })
+        
     },
     methods: {
         getIndDetails() {
@@ -106,7 +111,7 @@ export default {
 
 <style scoped>
 .box {
-    overflow-y: scroll;
-    max-height: 20em;
+  overflow-y: scroll;
+  max-height: 20em;
 }
 </style>
