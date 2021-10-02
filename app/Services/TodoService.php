@@ -57,7 +57,7 @@ class TodoService extends TodoRepository
             abort("You dont have authorization to delete", 401);
         }
         abort_if(empty($data), 400, "Request payload is empty");
-        $update = $this->update($todoId, $data);
+        $update = $this->update($data, $todoId);
 
         if(isset($update['modified_documents']) && $update['modified_documents'] > 0){
            $response = ['message' => 'Todo updated successfully', 'data' => $update];
@@ -84,7 +84,7 @@ class TodoService extends TodoRepository
         if ($todo['user_id'] != $user_id) return response()->json("You dont have authorization to delete", 401);
 
         $deleted_at = ['deleted_at' => Carbon::now()];
-        $update = $this->update($todoId, $deleted_at);
+        $update = $this->update($deleted_at, $todoId);
 
         $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully'] : ['error'=> 'an error was encountered'] ;
         return $response;

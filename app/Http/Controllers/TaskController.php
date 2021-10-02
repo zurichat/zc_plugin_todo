@@ -211,7 +211,7 @@ class TaskController extends Controller
         array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
-        $result = $this->todoService->update($todoId, $todo);
+        $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
@@ -250,7 +250,7 @@ class TaskController extends Controller
 
         unset($todo['_id']);
 
-        $result = $this->todoService->update($todoId, $todo);
+        $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             $todoWithId = array_merge(['_id' => $todoId], $todo);
             $this->todoService->publishToRoomChannel($todo['channel'], $todoWithId, 'todo', 'update');
