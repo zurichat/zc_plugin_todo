@@ -22,7 +22,8 @@
                     <div
                         class="td-px-2 td-pl-3 w-100 td-self-stretch "
                         style=" width:100%"
-                    >{{user.collaborator_id}}
+                    >
+                        {{ user.collaborator_id }}
                         <!-- {{ user.name.first.slice(0, 20) }} -->
                         <div class="td-text-gray-400">
                             tjfaithpro@gmail.com
@@ -59,34 +60,45 @@ export default {
     data() {
         return {
             collaborators: [],
-            showLoading: false,
+            showLoading: false
         };
     },
 
     computed: {
         ...mapGetters({
-            selectedTodo: "todos/selectedTodo"
+            selectedTodo: "todos/selectedTodo",
+            isUser: "todos/user"
         })
     },
     methods: {
-      
-        getUser() {
-            axios
-            .get(`https://api.zuri.chat/organizations/${this.selectedTodo.organisation_id}/members`).then((response)=>{
-                console.log(response)
-                // this.organisation_members = response.data.data
-                  }).catch((error)=>{
-                console.log(error)
-            })
-        },
-        getContributor(){
-
+        getIndDetails() {
+            this.selectedTodo.collaborators.forEach(element => {
+               
+                axios
+                    .get(
+                        `https://api.zuri.chat/organizations/${this.isUser[0].org_id}/members/?query=${element.collaborator_id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${this.isUser.token}`
+                            }
+                        }
+                    )
+                    .then(response => {
+                        this.collaborators.push(response.data)
+                        response;
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            });
         }
     },
     mounted() {
-    //    this.getUser()
-    //    console.log(this.selectedTodo)
-    this.collaborators  = this.selectedTodo
+        //    this.getUser()
+        //    console.log(this.selectedTodo)
+        this.collaborators = this.selectedTodo;
+        this.getIndDetails();
     }
 };
 </script>

@@ -37,6 +37,7 @@ export default {
         selectedTodo: null,
         isAssign: false,
         searchedTodo: [],
+        organisation_members:[],
         errMessage: "No Result Found"
 
     },
@@ -76,6 +77,9 @@ export default {
         },
         TOGGLESHOW(state, data) {
             state.showAll = data
+        },
+        ORG_MEMBERS(state, data){
+            state.organisation_members = data
         }
     },
     getters: {
@@ -105,9 +109,19 @@ export default {
         },
         showAll(state) {
             return state.showAll
+        },
+        show_organisation_members(state){
+            return state.organisation_members
         }
     },
     actions: {
+        // GET ALL THE MEMBERS IN AN ORGANISATION
+       async getAllMembers({commit, state}){
+            await axios.get(`https://api.zuri.chat/organizations/${state.isUser[0].org_id}/members`)
+            .then(response => (commit('ORG_MEMBERS', response.data.data)))
+           
+            .catch(error => console.log(error))
+        },
         async HandleGetTodos({ commit, state }) {
             console.log(state)
             const user_id = state.isUser["0"]._id;

@@ -56,7 +56,7 @@
                     <div class="td-relative td-mx-4 td-cursor-pointer " v-click-away="ClickAway">
                         <span @click="assign()" class="td-justify-center td-flex td-items-center "><i
                                 class="pi pi-user-plus td-cursor-pointer td-px-1" /> Add collaborator</span>
-                        <div v-if="isAssign"
+                        <!-- <div v-if="isAssign"
                             class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0">
                             <input @input="search()" v-model=value
                                 class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none"
@@ -68,7 +68,8 @@
                                     <span class="tracking-wide td-px-2 td-font-bold">{{user.name.first + ' ' +
                                         user.name.last}}</span></label>
                             </div>
-                        </div>
+                        </div> -->
+                        <collabModal v-if="isAssign" @assign="assign"/> 
                     </div>
 
                     <div class="amt_completed td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded ">
@@ -148,14 +149,16 @@
     </div>
 </template>
 <script>
-
     import CentrifugeSetup from '../plugins/realtime'
     import TaskForm from '../components/TaskForm';
     import Empty from '../components/Empty'
     import TaskCard from '../components/TaskCard2';
+    import collabModal from '../components/collaborators/collaboratorModal.vue'
     import axios from 'axios'
     import Comment from '../components/comment.vue'
     import { mapGetters } from 'vuex'
+import { mapActions } from "vuex";
+
     export default {
         name: 'TodoDetails',
         data() {
@@ -190,32 +193,32 @@
             percent() {
                 return (this.checked.length / this.alltasks.length) * 100
             },
-
             itemsTodo() {
                 return this.checked.filter(todo => !todo.completed)
             }
-
         },
         components: {
             TaskCard,
             TaskForm,
             Empty,
-            Comment
+            Comment,
+            collabModal
         },
         methods: {
+             ...mapActions({
+                selectTodo: 'todos/selectedTodo'
+             }),
             toggleModal() {
                 this.isModal = !this.isModal;
             },
             isSelect: function (num) {
                 this.isActive = (num);
             },
-
             close() {
                 this.$emit('hideComment')
             },
             ClickAway() {
                 this.isAssign = false
-
             },
             showComment() {
                 this.isComment = !this.isComment
@@ -231,7 +234,6 @@
                             // The request was made and the server responded with a status code
                             // that falls out of the range of 2xx
                             console.warn(error.response.data);
-
                         } else if (error.request) {
                             // The request was made but no response was received
                             console.log(error.request);
@@ -244,7 +246,9 @@
             }
             ,
             assign() {
-                this.isAssign = !this.isAssign
+            this.isAssign = !this.isAssign
+            // this.activeTodo(this.selectedTodo._id)
+            this.selectTodo(this.selectedTodo) 
             },
             checkAction(ctx) {
                 const _this = this
@@ -263,19 +267,15 @@
                     } break;
                     default:
                 }
-
             },
             check() {
                 let id = this.$route.params.id
                 const _this = this;
                 this.selectedTodo = this.allTodos.find(todo => todo._id.toLowerCase() === (id.toLowerCase()));
                 if (this.selectedTodo <= 0 || this.selectedTodo === undefined) {
-
                     this.$router.push({ path: '/' })
-
                 }
                 else {
-
                     CentrifugeSetup(_this.selectedTodo.channel, this.checkAction)
                 }
                 console.log(this.selectedTodo)
@@ -297,7 +297,6 @@
     .description {
         color: #616061;
     }
-
     progress[value] {
         /* Reset the default appearance */
         -webkit-appearance: none;
@@ -306,26 +305,21 @@
         height: 5px;
         //  box-shadow: 0 0 10px rgb(0 103 69 / 28%);
     }
-
     progress[value]::-webkit-progress-bar {
         border-radius: 2px;
         background-color: #e2ecf8;
     }
-
     progress[value]::-webkit-progress-value {
         background-color: #00b87c;
         border-radius: 2px;
     }
-
     #progress_container {
         min-width: 15em;
     }
-
     #progress {
         height: 1.1rem;
         border-radius: 4px;
     }
-
     .todo-profileImg {
         position: relative;
         background: #fff;
@@ -334,7 +328,6 @@
         width: 105px;
         height: 30px;
     }
-
     .todo-profileImg2 {
         position: relative;
         background: #fff;
@@ -342,27 +335,22 @@
         width: 105px;
         height: 30px;
     }
-
     .todo-profile.profileOne {
         left: 2%;
         z-index: 1000;
     }
-
     .todo-profile {
         position: absolute;
         border-radius: 4px;
         top: 7%;
     }
-
     .todo-profile.profileTwo {
         left: 19%;
         z-index: 500;
     }
-
     .todo-profile.profileThree {
         left: 35%;
     }
-
     .text-300 {
         position: absolute;
         top: 18%;
@@ -372,11 +360,9 @@
         z-index: 100;
         color: #000;
     }
-
     .tabMenu span {
         cursor: pointer;
     }
-
     a.router-link-exact-active {
         color: #00b87c;
     }
