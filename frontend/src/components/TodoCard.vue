@@ -9,7 +9,7 @@
                 class="menu_btn td-px-6 td-py-3 td-absolute td-top-0 td-right-0"
                 @click="toggleMenu"
             >
-                <i class="pi pi-ellipsis-h"></i>
+                <i class="pi pi-ellipsis-v"></i>
             </div>
             <MenuDropdown
                 :links="links"
@@ -17,8 +17,10 @@
                 :todo="todo"
                 @toggleDeleteModal="toggleDeleteModal"
                 @toggleMenu="toggleMenu"
+                @toggleAssignModal="toggleAssignModal"
                 @archived="handleArchivedTodo"
             />
+           
         </div>
         <div @click="details()">
             <div class="td-flex td-justify-between">
@@ -40,7 +42,7 @@
                     >
                     <div class="td-flex ">
                         <img src="../assets/img/collaborators.svg" />
-                        <span
+                        <span 
                             class="td-text-white td-mx-0.5 td-bg-green-500 td-h-6 td-rounded td-px-2 td-py-1 td-text-xs td-select-none"
                             >{{ collaborators   }}</span
                         >
@@ -75,10 +77,12 @@
                             fill="#999999"
                         ></path>
                     </svg>
-                    <span class="td-px-1">{{ todo.tasks.length }} tasks</span>
+                    <!-- <span class="td-px-1">{{ todo.tasks.length }} tasks</span> -->
                 </div>
             </div>
         </div>
+          
+
         <transition name="fade">
             <DeleteModal
                 v-if="isDeleteModal"
@@ -87,6 +91,14 @@
                 @toggleDeleteModal="toggleDeleteModal"
             />
         </transition>
+
+        <transition name="fade">
+            <AssignForm
+                v-if="isAssignModal"
+                @toggleAssignModal="toggleAssignModal"
+            />
+        </transition>
+
     </div>
 </template>
 <script>
@@ -95,6 +107,7 @@
 import CircleProgress from "vue3-circle-progress";
 import DeleteModal from "./DeleteModal";
 import MenuDropdown from "./MenuDropdown.vue";
+import AssignForm from "./collaborators/collaboratorModal.vue";
 import { mapActions } from "vuex";
 export default {
     name: "TodoCard",
@@ -102,6 +115,7 @@ export default {
         return {
             isModalVisible: false,
             isDeleteModal: false,
+            isAssignModal:false,
             links: [
                 {
                     name: "Edit",
@@ -126,10 +140,10 @@ export default {
     components: {
         MenuDropdown,
         CircleProgress,
-        DeleteModal
+        DeleteModal,
+        AssignForm
     },
     computed: {
-         
          description() {
              let value = 1;
              if (this.todo.description != undefined) {
@@ -166,15 +180,18 @@ export default {
         toggleDeleteModal() {
             this.isDeleteModal = !this.isDeleteModal;
         },
+        toggleAssignModal(){
+            this.isAssignModal = !this.isAssignModal;
+        },
         ClickAway() {
             this.isModalVisible = false;
         },
         details() {
             this.$router.push({
-                name: "Details",
+                name: "Detail",
                 params: { id: this.todo._id }
             });
-        },
+        },   
         toggleMenu() {
             this.isModalVisible = !this.isModalVisible;
         },
@@ -184,8 +201,8 @@ export default {
         },
         alert() {
             alert("hi");
-        },
-        handleArchivedTodo() {
+        },    
+        handleArchivedTodo() { 
             this.$emit("archived", this.todo);
         }
     },

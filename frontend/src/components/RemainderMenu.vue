@@ -1,5 +1,5 @@
 <template>
-  <div class="td-modal td-shadow-md">
+<div class="td-modal td-shadow-md">
     <div
       class="
         td-grid
@@ -25,10 +25,10 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400 hover:td-text-white
+            hover:td-bg-green-400
+            hover:td-text-white
           "
-          @click="assign()"
-          >Assign Collaborators</span
+          >In 20 minutes</span
         >
         <span
           class="
@@ -40,12 +40,12 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400 hover:td-text-white
+            hover:td-bg-green-400
+            hover:td-text-white
           "
-          >Get notified about new replies</span
+          >In 1 hour</span
         >
         <span
-        @click="isModalVisible =!isModalVisible"
           class="
             td-rounded-sm
             td-py-3
@@ -55,13 +55,12 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400 hover:td-text-white
+            hover:td-bg-green-400
+            hover:td-text-white
           "
-          >Remind me about this</span
+          >In 2 hours</span
         >
-  
         <span
-          @click="archive"
           class="
             td-rounded-sm
             td-py-3
@@ -71,11 +70,12 @@
             td-text-sm
             td-cursor-pointer
             td-border-b
-            hover:td-bg-green-400 hover:td-text-white
+            hover:td-bg-green-400
+            hover:td-text-white
           "
-          >Archive</span
+          >Tomorrow</span
         >
-        <span
+          <span
           class="
             td-rounded-sm
             td-py-3
@@ -84,72 +84,53 @@
             td-font-normal
             td-text-sm
             td-cursor-pointer
-            hover:td-bg-red-500 hover:td-text-white
+            td-border-b
+            hover:td-bg-green-400
+            hover:td-text-white
           "
-          @click="toggleDelete"
-          >Delete</span
+          >New week</span
+        >
+          <span
+          @click="toggleReminder"
+          class="
+            td-rounded-sm
+            td-py-3
+            td-px-4
+            td-text-gray-900
+            td-font-normal
+            td-text-sm
+            td-cursor-pointer
+            td-border-b
+            hover:td-bg-green-400
+            hover:td-text-white
+          "
+          >Custom</span
         >
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { mapActions, mapGetters } from "vuex";
+// import axios from 'axios'
+import { mapActions } from 'vuex'
 export default {
-  data(){
-    return {
-       isModalVisible: false,
-    }
-  },
-  name: "td-modal",
-    components: {
-    },
+  name: "reminder-modal",
   methods: {
     ...mapActions({
-      tog_assign: 'todos/toggleAssign',
-      selectedTodo: 'todos/selectedTodo'
+     
     }),
-   assign(){
-     this.tog_assign()
-     this.$emit('toggleMenu');
-     this.$emit('toggleAssignModal');
-     this.selectedTodo(this.todo)
-   },
-   toggleDelete(){
-     this.$emit("toggleMenu");
-          //  this.$emit('toggleReminderModal')
-
-     this.$emit('toggleDeleteModal');
-
-   },
-    close() {
-      this.$emit("toggleMenu");
-    },
-    archive() {
-      console.log(this.todo._id);
-      axios
-        .put(
-          `archive-todo/${this.todo._id}?user_id=${this.user.id}&organisation_id=${this.org_id}`,
-
-          {
-            archived_at: 1,
-          }
-        )
-        .then(() => {
-          this.$emit("archived");
-        });
-    },
+   
+     toggleReminder(){
+           this.$emit('toggleReminderModal')
+       },
+    // close() {
+    //   this.$emit("toggleMenu");
+    // },
+ 
   },
   props: {
-    links: {
-      type: Array,
-    },
-    todo: {
-      type: Object,
-    },
+
   },
 };
 </script>
@@ -157,8 +138,8 @@ export default {
 <style scoped>
 .td-modal-items {
   position: absolute;
-  top: 40px;
-  right: 10px;
+  top: 150px;
+  left: 310px;
   z-index: 100;
   overflow: auto;
   overflow-y: auto;

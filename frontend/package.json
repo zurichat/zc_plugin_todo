@@ -39,7 +39,7 @@
         "sass": "^1.32.11",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
         "vue-cli-plugin-single-spa": "~3.1.2"
-    },
+    }, 
     "eslintConfig": {
         "root": true,
         "env": {
