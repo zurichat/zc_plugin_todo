@@ -23,6 +23,9 @@
                         Hide description</span>
                 </div>
             </div>
+            <div class="description">
+                {{ task.title }}
+            </div>
             <div class="task_details td-flex td-flex-row td-justify-between">
                 <div class="task_comment-amt td-flex td-items-center">
                     <div class="todo-profileImg2 td-flex">
