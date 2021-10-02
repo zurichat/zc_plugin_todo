@@ -24,7 +24,10 @@ class CacheRepository implements RepositoryInterface
     public function find($id, $attributes = ['*'])
     {
         $records = $this->all();
-        $key = array_search($id, array_column($records, 'id'));
+        if ($records == []) {
+            return [];
+        }
+        $key = array_search($id, array_column($records, '_id'));
         return $records[$key];
     }
 
@@ -40,6 +43,13 @@ class CacheRepository implements RepositoryInterface
 
     public function findBy($attribute, $value, $attributes = ['*'])
     {
+        $records = $this->all();
+        if ($records == []) {
+            return [];
+        }
+
+        $key = array_search($value, array_column($records, $attribute));
+        return $records[$key];
         // TODO: Implement findBy() method.
     }
 
@@ -65,7 +75,19 @@ class CacheRepository implements RepositoryInterface
 
     public function findWhere(array $where, $attributes = ['*'])
     {
-        // TODO: Implement findWhere() method.
+        $records = $this->all();
+        if ($records == []) {
+            return [];
+        }
+        //return $records[40];
+        foreach ($where as $key => $value) {
+            $record = collect($records)->filter(function($data) use($key, $value){
+                return $data[$key] == $value;
+            });
+            $records = $record;
+        }
+        
+        return $records->values()->all();
     }
 
     public function findWhereIn(array $where, $attributes = ['*'])
@@ -85,8 +107,13 @@ class CacheRepository implements RepositoryInterface
 
     public function create(array $attributes = [], bool $syncRelations = false)
     {
-        $records = $this->all() ? $this->all() : [];
-        $attributes = array_merge($attributes, ['id' => count($records) + 1]);
+        $records = $this->all() != [] ? $this->all() : [];
+        //$attributes = array_merge($attributes, ['id' => count($records) + 1]);
+        
+        if ($records == []) {
+            return $this->model::put($this->modelName, $attributes);
+        }
+
         array_push($records, $attributes);
         return $this->model::put($this->modelName, $records);
     }
@@ -94,10 +121,9 @@ class CacheRepository implements RepositoryInterface
     public function update($id, array $attributes = [], bool $syncRelations = false)
     {
         $records = $this->all();
-        $key = array_search($id, array_column($records, 'id'));
-        $id = $records[$key]['id'];
+        $key = array_search($id, array_column($records, '_id'));
         unset($records[$key]);
-        $attributes = array_merge($attributes, ['id' => $id]);
+        $attributes = array_merge($attributes, ['_id' => $id]);
         array_push($records, $attributes);
         return $this->model::put($this->modelName, array_values($records));
     }
@@ -105,7 +131,7 @@ class CacheRepository implements RepositoryInterface
     public function store($id, array $attributes = [], bool $syncRelations = false)
     {
         $records = $this->all() ? $this->all() : [];
-        $attributes = array_merge($attributes, ['id' => count($records) + 1]);
+        //$attributes = array_merge($attributes, ['id' => count($records) + 1]);
         array_push($records, $attributes);
         return $this->model::put($this->modelName, $records);
     }

@@ -11,7 +11,7 @@ class Centrifugo implements CentrifugoInterface
 
     protected $url = "https://realtime.zuri.chat/api";
 
-    public function publishToCommonRoom(array $data, string $newChannel, string $subscriberId, string $collection, string $unSubsciberId = null)
+    public function publishToCommonRoom(array $data, string $newChannel, string $subscriberId = null, string $collection, string $unSubsciberId = null)
     {
         $response = Http::withHeaders([
 

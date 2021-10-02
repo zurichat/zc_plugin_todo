@@ -21,6 +21,7 @@ class AssignUserController extends Controller
     {
 
         $todo = $this->todoService->find($todoId);
+
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
@@ -29,7 +30,7 @@ class AssignUserController extends Controller
             return response()->json(['message' => 'Lack authorization'], 401);
         }
 
-        $newColabo = ['user_id' => $request->collaborator_id, 'admin_status' => $request->admin_status];
+        $newColabo = ['collaborator_id' => $request->collaborator_id, 'admin_status' => $request->admin_status];
         array_push($todo['collaborators'], $newColabo);
         unset($todo['_id']);
 
@@ -38,10 +39,10 @@ class AssignUserController extends Controller
 
             // Publish To Centrifugo
             $this->todoService->publishToCommonRoom(
-                ['message' => "collaborator added"],
+                $todo,
                 $todo['channel'],
-                'info',
-                $request->user_id,
+                $request->collaborator_id,
+                'Todo',
                 null
             );
 
@@ -72,7 +73,7 @@ class AssignUserController extends Controller
             return response()->json(['message' => 'Lack authorization'], 401);
         }
 
-        $removeColabo = ['user_id' => $request->user_id];
+        $removeColabo = ['collaborator_id' => $request->collaborator_id, 'admin_status' => '0'];
 
         unset($todo['collaborators'], $removeColabo);
         unset($todo['_id']);
@@ -81,12 +82,13 @@ class AssignUserController extends Controller
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
+
             $this->todoService->publishToCommonRoom(
-                ['message' => "collaborator added"],
+                $todo,
+                $todo['channel'],
                 null,
-                'info',
-                $request->user_id,
-                $todo['channel']
+                'Todo',
+                $request->collaborator_id
             );
 
             return response()->json(["status" => "success", "type" => "Todo", "data" => "User removed successfully"], 200);

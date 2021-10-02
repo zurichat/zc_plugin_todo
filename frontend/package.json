@@ -12,6 +12,7 @@
         "axios": "^0.21.4",
         "centrifuge": "^2.8.2",
         "core-js": "^3.6.5",
+        "easy-circular-progress": "^1.0.4",
         "primeicons": "^4.1.0",
         "primevue": "3.7.0",
         "sass-loader": "^10.1.1",
@@ -19,6 +20,7 @@
         "single-spa-vue": "^2.1.0",
         "vue": "^3.0.0",
         "vue-router": "^4.0.11",
+        "vue3-circle-progress": "^1.0.6",
         "vue3-click-away": "^1.2.1",
         "vue3-mq": "^3.0.0",
         "vuex": "^4.0.2"
@@ -37,7 +39,7 @@
         "sass": "^1.32.11",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
         "vue-cli-plugin-single-spa": "~3.1.2"
-    },
+    }, 
     "eslintConfig": {
         "root": true,
         "env": {

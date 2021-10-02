@@ -47,6 +47,7 @@
           >Get notified about new replies</span
         >
         <span
+        @click="isModalVisible =!isModalVisible"
           class="
             td-rounded-sm
             td-py-3
@@ -61,6 +62,7 @@
           "
           >Remind me about this</span
         >
+  
         <span
           @click="archive"
           class="
@@ -94,6 +96,7 @@
         >
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -101,18 +104,31 @@
 import axios from 'axios'
 import { mapActions } from 'vuex'
 export default {
+  data(){
+    return {
+       isModalVisible: false,
+    }
+  },
   name: "td-modal",
+    components: {
+    },
   methods: {
     ...mapActions({
-      tog_assign: 'todos/toggleAssign'
+      tog_assign: 'todos/toggleAssign',
+      selectedTodo: 'todos/selectedTodo'
     }),
    assign(){
-     this.$emit("toggleMenu");
      this.tog_assign()
+     this.$emit('toggleMenu');
+     this.$emit('toggleAssignModal');
+     this.selectedTodo(this.todo)
    },
    toggleDelete(){
      this.$emit("toggleMenu");
-     this.$emit('toggleDeleteModal')
+          //  this.$emit('toggleReminderModal')
+
+     this.$emit('toggleDeleteModal');
+
    },
     close() {
       this.$emit("toggleMenu");
@@ -140,6 +156,7 @@ export default {
       type: Object,
     },
   },
+
 };
 </script>
 

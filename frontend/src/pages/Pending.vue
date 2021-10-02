@@ -9,7 +9,6 @@
                     />
                 </div>
                 <div
-                    v-else
                     class="
                          todo_container
                         sm:td-grid sm:td-grid-cols-2
@@ -18,9 +17,10 @@
                         lg:td-grid-cols-4 
                                             "
                       >
+                     
                             <TodoCard
                                 v-for="(todo, index) in allTodos"
-                                :key="index++"
+                                :key="index"
                                 :todo="todo"
                             />
                 </div>
@@ -58,8 +58,7 @@ export default {
     ...mapGetters({
       allTodos: "todos/allTodos",
       result: "todos/searchedTodo",
-      user: "todos/user",
-      showAll: "todos/showAll"
+      showAll: "todos/showAll",
     }),
   },
   methods: {

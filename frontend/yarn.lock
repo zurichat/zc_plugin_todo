@@ -2938,6 +2938,11 @@ core-js-compat@^3.14.0, core-js-compat@^3.16.0, core-js-compat@^3.6.5:
     browserslist "^4.17.0"
     semver "7.0.0"
 
+core-js@^3.0.1:
+  version "3.18.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.18.1.tgz#289d4be2ce0085d40fc1244c0b1a54c00454622f"
+  integrity sha512-vJlUi/7YdlCZeL6fXvWNaLUPh/id12WXj3MbkMw5uOyF0PfWPBNOCNbs53YqgrvtujLNlt9JQpruyIKkUZ+PKA==
+
 core-js@^3.6.5:
   version "3.17.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.17.3.tgz#8e8bd20e91df9951e903cabe91f9af4a0895bc1e"
@@ -3543,6 +3548,14 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
+
+easy-circular-progress@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/easy-circular-progress/-/easy-circular-progress-1.0.4.tgz#85500d0148ee5ced9241ed0063db8c024ab9a9cc"
+  integrity sha512-Spfg9Oo/PvxKL92SRghg5lk2z2ooWNbfPdvv2dJPgo16kgfT4bhFo4v/KM5lgadyos88SobPz/Qv9647nd4K4g==
+  dependencies:
+    core-js "^3.0.1"
+    vue "^2.6.10"
 
 easy-stack@^1.0.1:
   version "1.0.1"
@@ -8938,6 +8951,11 @@ vue-router@^4.0.10, vue-router@^4.0.11:
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.14"
 
+vue-simple-progress@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-simple-progress/-/vue-simple-progress-1.1.1.tgz#5159be55ce6708a98635a6280bf354fece9e7d89"
+  integrity sha512-ltLWYBA5eVQHWyt1NwZeGeK0VQC69JVh1oqUdro0po7r8Hc8SEMEyEfuwyCO4s27h5I3jbD99BKKkyPSQZgoZA==
+
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.3.tgz#6d55863a51fa757ab24e89d9371465072aa7bc35"
@@ -8950,6 +8968,11 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue3-circle-progress@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vue3-circle-progress/-/vue3-circle-progress-1.0.6.tgz#84f4ecf624cc912ffe334575402364f0125e7745"
+  integrity sha512-vvCuZqCnf7KGsIIro8TObF6R5g/RsK6qKMZAFUjTH3geLMrUxmTRKD1hcoUhqWeoYj+q64f6BIRT4VqkYK4wgQ==
 
 vue3-click-away@^1.2.1:
   version "1.2.1"
@@ -8973,6 +8996,11 @@ vue3-mq@^3.0.0:
     vue "^3.0.5"
     vue-router "^4.0.10"
     vue3-icon "^2.0.0"
+
+vue@^2.6.10:
+  version "2.6.14"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
+  integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
 
 vue@^3.0.0, vue@^3.0.5:
   version "3.2.12"
