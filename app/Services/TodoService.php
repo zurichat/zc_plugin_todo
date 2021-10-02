@@ -67,7 +67,7 @@ class TodoService extends TodoRepository
         return $response;
     }
 
-    public function update($todoId, $data)
+    public function update($data, $todoId)
     {
         return Response::checkAndServe($this->httpRepository->update($todoId, $data));
     }
