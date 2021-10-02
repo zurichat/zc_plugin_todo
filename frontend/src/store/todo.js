@@ -144,7 +144,7 @@ export default {
             try {
                 const response = await createTodo(org_id, any);
                 console.log('todo created sucesfully', response)
-                    // commit('ADD_TODOS', data);
+                // commit('ADD_TODOS', data);
             } catch (error) {
                 console.log(`Error from handleGetTodos ${error}`);
             }

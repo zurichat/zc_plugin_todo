@@ -3,8 +3,8 @@
     <template v-if="showAll">
       <div v-if="archivedTodos.length <= 0">
         <Empty
-          :title="'Your Archived Tasks will be added here'"
-          :subtitle="'No Tasks in Archive'"
+          
+          :subtitle="'todo'"
         />
       </div>
       <div

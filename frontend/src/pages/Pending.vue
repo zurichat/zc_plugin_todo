@@ -4,8 +4,7 @@
             <template v-if="showAll">
                 <div v-if="allTodos.length <= 0">
                     <Empty
-                        :title="'Oops Your Todo Store is Empty'"
-                        :subtitle="'Click Create Task Button'"
+                          :subtitle="'todo'"
                     />
                 </div>
                 <div

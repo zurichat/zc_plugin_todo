@@ -1,7 +1,7 @@
 <template>
     <div
         id="TodoCard"
-        class="td-px-4 td-py-2 td-mx-auto td-border td-rounded td-cursor-pointer td-my-4 sm:td-my-0 taskcard sm:td-mx-0 td-relative"
+        class="td-px-4 td-py-2 td-mx-auto td-border td-rounded td-cursor td-my-4 sm:td-my-0 taskcard sm:td-mx-0 td-relative"
     ><div v-click-away="ClickAway">
             <div
                 class="menu_btn td-px-6 td-py-3 td-absolute td-top-0 td-right-0"
@@ -79,7 +79,7 @@
                  >
             </div>
             <div id="todo_link" @click="details()">
-                <span class="td-underline td-text-green-400">View Task</span>
+                <span class="td-underline td-cursor-pointer td-font-medium td-text-green-400">View Task</span>
             </div>      
         </div>
     </div>

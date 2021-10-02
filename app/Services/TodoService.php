@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
+use App\Services\ServiceTrait;
 
 class TodoService extends TodoRepository
 {
