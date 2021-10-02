@@ -153,12 +153,12 @@
                 <div class="td-my-4 td-px-2 tabMenu">
                     <span
                         class="task_head td-font-bold td-mr-4 td-my-4 td-text-green-500"
-                        @click="isSelect('1')"
+                        @click="isPending = true"
                         >Pending</span
                     >
                     <span
                         class="ml-8 task_head td-my-4 td-font-bold"
-                        @click="isSelect('2')"
+                        @click="isPending = false"
                         >Completed</span
                     >
 
@@ -176,12 +176,25 @@
                         </template>
 
                         <template v-else>
-                            <TaskCard
+                            <div id="pending" v-if="isPending">
+                                <TaskCard
                                 :task="task"
                                 :index="index"
-                                v-for="(task, index) in selectedTodo.tasks"
+                                v-for="(task, index) in pendingTask"
                                 :key="index"
+                                @completeTask = "completeTask"
                             />
+                            </div>
+                            <div id="completed" v-else>
+                                <TaskCard
+                                :task="task"
+                                :index="index"
+                                v-for="(task, index) in completedTask"
+                                :key="index"
+                                @completeTask = "completeTask"
+                            />
+                            </div>
+                            
                         </template>
                     </div>
                 </div>
@@ -244,6 +257,7 @@ export default {
     name: 'TodoDetails',
     data(){
       return {
+          isPending: true,
         isActive: '1',
         // centrifuge: null,
         checked: [],
@@ -273,7 +287,14 @@ export default {
       percent(){
        return (this.checked.length / this.alltasks.length) * 100
       },
-      
+      pendingTask(){
+          let pending = this.selectedTodo.tasks.filter( task => task.status === 0);
+          return pending
+      },
+      completedTask(){
+          let completed = this.selectedTodo.tasks.filter( task => task.status === 1);
+          return completed
+      },
       itemsTodo() {
       return this.checked.filter(todo => !todo.completed)
     }
@@ -332,7 +353,11 @@ export default {
                           switch(ctx.data.action){
                           case "create" : {
                             console.log(ctx.data.details)
-                            _this.selectedTodo = ctx.data.details
+                            _this.selectedTodo.tasks = ctx.data.details.tasks
+                          } break;
+                          case "update" : {
+                            console.log(ctx.data.details)
+                            _this.selectedTodo.tasks = ctx.data.details.tasks
                           } break;
                           case "delete" : {
                               const _task = ctx.data.details;
@@ -363,6 +388,16 @@ export default {
         axios.get('https://randomuser.me/api/?results=15').
         then(response => this.users = (response.data.results))
       },
+      completeTask(any){
+          const todo_id = this.selectedTodo._id
+          const org_id = this.isUser["0"].org_id
+          const data = {
+              status : 1,
+              user_id: this.isUser["0"]._id,
+              task_id: any
+          }
+          axios.put(`mark-task/${todo_id}?organisation_id=${org_id}`, data).then(res => console.log(res))
+      }
   },
   mounted(){
       this.getUser()

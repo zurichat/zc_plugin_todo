@@ -52,7 +52,9 @@
                     </div>
                 </div>
                 <div class="task_tag td-flex td-flex-row td-items-center">
-                    <button class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
+                    <button @click="mark" v-if="task.status === 0" class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
+                    <button @click="mark" v-else class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as undone</button>
+
                 </div>
             </div>
         </div>
@@ -65,12 +67,13 @@ export default {
     components: {
         // Checkbox
     },
-    props: {
-        task: {
-            type: Object
-        },
-        index: {
-            type: String
+    props: 
+        ['task',
+        'index']
+    ,
+    methods: {
+        mark(){
+            this.$emit('completeTask', this.task.task_id)
         }
     }
 };
