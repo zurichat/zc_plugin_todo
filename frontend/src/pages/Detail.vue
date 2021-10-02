@@ -210,8 +210,9 @@
                             <template v-else>
                                 <TaskCard
                                     :task="task"
+                                    :todo="selectedTodo"
                                     :index="index"
-                                    @showComment="showComment($event)"
+                                    @showComment="showComment"
                                     v-for="(task, index) in selectedTodo.tasks"
                                     :key="index"
                                 />

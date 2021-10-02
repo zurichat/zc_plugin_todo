@@ -15,6 +15,8 @@
                     </div>
                     <div class="td-relative">
                         <taskDropdown
+                            :task="task"
+                            :todo="todo"
                             v-show="isModalVisible"
                             @toggleDeleteModal="toggleDeleteModal"
                             @toggleMenu="toggleMenu"
@@ -50,7 +52,7 @@
                     <span class="td-text-gray-500">&#8226;</span>
                     <span
                         class="td-pl-2 td-text-gray-400 td-text-sm td-pr-4"
-                        v-if="getTaskCommentsCount(task.task_id).length<1"
+                        v-if="getTaskCommentsCount(task.task_id).length < 1"
                         >{{ formattedTime }}</span
                     >
                     <div class="td-text-gray-400 td-pl-4 td-border-l-2">
@@ -80,7 +82,7 @@
 <script>
 // import Checkbox from 'primevue/checkbox';
 import taskDropdown from "../components/taskDropDown";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
     name: "TaskCard",
     components: {
@@ -107,25 +109,22 @@ export default {
         task: {
             type: Object
         },
-        index: {
-            type: String
-        }
-    },
-    data() {
-        return {
-            isModalVisible: false
-        };
-    },
-    methods: {
-        ...mapActions({}),
-
-        toggleMenu() {
-            this.isModalVisible = !this.isModalVisible;
+        props: {
+            task: {
+                type: Object
+            },
+            todo: {
+                type: Object
+            },
+            index: {
+                type: String
+            }
         },
         ClickAway() {
             this.isModalVisible = false;
             // this.$emit('toggleMenu')
         },
+
         displayComment(task) {
             console.log("taskin to update", task);
             this.$emit("showComment", task);

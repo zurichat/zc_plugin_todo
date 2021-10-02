@@ -18,7 +18,7 @@
                     <div class="td-flex td-justify-between td-px-4">
                     <span class="td-w-100 td-py-1">{{ user.user_name.slice(0,30) }}</span>
                   
-                    <span v-if="selectedTodo.collaborators.collaborator_id != user._id" class=" td-text-green-500 " @click="add_collaborator(isUser[0]._id, user._id)">
+                    <span v-if="selectedTodo.collaborators.collaborator_id != user._id" class=" td-text-green-500 " @click="add_collaborator(isUser[0]._id, user._id, user)">
                         <span v-if="adding == true">
                             Adding.....
                         </span>
@@ -65,11 +65,13 @@ export default {
     },
     methods: {
         ...mapActions({
-            tog_assign: "todos/toggleAssign"
+            tog_assign: "todos/toggleAssign",
+        getMembers: 'todos/getAllMembers'
+
         }),
         assign() {
             this.tog_assign();
-        },
+        },   
 
         collab_exist(collab_user_id){
             this.selectedTodo.collaborators.forEach(element => {
@@ -81,17 +83,22 @@ export default {
             });
             return this.userExist
         },
-        add_collaborator(logged_in_user, collaborator_id){
+        add_collaborator(logged_in_user, collaborator_id, user){
+            console.log(user)
             this.adding =true
 
-            console.log(this.selectedTodo)
             let data={
                 admin_status:'0',
                 collaborator_id:collaborator_id,
                 user_id:logged_in_user,
+                email:user.email,
+                name:user.display_name
             }
             axios.put(`https://todo.zuri.chat/api/v1/assign-collaborators/${this.selectedTodo._id}?organisation_id=${this.selectedTodo.organisation_id}`, data).then((request)=>{
                 console.log(request)
+                if(request.data.status =="success"){
+                    alert('Collaborator Added')
+                }
             this.adding =false
 
             }).catch((error)=>{
@@ -134,6 +141,8 @@ export default {
         }
     },
     mounted() {
+         this.getMembers()
+
         // this.getUser();
         // this.users = this.allUsers;
         // console.log(this.isUser)
