@@ -207,7 +207,7 @@ class TaskController extends Controller
 
         $taskId = Str::uuid();
 
-        $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => null, "status" => 0];
+        $newTasks = ["task_id" => $taskId, "title" => $request->title, "recurring" => $request->recurring, "status" => 0];
         array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
@@ -227,6 +227,7 @@ class TaskController extends Controller
     public function markTask(Request $request, $todoId)
     {
         $adminExist = false;
+        // inialize value for task
         $todo = $this->todoService->findBy('_id', $todoId);
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
@@ -240,11 +241,9 @@ class TaskController extends Controller
         } else {
             $adminExist = true;
         }
-        if ($adminExist == false) return response()->json('Unauthorized', 404);
-        foreach ($todo['tasks'] as $key => $value) {
-            # code...
-            if ($value['task_id'] == $request->task_id) {
-                $value['status'] = $request->status;
+        for ($i=0; $i < count($todo['tasks']); $i++) {
+            if ($todo['tasks'][$i]['task_id'] == $request->task_id) {
+                $todo['tasks'][$i]['status'] = $request->status;
             }
         }
 

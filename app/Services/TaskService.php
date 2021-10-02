@@ -4,14 +4,17 @@ namespace App\Services;
 
 use App\Helpers\Response;
 use App\Repositories\TaskRepository;
+//use App\Services\ServiceTrait;
 
 class TaskService extends TaskRepository
 {
+    //use ServiceTrait;
     /**
      * @return mixed
      */
     public function all()
     {
+        
         return Response::checkAndServe($this->httpRepository->all());
     }
 
@@ -21,6 +24,7 @@ class TaskService extends TaskRepository
      */
     public function create(array $data)
     {
+        
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
@@ -30,6 +34,7 @@ class TaskService extends TaskRepository
      */
     public function find($id)
     {
+       
         return Response::checkAndServe($this->httpRepository->find($id));
     }
 
@@ -49,6 +54,7 @@ class TaskService extends TaskRepository
      */
     public function update($data, $id)
     {
+        
         return Response::checkAndServe($this->httpRepository->update($id, $data));
     }
 
@@ -58,6 +64,7 @@ class TaskService extends TaskRepository
      */
     public function delete($id)
     {
+        
         return Response::checkAndServe($this->httpRepository->delete($id));
     }
 

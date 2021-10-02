@@ -3,7 +3,7 @@
         <div
             @submit.prevent="addTodo"
             v-click-away="ClickAway"
-            class="td-w-4/5 td-flex td-flex-col td-justify-center td-items-center td-text-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded "
+            class="td-w-3/5 md:td-w-2/5 td-h-2/5 td-flex td-flex-col td-justify-center td-items-center td-text-center td-sm:w-6/12 td-p-4 td-bg-white td-rounded "
         >
             <img src="../assets/img/delete_icon.svg" />
             <!-- <span class="td-md-w-4/ td-text-sm"
