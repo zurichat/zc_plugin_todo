@@ -1,6 +1,5 @@
 <template>
 <div class="td-modal td-shadow-md">
-    <ReminderMenu v-show="isModalVisible" @toggleReminderModal="toggleReminderModal" />
     <div
       class="
         td-grid
@@ -97,44 +96,33 @@
         >
       </div>
     </div>
-     <transition name="fade">
-            <ReminderModal
-                v-if="isReminderModal"
-                @toggleReminderModal="toggleReminderModal"
-            />
-        </transition>
+    
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import ReminderMenu from './RemainderMenu.vue'
-import ReminderModal from "./ReminderModal.vue"
 import { mapActions } from 'vuex'
 export default {
   data(){
     return {
        isModalVisible: false,
-       isReminderModal:false,
     }
   },
   name: "td-modal",
     components: {
-        ReminderMenu,
-        ReminderModal
     },
   methods: {
     ...mapActions({
-      tog_assign: 'todos/toggleAssign'
+      tog_assign: 'todos/toggleAssign',
+      selectedTodo: 'todos/selectedTodo'
     }),
    assign(){
      this.tog_assign()
      this.$emit('toggleMenu');
      this.$emit('toggleAssignModal');
+     this.selectedTodo(this.todo)
    },
-    toggleReminderModal() {
-            this.isReminderModal = !this.isReminderModal;
-        },
    toggleDelete(){
      this.$emit("toggleMenu");
           //  this.$emit('toggleReminderModal')

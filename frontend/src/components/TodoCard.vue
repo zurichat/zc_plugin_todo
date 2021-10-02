@@ -107,10 +107,8 @@
 import CircleProgress from "vue3-circle-progress";
 import DeleteModal from "./DeleteModal";
 import MenuDropdown from "./MenuDropdown.vue";
-import AssignForm from "./AssignForm.vue";
+import AssignForm from "./collaborators/collaboratorModal.vue";
 import { mapActions } from "vuex";
-import 'vue3-circle-progress/dist/circle-progress.css';
-import CircleProgress from "vue3-circle-progress";
 export default {
     name: "TodoCard",
     data() {
@@ -142,7 +140,8 @@ export default {
     components: {
         MenuDropdown,
         CircleProgress,
-        DeleteModal
+        DeleteModal,
+        AssignForm
     },
     computed: {
          description() {
@@ -192,7 +191,7 @@ export default {
                 name: "Details",
                 params: { id: this.todo._id }
             });
-        },
+        },   
         toggleMenu() {
             this.isModalVisible = !this.isModalVisible;
         },
@@ -202,8 +201,8 @@ export default {
         },
         alert() {
             alert("hi");
-        },
-        handleArchivedTodo() {
+        },    
+        handleArchivedTodo() { 
             this.$emit("archived", this.todo);
         }
     },

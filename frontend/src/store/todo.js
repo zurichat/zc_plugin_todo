@@ -77,6 +77,9 @@ export default {
         allTodos(state) {
             return state.todos
         },
+        selectedTodo(state){
+            return state.selectedTodo
+        },
         allArchive(state) {
             return state.archive
         },
@@ -111,9 +114,10 @@ export default {
 
         },
         toggleAssign({ commit }) {
-            console.log('heloo')
             commit('TOG_ASSIGN');
-
+        },
+        selectedTodo({commit}, todo_data){
+            commit('SELECTED_TODO', todo_data)
         },
         ADD_USER({ commit }, data) {
             commit('IS_USER', data)
@@ -141,7 +145,7 @@ export default {
        async ADD_TRASH({ state }, any) {
             let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
             // commit('ADD_TRASH', state.todos[location])
-          
+                                                                    
             // FUNCTION TO DELETE TODO FROM DATABASE
             await axios.delete(`https://todo.zuri.chat/api/v1/todo/${any.toLowerCase()}/delete?organisation_id=614679ee1a5607b13c00bcb7`)
             // .then(response => (commit('SET_ARCHIVED', response.data.data)))
