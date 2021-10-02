@@ -38,10 +38,6 @@ class TaskReminder extends Command
      */
     public function handle()
     {
-        Mail::send(['text'=>'mail'], ["mail"], function($message) {
-            $message->to('abc@gmail.com', 'Tutorials Point')->subject
-               ('Laravel Basic Testing Mail');
-            $message->from('xyz@gmail.com','Virat Gandhi');
-         });
+        Mail::raw('Hello World!', function($msg) {$msg->to('myemail@gmail.com')->subject('Test Email'); });
     }
 }
