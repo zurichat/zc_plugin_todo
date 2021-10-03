@@ -67,6 +67,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import currentCollab from "./currentCollaborators.vue";
 import newCollab from "./new_collaborators.vue";
@@ -90,6 +91,10 @@ export default {
         })
     },
     methods: {
+        ...mapActions({
+        getMembers: 'todos/getAllMembers'
+
+        }),
         checkUserPrevilage(){
             if (this.selectedTodo.user_id == this.isUser[0]._id){
                 this.admin_previlaged = true;
@@ -107,6 +112,7 @@ export default {
             }
         },
         showAddCollab(){
+            this.getMembers()
             if (this.admin_previlaged == false){
                 alert('You dont have previlage')
                  this.show_newCollab = false;
