@@ -342,9 +342,9 @@
                 const todo_id = this.selectedTodo._id
                 const org_id = this.isUser["0"].org_id
                 const data = {
-                    status : 1,
+                    status : any.status,
                     user_id: this.isUser["0"]._id,
-                    task_id: any
+                    task_id: any.id
                 }
                 axios.put(`mark-task/${todo_id}?organisation_id=${org_id}`, data).then(res => console.log(res))
             },deleteTask(any){
