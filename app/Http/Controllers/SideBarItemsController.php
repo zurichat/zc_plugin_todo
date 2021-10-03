@@ -36,8 +36,8 @@ class SideBarItemsController extends Controller
         // prepend dashboard to private todo
         $privateTodos->prepend(['room_name' => 'Todo Dashboard','room_url' => '/todo','room_image' => 'https://www.svgrepo.com/show/346459/todo-fill.svg']);
         // return response
-        // $data =  [new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)])];
-        // $todo = (new TodoService)->publishToRoomChannel($workspaceChannelName, $data, 'Todo', "update sidebar");
+        $data =  [new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)])];
+        $todo = (new TodoService)->publishToRoomChannel($workspaceChannelName, $data, 'Todo', "update sidebar");
         return response()->json(new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
 
     }
