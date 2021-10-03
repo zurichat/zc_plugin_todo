@@ -119,8 +119,9 @@ export default {
     },
     actions: {
         // GET ALL THE MEMBERS IN AN ORGANISATION
-       async getAllMembers({commit, state}){
-            await axios.get(`https://api.zuri.chat/organizations/${state.isUser[0].org_id}/members`)
+       async getAllMembers({commit, state}, workspace_id){
+           console.log(workspace_id)
+            await axios.get(`https://api.zuri.chat/organizations/${state.isUser.currentWorkspace}/members`)
             .then(response => (commit('ORG_MEMBERS', response.data.data)))
            
             .catch(error => console.log(error))

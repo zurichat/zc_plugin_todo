@@ -67,7 +67,7 @@
 			},
 			saveReminder(custom_data){
                 // console.log(custom_data)
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder`, custom_data).then((response)=>{
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, custom_data).then((response)=>{
                     console.log(response)
                 }).cath((error)=>{
                     console.log(error)

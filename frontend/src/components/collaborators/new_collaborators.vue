@@ -37,6 +37,7 @@
 
 <script>
 // import Checkbox from 'primevue/checkbox'
+// import {GetWorkspaceUsers} from 'zuricontrol'
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import axios from "axios";
@@ -83,6 +84,13 @@ export default {
             });
             return this.userExist
         },
+        // getAllMembers(){
+        //     axios.get(`https://api.zuri.chat/organizations/${state.isUser[0].org_id}/members`)
+        //     .then((response)=>{
+        //         this.users =response.data
+        //     }).
+           
+        // },
         add_collaborator(logged_in_user, collaborator_id, user){
             console.log(user)
             this.adding =true
@@ -141,7 +149,8 @@ export default {
         }
     },
     mounted() {
-         this.getMembers()
+         this.getMembers(this.isUser.currentWorkspace)
+        //  console.log(GetWorkspaceUsers())
 
         // this.getUser();
         // this.users = this.allUsers;
