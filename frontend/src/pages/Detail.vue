@@ -327,10 +327,7 @@
                 td-flex-col
               "
                         >
-                            <Comment
-                                @showComment="showComment"
-                                :selectedTodo="selectedTodo.title"
-                            />
+                            <Comment @showComment="isComment = false" />
                         </div>
                     </div>
                 </div>
@@ -345,11 +342,7 @@
             />
         </transition>
         <transition name="fade" class="td-block lg:td-hidden">
-            <Comment
-                v-if="isComment"
-                @showComment="isComment = false"
-                :selectedTodo="selectedTodo.title"
-            />
+            <Comment v-if="isComment" @showComment="isComment = false" />
         </transition>
     </div>
 </template>
@@ -389,6 +382,12 @@ export default {
             getComments: "comment/getTaskComments"
         }),
 
+        currentTodo() {
+            return this.allTodos.find(
+                todo => todo._id.toLowerCase() === this.$route.params.id
+            );
+        },
+
         collaborators() {
             let value = "";
             if (this.todo.colaborators === undefined) {
@@ -423,8 +422,22 @@ export default {
     methods: {
         ...mapActions({
             updateCurrentTask: "comment/updateCurrentTask",
-            fetchTodoComments: "comment/fetchTodoComments"
+            fetchTodoComments: "comment/fetchTodoComments",
+            newComment: "comment/newComment"
         }),
+
+        updateComment(comment) {
+            const mockIncomingComment = {
+                body: comment.data.details.body,
+                user_id: comment.data.details.user_id,
+                org_id: this.isUser["0"].org_id,
+                task_id: comment.data.details.task_id,
+                todo_id: comment.data.details.todo_id,
+                created_at: Date.now()
+            };
+
+            this.newComment(mockIncomingComment);
+        },
 
         toggleModal() {
             this.isModal = !this.isModal;
@@ -529,6 +542,11 @@ export default {
     mounted() {
         console.log("commens count", this.getAllComments.length);
         if (!this.getAllComments.length) this.fetchComments();
+
+        let vm = this;
+
+        CentrifugeSetup(vm.currentTodo.channel, vm.updateComment);
+
         this.getUser();
     },
     beforeMount() {

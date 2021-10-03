@@ -1,7 +1,7 @@
 <template>
     <div class="overlay td-relative">
         <div
-            v-if="!getComments.length"
+            v-if="!getAllComments.length"
             class="td-flex td-justify-center td-border td-border-red-700 td-absolute td-w-100 td-h-100"
         >
             <img
@@ -99,6 +99,7 @@ export default {
         ...mapGetters({
             User: "todos/user",
             getComments: "comment/getTaskComments",
+            getAllComments: "comment/getAllComments",
             allTodos: "todos/allTodos",
             getTaskComments: "comment/getTaskComments",
             getCurrentTask: "comment/getCurrentTask"
@@ -165,7 +166,16 @@ export default {
         }),
 
         updateComment(comment) {
-            this.newComment(comment.data.details.body);
+            const mockIncomingComment = {
+                body: comment.data.details.body,
+                user_id: this.User["0"]._id,
+                org_id: this.orgId,
+                task_id: this.getCurrentTask.task_id,
+                todo_id: this.currentTodo._id,
+                created_at: Date.now()
+            };
+
+            this.newComment(mockIncomingComment);
         },
 
         setUpCentrifugo() {
