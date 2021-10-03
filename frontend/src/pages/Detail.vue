@@ -242,10 +242,7 @@
                             id="Comment"
                             class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col"
                         >
-                            <Comment
-                                @showComment="showComment"
-                                :selectedTodo="selectedTodo.title"
-                            />
+                            <Comment @showComment="isComment = false" />
                         </div>
                     </div>
                 </div>
@@ -263,11 +260,7 @@
             />
         </transition>
         <transition name="fade" class="td-block lg:td-hidden">
-            <Comment
-                v-if="isComment"
-                @showComment="showComment"
-                :selectedTodo="selectedTodo.title"
-            />
+            <Comment v-if="isComment" @showComment="isComment = false" />
         </transition>
     </div>
 </template>
@@ -279,7 +272,7 @@ import Empty from "../components/Empty";
 import TaskCard from "../components/TaskCard2";
 import axios from "axios";
 import Comment from "../components/comment.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     name: "TodoDetails",
     data() {
@@ -301,8 +294,11 @@ export default {
         ...mapGetters({
             allTodos: "todos/allTodos",
             isUser: "todos/user",
-            centrifuge: "todos/centrifuge"
+            centrifuge: "todos/centrifuge",
+            User: "todos/user",
+            getAllComments: "comment/getAllComments"
         }),
+
         collaborators() {
             let value = "";
             if (this.todo.colaborators === undefined) {
@@ -329,6 +325,20 @@ export default {
         },
         itemsTodo() {
             return this.checked.filter(todo => !todo.completed);
+        },
+
+        currentTodo() {
+            return this.allTodos.find(
+                todo => todo._id.toLowerCase() === this.$route.params.id
+            );
+        },
+
+        getCommentsPayload() {
+            return {
+                todo_id: this.$route.params.id,
+                user_id: this.User["0"]._id,
+                org_id: this.User["0"].org_id
+            };
         }
     },
     components: {
@@ -339,6 +349,12 @@ export default {
         // CollabModal
     },
     methods: {
+        ...mapActions({
+            updateCurrentTask: "comment/updateCurrentTask",
+            fetchTodoComments: "comment/fetchTodoComments",
+            newComment: "comment/newComment"
+        }),
+
         toggleModal() {
             this.isModal = !this.isModal;
         },
@@ -352,9 +368,12 @@ export default {
         ClickAway() {
             this.isAssign = false;
         },
-        showComment() {
-            this.isComment = !this.isComment;
+
+        showComment(task) {
+            this.updateCurrentTask(task);
+            this.isComment = true;
         },
+
         async createTask(data) {
             const todo_id = this.selectedTodo._id;
             const org_id = this.isUser["0"].org_id;
@@ -456,6 +475,29 @@ export default {
             axios
                 .put(`mark-task/${todo_id}?organisation_id=${org_id}`, data)
                 .then(res => console.log(res));
+        },
+
+        fetchComments() {
+            this.fetchTodoComments(this.getCommentsPayload)
+                .then(response => {
+                    console.log("comments from server", response);
+                })
+                .catch(err => {
+                    console.log("error getting comments", err);
+                });
+        },
+
+        updateComment(comment) {
+            const mockIncomingComment = {
+                body: comment.data.details.body,
+                user_id: comment.data.details.user_id,
+                org_id: this.isUser["0"].org_id,
+                task_id: comment.data.details.task_id,
+                todo_id: comment.data.details.todo_id,
+                created_at: Date.now()
+            };
+
+            this.newComment(mockIncomingComment);
         }
     },
     mounted() {
