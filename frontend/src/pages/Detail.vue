@@ -169,7 +169,7 @@
                             </template>
 
                             <template v-else>
-                                <TaskCard :task="task" :index="index" @showComment="showComment"
+                                <TaskCard :task="task" :todo="selectedTodo" :index="index" @showComment="showComment"
                                     v-for="(task, index) in selectedTodo.tasks" :key="index" />
                             </template>
                         </div>
