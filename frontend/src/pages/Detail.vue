@@ -310,7 +310,12 @@
                         let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
                         _this.selectedTodo.tasks.splice(location, 1);
                     } break;
-                    default:
+                    default: {
+                        const _task = ctx.data.details;
+                        console.log(ctx.data.details);
+                        let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
+                        _this.selectedTodo.tasks.splice(location, 1);
+                    }
                 }
 
             },
