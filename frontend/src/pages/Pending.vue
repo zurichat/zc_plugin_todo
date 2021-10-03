@@ -4,8 +4,7 @@
       <template v-if="showAll">
         <div v-if="allTodos.length <= 0">
           <Empty
-            :title="'Oops Your Todo Store is Empty'"
-            :subtitle="'Click Create Task Button'"
+             :subtitle="'todo'"
           />
         </div>
         <div
@@ -48,7 +47,7 @@
 </template>
 <script>
 import Empty from "../components/Empty.vue";
-import TodoCard from "../components/TodoCard.vue";
+import TodoCard from "../components/NewCard.vue";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {

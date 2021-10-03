@@ -58,6 +58,9 @@ class AssignUserController extends Controller
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
 
+        return response()->json(['status' => "error", 'message' => $result], 500);
+    }
+
 
 
     public function remove(Request $request, $todoId)

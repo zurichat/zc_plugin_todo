@@ -77,7 +77,7 @@
                             fill="#999999"
                         ></path>
                     </svg>
-                    <!-- <span class="td-px-1">{{ todo.tasks.length }} tasks</span> -->
+                     <span class="td-px-1">{{ todo.tasks.length }} tasks</span> 
                 </div>
             </div>
         </div>

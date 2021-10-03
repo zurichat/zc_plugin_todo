@@ -10,7 +10,7 @@
                 <div v-click-away="ClickAway" class="">
                     <div @click="toggleMenu"><i class="pi pi-ellipsis-v td-cursor-pointer"></i></div>
                     <div class="td-relative">
-                        <taskDropdown v-show="isModalVisible" @toggleDeleteModal="toggleDeleteModal"
+                        <taskDropdown :task="task" :todo="todo" v-show="isModalVisible" @toggleDeleteModal="toggleDeleteModal"
                             @toggleMenu="toggleMenu" />
                     </div>
                 </div>
@@ -22,6 +22,9 @@
                     <span class="td-pl-4 td-text-gray-600">
                         Hide description</span>
                 </div>
+            </div>
+            <div class="description">
+                {{ task.title }}
             </div>
             <div class="task_details td-flex td-flex-row td-justify-between">
                 <div class="task_comment-amt td-flex td-items-center">
@@ -44,9 +47,9 @@
                     </div>
                 </div>
                 <div class="task_tag td-flex td-flex-row td-items-center">
-                    <button
-                        class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark
-                        as done</button>
+                    <button @click="mark" v-if="task.status === 0" class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
+                    <button @click="mark" v-else class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as undone</button>
+
                 </div>
             </div>
         </div>
@@ -61,20 +64,18 @@
             // Checkbox
             taskDropdown
         },
-        props: {
-            task: {
-                type: Object
-            },
-            index: {
-                type: String
-            }
-        },
+        
         data() {
             return {
                 isModalVisible: false,
             }
         },
-        methods: {
+        props: ['task',      'index']
+    ,
+    methods: {
+        mark(){
+            this.$emit('completeTask', this.task.task_id)
+        },
             toggleMenu() {
                 this.isModalVisible = !this.isModalVisible;
             },

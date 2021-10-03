@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="td-bg-white">
     <router-view />
   </div>
 </template>
@@ -97,9 +97,7 @@ export default {
          this.welcome()
          this.enterCommonRoom()
          this.getMembers()
-        //  console.log(this.getAllMembers())
-        //  console.log(this.welcome)
-        // console.log(this.isUser[0].org_id)
+      
        }
    }
 
