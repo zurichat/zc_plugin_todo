@@ -131,7 +131,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span>Admin({{collaboratorCount}})</span>
+            <span>Admin({{adminCount}})</span>
           </div>
                     <!-- <div class="progress_container td-flex td-flex-col">
                     <span
@@ -217,7 +217,7 @@
                 users: [],
                 value: '',
                  //selectedCollaborator: null,
-                 collaboratorCount: 0
+                 adminCount: 0
             }
         },
         computed: {
@@ -312,7 +312,7 @@
                     // case "assign":
         //   {
         //         _this.selectedCollaborator = ctx.data.details.collaborators;
-        //           _this.collaboratorCount ++
+        //           _this.adminCount ++
         //    }
                     default:
                 }
