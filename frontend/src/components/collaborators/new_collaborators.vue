@@ -84,13 +84,19 @@ export default {
             });
             return this.userExist
         },
-        // getAllMembers(){
-        //     axios.get(`https://api.zuri.chat/organizations/${state.isUser[0].org_id}/members`)
-        //     .then((response)=>{
-        //         this.users =response.data
-        //     }).
+        getAllMembers(){
+            this.showLoading=true;
+            axios.get(`https://api.zuri.chat/organizations/${this.isUser.currentWorkspace}/members`)
+            .then((response)=>{
+                // console.log(response)
+                this.users =response
+                this.showLoading = false
+                console.log(this.users)
+            }).catch((error)=>{
+                console.log(error)
+            })
            
-        // },
+        },
         add_collaborator(logged_in_user, collaborator_id, user){
             console.log(user)
             this.adding =true
@@ -150,9 +156,9 @@ export default {
         }
     },
     mounted() {
-        
-        console.log(this.org_member)
-           this.users =  this.org_member
+        this.getAllMembers()
+        // console.log(this.org_member)
+        //    this.users =  this.org_member
 
         //  console.log(GetWorkspaceUsers())
 

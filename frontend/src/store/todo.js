@@ -37,7 +37,7 @@ export default {
         selectedTodo: null,
         isAssign: false,
         searchedTodo: [],
-        organisation_members:[],
+        organisation_members:null,
         errMessage: "No Result Found"
 
     },
@@ -80,6 +80,8 @@ export default {
         },
         ORG_MEMBERS(state, data){
             state.organisation_members = data
+
+
         }
     },
     getters: {
@@ -121,9 +123,9 @@ export default {
         // GET ALL THE MEMBERS IN AN ORGANISATION
        async getAllMembers({commit, state}){
             await axios.get(`https://api.zuri.chat/organizations/${state.isUser.currentWorkspace}/members`)
-            .then(response => (commit('ORG_MEMBERS', response.data.data)))
-           
-            .catch(error => console.log(error))
+            .then((response)=>{
+                commit('ORG_MEMBERS', response.data.data)
+            }) .catch(error => console.log(error))
         },
         async HandleGetTodos({ commit, state }) {
             console.log(state)

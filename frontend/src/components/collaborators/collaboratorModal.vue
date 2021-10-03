@@ -47,7 +47,7 @@
                     </div> -->
                 <div>
                     <div v-if="show_newCollab" class="newCollaborators">
-                        <newCollab  :adminPrivilage=admin_previlaged />
+                        <newCollab :allMembers="res" :adminPrivilage=admin_previlaged />
                     </div>
 
                     <div class="currentCollaborators">
@@ -71,6 +71,8 @@ import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import currentCollab from "./currentCollaborators.vue";
 import newCollab from "./new_collaborators.vue";
+import axios from "axios";
+
 export default {
     name: "AssignForm",
     data() {
@@ -78,6 +80,7 @@ export default {
             show_newCollab: false,
             showLoading: false,
             admin_previlaged:false,
+            allMembers:null
         };
     },
     components: {
@@ -88,6 +91,7 @@ export default {
         ...mapGetters({
             selectedTodo: "todos/selectedTodo",
              isUser: 'todos/user',
+            org_member : 'todos/show_organisation_members'
         })
     },
     methods: {
@@ -95,6 +99,12 @@ export default {
         getMembers: 'todos/getAllMembers'
 
         }),
+        getAllMembers(){
+           axios.get(`https://api.zuri.chat/organizations/${this.isUser.currentWorkspace}/members`)
+            .then((res)=>{
+               this.allMembers = res
+            }) .catch(error => console.log(error))
+        },
         checkUserPrevilage(){
             if (this.selectedTodo.user_id == this.isUser[0]._id){
                 this.admin_previlaged = true;
@@ -112,7 +122,12 @@ export default {
             }
         },
         showAddCollab(){
-            this.getMembers()
+            this.getMembers().then((res)=>{
+               this.org_member= res
+            console.log(this.org_member)
+
+            })
+
             if (this.admin_previlaged == false){
                 alert('You dont have previlage')
                  this.show_newCollab = false;
