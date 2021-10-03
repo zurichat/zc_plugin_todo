@@ -37,6 +37,7 @@
 
 <script>
 // import Checkbox from 'primevue/checkbox'
+// import {GetWorkspaceUsers} from 'zuricontrol'
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 import axios from "axios";
@@ -148,7 +149,8 @@ export default {
         }
     },
     mounted() {
-         this.getMembers()
+         this.getMembers(this.isUser.currentWorkspace)
+        //  console.log(GetWorkspaceUsers())
 
         // this.getUser();
         // this.users = this.allUsers;
