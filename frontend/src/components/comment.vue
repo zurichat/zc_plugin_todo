@@ -194,7 +194,9 @@ export default {
 
         addComment() {
             this.commenting = true;
+
             this.newComment(this.mockComment);
+
             this.saveComment(this.mockComment)
                 .then(response => {
                     this.commenting = false;

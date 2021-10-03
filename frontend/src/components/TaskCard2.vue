@@ -34,6 +34,9 @@
                     >
                 </div>
             </div>
+            <div class="description">
+                {{ task.title }}
+            </div>
             <div class="task_details td-flex td-flex-row td-justify-between">
                 <div class="task_comment-amt td-flex td-items-center">
                     <div class="todo-profileImg2 td-flex">
@@ -52,7 +55,7 @@
                     <span class="td-text-gray-500">&#8226;</span>
                     <span
                         class="td-pl-2 td-text-gray-400 td-text-sm td-pr-4"
-                        v-if="getTaskCommentsCount(task.task_id).length < 1"
+                        v-if="getTaskCommentsCount(task.task_id)"
                         >{{ formattedTime }}</span
                     >
                     <div class="td-text-gray-400 td-pl-4 td-border-l-2">
@@ -70,9 +73,18 @@
                 </div>
                 <div class="task_tag td-flex td-flex-row td-items-center">
                     <button
+                        @click="mark"
+                        v-if="task.status === 0"
                         class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600"
                     >
                         Mark as done
+                    </button>
+                    <button
+                        @click="mark"
+                        v-else
+                        class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600"
+                    >
+                        Mark as undone
                     </button>
                 </div>
             </div>
@@ -93,40 +105,55 @@ export default {
     computed: {
         ...mapGetters({
             getTaskCommentsCount: "comment/getTaskCommentsCount",
-            getTaskLastComment: "comment/getTaskLastComment"
+            getTaskLastComment: "comment/getTaskLastComment",
+            getTaskComments: "comment/getTaskComments"
         }),
 
         formattedTime() {
             const currentTime = Date.now();
-            const commentTime = new Date(this.getTaskLastComment);
-            const diff = (currentTime - commentTime) / 1000;
-            if (diff < 30) return "Now";
-            return `${commentTime.getHours()}:${commentTime.getMinutes()}`;
+            const commentTime = new Date(
+                this.getTaskLastComment(this.task.task_id)
+            );
+
+            const second_diff = Math.abs(currentTime - commentTime) / 1000;
+            const minute_diff =
+                Math.abs(currentTime - commentTime) / (1000 * 60);
+            const hour_diff =
+                Math.abs(currentTime - commentTime) / (1000 * 60 * 60);
+            const day_diff =
+                Math.abs(currentTime - commentTime) / (1000 * 60 * 60 * 24);
+
+            if (second_diff < 60) return "Now";
+            if (minute_diff < 60)
+                return `${Math.ceil(minute_diff)} minutes ago`;
+            if (hour_diff < 24) return `${Math.ceil(hour_diff)} hours ago`;
+            return `${Math.ceil(day_diff)} days ago`;
         }
     },
 
     props: {
-        task: {
-            type: Object
+        task: Object,
+        index: Number
+    },
+
+    data() {
+        return {
+            isModalVisible: false
+        };
+    },
+
+    methods: {
+        mark() {
+            this.$emit("completeTask", this.task.task_id);
         },
-        props: {
-            task: {
-                type: Object
-            },
-            todo: {
-                type: Object
-            },
-            index: {
-                type: String
-            }
+        toggleMenu() {
+            this.isModalVisible = !this.isModalVisible;
         },
         ClickAway() {
             this.isModalVisible = false;
             // this.$emit('toggleMenu')
         },
-
         displayComment(task) {
-            console.log("taskin to update", task);
             this.$emit("showComment", task);
         }
     }

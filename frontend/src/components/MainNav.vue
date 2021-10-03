@@ -8,9 +8,9 @@
       <span>Archive</span>
     </router-link>
 
-    <router-link :to="{ name: 'Trash' }">
+    <!-- <router-link :to="{ name: 'Trash' }">
       <span>Trash</span>
-    </router-link>
+    </router-link> -->
   
   </div>
 </template>
@@ -37,7 +37,9 @@ export default {
   color: #999999;
   font-weight: 700;
   text-align: center;
-  padding: 14px 16px;
+  padding-right: 1.5em;
+  /* padding: 14px 16px; */
+  padding-bottom: .5em; 
   text-decoration: none;
   font-size: 15px;
 }
@@ -48,5 +50,17 @@ export default {
 /* Add a color to the active/current link */
 a.router-link-exact-active {
   color: #00b87c;
+  position: relative;
+}
+a.router-link-exact-active:before {
+  background-color: #00b87c;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 40%;
+  border-radius: .5em;
+  
 }
 </style>

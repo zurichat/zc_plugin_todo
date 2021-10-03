@@ -12,6 +12,8 @@ export default {
     },
 
     getters: {
+        getAllComments: state => state.comments,
+
         getTaskComments: state => task_id => {
             return state.comments.filter(comment => {
                 return comment.task_id === task_id;

@@ -1,30 +1,39 @@
 <template>
-    <div class="td-w-full td-flex-grow " v-if="allTodos.length">
-        <div id="Details">
+    <div class="td-w-full td-flex-grow" v-if="allTodos.length">
+        <div id="Details" class="">
             <div
-                class="todo-nav td-px-4 td-bg-green-500 td-flex td-justify-between td-items-center"
+                class="
+          todo-nav
+          td-px-4 td-bg-green-500 td-flex td-justify-between td-items-center
+        "
             >
                 <div class="td-flex td-items-center">
                     <h1 class="td-px-2 td-py-2 td-text-white td-text-2xl">
                         # To-do-list
                     </h1>
                     <span class="btn"
-                        ><i
-                            class="pi td-px-
-      td-text-white pi-chevron-down"
+                        ><i class="pi td-px- td-text-white pi-chevron-down"
                     /></span>
                 </div>
 
                 <div class="td-flex td-items-center"></div>
             </div>
             <div
-                class="header td-px-2 td-py-4 td-flex td-justify-between td-items-center td-border-b-2"
+                class="
+          header
+          td-px-2
+          td-py-4
+          td-flex
+          td-justify-between
+          td-items-center
+          td-border-b-2
+        "
             >
                 <div>
                     <h2 class="td-text-xl td-font-bold td-text-black-500 title">
                         {{ selectedTodo.title }}
                     </h2>
-                    <div class="description ">
+                    <div class="description">
                         <span>{{ selectedTodo.description }}</span>
                     </div>
                 </div>
@@ -55,25 +64,33 @@
                 </div>
             </div>
             <div
-                class="sub-header td-px-2 td-flex td-py-3 td-justify-between td-items-center td-border-b-2"
+                class="
+          sub-header
+          td-px-2
+          td-flex
+          td-py-3
+          td-justify-between
+          td-items-center
+          td-border-b-2
+        "
             >
                 <div class="td-flex td-items-center">
                     <p class="td-font-bold">Tasks</p>
                 </div>
                 <div class="td-flex td-items-center">
                     <div
-                        class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded "
+                        class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded"
                         @click="isModal = true"
                     >
                         + Add a new Task
                     </div>
                     <div
-                        class="td-relative td-mx-4 td-cursor-pointer "
+                        class="td-relative td-mx-4 td-cursor-pointer"
                         v-click-away="ClickAway"
                     >
                         <span
                             @click="assign()"
-                            class="td-justify-center td-flex td-items-center "
+                            class="td-justify-center td-flex td-items-center"
                             ><i
                                 class="pi pi-user-plus td-cursor-pointer td-px-1"
                             />
@@ -81,12 +98,33 @@
                         >
                         <div
                             v-if="isAssign"
-                            class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0"
+                            class="
+                user_dropdown
+                td-absolute
+                td-p-2
+                td-bg-white
+                td-rounded
+                td-shadow
+                td-border
+                td-mt-12
+                td-top-0
+                td-right-0
+              "
                         >
                             <input
                                 @input="search()"
                                 v-model="value"
-                                class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none"
+                                class="
+                  td-rounded
+                  td-border-green-300
+                  td-mx-auto
+                  td-w-11/12
+                  td-border
+                  td-py-2
+                  td-px-2
+                  hover:td-border-green-500
+                  td-outline-none
+                "
                                 type="text"
                             />
                             <div class="td-h-64 td-w-64 td-overflow-y-scroll">
@@ -95,7 +133,13 @@
                                     :for="user.name.first"
                                     v-for="(user, index) in users"
                                     :key="index"
-                                    class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center"
+                                    class="
+                    td-flex
+                    hover:td-border
+                    td-text-gray-500
+                    hover:td-text-white hover:td-bg-green-500
+                    td-border-b td-p-2 td-my-2 td-pb-2 td-items-center
+                  "
                                 >
                                     <span
                                         class="tracking-wide td-px-2 td-font-bold"
@@ -111,7 +155,10 @@
                     </div>
 
                     <div
-                        class="amt_completed td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded "
+                        class="
+              amt_completed
+              td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded
+            "
                     >
                         <svg
                             width="19"
@@ -159,9 +206,58 @@
                             />
                         </svg>
 
-                        <span class="td-font-bold "
+                        <span class="td-font-bold"
                             >{{ itemsTodo.length }} completed</span
                         >
+                    </div>
+                    <div
+                        @click="admin()"
+                        class="
+              mr-2
+              font-bold
+              button
+              td-mx-4 td-cursor-pointer td-rounded td-flex
+            "
+                    >
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M12 15.75V14.25C12 12.5931 10.6569 11.25 9 11.25H3.75C2.09315 11.25 0.75 12.5931 0.75 14.25V15.75"
+                                stroke="#1D1C1D"
+                                stroke-width="1.22693"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M6.375 8.25C8.03185 8.25 9.375 6.90685 9.375 5.25C9.375 3.59315 8.03185 2.25 6.375 2.25C4.71815 2.25 3.375 3.59315 3.375 5.25C3.375 6.90685 4.71815 8.25 6.375 8.25Z"
+                                stroke="#1D1C1D"
+                                stroke-width="1.22693"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M15 6V10.5"
+                                stroke="#1D1C1D"
+                                stroke-width="1.22693"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M17.25 8.25H12.75"
+                                stroke="#1D1C1D"
+                                stroke-width="1.22693"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                        <span>Admin({{ adminCount }})</span>
                     </div>
                     <!-- <div class="progress_container td-flex td-flex-col">
                     <span
@@ -180,7 +276,7 @@
                 </div>
             </div>
 
-            <div class="tasks_container td-px-2 td-py-4 ">
+            <div class="tasks_container td-px-2 td-py-4">
                 <div class="td-flex-grow td-my-4 td-px-2 tabMenu">
                     <span
                         class="task_head td-font-bold td-mr-4 td-my-4 td-text-green-500"
@@ -193,7 +289,7 @@
                         >Completed</span
                     >
 
-                    <div class="td-flex ">
+                    <div class="td-flex">
                         <div class="tabContents td-flex-grow">
                             <template
                                 id="task_container"
@@ -210,7 +306,6 @@
                             <template v-else>
                                 <TaskCard
                                     :task="task"
-                                    :todo="selectedTodo"
                                     :index="index"
                                     @showComment="showComment"
                                     v-for="(task, index) in selectedTodo.tasks"
@@ -221,9 +316,21 @@
                         <div
                             v-show="isComment"
                             id="Comment"
-                            class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col"
+                            class="
+                td-hidden
+                lg:td-block
+                td-rounded-md
+                td-flex-shrink-0
+                td-w-1/4
+                td-border
+                td-flex
+                td-flex-col
+              "
                         >
-                            <Comment @showComment="isComment = false" />
+                            <Comment
+                                @showComment="showComment"
+                                :selectedTodo="selectedTodo.title"
+                            />
                         </div>
                     </div>
                 </div>
@@ -267,15 +374,21 @@ export default {
             isAssign: false,
             alltasks: ["", "", "", "", "", "", "", "", "", ""],
             users: [],
-            value: ""
+            value: "",
+            //selectedCollaborator: null,
+            adminCount: 0
         };
     },
     computed: {
         ...mapGetters({
             allTodos: "todos/allTodos",
             isUser: "todos/user",
-            centrifuge: "todos/centrifuge"
+            centrifuge: "todos/centrifuge",
+            User: "todos/user",
+            getAllComments: "comment/getAllComments",
+            getComments: "comment/getTaskComments"
         }),
+
         collaborators() {
             let value = "";
             if (this.todo.colaborators === undefined) {
@@ -291,6 +404,14 @@ export default {
 
         itemsTodo() {
             return this.checked.filter(todo => !todo.completed);
+        },
+
+        getCommentsPayload() {
+            return {
+                todo_id: this.$route.params.id,
+                user_id: this.User["0"]._id,
+                org_id: this.User["0"].org_id
+            };
         }
     },
     components: {
@@ -301,7 +422,8 @@ export default {
     },
     methods: {
         ...mapActions({
-            updateCurrentTask: "comment/updateCurrentTask"
+            updateCurrentTask: "comment/updateCurrentTask",
+            fetchTodoComments: "comment/fetchTodoComments"
         }),
 
         toggleModal() {
@@ -317,10 +439,12 @@ export default {
         ClickAway() {
             this.isAssign = false;
         },
+
         showComment(task) {
-            this.isComment = !this.isComment;
             this.updateCurrentTask(task);
+            this.isComment = true;
         },
+
         async createTask(data) {
             const todo_id = this.selectedTodo._id;
             const org_id = this.isUser["0"].org_id;
@@ -375,30 +499,36 @@ export default {
         check() {
             let id = this.$route.params.id;
             const _this = this;
-            if (this.allTodos.length) {
-                this.selectedTodo = this.allTodos.find(
-                    todo => todo._id.toLowerCase() === id.toLowerCase()
-                );
-                if (this.selectedTodo <= 0 || this.selectedTodo === undefined) {
-                    this.$router.push({ path: "/" });
-                } else {
-                    CentrifugeSetup(
-                        _this.selectedTodo.channel,
-                        this.checkAction
-                    );
-                }
-            } else {
+            this.selectedTodo = this.allTodos.find(
+                todo => todo._id.toLowerCase() === id.toLowerCase()
+            );
+            if (this.selectedTodo <= 0 || this.selectedTodo === undefined) {
                 this.$router.push({ path: "/" });
+            } else {
+                CentrifugeSetup(_this.selectedTodo.channel, this.checkAction);
             }
             console.log(this.selectedTodo);
         },
+
         getUser() {
             axios
                 .get("https://randomuser.me/api/?results=15")
                 .then(response => (this.users = response.data.results));
+        },
+
+        fetchComments() {
+            this.fetchTodoComments(this.getCommentsPayload)
+                .then(response => {
+                    console.log("comments from server", response);
+                })
+                .catch(err => {
+                    console.log("error getting comments", err);
+                });
         }
     },
     mounted() {
+        console.log("commens count", this.getAllComments.length);
+        if (!this.getAllComments.length) this.fetchComments();
         this.getUser();
     },
     beforeMount() {
