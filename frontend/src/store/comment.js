@@ -25,7 +25,8 @@ export default {
         },
 
         getTaskLastComment: (state, getters) => task_id => {
-            return getters.getTaskComments(task_id)[0].created_at;
+            let length = getters.getTaskComments(task_id).length - 1;
+            return getters.getTaskComments(task_id)[length].created_at;
         },
 
         getCurrentTask: state => state.currentTask

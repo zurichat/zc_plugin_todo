@@ -11,10 +11,12 @@
             />
         </div>
 
-        <div class="comment td-w-2/3 lg:td-w-full" v-if="getComments.length">
+        <div class="comment td-w-2/3 lg:td-w-full" v-if="getAllComments.length">
             <div class="td-bg-gray-50 td-w-full td-flex td-justify-between">
-                <span class="td-px-3 td-py-2">
-                    <h2 class="td-text-lg td-font-bold td-text-black-500 title">
+                <span class="td-px-2">
+                    <h2
+                        class="td-text-md td-font-bold td-text-black-400 td-mb-0 title"
+                    >
                         Comments
                     </h2>
                     <p
@@ -90,7 +92,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import CentrifugeSetup from "../plugins/realtime";
+// import CentrifugeSetup from "../plugins/realtime";
 
 export default {
     name: "CommentBox",
@@ -140,11 +142,11 @@ export default {
     },
 
     mounted() {
-        let vm = this;
+        // let vm = this;
 
-        CentrifugeSetup(vm.currentTodo.channel, vm.updateComment);
+        // CentrifugeSetup(vm.currentTodo.channel, vm.updateComment);
 
-        if (!this.getComments.length) this.fetchComments();
+        if (!this.getAllComments.length) this.fetchComments();
     },
 
     data() {

@@ -317,6 +317,7 @@
                             v-show="isComment"
                             id="Comment"
                             class="
+                            td-ml-5
                 td-hidden
                 lg:td-block
                 td-rounded-md
@@ -540,12 +541,13 @@ export default {
         }
     },
     mounted() {
-        console.log("commens count", this.getAllComments.length);
+        let vm = this;
+        console.log("comments count", this.getAllComments.length);
+
         if (!this.getAllComments.length) this.fetchComments();
 
-        let vm = this;
-
-        CentrifugeSetup(vm.currentTodo.channel, vm.updateComment);
+        if (vm.currentTodo)
+            CentrifugeSetup(vm.currentTodo.channel, vm.updateComment);
 
         this.getUser();
     },
