@@ -151,6 +151,7 @@ export default {
       type: Object,
     },
   },
+
 };
 </script>
 

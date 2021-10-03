@@ -1,69 +1,95 @@
 <template>
-    <div class="overlay">
-        <form
-            @submit.prevent="addTodo"
-            v-click-away="ClickAway"
-            class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded "
-        >
-            <div class="td-mb-4 ">
-                <div
-                    class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center"
-                >
-                    <h1 class="td-font-bold td-text-xl td-capitalize">
-                        Create a new todo
-                    </h1>
-                    <div @click="closeModal" class="td-cursor-pointer">
-                        <i class="pi pi-times"></i>
-                    </div>
-                </div>
-                <h4 class="td-text-gray-400 td-text-sm td-font-medium">
-                    Todos help you keep track of tasks. They are best when
-                    created specifically for a task with subsequent sub tasks
-                </h4>
-            </div>
-
-            <div class="form-group td-flex td-flex-col pb-4">
-                <label class="td-pb-2 td-font-bold" for="name">Name</label>
-                <input
-                    v-model="todoDetails.title"
-                    required
-                    type="text"
-                    id="name"
-                    class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
-                    placeholder="e.g. title"
-                />
-            </div>
-
-            <div class="form-group td-flex td-flex-col td-pb-4">
-                <label class="td-pb-2 td-font-bold" for="description"
-                    >Description<span>(optional)</span></label
-                >
-                <input
-                    v-model="todoDetails.description"
-                    required
-                    type="text"
-                    id="description"
-                    class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
-                    placeholder="Type task description"
-                />
-            </div>
-
-            <!-- <div class="form-group td-flex td-flex-col td-pb-4">
-          <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
-          <input required type="date" class="border hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" id="dueDate"
-            v-model="todoDetails.dueDate" />
-        </div> -->
-            <div class="cta-container">
-                <button
-                    class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right"
-                    type="submit"
-                >
-                    Create todo
-                </button>
-            </div>
-        </form>
+    <div class="">
+      <form @submit.prevent="addTodo" v-click-away="ClickAway" class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded ">
+        <div class="td-mb-4 ">
+          <div class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center">
+            <h1 class="td-font-bold td-text-xl td-capitalize">Create a new task</h1>
+            <div @click="closeModal" class="td-cursor-pointer"><i class="pi pi-times"></i></div>
+          </div>
+          <h4 class="td-text-gray-400 td-text-sm td-font-medium">Todos help you keep track of tasks. They are best when
+            created specifically for a task with subsequent sub tasks</h4>
+        </div>
+      
+      
+        <div class="form-group td-flex td-flex-col pb-4">
+          <label class="td-pb-2 td-font-bold" for="name">Name</label>
+          <input v-model='todoDetails.title' required type="text" id="name"
+            class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
+            placeholder="e.g. title" />
+        </div>
+      
+        <div class="form-group td-flex td-flex-col td-pb-4">
+          <label class="td-pb-2 td-font-bold" for="description">Description<span>(optional)</span></label>
+          <input v-model="todoDetails.description" required type="text" id="description"
+            class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
+            placeholder="Type task description" />
+        </div>
+      
+        <!-- <div class="form-group td-flex td-flex-col td-pb-4">
+          <div class="overlay">
+              <form
+                  @submit.prevent="addTodo"
+                  v-click-away="ClickAway"
+                  class="td-4/5 td-md:w-6/12 td-p-4 td-bg-white td-rounded "
+              >
+                  <div class="td-mb-4 ">
+                      <div
+                          class="td-flex td-flex-row td-justify-between td-pb-4 td-items-center"
+                      >
+                          <h1 class="td-font-bold td-text-xl td-capitalize">
+                              Create a new todo
+                          </h1>
+                          <div @click="closeModal" class="td-cursor-pointer">
+                              <i class="pi pi-times"></i>
+                          </div>
+                      </div>
+                      <h4 class="td-text-gray-400 td-text-sm td-font-medium">
+                          Todos help you keep track of tasks. They are best when
+                          created specifically for a task with subsequent sub tasks
+                      </h4>
+                  </div>
+      
+                  <div class="form-group td-flex td-flex-col pb-4">
+                      <label class="td-pb-2 td-font-bold" for="name">Name</label>
+                      <input
+                          v-model="todoDetails.title"
+                          required
+                          type="text"
+                          id="name"
+                          class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
+                          placeholder="e.g. title"
+                      />
+                  </div>
+      
+                  <div class="form-group td-flex td-flex-col td-pb-4">
+                      <label class="td-pb-2 td-font-bold" for="description"
+                          >Description<span>(optional)</span></label
+                      >
+                      <input
+                          v-model="todoDetails.description"
+                          required
+                          type="text"
+                          id="description"
+                          class="td-border hover:td-border-green-400 td-bg-white td-py-3 td-outline-none td-text-md td-w-full td-px-2 td-rounded"
+                          placeholder="Type task description"
+                      />
+                  </div>
+                -->
+        <!-- <div class="form-group td-flex td-flex-col td-pb-4">
+                <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
+                <input required type="date" class="border hover:td-border-green-400 td-bg-white td-outline-none text-gray-500 td-py-3 td-text-md td-w-full td-px-2 td-rounded" id="dueDate"
+                  v-model="todoDetails.dueDate" />
+              </div> -->
+        <div class="cta-container">
+      
+          <button class="submit td-bg-green-500 td-py-3 td-px-4 td-rounded td-text-white td-font-bold td-float-right"
+            type="submit">Create task</button>
+        </div>
+      </form>
     </div>
 </template>
+
+
 
 <script>
 import { mapActions } from "vuex";
@@ -129,28 +155,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//   * {
-//     margin: 0;
-//     box-sizing: border-box;
-//   }
+//  * {  
+//      margin: 0;
+//      box-sizing: border-box;
+//    }
 
 .overlay {
-    line-height: 1.46666667;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    left: 0;
-    // opacity: 0;
-    position: fixed;
-    top: 0;
-    transition: 80ms linear;
-    width: 100%;
-    z-index: 1012;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
 }
-
-//   form {
+// form {
 //     width: 40%;
 //     margin: 25px auto;
 //     background: #fff;
@@ -241,4 +262,5 @@ export default {
 //     background: transparent;
 //     color: #00b87c;
 //   }
+
 </style>

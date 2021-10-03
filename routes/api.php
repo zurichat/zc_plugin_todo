@@ -28,6 +28,9 @@ use App\Http\Controllers\TaskSearchController;
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
 
+
+    //end of test cache
+
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
     Route::get('user-todo', [TodoController::class, 'userTodos']);
@@ -59,7 +62,7 @@ Route::prefix('v1')->group(function () {
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
-    Route::delete('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
+    Route::put('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
 
 
     // Archiving Endpoints

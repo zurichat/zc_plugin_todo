@@ -316,7 +316,7 @@ export default {
       isModal: false,
       selectedTodo: null,
       isAssign: false,
-      alltasks: ["", "", "", "", "", "", "", "", "", ""],
+      alltasks: ["", "", "", "", "", ""],
       users: [],
       value: "",
     };
@@ -355,6 +355,10 @@ export default {
     },
     isSelect: function (num) {
       this.isActive = num;
+    },
+
+    close() {
+      this.$emit("hideComment");
     },
 
     close() {
