@@ -121,79 +121,7 @@
     
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
 
-<!-- Modal content -->
-<div class="modal-content ">
-<div class="heading">
-<span class="close">&times;</span>
-<h1>Task 01 Collaborators</h1>
-
-</div>
-<div class="bodyy">
-<p class="p-two">Assign new collaborators for the task.you can also remove those that are no lon
-    er needed
-</p>
-</div>
-   
-<div class="cur">
-  <h3 class="ha">Current Collaborator</h3>
-  <button class="b">  + Add a new collaborator</button>
-</div>
-<div class="car1">
-    <div class="car">
-        <div class="firstcar">
-            <div>
-                <img src="img/Rectangle 892.png" width="40px">
-            </div>
-            
-            <div  class="d">
-                <h3>Charles Jekins</h3>
-                <p>senior developer</p>
-            </div>
-        </div>
-        <div class="secondcar">
-            <p><a href="" class="green">Make Collaborator</a></p>
-            <p class="dim"><a href="" class='green'>Remove</a></p>
-        </div>
-    </div>
-    <div class="car">
-        <div class="firstcar">
-            <div>
-                <img src="img/Rectangle 892.png" width="40px">
-            </div>
-            
-            <div  class="d">
-                <h3>Charles Jekins</h3>
-                <p>senior developer</p>
-            </div>
-        </div>
-        <div class="secondcar">
-            <p><a href="" class="green">Make Collaborator</a></p>
-            <p class="dim"><a href="" class='green'>Remove</a></p>
-        </div>
-    </div>
-    <div class="car">
-        <div class="firstcar">
-            <div>
-                <img src="img/Rectangle 892.png" width="40px">
-            </div>
-            
-            <div  class="d">
-                <h3>Charles Jekins</h3>
-                <p>senior developer</p>
-            </div>
-        </div>
-        <div class="secondcar">
-            <p><a href="" class="green">Make Collaborator</a></p>
-            <p class="dim"><a href="" class='green'>Remove</a></p>
-        </div>
-    </div>
-    
-</div>
-<input type="confirm" class="su" value="Submit">
-</div> 
-</div>
 
 </template>
 

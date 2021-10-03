@@ -70,7 +70,7 @@ export default {
             checked: false,
             form_data: {
                 title: "",
-                recurring: false,
+                recurring: 0,
                 user_id: ''
             }
         };
