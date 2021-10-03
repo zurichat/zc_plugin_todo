@@ -23,6 +23,9 @@
                         Hide description</span>
                 </div>
             </div>
+            <div class="description">
+                {{ task.title }}
+            </div>
             <div class="task_details td-flex td-flex-row td-justify-between">
                 <div class="task_comment-amt td-flex td-items-center">
                     <div class="todo-profileImg2 td-flex">
@@ -44,9 +47,9 @@
                     </div>
                 </div>
                 <div class="task_tag td-flex td-flex-row td-items-center">
-                    <button
-                        class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark
-                        as done</button>
+                    <button @click="mark" v-if="task.status === 0" class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
+                    <button @click="mark" v-else class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as undone</button>
+
                 </div>
             </div>
         </div>
@@ -61,23 +64,18 @@
             // Checkbox
             taskDropdown
         },
-        props: {
-            task: {
-                type: Object
-            },
-            todo:{
-                type:Object
-            },
-            index: {
-                type: String
-            }
-        },
+        
         data() {
             return {
                 isModalVisible: false,
             }
         },
-        methods: {
+        props: ['task',      'index']
+    ,
+    methods: {
+        mark(){
+            this.$emit('completeTask', this.task.task_id)
+        },
             toggleMenu() {
                 this.isModalVisible = !this.isModalVisible;
             },

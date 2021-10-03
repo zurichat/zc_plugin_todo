@@ -33,9 +33,7 @@ class Centrifugo implements CentrifugoInterface
             ]
         ]);
 
-        return response()->json([
-            "data" => $response->json()
-        ], 200);
+        return $response->json();
     }
 
     public function publishToRoomChannel($channel, $data, $collection, $action)
@@ -57,9 +55,7 @@ class Centrifugo implements CentrifugoInterface
             ]
         ]);
 
-        return response()->json([
-            "data" => $response->json()
-        ], 200);
+        return $response->json();
     }
 
     public function unSubscribe($channel, $id)
