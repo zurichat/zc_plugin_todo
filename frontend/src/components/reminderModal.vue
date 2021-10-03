@@ -100,6 +100,9 @@
 
 <script>
     import cusReminderForm from './cusRemiderForm.vue'
+    import { mapGetters } from "vuex";
+    import axios from "axios";
+
     export default {
         name: "td-modal",
         data() {
@@ -107,6 +110,11 @@
                 iscusReminder: false
             }
         },
+         computed: {
+        ...mapGetters({
+            selectedTodo: "todos/selectedTodo",
+        })
+    },
         methods: {
             cusReminder() {
                 this.iscusReminder = !this.iscusReminder
@@ -119,6 +127,13 @@
             cusReminderForm() {
                 this.iscusReminder = !this.iscusReminder
             },
+
+            saveReminder(){
+                let task_id ="";
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.selectedTodo.todo_id}/task/${task_id}/add_reminder`).then((response)=>{
+                    console.log(response)
+                })
+            }
             // reminderForm(){
             // 	this.$emit("cusReminderForm")
             // }
@@ -133,6 +148,9 @@
         },
         components: {
             cusReminderForm,
+        },
+        mounted(){
+            console.log(this.todo)
         }
     };
 </script>
