@@ -55,7 +55,10 @@
                                 <span
                                     class="time td-ml-5 td-text-gray-700 td-text-xs td-font-normal"
                                     >{{
-                                        getCommentTime(comment.created_at)
+                                        getCommentTime(
+                                            currentTime,
+                                            comment.created_at
+                                        )
                                     }}</span
                                 >
                             </p>
@@ -152,7 +155,8 @@ export default {
     data() {
         return {
             comment: "",
-            commenting: false
+            commenting: false,
+            currentTime: Date.now()
             // centrifuge: new Centrifuge(
             //     "wss://realtime.zuri.chat/connection/websocket",
             //     { debug: true }
@@ -224,9 +228,8 @@ export default {
             this.comment = "";
         },
 
-        getCommentTime(time) {
-            const currentTime = Date.now();
-            const commentTime = new Date(time);
+        getCommentTime(currentTime, comment_time) {
+            const commentTime = new Date(comment_time);
             const diff = (currentTime - commentTime) / 1000;
             if (diff < 30) return "Now";
             return `${

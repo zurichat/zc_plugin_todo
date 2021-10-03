@@ -110,7 +110,7 @@ export default {
         }),
 
         formattedTime() {
-            const currentTime = Date.now();
+            const currentTime = this.currentTime;
             const commentTime = new Date(
                 this.getTaskLastComment(this.task.task_id)
             );
@@ -138,7 +138,8 @@ export default {
 
     data() {
         return {
-            isModalVisible: false
+            isModalVisible: false,
+            currentTime: Date.now()
         };
     },
 

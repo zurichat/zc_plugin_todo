@@ -1,39 +1,30 @@
 <template>
-    <div class="td-w-full td-flex-grow" v-if="allTodos.length">
+    <div class="td-w-full td-flex-grow " v-if="allTodos.length">
         <div id="Details" class="">
             <div
-                class="
-          todo-nav
-          td-px-4 td-bg-green-500 td-flex td-justify-between td-items-center
-        "
+                class="todo-nav td-px-4 td-bg-green-500 td-flex td-justify-between td-items-center"
             >
                 <div class="td-flex td-items-center">
                     <h1 class="td-px-2 td-py-2 td-text-white td-text-2xl">
                         # To-do-list
                     </h1>
                     <span class="btn"
-                        ><i class="pi td-px- td-text-white pi-chevron-down"
+                        ><i
+                            class="pi td-px-
+      td-text-white pi-chevron-down"
                     /></span>
                 </div>
 
                 <div class="td-flex td-items-center"></div>
             </div>
             <div
-                class="
-          header
-          td-px-2
-          td-py-4
-          td-flex
-          td-justify-between
-          td-items-center
-          td-border-b-2
-        "
+                class="header td-px-2 td-py-4 td-flex td-justify-between td-items-center td-border-b-2"
             >
                 <div>
                     <h2 class="td-text-xl td-font-bold td-text-black-500 title">
                         {{ selectedTodo.title }}
                     </h2>
-                    <div class="description">
+                    <div class="description ">
                         <span>{{ selectedTodo.description }}</span>
                     </div>
                 </div>
@@ -64,101 +55,48 @@
                 </div>
             </div>
             <div
-                class="
-          sub-header
-          td-px-2
-          td-flex
-          td-py-3
-          td-justify-between
-          td-items-center
-          td-border-b-2
-        "
+                class="sub-header td-px-2 td-flex td-py-3 td-justify-between td-items-center td-border-b-2"
             >
                 <div class="td-flex td-items-center">
                     <p class="td-font-bold">Tasks</p>
                 </div>
                 <div class="td-flex td-items-center">
                     <div
-                        class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded"
+                        class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded "
                         @click="isModal = true"
                     >
                         + Add a new Task
                     </div>
                     <div
-                        class="td-relative td-mx-4 td-cursor-pointer"
+                        class="td-relative td-mx-4 td-cursor-pointer "
                         v-click-away="ClickAway"
                     >
                         <span
                             @click="assign()"
-                            class="td-justify-center td-flex td-items-center"
+                            class="td-justify-center td-flex td-items-center "
                             ><i
                                 class="pi pi-user-plus td-cursor-pointer td-px-1"
                             />
                             Add collaborator</span
                         >
-                        <div
-                            v-if="isAssign"
-                            class="
-                user_dropdown
-                td-absolute
-                td-p-2
-                td-bg-white
-                td-rounded
-                td-shadow
-                td-border
-                td-mt-12
-                td-top-0
-                td-right-0
-              "
-                        >
-                            <input
-                                @input="search()"
-                                v-model="value"
-                                class="
-                  td-rounded
-                  td-border-green-300
-                  td-mx-auto
-                  td-w-11/12
-                  td-border
-                  td-py-2
-                  td-px-2
-                  hover:td-border-green-500
-                  td-outline-none
-                "
-                                type="text"
-                            />
+                        <!-- <div v-if="isAssign"
+                            class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0">
+                            <input @input="search()" v-model=value
+                                class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none"
+                                type="text" />
                             <div class="td-h-64 td-w-64 td-overflow-y-scroll">
-                                <label
-                                    @click="assign()"
-                                    :for="user.name.first"
-                                    v-for="(user, index) in users"
+                                <label @click="assign()" :for="user.name.first" v-for="(user, index) in users"
                                     :key="index"
-                                    class="
-                    td-flex
-                    hover:td-border
-                    td-text-gray-500
-                    hover:td-text-white hover:td-bg-green-500
-                    td-border-b td-p-2 td-my-2 td-pb-2 td-items-center
-                  "
-                                >
-                                    <span
-                                        class="tracking-wide td-px-2 td-font-bold"
-                                        >{{
-                                            user.name.first +
-                                                " " +
-                                                user.name.last
-                                        }}</span
-                                    ></label
-                                >
+                                    class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center">
+                                    <span class="tracking-wide td-px-2 td-font-bold">{{user.name.first + ' ' +
+                                        user.name.last}}</span></label>
                             </div>
-                        </div>
+                        </div> -->
+                        <collabModal v-if="isAssign" @assign="assign" />
                     </div>
 
                     <div
-                        class="
-              amt_completed
-              td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded
-            "
+                        class="amt_completed td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded "
                     >
                         <svg
                             width="19"
@@ -206,18 +144,13 @@
                             />
                         </svg>
 
-                        <span class="td-font-bold"
+                        <span class="td-font-bold "
                             >{{ itemsTodo.length }} completed</span
                         >
                     </div>
                     <div
                         @click="admin()"
-                        class="
-              mr-2
-              font-bold
-              button
-              td-mx-4 td-cursor-pointer td-rounded td-flex
-            "
+                        class="mr-2 font-bold button td-mx-4 td-cursor-pointer td-rounded td-flex"
                     >
                         <svg
                             width="18"
@@ -257,7 +190,7 @@
                                 stroke-linejoin="round"
                             />
                         </svg>
-                        <span>Admin({{ adminCount }})</span>
+                        <span>Admin({{ collaboratorCount }})</span>
                     </div>
                     <!-- <div class="progress_container td-flex td-flex-col">
                     <span
@@ -276,7 +209,7 @@
                 </div>
             </div>
 
-            <div class="tasks_container td-px-2 td-py-4">
+            <div class="tasks_container td-px-2 td-py-4 ">
                 <div class="td-flex-grow td-my-4 td-px-2 tabMenu">
                     <span
                         class="task_head td-font-bold td-mr-4 td-my-4 td-text-green-500"
@@ -289,7 +222,7 @@
                         >Completed</span
                     >
 
-                    <div class="td-flex">
+                    <div class="td-flex ">
                         <div class="tabContents td-flex-grow">
                             <template
                                 id="task_container"
@@ -306,6 +239,7 @@
                             <template v-else>
                                 <TaskCard
                                     :task="task"
+                                    :todo="selectedTodo"
                                     :index="index"
                                     @showComment="showComment"
                                     v-for="(task, index) in selectedTodo.tasks"
@@ -316,19 +250,12 @@
                         <div
                             v-show="isComment"
                             id="Comment"
-                            class="
-                            td-ml-5
-                td-hidden
-                lg:td-block
-                td-rounded-md
-                td-flex-shrink-0
-                td-w-1/4
-                td-border
-                td-flex
-                td-flex-col
-              "
+                            class="td-hidden lg:td-block td-rounded-md td-flex-shrink-0 td-w-1/4 td-border td-flex td-flex-col"
                         >
-                            <Comment @showComment="isComment = false" />
+                            <Comment
+                                class="td-rounded-md"
+                                @showComment="isComment = false"
+                            />
                         </div>
                     </div>
                 </div>
@@ -343,7 +270,11 @@
             />
         </transition>
         <transition name="fade" class="td-block lg:td-hidden">
-            <Comment v-if="isComment" @showComment="isComment = false" />
+            <Comment
+                class="td-rounded-md"
+                v-if="isComment"
+                @showComment="isComment = false"
+            />
         </transition>
     </div>
 </template>
@@ -352,9 +283,12 @@ import CentrifugeSetup from "../plugins/realtime";
 import TaskForm from "../components/TaskForm";
 import Empty from "../components/Empty";
 import TaskCard from "../components/TaskCard2";
+import collabModal from "../components/collaborators/collaboratorModal.vue";
 import axios from "axios";
 import Comment from "../components/comment.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
+
 export default {
     name: "TodoDetails",
     data() {
@@ -370,7 +304,7 @@ export default {
             users: [],
             value: "",
             //selectedCollaborator: null,
-            adminCount: 0
+            collaboratorCount: 0
         };
     },
     computed: {
@@ -389,6 +323,14 @@ export default {
             );
         },
 
+        getCommentsPayload() {
+            return {
+                todo_id: this.$route.params.id,
+                user_id: this.User["0"]._id,
+                org_id: this.User["0"].org_id
+            };
+        },
+
         collaborators() {
             let value = "";
             if (this.todo.colaborators === undefined) {
@@ -401,44 +343,24 @@ export default {
         percent() {
             return (this.checked.length / this.alltasks.length) * 100;
         },
-
         itemsTodo() {
             return this.checked.filter(todo => !todo.completed);
-        },
-
-        getCommentsPayload() {
-            return {
-                todo_id: this.$route.params.id,
-                user_id: this.User["0"]._id,
-                org_id: this.User["0"].org_id
-            };
         }
     },
     components: {
         TaskCard,
         TaskForm,
         Empty,
-        Comment
+        Comment,
+        collabModal
     },
     methods: {
         ...mapActions({
+            selectTodo: "todos/selectedTodo",
             updateCurrentTask: "comment/updateCurrentTask",
             fetchTodoComments: "comment/fetchTodoComments",
             newComment: "comment/newComment"
         }),
-
-        updateComment(comment) {
-            const mockIncomingComment = {
-                body: comment.data.details.body,
-                user_id: comment.data.details.user_id,
-                org_id: this.isUser["0"].org_id,
-                task_id: comment.data.details.task_id,
-                todo_id: comment.data.details.todo_id,
-                created_at: Date.now()
-            };
-
-            this.newComment(mockIncomingComment);
-        },
 
         toggleModal() {
             this.isModal = !this.isModal;
@@ -446,7 +368,6 @@ export default {
         isSelect: function(num) {
             this.isActive = num;
         },
-
         close() {
             this.$emit("hideComment");
         },
@@ -483,6 +404,8 @@ export default {
         },
         assign() {
             this.isAssign = !this.isAssign;
+            // this.activeTodo(this.selectedTodo._id)
+            this.selectTodo(this.selectedTodo);
         },
         checkAction(ctx) {
             const _this = this;
@@ -507,6 +430,11 @@ export default {
                         _this.selectedTodo.tasks.splice(location, 1);
                     }
                     break;
+                // case "assign":
+                //   {
+                //         _this.selectedCollaborator = ctx.data.details.collaborators;
+                //           _this.collaboratorCount ++
+                //    }
                 default:
             }
         },
@@ -523,11 +451,23 @@ export default {
             }
             console.log(this.selectedTodo);
         },
-
         getUser() {
             axios
                 .get("https://randomuser.me/api/?results=15")
                 .then(response => (this.users = response.data.results));
+        },
+
+        updateComment(comment) {
+            const mockIncomingComment = {
+                body: comment.data.details.body,
+                user_id: comment.data.details.user_id,
+                org_id: this.isUser["0"].org_id,
+                task_id: comment.data.details.task_id,
+                todo_id: comment.data.details.todo_id,
+                created_at: Date.now()
+            };
+
+            this.newComment(mockIncomingComment);
         },
 
         fetchComments() {
@@ -541,10 +481,8 @@ export default {
         }
     },
     mounted() {
-        let vm = this;
-        console.log("comments count", this.getAllComments.length);
-
         if (!this.getAllComments.length) this.fetchComments();
+        let vm = this;
 
         if (vm.currentTodo)
             CentrifugeSetup(vm.currentTodo.channel, vm.updateComment);
@@ -560,7 +498,6 @@ export default {
 .description {
     color: #616061;
 }
-
 progress[value] {
     /* Reset the default appearance */
     -webkit-appearance: none;
@@ -569,26 +506,21 @@ progress[value] {
     height: 5px;
     //  box-shadow: 0 0 10px rgb(0 103 69 / 28%);
 }
-
 progress[value]::-webkit-progress-bar {
     border-radius: 2px;
     background-color: #e2ecf8;
 }
-
 progress[value]::-webkit-progress-value {
     background-color: #00b87c;
     border-radius: 2px;
 }
-
 #progress_container {
     min-width: 15em;
 }
-
 #progress {
     height: 1.1rem;
     border-radius: 4px;
 }
-
 .todo-profileImg {
     position: relative;
     background: #fff;
@@ -597,7 +529,6 @@ progress[value]::-webkit-progress-value {
     width: 105px;
     height: 30px;
 }
-
 .todo-profileImg2 {
     position: relative;
     background: #fff;
@@ -605,27 +536,22 @@ progress[value]::-webkit-progress-value {
     width: 105px;
     height: 30px;
 }
-
 .todo-profile.profileOne {
     left: 2%;
     z-index: 1000;
 }
-
 .todo-profile {
     position: absolute;
     border-radius: 4px;
     top: 7%;
 }
-
 .todo-profile.profileTwo {
     left: 19%;
     z-index: 500;
 }
-
 .todo-profile.profileThree {
     left: 35%;
 }
-
 .text-300 {
     position: absolute;
     top: 18%;
@@ -635,11 +561,9 @@ progress[value]::-webkit-progress-value {
     z-index: 100;
     color: #000;
 }
-
 .tabMenu span {
     cursor: pointer;
 }
-
 a.router-link-exact-active {
     color: #00b87c;
 }
