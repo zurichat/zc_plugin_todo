@@ -6,17 +6,21 @@ use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
+use App\Services\ServiceTrait;
 
 class TodoService extends TodoRepository
 {
+    //use ServiceTrait;
     public function all()
     {
+
         return Response::checkAndServe($this->httpRepository->all());
     }
 
 
     public function create(array $data)
     {
+
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
@@ -41,7 +45,6 @@ class TodoService extends TodoRepository
     }
 
     public function findWhere($whereArray){
-
         return Response::checkAndServe($this->httpRepository->findWhere($whereArray));
     }
 
@@ -87,6 +90,15 @@ class TodoService extends TodoRepository
         $update = $this->update($deleted_at, $todoId);
 
         $response = (isset($update['modified_documents']) && $update['modified_documents'] > 0) ? ['message' => 'Todo deleted successfully', 'data' => $todo] : ['error'=> 'an error was encountered'] ;
+        $this->publishToRoomChannel($todo['channel'], $todo, "Todo", "delete");
+
+        if (isset($update['modified_documents']) && $update['modified_documents'] > 0) {
+            $this->publishToRoomChannel($todo['channel'], $todo, "Todo", "delete");
+            $response = ['message' => 'Todo deleted successfully'];
+        }else{
+            $response = ['error'=> 'an error was encountered'];
+        }
+
         return $response;
     }
 

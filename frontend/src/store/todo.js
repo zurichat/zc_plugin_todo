@@ -37,6 +37,7 @@ export default {
         selectedTodo: null,
         isAssign: false,
         searchedTodo: [],
+        organisation_members:[],
         errMessage: "No Result Found"
 
     },
@@ -76,6 +77,9 @@ export default {
         },
         TOGGLESHOW(state, data) {
             state.showAll = data
+        },
+        ORG_MEMBERS(state, data){
+            state.organisation_members = data
         }
     },
     getters: {
@@ -105,9 +109,23 @@ export default {
         },
         showAll(state) {
             return state.showAll
+        },
+        show_organisation_members(state){
+            return state.organisation_members
+        },
+        organization(state) {
+            return state.isUser.Organizations[0];
         }
     },
     actions: {
+        // GET ALL THE MEMBERS IN AN ORGANISATION
+       async getAllMembers({commit, state}, workspace_id){
+           console.log(workspace_id)
+            await axios.get(`https://api.zuri.chat/organizations/${state.isUser.currentWorkspace}/members`)
+            .then(response => (commit('ORG_MEMBERS', response.data.data)))
+           
+            .catch(error => console.log(error))
+        },
         async HandleGetTodos({ commit, state }) {
             console.log(state)
             const user_id = state.isUser["0"]._id;
@@ -133,8 +151,10 @@ export default {
         ADD_USER({ commit }, data) {
             commit('IS_USER', data)
         },
-        async getAllArchivedTodos({ commit }) {
-            await axios.get('get-archived')
+        async getAllArchivedTodos({ commit, state }) {
+            const user_id = state.isUser._id;
+            const org_id = state.isUser.Organizations[0];
+            await axios.get(`get-archived?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
@@ -144,7 +164,7 @@ export default {
             try {
                 const response = await createTodo(org_id, any);
                 console.log('todo created sucesfully', response)
-                    // commit('ADD_TODOS', data);
+                // commit('ADD_TODOS', data);
             } catch (error) {
                 console.log(`Error from handleGetTodos ${error}`);
             }

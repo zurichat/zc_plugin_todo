@@ -16,6 +16,48 @@ class AssignUsersTest extends TestCase
     protected $collaborator_id = "614f089fe35bb73a77bc2abc";
     protected $requestParam = "?user_id=614f089fe35bb73a77bc2b77&organisation_id=614679ee1a5607b13c00bcb7";
 
+    public function test_collaborator_validation_works_for_collaboratorId_omission()
+    {
+        // We attempt to build the collaborator object without the colloaborator_id 
+        $collaboratorData = [
+            "collaborator_id" => ""
+        ];
+        //Hit the endpoint to add collaborator to a todo 
+        $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert a 422 response code
+            ->assertStatus(422)
+            //we assert collaborator_id validation error
+            ->assertJsonValidationErrors(["collaborator_id"]);
+    }
+
+    public function test_collaborator_validation_works_for_adminStatus_omission()
+    {
+        // We attempt to build the collaborator object without the admin_status 
+        $collaboratorData = [
+            "admin_status" => ""
+        ];
+        //Hit the endpoint to add collaborator to a todo 
+        $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert a 422 response code
+            ->assertStatus(422)
+            //we assert admin_status validation error
+            ->assertJsonValidationErrors(["admin_status"]);
+    }
+
+    public function test_collaborator_validation_works_for_userId_omission()
+    {
+        // We attempt to build the data without entery on the user_id on the user_id field 
+        $collaboratorData = [
+            "user_id" => ""
+        ];
+        //Hit the endpoint to add collaborator to a todo 
+        $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert a 422 response code
+            ->assertStatus(422)
+            //we assert user_id validation error
+            ->assertJsonValidationErrors(["user_id"]);
+    }
+
 
     public function test_admin_status_checker_works_when_attempting_to_add_collaborators()
     {
@@ -58,7 +100,7 @@ class AssignUsersTest extends TestCase
             ->assertStatus(200)
             //assert that the added collaborator is now contained in the collaborators array of the todo response 
             ->assertJsonFragment(['collaborator_id' => $this->collaborator_id, 'admin_status' => '0'])
-            //assert that the structure of the Json response matches the exected response structure
+            //assert that the structure of the Json response matches the exact response structure
             ->assertJsonStructure([
                 "status",
                 "type",
@@ -72,38 +114,17 @@ class AssignUsersTest extends TestCase
     public function test_collaborator_is_removed_from_a_todo()
     {
         $this->withoutExceptionHandling();
+        //Define a collaborator to be removed from the collaborator array
+        //Add the performaer user_id
         $collaboratorData = [
             'collaborator_id' => $this->collaborator_id,
+            'admin_status' => '0',
             'user_id' => $this->userId
         ];
-        $response = $this->json('PUT', 'api/v1/assign-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
-            ->assertStatus(200);
+        //Hit the endpoint to remove collaborator from a todo
+        $this->json('PUT', 'api/v1/remove-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            ->assertStatus(200)
+            //assert that the collaborator is not contained in the collaborators array of the todo response 
+            ->assertJsonMissing(['collaborator_id' => $this->collaborator_id,]);
     }
-
-
-
-
-
-
-
-    // public function test_collaborator_is_added_to_a_todo()
-    // {
-    //     
-
-    //     $todo = $this->app->make(TodoService::class)->find("6154eba27f0874785c51cdf5");
-
-    //     $todo = $todoServ->find('6154eb8c7f0874785c51cdf4');
-
-
-    //     // we want to assert that 404 is return when TODO is not found
-
-    //     // We want to check that the action-performer has admin status, 1
-
-    //     //
-
-    //     // 
-    //     $response = $this->get('/');
-
-    //     $response->assertStatus(200);
-    // }
 }

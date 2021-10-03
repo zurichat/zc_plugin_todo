@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="td-bg-white">
     <router-view />
   </div>
 </template>
@@ -33,7 +33,8 @@ export default {
         HandleAllTodos: "todos/HandleGetTodos",
         add_user : 'todos/ADD_USER',
         cn_centri : 'todos/CONNECT_CENTRIFUGE',
-        addTodo : 'todos/centrifugeAddTodo'
+        addTodo : 'todos/centrifugeAddTodo',
+        getMembers: 'todos/getAllMembers'
       }),
         welcome(){
            getLoggedInUser()
@@ -95,6 +96,8 @@ export default {
      mounted(){
          this.welcome()
          this.enterCommonRoom()
+         this.getMembers()
+      
        }
    }
 

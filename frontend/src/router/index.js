@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import Pending from '../pages/Pending.vue';
 import Main from '../pages/Main.vue';
 import Trash from '../pages/Trash.vue';
+import Card from '../components/cardnew.vue';
+
 import Archive from '../pages/Archive.vue';
 import Details from '../pages/Details';
 import Detail from '../pages/Detail';
@@ -25,6 +27,10 @@ const routes = [{
         }]
     },
     {
+        path: '/card',
+        name: 'Card',
+        component: Card
+    }, {
         path: '/details/:id',
         name: 'Details',
         component: Details

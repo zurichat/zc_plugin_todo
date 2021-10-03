@@ -16,6 +16,7 @@ use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskReminderController;
 use App\Http\Controllers\TaskSearchController;
 
 /*
@@ -27,6 +28,9 @@ use App\Http\Controllers\TaskSearchController;
 
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
+
+
+    //end of test cache
 
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
@@ -59,7 +63,7 @@ Route::prefix('v1')->group(function () {
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
-    Route::delete('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
+    Route::put('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
 
 
     // Archiving Endpoints
@@ -102,6 +106,11 @@ Route::prefix('v1')->group(function () {
     Route::post('create', [TodoController::class, 'create']);
     Route::post('edit', [TodoController::class, 'edit']);
     Route::post('update', [TodoController::class, 'update']);
+
+    // Add reminder to todotask
+    Route::put('todo/{todo_id}/task/{task_id}/add-reminder', [TaskReminderController::class, 'addReminderToTask']);
+    Route::put('todo/{todo_id}/task/{task_id}/remove-reminder/{reminder_id}', [TaskReminderController::class, 'removeReminderFromTask']);
+    Route::get('test-cron-trigger', [TaskReminderController::class, 'commandHandler']);
 
     // Plugin Info Related Enpoints
     Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
