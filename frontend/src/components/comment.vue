@@ -217,7 +217,11 @@ export default {
             const commentTime = new Date(time);
             const diff = (currentTime - commentTime) / 1000;
             if (diff < 30) return "Now";
-            return `${commentTime.getHours()}:${commentTime.getMinutes()}`;
+            return `${
+                commentTime.getHours() < 10 ? "0" : ""
+            }  ${commentTime.getHours()}: ${
+                commentTime.getMinutes() < 10 ? "0" : ""
+            } ${commentTime.getMinutes()}`;
         }
     }
 };
