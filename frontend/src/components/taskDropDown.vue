@@ -53,31 +53,27 @@
 			</div>
 		</div>
 		<reminderModal :task="task" :todo="todo" v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
-		<transition name="fade">
-			<deleteTask v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
-		</transition>
+		
 	</div>
 </template>
 
 <script>
-	import deleteTask from './deleteTask'
+	
 	import reminderModal from '../components/reminderModal'
 	export default {
 		name: "td-modal",
 		data(){
 			return{
-				isDeleteModal: false,
+				
 				isReminder: false
 			}
 		},
 		methods: {
 			toggleDelete() {
-				this.isDeleteModal = !this.isDeleteModal;
+				// this.isDeleteModal = !this.isDeleteModal;
 				this.$emit('toggleDeleteModal')
 			},
-			toggleDeleteModal() {
-				this.isDeleteModal = !this.isDeleteModal;
-			},
+			
 			reminder() {
 				this.isReminder = !this.isReminder
 			}
@@ -91,7 +87,7 @@
             }
         },
 		components: {
-			deleteTask,
+			
 			reminderModal
 		}
 	};
