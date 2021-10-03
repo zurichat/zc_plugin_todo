@@ -361,9 +361,6 @@ export default {
       this.$emit("hideComment");
     },
 
-    close() {
-      this.$emit("hideComment");
-    },
     ClickAway() {
       this.isAssign = false;
     },
