@@ -34,7 +34,7 @@ export default {
         add_user : 'todos/ADD_USER',
         cn_centri : 'todos/CONNECT_CENTRIFUGE',
         addTodo : 'todos/centrifugeAddTodo',
-        getMembers: 'todos/getAllMembers'
+        // getMembers: 'todos/getAllMembers'
       }),
         welcome(){
            getLoggedInUser()
@@ -96,7 +96,7 @@ export default {
      mounted(){
          this.welcome()
          this.enterCommonRoom()
-         this.getMembers()
+        //  this.getMembers()
       
        }
    }

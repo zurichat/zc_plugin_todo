@@ -80,6 +80,8 @@ export default {
         },
         ORG_MEMBERS(state, data) {
             state.organisation_members = data
+
+
         }
     },
     getters: {

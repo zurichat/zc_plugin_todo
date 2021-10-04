@@ -78,6 +78,9 @@
 				this.isReminder = !this.isReminder
 			}
 		},
+		mounted(){
+			
+		},
 		props: {
             task: {
                 type: Object

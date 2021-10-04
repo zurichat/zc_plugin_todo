@@ -81,6 +81,8 @@
         },
         props: ['task',      'index']
     ,
+    mounted(){
+    },
     methods: {
         mark(any){
             const data = {

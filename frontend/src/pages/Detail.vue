@@ -33,6 +33,9 @@
           </div>
         </div> -->
 
+
+
+
                     <div class="" @click="
                             () => {
                                 this.$router.push({ name: 'Main' });
@@ -53,62 +56,56 @@
                     <div class="mr-2 td-p-2 button td-bg-gray-200 td-mx-4 td-cursor-pointer td-rounded " @click="isModal = true">
                         + Add a new Task
                     </div>
-                    <div class="td-relative td-mx-4 td-cursor-pointer " v-click-away="ClickAway">
+
+                   <!-- Add collaborator -->
+                    <div class="mr-2 td-relative td-p-2 button td-bg-gray-200 td-mx-4 td-cursor-pointer td-rounded" v-click-away="ClickAway">
                         <span @click="assign()" class="td-justify-center td-flex td-items-center "><i
-                                class="pi pi-user-plus td-cursor-pointer td-px-1" /> Admin <span class="td-px-1"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="18" height="18" rx="9" fill="#00B87C"/>
-<path d="M10.9665 10.1565H12.16V10.7175C12.16 10.7762 12.1417 10.8257 12.105 10.866C12.072 10.9063 12.0188 10.9265 11.9455 10.9265H10.9665V13H10.103V10.9265H6.6105C6.53717 10.9265 6.473 10.9063 6.418 10.866C6.36667 10.822 6.33367 10.7688 6.319 10.7065L6.22 10.206L10.0535 5.1185H10.9665V10.1565ZM10.103 6.906C10.103 6.81067 10.1048 6.708 10.1085 6.598C10.1158 6.488 10.1287 6.37433 10.147 6.257L7.2815 10.1565H10.103V6.906Z" fill="white"/>
-</svg></span>
+                                class="pi pi-user-plus td-cursor-pointer td-px-1" /> Add collaborator<span class="td-px-1">
+                                  
+<span style="background-color:#00b87c" class="td-rounded-full td-h-5 td-w-5 td-text-white td-flex td-items-center td-justify-center">
+   <small>{{totalCollab}}</small>
+</span>
+</span>
 </span>
                         <div v-if="isAssign"
                             class="user_dropdown td-absolute td-p-2 td-bg-white td-rounded td-shadow td-border td-mt-12 td-top-0 td-right-0">
-                            <input @input="search()" v-model=value
+                            <input @input="search()" v-model='value'
                                 class="td-rounded td-border-green-300 td-mx-auto td-w-11/12 td-border td-py-2 td-px-2 hover:td-border-green-500 td-outline-none"
                                 type="text" />
-                            <div class="td-h-64 td-w-64 td-overflow-y-scroll">
-                                <label @click="assign()" :for="user.name.first" v-for="(user, index) in users"
+                            <div style="min-width:40rem" class="td-h-64 td-w-100 td-overflow-y-scroll">
+                                 <label v-if="showLoading" class="td-w-100 td-flex td-justify-center">
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            </label>
+                                <div v-else :for="user.user_name" v-for="(user, index) in users"
                                     :key="index"
                                     class="td-flex hover:td-border td-text-gray-500 hover:td-text-white hover:td-bg-green-500 td-border-b td-p-2 td-my-2 td-pb-2 td-items-center">
-                                    <span class="tracking-wide td-px-2 td-font-bold">{{user.name.first + ' ' +
-                                        user.name.last}}</span></label>
+                                    
+                                    <div style=" width:100%"  class="td-flex td-justify-between">
+                                        <div  class="tracking-wide  td-px-2 td-font-bold">{{user.user_name}}</div>
+                                        <div class="td-justify-self-end">
+                                            <button  v-if="!user.collaborator || user.collaborator == false" class="td-border-2 hover:td-shadow td-p-1 td-rounded td-border-white td-bg-green justify-self-end" @click="toggleCollab(user, index, true)">Add</button>
+
+                                            <button v-if="user.collaborator == true" class="hover:td-shadow  td-border-2 td-border-white td-p-1 td-rounded td-bg-red justify-self-end" @click="toggleCollab(user, index, 'admin')">Make Admin</button>
+
+                                            <button v-if="user.collaborator == true" class="hover:td-shadow  td-border-2 td-border-white td-p-1 td-rounded td-bg-red justify-self-end" @click="toggleCollab(user, index, false)">Remove</button>
+                                            </div>
+                                    </div>
+
+                                </div>
+                                        
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="amt_completed td-ml-4 td-flex td-items-center td-bg-green-100 td-rounded ">
-                        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M10.9999 1.82458H4.99988C4.17145 1.82458 3.49988 2.49616 3.49988 3.32459V15.3246C3.49988 16.153 4.17145 16.8246 4.99988 16.8246H13.9999C14.8283 16.8246 15.4999 16.153 15.4999 15.3246V6.32459L10.9999 1.82458Z"
-                                stroke="#242424" stroke-width="1.22693" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M10.9999 1.82458V6.32459H15.4999" stroke="#242424" stroke-width="1.22693"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M12.4999 10.0747H6.49988" stroke="#242424" stroke-width="1.22693"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M12.4999 13.0747H6.49988" stroke="#242424" stroke-width="1.22693"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.99988 7.07458H7.24988H6.49988" stroke="#242424" stroke-width="1.22693"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-
-                        <span class="td-font-bold "
-                            >{{ completedTask.length }} completed</span
-                        >
-                    </div> -->
-                    <!-- <div class="progress_container td-flex td-flex-col">
-                    <span
-                        class="progress_text td-self-end td-text-sm td-font-medium "
-                        >{{ percent }}/100%</span
-                    >
-                    <progress
-                        id="progress"
-                        class="td-w-full td-mx-auto"
-                        :value="percent"
-                        max="100"
-                    >
-                        32%
-                    </progress>
-                </div>-->
+                    
+                    <!-- Collaborator admin -->
+                    <span @click="assign()" class="td-justify-center td-flex td-items-center "><i
+                                class="pi pi-user-plus td-cursor-pointer td-px-1" /> Admin <span class="td-px-1">
+                                  
+                <span style="background-color:#00b87c" class="td-rounded-full td-h-5 td-w-5 td-text-white td-flex td-items-center td-justify-center">
+                <small>{{totalCollabAdmin}}</small>
+                </span>
+                </span>
+                </span>
                 </div>
 
             </div>
@@ -210,7 +207,12 @@
                 isAssign: false,
                 alltasks: ['', '', '', '', '', '', '', '', '', ''],
                 users: [],
-                value: ''
+                totalUsers:[],
+                value: '',
+                showLoading: false,
+                totalCollab:0,
+                totalCollabAdmin:0
+                
             }
         },
         computed: {
@@ -330,10 +332,129 @@
                 }
                 console.log(this.selectedTodo)
             },
-            getUser() {
-                axios.get('https://randomuser.me/api/?results=15').
-                    then(response => this.users = (response.data.results))
+
+
+            // COLLABORATOR CODE START HERE ==============BY TJ FAITH
+            async getUser() {
+                // axios.get('https://randomuser.me/api/?results=15').
+                //     then(response => this.users = (response.data.results))
+                 this.showLoading = true
+            await axios.get(`https://api.zuri.chat/organizations/${this.isUser.currentWorkspace}/members`)
+                // .then(response =>  this.users = (response.data.results))
+                .then((response)=>{
+                    this.showLoading = false
+                    this.users = response.data.data
+                    this.totalUsers = response.data.data
+                    this.users.forEach((element,index) => {
+                        this.selectedTodo.collaborators.forEach(collab=>{
+                            if(element._id == collab.collaborator_id){
+                                this.users[index].collaborator = true
+                            }
+                        })
+                    });
+                        console.log(this.users)
+
+                    // console.log(response.data.data)
+                })
+
+            .catch((error)=>{
+                    this.showLoading = false
+                console.log(error)
+            })
+  },
+
+//   THIS FUNCTON COUNT COLLABORATOR
+            countCollaborator(){
+             this.totalCollab = this.selectedTodo.collaborators.length;
             },
+
+             countCollaboratorAdmin(){
+                 let counter = 0;
+                 this.selectedTodo.collaborators.forEach((element, index) => {
+                     if (this.selectedTodo.collaborators[index].admin_status == '1'){
+                         counter++;
+                     }
+                 });
+             this.totalCollabAdmin = counter;
+            },
+
+            toggleCollab(user, index, value){
+                this.isAssign =false
+                if (value == true){
+                  let data={
+                    admin_status:'0',
+                    collaborator_id:user._id,
+                    user_id:this.isUser["0"]._id,
+                    email:user.email,
+                    name:user.user_name
+                 }
+                 axios.put(`https://todo.zuri.chat/api/v1/assign-collaborators/${this.selectedTodo._id}?organisation_id=${this.selectedTodo.organisation_id}`, data).then((request)=>{
+                console.log(request)
+                if(request.data.status =="success"){
+                    alert('Collaborator Added')
+                    // Update Selected Todo
+                    this.selectedTodo.collaborators.push(data)
+                     this.users[index].collaborator = value
+                    this.countCollaborator();
+                }else{
+                    alert('Oops..an error occured')
+                }
+            this.adding =false
+    
+            }).catch((error)=>{
+                    alert('Oops..an error occured')
+               
+                console.log(error)
+            this.adding =false
+
+            })
+                } else if(value == false){
+                    user.collaborator = value
+                   let index = this.selectedTodo.collaborators.findIndex(x => x.collaborator_id === user._id);
+                    this.selectedTodo.collaborators.splice(index, 1)
+                    this.countCollaborator();
+
+                } else if (value == 'admin'){
+                    // SET A COLLABORATOR AS ADMIN
+                    // CALL YOUR API HERE TO ADD ADMIN TO DATABASE =================================
+                //    API
+                //     API
+                   
+                   
+                   
+                   let index = this.selectedTodo.collaborators.findIndex(x => x.collaborator_id === user._id);
+                    this.selectedTodo.collaborators[index].admin_status = value
+                    this.countCollaboratorAdmin();
+
+                }
+                // alert(value)
+            },
+
+            search(){
+                    let value;
+            if (this.value != "") {
+                value = this.totalUsers;
+                this.users = value
+                value = this.users.filter(
+                    user =>
+                        user.user_name
+                            .toLowerCase()
+                            .indexOf(this.value.toLowerCase()) >= 0
+                );
+                 this.users = value 
+            } else {
+                this.users = this.totalUsers;
+                console.log(this.users)
+                // this.users = value;
+                // alert(value)
+            }
+
+            this.searchValue = value;
+            },
+            // COLLABORATOR CODE END HERE =================================BY TJFAITH
+
+
+          
                completeTask(any){
                 const todo_id = this.selectedTodo._id
                 const org_id = this.isUser["0"].org_id
@@ -357,6 +478,7 @@
                 },
                 mounted() {
                     this.getUser()
+                    this.countCollaborator();
                 },
         beforeMount() {
             this.check();
@@ -464,5 +586,9 @@
 
     a.router-link-exact-active {
         color: #00b87c;
+    }
+    input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #48bb78;
     }
 </style>

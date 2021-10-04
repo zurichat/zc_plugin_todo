@@ -10,10 +10,10 @@
             class="box td-absolute td-bg-white td-w-100 td-p-2 td-rounded td-shadow td-border"
             v-if="hideSearchResult == false"
         >
-            <!-- <div v-if="showLoading" class="td-w-100 td-flex td-justify-center">
+            <div v-if="showLoading" class="td-w-100 td-flex td-justify-center">
                 <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
-            </div> -->
-            <div class="td-grid td-grid-cols-1">
+            </div>
+            <div v-else class="td-grid td-grid-cols-1">
                 <div v-for="(user, index) in searchValue" :key="index" class="">
                     <div class="td-flex td-justify-between td-px-4">
                     <span class="td-w-100 td-py-1">{{ user.user_name.slice(0,30) }}</span>
@@ -84,20 +84,26 @@ export default {
             });
             return this.userExist
         },
-        // getAllMembers(){
-        //     axios.get(`https://api.zuri.chat/organizations/${state.isUser[0].org_id}/members`)
-        //     .then((response)=>{
-        //         this.users =response.data
-        //     }).
+        getAllMembers(){
+            this.showLoading=true;
+            axios.get(`https://api.zuri.chat/organizations/${this.isUser.currentWorkspace}/members`)
+            .then((response)=>{
+                // console.log(response)
+                this.users =response
+                this.showLoading = false
+                console.log(this.users)
+            }).catch((error)=>{
+                console.log(error)
+            })
            
-        // },
+        },
         add_collaborator(logged_in_user, collaborator_id, user){
             console.log(user)
             this.adding =true
-
+            collaborator_id
             let data={
                 admin_status:'0',
-                collaborator_id:collaborator_id,
+                collaborator_id:user.email,
                 user_id:logged_in_user,
                 email:user.email,
                 name:user.display_name
@@ -115,7 +121,8 @@ export default {
 
             })
         },
-
+    
+       
         search() {
             
             let value;
@@ -149,14 +156,16 @@ export default {
         }
     },
     mounted() {
-         this.getMembers(this.isUser.currentWorkspace)
+        this.getAllMembers()
+        // console.log(this.org_member)
+        //    this.users =  this.org_member
+
         //  console.log(GetWorkspaceUsers())
 
         // this.getUser();
         // this.users = this.allUsers;
         // console.log(this.isUser)
         // get organisation members 
-        this.users = this.org_member
     }
 };
 </script>
