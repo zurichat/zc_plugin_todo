@@ -129,20 +129,22 @@
             cusReminderForm() {
                 this.iscusReminder = !this.iscusReminder
             },
-
+            
             saveReminder(reminder_type){
+                    alert('You have set a reminder by '+ reminder_type)
                 
                 let data = {
                     "time_string": reminder_type,
                 }
-                // http://localhost:8087/api/v1/todo/61411b096173056af01b4d01/task/6149c045738a3/add-reminder?organisation_id=613a3ac959842c7444fb0240&user_id=6139a43559842c7444fb01ef
-                // ${this.isUser[0].org_id}
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
-                // axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
+                          
+
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
+                
                     console.log(response)
                 }).cath((error)=>{
                     console.log(error)
                 })
+
             }
             // reminderForm(){
             // 	this.$emit("cusReminderForm")
@@ -163,7 +165,7 @@
             cusReminderForm,
         },
         mounted(){
-            console.log(this.todo)
+            
         }
     };
 </script>

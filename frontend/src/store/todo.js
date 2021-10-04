@@ -4,28 +4,28 @@ import Centrifuge from 'centrifuge'
 export default {
     namespaced: true,
     state: {
-        isUser:{
-                Organizations: [
-                    "61516d0f9d521e488c5971f6"
-                ],
-                _id: "61516cd39d521e488c5971f3",
-                created_at: "2021-09-27T09:03:47.019895424+02:00",
-                deactivated: false,
-                deactivated_at: "0001-01-01T00:00:00Z",
-                email: "posimichael6@gmail.com",
-                email_verification: null,
-                first_name: "Tolulope",
-                isverified: true,
-                last_name: "Makinde ",
-                password: "$2a$14$f8knCG8DezbTeMJAQHYEmOJvr3j7Fr7.0K8RKtE9d3Y6sxoRaRfke",
-                password_resets: null,
-                phone: "",
-                role: "",
-                settings: null,
-                social: false,
-                time_zone: "",
-                updated_at: "0001-01-01T00:00:00Z",
-                workspaces: null
+        isUser: {
+            Organizations: [
+                "61516d0f9d521e488c5971f6"
+            ],
+            _id: "61516cd39d521e488c5971f3",
+            created_at: "2021-09-27T09:03:47.019895424+02:00",
+            deactivated: false,
+            deactivated_at: "0001-01-01T00:00:00Z",
+            email: "posimichael6@gmail.com",
+            email_verification: null,
+            first_name: "Tolulope",
+            isverified: true,
+            last_name: "Makinde ",
+            password: "$2a$14$f8knCG8DezbTeMJAQHYEmOJvr3j7Fr7.0K8RKtE9d3Y6sxoRaRfke",
+            password_resets: null,
+            phone: "",
+            role: "",
+            settings: null,
+            social: false,
+            time_zone: "",
+            updated_at: "0001-01-01T00:00:00Z",
+            workspaces: null
         },
         todos: [],
         names: [],
@@ -37,7 +37,7 @@ export default {
         selectedTodo: null,
         isAssign: false,
         searchedTodo: [],
-        organisation_members:null,
+        organisation_members: [],
         errMessage: "No Result Found"
 
     },
@@ -78,7 +78,7 @@ export default {
         TOGGLESHOW(state, data) {
             state.showAll = data
         },
-        ORG_MEMBERS(state, data){
+        ORG_MEMBERS(state, data) {
             state.organisation_members = data
 
 
@@ -88,7 +88,7 @@ export default {
         allTodos(state) {
             return state.todos
         },
-        selectedTodo(state){
+        selectedTodo(state) {
             return state.selectedTodo
         },
         allArchive(state) {
@@ -112,7 +112,7 @@ export default {
         showAll(state) {
             return state.showAll
         },
-        show_organisation_members(state){
+        show_organisation_members(state) {
             return state.organisation_members
         },
         organization(state) {
@@ -121,11 +121,12 @@ export default {
     },
     actions: {
         // GET ALL THE MEMBERS IN AN ORGANISATION
-       async getAllMembers({commit, state}){
+        async getAllMembers({ commit, state }, workspace_id) {
+            console.log(workspace_id)
             await axios.get(`https://api.zuri.chat/organizations/${state.isUser.currentWorkspace}/members`)
-            .then((response)=>{
-                commit('ORG_MEMBERS', response.data.data)
-            }) .catch(error => console.log(error))
+                .then(response => (commit('ORG_MEMBERS', response.data.data)))
+
+            .catch(error => console.log(error))
         },
         async HandleGetTodos({ commit, state }) {
             console.log(state)
@@ -143,7 +144,7 @@ export default {
         toggleAssign({ commit }) {
             commit('TOG_ASSIGN');
         },
-        selectedTodo({commit}, todo_data){
+        selectedTodo({ commit }, todo_data) {
             commit('SELECTED_TODO', todo_data)
         },
         CONNECT_CENTRIFUGE({ commit }) {
@@ -165,7 +166,7 @@ export default {
             try {
                 const response = await createTodo(org_id, any);
                 console.log('todo created sucesfully', response)
-                // commit('ADD_TODOS', data);
+                    // commit('ADD_TODOS', data);
             } catch (error) {
                 console.log(`Error from handleGetTodos ${error}`);
             }
@@ -174,17 +175,18 @@ export default {
         centrifugeAddTodo({ commit }, data) {
             commit('ADD_TODOS', data)
         },
-       async ADD_TRASH({ state }, any) {
+        async ADD_TRASH({ state }, any) {
             let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
             // commit('ADD_TRASH', state.todos[location])
-                                                                    
-            // FUNCTION TO DELETE TODO FROM DATABASE
-            await axios.delete(`https://todo.zuri.chat/api/v1/todo/${any.toLowerCase()}/delete?organisation_id=614679ee1a5607b13c00bcb7`)
-            // .then(response => (commit('SET_ARCHIVED', response.data.data)))
-            .then((response)=>{
-                console.log(response);
-            })
-            .catch(error => console.log(error))
+            const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id
+                // FUNCTION TO DELETE TODO FROM DATABASE
+            await axios.delete(`https://todo.zuri.chat/api/v1/todo/${any}/delete/${user_id}?organisation_id=${org_id}`)
+                // .then(response => (commit('SET_ARCHIVED', response.data.data)))
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch(error => console.log(error))
 
             return state.todos.splice(location, 1);
 

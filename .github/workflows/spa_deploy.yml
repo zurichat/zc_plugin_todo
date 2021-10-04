@@ -49,7 +49,7 @@ jobs:
             git checkout develop
             git stash
             git pull origin develop
-            composer update
+            composer install --ignore-platform-reqs
             cd frontend
             yarn install
             #yarn run build

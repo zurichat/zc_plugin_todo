@@ -39,6 +39,7 @@
 
 <script>
     import axios from "axios";
+    import { mapGetters } from "vuex";
 
 	export default {
 		name: "cusReminderForm",
@@ -48,6 +49,10 @@
 			};
 		},
 		computed: {
+		...mapGetters({
+            selectedTodo: "todos/selectedTodo",
+            isUser: 'todos/user'
+        })
 		},
 		methods: {
 			closeDelete() {
@@ -66,8 +71,10 @@
 				this.deleteTodo(this.id);
 			},
 			saveReminder(custom_data){
+                    alert('You have set a custom reminder')
+
                 // console.log(custom_data)
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.todo._id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, custom_data).then((response)=>{
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, custom_data).then((response)=>{
                     console.log(response)
                 }).cath((error)=>{
                     console.log(error)

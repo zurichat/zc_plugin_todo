@@ -47,38 +47,58 @@
                     </div>
                 </div>
                 <div class="task_tag td-flex td-flex-row td-items-center">
-                    <button @click="mark" v-if="task.status === 0" class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
-                    <button @click="mark" v-else class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as undone</button>
+                    <button @click="mark(1)" v-if="task.status === 0" class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
+                    <button @click="mark(0)" v-else class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as undone</button>
 
                 </div>
             </div>
         </div>
+        <transition name="fade">
+			<deleteTask @delete="deleteTask" v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
+		</transition>
     </div>
 </template>
 <script>
     // import Checkbox from 'primevue/checkbox';
+    import deleteTask from './deleteTask'
+    
     import taskDropdown from '../components/taskDropDown'
     export default {
         name: "TaskCard",
+       
         components: {
             // Checkbox
+            deleteTask,
             taskDropdown
         },
         
         data() {
             return {
                 isModalVisible: false,
+                isDeleteModal: false,
             }
         },
         props: ['task',      'index']
     ,
+    mounted(){
+    },
     methods: {
-        mark(){
-            this.$emit('completeTask', this.task.task_id)
+        mark(any){
+            const data = {
+                id: this.task.task_id,
+                status: any
+            }
+            this.$emit('completeTask', data)
+        },
+        deleteTask(){
+            this.$emit('deleteTask', this.task.task_id)
         },
             toggleMenu() {
                 this.isModalVisible = !this.isModalVisible;
             },
+            toggleDeleteModal() {
+				this.isDeleteModal = !this.isDeleteModal;
+			},
             ClickAway() {
                 this.isModalVisible = false
                 // this.$emit('toggleMenu')
