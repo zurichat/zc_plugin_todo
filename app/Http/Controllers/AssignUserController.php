@@ -19,7 +19,6 @@ class AssignUserController extends Controller
 
     public function assign(CollaboratorRequest $request, $todoId)
     {
-
         $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
@@ -58,11 +57,6 @@ class AssignUserController extends Controller
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
 
-        return response()->json(['status' => "error", 'message' => $result], 500);
-    }
-
-
-
 
     public function remove(Request $request, $todoId)
     {
@@ -86,7 +80,6 @@ class AssignUserController extends Controller
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
             // Publish To Centrifugo
-
             $this->todoService->publishToCommonRoom(
                 $todo,
                 $todo['channel'],
@@ -99,5 +92,21 @@ class AssignUserController extends Controller
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
+    }
+
+    public function fetch($todoId)
+    {
+        $todo = $this->todoService->find($todoId);
+
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'type' => 'Collaborator collection',
+            'count' => count($todo['collaborators']),
+            'data' => $todo['collaborators']
+        ], 200);
     }
 }

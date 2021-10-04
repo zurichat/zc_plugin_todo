@@ -63,6 +63,7 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
+
         if ((isset($result['status']) && $result['status'] == 404)) {
             return response()->json(["message" => "error"], 404);
         }
@@ -100,12 +101,12 @@ class TodoController extends Controller
 
     public function delete($todoId, $user_id)
     {
-       return response()->json($this->todoService->delete($todoId, $user_id));
+        return response()->json($this->todoService->delete($todoId, $user_id));
     }
 
     public function updateTodo(Request $request, $todoId, $user_id)
     {
-       return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
+        return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
     }
 
 
@@ -166,6 +167,4 @@ class TodoController extends Controller
             'count' => count($activeTodo), 'data' => $activeTodo
         ], 200);
     }
-
-
 }
