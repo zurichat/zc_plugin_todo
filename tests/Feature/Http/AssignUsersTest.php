@@ -58,7 +58,6 @@ class AssignUsersTest extends TestCase
             ->assertJsonValidationErrors(["user_id"]);
     }
 
-
     public function test_admin_status_checker_works_when_attempting_to_add_collaborators()
     {
         // We simulate a user, with no admin previlege, attempting to add collaborators to a todo
