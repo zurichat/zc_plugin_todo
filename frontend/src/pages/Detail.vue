@@ -341,9 +341,10 @@
                completeTask(any){
                 const todo_id = this.selectedTodo._id
                 const org_id = this.isUser["0"].org_id
+                const _this = this
                 const data = {
                     status : any.status,
-                    user_id: this.isUser["0"]._id,
+                    user_id: _this.isUser["0"]._id,
                     task_id: any.id
                 }
                 axios.put(`mark-task/${todo_id}?organisation_id=${org_id}`, data).then(res => console.log(res))
