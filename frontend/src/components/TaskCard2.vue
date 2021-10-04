@@ -50,6 +50,7 @@
                     <button @click="mark(1)" v-if="task.status === 0" class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as done</button>
                     <button @click="mark(0)" v-else class="td-bg-green-500 td-text-white td-cursor-pointer td-p-2 td-rounded td-mr-2 td-mb-2 hover:td-bg-green-600">Mark as undone</button>
 
+
                 </div>
             </div>
         </div>
