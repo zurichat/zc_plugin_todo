@@ -1,32 +1,10 @@
-import { getAllTodos, createTodo } from '../plugins/xhr';
+import { createTodo } from '../plugins/xhr';
 import axios from 'axios';
 import Centrifuge from 'centrifuge'
 export default {
     namespaced: true,
     state: {
-        isUser: {
-            Organizations: [
-                "61516d0f9d521e488c5971f6"
-            ],
-            _id: "61516cd39d521e488c5971f3",
-            created_at: "2021-09-27T09:03:47.019895424+02:00",
-            deactivated: false,
-            deactivated_at: "0001-01-01T00:00:00Z",
-            email: "posimichael6@gmail.com",
-            email_verification: null,
-            first_name: "Tolulope",
-            isverified: true,
-            last_name: "Makinde ",
-            password: "$2a$14$f8knCG8DezbTeMJAQHYEmOJvr3j7Fr7.0K8RKtE9d3Y6sxoRaRfke",
-            password_resets: null,
-            phone: "",
-            role: "",
-            settings: null,
-            social: false,
-            time_zone: "",
-            updated_at: "0001-01-01T00:00:00Z",
-            workspaces: null
-        },
+        isUser: null,
         todos: [],
         names: [],
         archive: [],
@@ -130,13 +108,28 @@ export default {
             console.log(state)
             const user_id = state.isUser["0"]._id;
             const org_id = state.isUser["0"].org_id;
-            try {
-                const response = await getAllTodos(user_id, org_id);
-                console.log('me')
-                commit('ADD_TODOS', response.data.data);
-            } catch (error) {
-                console.log(`Error from handleGetTodos ${error}`);
-            }
+
+            await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
+                .then(response => {
+                    console.log(response);
+                    let todos = response.data.data
+                    commit('ADD_TODOS', response.data);
+
+                    return todos
+                })
+                .catch(error => {
+                    if (error.response) {
+                        console.warn(error.response.data);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request that triggered the Error
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config)
+                })
+
 
         },
         toggleAssign({ commit }) {

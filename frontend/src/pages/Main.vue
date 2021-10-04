@@ -25,7 +25,7 @@
                     <MainNav @showLabel="showEditModal = true" />
                     <div>
                       <button @click="toggleModal" class="td-bg-green-500 td-my-5 td-flex td-items-center td-py-3 td-px-4 td-rounded td-text-white">
-                        create a new task
+                        create a new todo
                       </button>
                     </div>
                      <!-- <CreateTodoBtn @click="toggleModal" />  -->
