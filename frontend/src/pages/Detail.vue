@@ -305,16 +305,12 @@
                         _this.selectedTodo = ctx.data.details
                     } break;
                     case "delete": {
-                        const _task = ctx.data.details;
-                        console.log(ctx.data.details);
-                        let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
-                        _this.selectedTodo.tasks.splice(location, 1);
+                        console.log(ctx.data.details)
+                        _this.selectedTodo = ctx.data.details
                     } break;
                     default: {
-                        const _task = ctx.data.details;
-                        console.log(ctx.data.details);
-                        let location = _this.selectedTodo.tasks.findIndex(task => task.task_id.toLowerCase() === (_task.task_id.toLowerCase()));
-                        _this.selectedTodo.tasks.splice(location, 1);
+                        console.log(ctx.data.details)
+                        _this.selectedTodo = ctx.data.details
                     }
                 }
 
