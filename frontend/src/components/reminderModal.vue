@@ -16,7 +16,7 @@
                 <div @click="closeModal"
                     class="td-p-2 td-cursor-pointer td-w-8 td-h-6 td-text-red-500 td-rounded-lg td-shadow-md td-flex"><i
                         class="pi pi-times"></i></div>
-                <span @click="saveReminder('20 mins')" class="
+                <span @click='saveReminder("20 mins")' class="
             td-rounded-sm
             td-py-3
             td-px-4
@@ -28,7 +28,7 @@
             hover:td-bg-green-400
             hover:td-text-white
           ">In 20mins</span>
-                <span @click="saveReminder('1 hour')" class="
+                <span @click='saveReminder("1 hour")' class="
 					td-rounded-sm
 					td-py-3
 					td-px-4
@@ -40,7 +40,7 @@
 					hover:td-bg-green-400
 					hover:td-text-white
 					">In 1 hour</span>
-                <span @click="saveReminder('2 hours')" class="
+                <span @click='saveReminder("2 hours")' class="
 						td-rounded-sm
 						td-py-3
 						td-px-4
@@ -52,7 +52,7 @@
 						hover:td-bg-green-400
 						hover:td-text-white
 						">In 2 hours</span>
-                <span @click="saveReminder('tomorrow 9am')" class="
+                <span @click='saveReminder("tomorrow 9am")' class="
 						td-rounded-sm
 						td-py-3
 						td-px-4
@@ -64,7 +64,7 @@
 						hover:td-bg-green-400
 						hover:td-text-white
 						">Tomorrow</span>
-                <span @click="saveReminder('1 week 9am')" class="
+                <span @click='saveReminder("1 week 9am")' class="
 						td-rounded-sm
 						td-py-3
 						td-px-4
@@ -138,7 +138,8 @@
                 }
                           
 
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
+                // axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&${data}&user_id=${this.isUser[0]._id}`).then((response)=>{
                 
                     console.log(response)
                 }).cath((error)=>{
