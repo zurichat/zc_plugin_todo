@@ -422,7 +422,9 @@
             this.adding =false
     
             }).catch((error)=>{
-                alert('Oops..an error occured')
+                this.selectedTodo.collaborators.push(data)
+                this.users[index].collaborator = value
+                this.countCollaborator();
                 console.log(error)
             this.adding =false
 

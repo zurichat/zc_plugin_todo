@@ -138,7 +138,7 @@
                 }
                           
 
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add_reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
+                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
                 
                     console.log(response)
                 }).cath((error)=>{
