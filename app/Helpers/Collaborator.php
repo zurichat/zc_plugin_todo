@@ -54,20 +54,24 @@ class Collaborator
     }
     public static function listAllUsersInTodo(array $todo){
         $users = [];
-        foreach($todo['collaborators'] as $collaborator){
-            array_push($users, $collaborator['user_id']);
+        if(isset($todo['collaborators'])){
+            foreach ($todo['collaborators'] as $collaborator) {
+                array_push($users, $collaborator['user_id']);
+            }
         }
         array_push($users, $todo['user_id']);
         return $users;
     }
     public function sendMails(array $user_ids, $subject, $message){
-        $bearerToken = $_SERVER['HTTP_AUTHORIZATION'];
-        for ($i=0; $i < count($user_ids); $i++) { 
-            # code...
-            $data['user_id'] = $user_ids[$i];
-            $user = $this->userService->findUser($data,$bearerToken);
-            // Log::info($user['email'])
-            $this->sendMail($user,$subject,$message);
+        if(isset($_SERVER['HTTP_AUTHORIZATION'])){
+            $bearerToken = $_SERVER['HTTP_AUTHORIZATION'];
+            for ($i = 0; $i < count($user_ids); $i++) {
+                # code...
+                $data['user_id'] = $user_ids[$i];
+                $user = $this->userService->findUser($data, $bearerToken);
+                // Log::info($user['email'])
+                $this->sendMail($user, $subject, $message);
+            }
         }
     }
     public function sendMail($user, $subject, $message){
