@@ -93,4 +93,20 @@ class AssignUserController extends Controller
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
+
+    public function fetch($todoId)
+    {
+        $todo = $this->todoService->find($todoId);
+
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'type' => 'Collaborator collection',
+            'count' => count($todo['collaborators']),
+            'data' => $todo['collaborators']
+        ], 200);
+    }
 }

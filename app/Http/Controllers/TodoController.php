@@ -63,7 +63,6 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
-        return response()->json($result);
 
         if ((isset($result['status']) && $result['status'] == 404)) {
             return response()->json(["message" => "error"], 404);

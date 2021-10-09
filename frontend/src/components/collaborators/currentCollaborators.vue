@@ -88,9 +88,11 @@ export default {
   methods: {
     getIndDetails() {
       this.selectedTodo.collaborators.forEach((element) => {
+          element.collaborator_id
         axios
           .get(
-            `https://api.zuri.chat/organizations/${this.user[0].org_id}/members/?query=${element.collaborator_id}`,
+            `https://api.zuri.chat/organizations/${this.user.currentWorkspace}/members?query=${this.user._id}`,
+            // `https://api.zuri.chat/users/${element.collaborator_id}`,
             {
               headers: {
                 Authorization: `Bearer ${this.user.token}`,

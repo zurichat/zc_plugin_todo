@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Helpers\Response;
+use App\Repositories\TodoRepository;
 use Illuminate\Support\Facades\Config;
 
-class UserService
+class UserService extends TodoRepository
 {
     /**
      * Check if task belongs to user
@@ -33,5 +35,9 @@ class UserService
             return in_array(Config::get('user_id'), $items);
         }
         return false;
+    }
+
+    public function findUser($data, $bearerToken){
+        return $this->httpRepository->findUser($data,$bearerToken);
     }
 }
