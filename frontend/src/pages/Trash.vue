@@ -43,7 +43,7 @@
 
 <script>
 import Empty from "../components/Empty.vue";
-import TodoCard from "../components/TodoCard.vue";
+import TodoCard from "../components/todo_components/TodoCard.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "Trash",

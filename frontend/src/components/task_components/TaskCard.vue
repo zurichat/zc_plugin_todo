@@ -30,7 +30,7 @@
                 <div class="task_comment-amt td-flex td-items-center">
                     <div class="todo-profileImg2 td-flex">
                         <div class="todo-profile profileOne">
-                            <img src="../assets/img/collaborators.svg"
+                            <img src="../../assets/img/collaborators.svg"
                                 style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;" />
                         </div>
                     </div>
@@ -61,9 +61,9 @@
 </template>
 <script>
     // import Checkbox from 'primevue/checkbox';
-    import deleteTask from './deleteTask'
+    import deleteTask from '../deleteTask'
     
-    import taskDropdown from '../components/taskDropDown'
+    import taskDropdown from './taskDropDown'
     export default {
         name: "TaskCard",
        

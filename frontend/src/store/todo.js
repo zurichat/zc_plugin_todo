@@ -1,4 +1,4 @@
-import { createTodo } from '../plugins/xhr';
+import { getAllTodos, createTodo } from '../plugins/xhr';
 import axios from 'axios';
 import Centrifuge from 'centrifuge'
 export default {
@@ -108,28 +108,13 @@ export default {
             console.log(state)
             const user_id = state.isUser["0"]._id;
             const org_id = state.isUser["0"].org_id;
-
-            await axios.get(`user-todo?user_id=${user_id}&organisation_id=${org_id}`)
-                .then(response => {
-                    console.log(response);
-                    let todos = response.data.data
-                    commit('ADD_TODOS', response.data);
-
-                    return todos
-                })
-                .catch(error => {
-                    if (error.response) {
-                        console.warn(error.response.data);
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered the Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config)
-                })
-
+            try {
+                const response = await getAllTodos(user_id, org_id);
+                console.log('me')
+                commit('ADD_TODOS', response.data.data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
 
         },
         toggleAssign({ commit }) {

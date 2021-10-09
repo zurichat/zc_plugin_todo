@@ -48,7 +48,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
-import TodoForm from "../components/TodoForm";
+import TodoForm from "../components/todo_components/TodoForm";
  import MainNav from "../components/MainNav";
 // // import CreateTodoBtn from "../components/CreateTodoBtn";
 // import SearchInput from "../components/SearchInput";

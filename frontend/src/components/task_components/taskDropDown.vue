@@ -59,7 +59,7 @@
 
 <script>
 	
-	import reminderModal from '../components/reminderModal'
+	import reminderModal from '../reminderModal'
 	export default {
 		name: "td-modal",
 		data(){

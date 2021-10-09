@@ -190,9 +190,9 @@
 <script>
     // import CollabModal from '../components/collaborators/currentCollaborators'
     import CentrifugeSetup from '../plugins/realtime'
-    import TaskForm from '../components/TaskForm';
+    import TaskForm from '../components/task_components/TaskForm';
     import Empty from '../components/Empty'
-    import TaskCard from '../components/TaskCard2';
+    import TaskCard from '../components/task_components/TaskCard';
     import axios from 'axios'
     import Comment from '../components/comment.vue'
     import { mapGetters } from 'vuex'
