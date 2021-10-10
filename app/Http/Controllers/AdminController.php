@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\AppConstants;
+use App\Helpers\Collaborator;
+use App\Http\Requests\PriviledgeRequest;
 use Illuminate\Http\Request;
 use App\Services\TodoService;
 use Illuminate\Support\Facades\Validator;
@@ -15,40 +18,43 @@ class AdminController extends Controller
         $this->todoService = $todoService;
     }
 
-    public function adminPrivilege($todoId, Request $request)
+    public function adminPrivilege(PriviledgeRequest $request, $todoId)
     {
         // Find the todo and check if it exists
         $todo = $this->todoService->find($todoId);
 
-        if (isset($todo['status']) && $todo['status'] == 404) {
-            return response()->json($todo, 404);
+        if (isset($todo['status']) && $todo['status'] == AppConstants::STATUS_NOT_FOUND) {
+            return response()->json($todo, AppConstants::STATUS_NOT_FOUND);
         }
-        // Some extra validations to check if the user performing this action is the creator
-        if ($request->creator_id != $todo['user_id']) {
-            return response()->json(['message' => 'Lacks Authotization'], 401);
+        // Some extra validations to check if the user performing this action is an Admin
+        if (!Collaborator::isAdmin($todo, $request->creator_id)) {
+            return response()->json(['message' => AppConstants::MSG_403], AppConstants::STATUS_FORBIDDEN);
         }
-        $validator = Validator::make($request->all(), [
-            'privilege' => 'required|integer|digits_between:0,1'
-        ]);
-        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         // find the collaborator and grant or revoke the privilege admin privilege
-        foreach ($todo['collaborators'] as $key => $value) {
-            # code...
+        foreach ($todo['collaborators'] as $key =>  $collaborator) {
 
-            if ($todo['collaborators'][$key]['user_id'] == $request->collaborator_id) {
-                $todo['collaborators'][$key]['admin_status'] = $request->privilege;
+            if ($collaborator['collaborator_id'] == $request->collaborator_id) {
+                $todo['collaborators'][$key]['admin_status'] = $request->admin_status;
             }
         }
         unset($todo['_id']);
 
         $result = $this->todoService->update($todo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-            $todoWithId = array_merge(['_id' => $todoId], $todo);
-            $this->todoService->publishToRoomChannel($todo['channel'], $todoWithId, 'todo', 'admin');
-            return response()->json(["status" => "success", "data" => $todoWithId], 200);
+
+            $this->todoService->publishToRoomChannel(
+                $todo['channel'],
+                $todo['collaborators'],
+                AppConstants::TYPE_COLLABORATORS,
+                AppConstants::ACTION_TOGGLE_ADMIN
+            );
+            return response()->json([
+                "status" => AppConstants::MSG_200,
+                'type' => AppConstants::TYPE_COLLABORATORS, "data" => Collaborator::sortAdminFirst($todo['collaborators'])
+            ], AppConstants::STATUS_OK);
         } else {
-            return response()->json(["status" => "error", "data" => $result], 500);
+            return response()->json(["status" => AppConstants::MSG_500, "error" => $result], AppConstants::STATUS_ERROR);
         }
     }
 }

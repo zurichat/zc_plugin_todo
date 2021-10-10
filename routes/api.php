@@ -53,8 +53,8 @@ Route::prefix('v1')->group(function () {
     Route::put('/todo-update/{todoId}/{user_id}', [TodoController::class, 'updateTodo']);
 
 
-    // Admin privilege
-    Route::put('admin-privilege/{todoId}', [AdminController::class, 'adminPrivilege']);
+
+
 
     // api to assign and remove user from a todo room
     Route::get('task/assign/{user_id}', [AssignTaskUserController::class, 'assignedTask']);
@@ -65,6 +65,8 @@ Route::prefix('v1')->group(function () {
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
     Route::put('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
     Route::get('get-collaborators/{todoId}', [AssignUserController::class, 'fetch']);
+    // Admin privilege
+    Route::put('admin-privilege/{todoId}', [AdminController::class, 'adminPrivilege']);
 
 
 

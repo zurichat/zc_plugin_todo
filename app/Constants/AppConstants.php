@@ -8,15 +8,14 @@ class AppConstants
     const ACTION_CREATE = "create";
     const ACTION_UPDATE = "update";
     const ACTION_DELETE = "delete";
-    const ACTION_MAKE_ADMIN = "make-admin";
-    const ACTION_REVOKE_ADMIN = "revoke-admin";
+    const ACTION_TOGGLE_ADMIN = "toggle_admin";
     const ACTION_REACT = "react";
 
     // Resource or collection Type
     const TYPE_TODO = "Todo";
     const TYPE_TASK = "Task";
     const TYPE_COMMENT = "Comment";
-    const TYPE_COLLABORATOR = "Collaborators";
+    const TYPE_COLLABORATOR = "Collaborator";
     const TYPE_REACTION = "Reaction";
 
     const TYPE_TODOS = "Todo Collection";
@@ -38,4 +37,6 @@ class AppConstants
     const MSG_200 = "Success";
     const MSG_401 = "Lacking Authorization";
     const MSG_403 = "Forbidden";
+    const MSG_204 = "Updated Successfully";
+    const MSG_DELETED = "Deleted Successfully";
 }

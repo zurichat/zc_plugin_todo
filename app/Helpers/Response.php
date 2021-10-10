@@ -18,17 +18,17 @@ class Response
         return $HTTPResponse;
     }
 
-    public static function checkResponseStatus($HTTPResponse){
+    public static function checkResponseStatus($HTTPResponse)
+    {
         if (isset($HTTPResponse["status"]) && $HTTPResponse['status'] == 200 && isset($HTTPResponse["data"]) && $HTTPResponse['data'] != null) {
             return true;
         }
 
         return false;
     }
-    
+
     public static function checkAndServeComment($HTTPResponse)
     {
         return $HTTPResponse == null ? [] : $HTTPResponse;
     }
 }
- 
