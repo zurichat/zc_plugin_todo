@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Constants\AppConstants;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

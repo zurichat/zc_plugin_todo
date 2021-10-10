@@ -98,9 +98,25 @@ class AssignUserController extends Controller
     {
         $todo = $this->todoService->find($todoId);
 
+        // $admins = [];
+        // $otherCollaborators = [];
+        // $adminFirstList = [];
+
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
+
+        // foreach ($todo['collaborators'] as  $collaborator) {
+        //     if ($collaborator['admin_status'] == 1) {
+        //         array_unshift($adminFirstList, $collaborator);
+        //     } else {
+        //         array_push($adminFirstList, $collaborator);
+        //     }
+        // }
+
+
+
+        return response()->json(Collaborator::sortAdminFirst($todo['collaborators']), 200);
 
         return response()->json([
             'status' => 'success',
