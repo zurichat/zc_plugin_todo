@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\AppConstants;
+use App\Constants\Constants;
 use App\Helpers\Collaborator;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\TaskRequest;
@@ -25,17 +27,17 @@ class TaskCommentController extends Controller
 
     public function getCommentsPerTask($taskId)
     {
-        $result = $this->taskCommentService->commentsByKey('task_id', $taskId);
+        $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
         if ($result['status'] == 200 && isset($result["data"])) {
             return response()->json([
-                'status' => 'success',
-                'type' => 'comments',
+                'status' => AppConstants::MSG_200,
+                'type' => AppConstants::TYPE_COMMENTS,
                 'count' => count($result),
                 'data' => $result
-            ], 200);
+            ], AppConstants::STATUS_OK);
         }
 
-        return response()->json(['message' => $result['message']], 400);
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_NOT_FOUND);
     }
 
 
@@ -45,27 +47,39 @@ class TaskCommentController extends Controller
 
         $todo = $this->todoService->find($todoId);
 
-
-        if (isset($todo['status']) && $todo['status'] == 404) {
-            return response()->json($todo, 404);
+        if (isset($todo['status']) && $todo['status'] == AppConstants::STATUS_NOT_FOUND) {
+            return response()->json($todo, AppConstants::STATUS_NOT_FOUND);
         }
 
         $input = $request->only('user_id', 'task_id', 'body');
-        $payload = array_merge($input, ['todo_id' => $todoId, 'created_at' => Carbon::now()]);
+        $payload = array_merge($input, [
+            'todo_id' => $todoId,
+            'reaction' => [],
+            'created_at' => Carbon::now()
+        ]);
 
         if (!Collaborator::haveAccess($todo, $request->user_id)) {
-            return response()->json(['message' => 'User Lack Access'], 401);
+            return response()->json(['message' => AppConstants::MSG_403], AppConstants::STATUS_FORBIDDEN);
         }
 
         $result = $this->taskCommentService->create($payload);
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $payload);
-            $this->taskCommentService->publishToRoomChannel($todo['channel'], $responseWithId, 'comment', 'create');
-            return response()->json(['status' => 'success', 'type' => 'Comment', 'data' => $responseWithId], 200);
+            $this->taskCommentService->publishToRoomChannel(
+                $todo['channel'],
+                $responseWithId,
+                AppConstants::TYPE_COMMENT,
+                AppConstants::ACTION_CREATE
+            );
+            return response()->json([
+                'status' => AppConstants::MSG_200,
+                'type' => AppConstants::TYPE_COMMENT,
+                'data' => $responseWithId
+            ], AppConstants::STATUS_OK);
         }
 
-        return response()->json(['message' => $result['message']], 404);
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_ERROR);
     }
 
 
