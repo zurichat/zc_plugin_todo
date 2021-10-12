@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('search', function () {
+    return view('search');
+});
+
 Route::get('/{any}', function () {
     return view('index');
 })->where('any', '^(?!api).*$');
