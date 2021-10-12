@@ -18,11 +18,13 @@ Route::get('search', function () {
     return view('search');
 });
 
+Route::get('test', function () {
+    return view('test');
+});
+
 Route::get('/{any}', function () {
     return view('index');
 })->where('any', '^(?!api).*$');
 
 
-Route::get('/test', function () {
-    return view('index');
-});
+
