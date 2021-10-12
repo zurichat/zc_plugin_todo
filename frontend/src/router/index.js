@@ -7,6 +7,8 @@ import Card from '../components/cardnew.vue';
 import Archive from '../pages/Archive.vue';
 import Details from '../pages/Details';
 import Detail from '../pages/Detail';
+import Test from '../pages/Test';
+
 const routes = [{
         //landing page
         path: '',
@@ -39,6 +41,11 @@ const routes = [{
         path: '/detail/:id',
         name: 'Detail',
         component: Detail
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test
     },
     {
         path: '/:pathMatch(.*)*',

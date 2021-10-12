@@ -18,6 +18,7 @@ use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReminderController;
 use App\Http\Controllers\TaskSearchController;
+use App\Http\Controllers\TodoSearchController;
 
 /*
 | Here is where you can register API routes for your application. These
@@ -89,6 +90,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
     Route::get('/search', [TodoController::class, 'search_todo']);
 
+
+    Route::get('/demo-search', [TodoSearchController::class, 'search']);
 
 
 
