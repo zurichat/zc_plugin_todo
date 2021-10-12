@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Config;
 
 class SidebarRoomsResource extends JsonResource
 {
@@ -15,15 +16,9 @@ class SidebarRoomsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this['title'],
-            'id' => $this['_id'],
-            'unread' => null,
-            'members' => null,
-            'icon' => 'shovel',
-            'action' => 'open',
-            "organisation_id" => $this['organisation_id'],
-            "owner" => $this['owner'],
-            "user_id" => $this['user_id']
+            'room_name' => isset($this['room_name']) ? $this['room_name'] : $this['title'],
+            'room_url' => isset($this['room_url']) ? $this['room_url'] : '/todo#/details/' . $this['_id'],
+            'room_image' => isset($this['room_image']) ? $this['room_image'] : 'https://www.svgrepo.com/show/347559/todo.svg'
         ];
     }
 }

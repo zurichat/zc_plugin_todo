@@ -4,65 +4,60 @@ namespace App\Services;
 
 use App\Helpers\Response;
 use App\Repositories\TaskCommentRepository;
+use App\Services\ServiceTrait;
 
 class TaskCommentService extends TaskCommentRepository
 {
-    /**
-     * @return mixed
-     */
+    use ServiceTrait;
+
     public function all()
     {
+
         return Response::checkAndServe($this->httpRepository->all());
     }
 
-    public function commentsPerTask($key, $data)
+    public function commentsPerTask($taskId)
     {
-        return Response::checkAndServe($this->httpRepository->search($key, $data));
+        return Response::checkAndServe($this->httpRepository->findBy('task_id', $taskId));
     }
 
-    /**
-     * @param array $data
-     * @return mixed
-     */
+    public function commentsByKey(array $where)
+    {
+        return Response::checkAndServeComment($this->httpRepository->findWhere($where));
+    }
+
+
     public function create(array $data)
     {
+
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
-    /**
-     * @param int $id
-     * @return mixed
-     */
+
     public function find($id)
     {
+
         return Response::checkAndServe($this->httpRepository->find($id));
     }
 
-    /**
-     * @author {Alpha2Chris14}
-     */
+
     public function findTaskCommentById($id)
     {
         $whereArr = ['id' => $id];
         return Response::checkAndServe($this->httpRepository->findWhere($whereArr));
     }
 
-    /**
-     * @param array $data
-     * @param int $id
-     * @return mixed
-     */
+
     public function update($data, $id)
     {
+
         return Response::checkAndServe($this->httpRepository->update($id, $data));
     }
 
-    /**
-     * @param int $id
-     * @return mixed
-     */
+
     public function delete($id)
     {
+
         return Response::checkAndServe($this->httpRepository->delete($id));
     }
 }

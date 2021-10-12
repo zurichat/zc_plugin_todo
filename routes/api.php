@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PingContoller;
@@ -15,6 +16,7 @@ use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskReminderController;
 use App\Http\Controllers\TaskSearchController;
 
 /*
@@ -26,10 +28,17 @@ use App\Http\Controllers\TaskSearchController;
 
 // api to fetch all todo tasks
 Route::prefix('v1')->group(function () {
+
+
+    //end of test cache
+
     Route::post('create-todo', [TodoController::class, 'createTodo']);
     Route::get('all-todo', [TodoController::class, 'index']);
+    Route::get('user-todo', [TodoController::class, 'userTodos']);
+
     Route::get('task', [TaskController::class, 'index']);
     Route::get('task/{id}/show', [TaskController::class, 'show']);
+    Route::get('todo/{id}/{user_id}/show', [TodoController::class, 'getTodo']);
     Route::get('/task/modify/{id}', [TaskController::class, 'modifyShow']);
     Route::post('/task/modify/{id}', [TaskController::class, 'updateTaskDate']);
     Route::post('/task/update/category/{id}', [TaskController::class, 'updateTaskCategory']);
@@ -37,7 +46,13 @@ Route::prefix('v1')->group(function () {
     Route::post('/task/update/{id}', [TaskController::class, 'editTask']);
     Route::get('/getLatestTask', [TaskController::class, 'getLatestTask']);
     Route::get('/todo_resource', [TodoController::class, 'showResource']);
-    Route::put('add/{id}', [TaskController::class, 'addTask']);
+
+    Route::put('add-task/{todoId}', [TaskController::class, 'addTask']);
+    Route::put('/mark-task/{todoId}', [TaskController::class, 'markTask']);
+    Route::delete('/todo/{todoId}/delete/{user_id}', [TodoController::class, 'delete']);
+    Route::put('/todo-update/{todoId}/{user_id}', [TodoController::class, 'updateTodo']);
+
+
 
 
 
@@ -48,12 +63,17 @@ Route::prefix('v1')->group(function () {
 
     // Collaborators Related Endpoints
     Route::put('assign-collaborators/{todoId}', [AssignUserController::class, 'assign']);
-    Route::delete('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
+    Route::put('remove-collaborators/{todoId}', [AssignUserController::class, 'remove']);
+    Route::get('get-collaborators/{todoId}', [AssignUserController::class, 'fetch']);
+    // Admin privilege
+    Route::put('admin-privilege/{todoId}', [AdminController::class, 'adminPrivilege']);
+
 
 
     // Archiving Endpoints
     Route::put('archive-todo/{todoId}', [ArchiveController::class, 'archiveTodo']);
     Route::get('get-archived', [ArchiveController::class, 'fetchArchived']);
+    Route::put('unarchive-todo/{todoId}', [ArchiveController::class, 'unArchiveTodo']);
     // Archiving Endpoints
     Route::put('archive-all', [ArchiveController::class, 'all']);
 
@@ -76,11 +96,10 @@ Route::prefix('v1')->group(function () {
     Route::get('/taskresource', [TaskController::class, 'showResource']);
 
     // Comment Related Endpoints
-    Route::post('add-comment', [TaskCommentController::class, 'saveComment']);
-    Route::get('all-comment', [TaskCommentController::class, 'index']);
+    Route::post('add-comment/{todoId}', [TaskCommentController::class, 'saveComment']);
     Route::get('comment/{taskId}', [TaskCommentController::class, 'getCommentsPerTask']);
-    Route::put('update-comment/{commentId}', [TaskCommentController::class, 'update']);
-    Route::delete('comment_delete/{commentId}', [TaskCommentController::class, 'delete']);
+    Route::get('todo-comment/{todo}', [TaskCommentController::class, 'getCommentPerTodo']);
+    Route::put('update-comment/{commentId}/{channel}', [TaskCommentController::class, 'update']);
 
 
     // File Related Endpoints
@@ -92,8 +111,13 @@ Route::prefix('v1')->group(function () {
     Route::post('edit', [TodoController::class, 'edit']);
     Route::post('update', [TodoController::class, 'update']);
 
+    // Add reminder to todotask
+    Route::put('todo/{todo_id}/task/{task_id}/add-reminder', [TaskReminderController::class, 'addReminderToTask']);
+    Route::put('todo/{todo_id}/task/{task_id}/remove-reminder/{reminder_id}', [TaskReminderController::class, 'removeReminderFromTask']);
+    Route::get('test-cron-trigger', [TaskReminderController::class, 'commandHandler']);
+
     // Plugin Info Related Enpoints
-    Route::get('sidebar', [SideBarItemsController::class, 'serveMenuItems']);
+    Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
     Route::get('info', [PluginInfoController::class, 'servePluginInfo']);
     Route::get('ping', function () {
         return response()->json(['message' => 'Server is live'], 200);
@@ -225,3 +249,5 @@ Route::prefix('security')->group(function () {
     });
 
 });
+// Sidevar without group
+Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);

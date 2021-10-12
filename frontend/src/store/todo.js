@@ -1,21 +1,58 @@
-import axios from 'axios'
+import { getAllTodos, createTodo } from '../plugins/xhr';
+import axios from 'axios';
+import Centrifuge from 'centrifuge'
 export default {
     namespaced: true,
     state: {
-        todos: [{ "_id": "614215409fd1f4f655d44594", "channel": "6142153fd6-didier", "colaborators": [], "created_at": "2021-09-15T15:46:07.879110Z", "description": "Let my People go!!!", "labels": [], "tasks": [{ "created_at": "2021-09-21 14:55:00", "recurring": "", "status": 1, "task_id": "6149f244b1939", "title": "This is the first task" }, { "created_at": "2021-09-21 14:55:00", "recurring": "", "status": 1, "task_id": "6149f244b1987", "title": "This is the second task" }], "title": "didier", "type": "public", "user_id": "6139a43559842c7444fb01ef" }, { "_id": "614215409fd1f4f655d44595", "channel": "6142153fdb-didier", "colaborators": [], "created_at": "2021-09-15T15:46:07.900895Z", "description": "Let my People go!!!", "labels": [], "tasks": [], "title": "didier", "type": "public", "user_id": "6139a43559842c7444fb01ef" }, { "_id": "6142162c9fd1f4f655d44596", "channel": "6142162c6d-Didier", "colaborators": [], "created_at": "2021-09-15T15:50:04.448212Z", "description": "Let my People go!!!", "labels": [], "tasks": [], "title": "Didier", "type": "public", "user_id": "6139a43559842c7444fb01ef" }, { "_id": "6149aa45e4b2aebf8ec8d0c7", "channel": "6149aa459a-didier", "colaborators": [], "created_at": "2021-09-21T09:47:49.631284Z", "description": "Typically replies within a minute", "labels": [], "tasks": [], "title": "didier", "type": "public", "user_id": "6139a43559842c7444fb01ef" }],
+        isUser: {
+            Organizations: [
+                "61516d0f9d521e488c5971f6"
+            ],
+            _id: "61516cd39d521e488c5971f3",
+            created_at: "2021-09-27T09:03:47.019895424+02:00",
+            deactivated: false,
+            deactivated_at: "0001-01-01T00:00:00Z",
+            email: "posimichael6@gmail.com",
+            email_verification: null,
+            first_name: "Tolulope",
+            isverified: true,
+            last_name: "Makinde ",
+            password: "$2a$14$f8knCG8DezbTeMJAQHYEmOJvr3j7Fr7.0K8RKtE9d3Y6sxoRaRfke",
+            password_resets: null,
+            phone: "",
+            role: "",
+            settings: null,
+            social: false,
+            time_zone: "",
+            updated_at: "0001-01-01T00:00:00Z",
+            workspaces: null
+        },
+        todos: [],
         names: [],
         archive: [],
+        centrifuge: null,
         trash: [],
         showAll: true,
         isComment: false,
         selectedTodo: null,
         isAssign: false,
         searchedTodo: [],
+        organisation_members: [],
         errMessage: "No Result Found"
+
     },
     mutations: {
         ADD_TODOS(state, data) {
-            state.todos.unshift(data)
+            console.log('hey')
+            if (Array.isArray(data) === true) state.todos = data
+            else state.todos.unshift(data)
+            console.log(state)
+        },
+        CN_CTR(state) {
+            state.centrifuge = new Centrifuge('wss://realtime.zuri.chat/connection/websocket', { debug: true });
+        },
+        IS_USER(state, data) {
+            state.isUser = data
         },
         TOG_ASSIGN(state) {
             state.isAssign = !state.isAssign
@@ -40,14 +77,28 @@ export default {
         },
         TOGGLESHOW(state, data) {
             state.showAll = data
+        },
+        ORG_MEMBERS(state, data) {
+            state.organisation_members = data
+
+
         }
     },
     getters: {
         allTodos(state) {
             return state.todos
         },
+        selectedTodo(state) {
+            return state.selectedTodo
+        },
         allArchive(state) {
             return state.archive
+        },
+        centrifuge(state) {
+            return state.centrifuge
+        },
+        user(state) {
+            return state.isUser
         },
         allTrash(state) {
             return state.trash
@@ -60,48 +111,85 @@ export default {
         },
         showAll(state) {
             return state.showAll
+        },
+        show_organisation_members(state) {
+            return state.organisation_members
+        },
+        organization(state) {
+            return state.isUser.Organizations[0];
         }
     },
     actions: {
-        async getAllTodos({ commit }) {
-            await axios.get('https://todo.zuri.chat/api/v1/all-todo')
-                .then(response => (commit('SET_TODOS', response.data.data)))
-                .catch(error => console.log(error))
+        // GET ALL THE MEMBERS IN AN ORGANISATION
+        async getAllMembers({ commit, state }, workspace_id) {
+            console.log(workspace_id)
+            await axios.get(`https://api.zuri.chat/organizations/${state.isUser.currentWorkspace}/members`)
+                .then(response => (commit('ORG_MEMBERS', response.data.data)))
+
+            .catch(error => console.log(error))
         },
-        toggleAssign({ commit }) {
-            console.log('heloo')
-            commit('TOG_ASSIGN');
+        async HandleGetTodos({ commit, state }) {
+            console.log(state)
+            const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id;
+            try {
+                const response = await getAllTodos(user_id, org_id);
+                console.log('me')
+                commit('ADD_TODOS', response.data.data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
 
         },
-        async getAllArchivedTodos({ commit }) {
-            await axios.get('get-archived')
+        toggleAssign({ commit }) {
+            commit('TOG_ASSIGN');
+        },
+        selectedTodo({ commit }, todo_data) {
+            commit('SELECTED_TODO', todo_data)
+        },
+        CONNECT_CENTRIFUGE({ commit }) {
+            commit('CN_CTR')
+        },
+        ADD_USER({ commit }, data) {
+            commit('IS_USER', data)
+        },
+        async getAllArchivedTodos({ commit, state }) {
+            const user_id = state.isUser._id;
+            const org_id = state.isUser.Organizations[0];
+            await axios.get(`get-archived?user_id=${user_id}&organisation_id=${org_id}`)
                 .then(response => (commit('SET_ARCHIVED', response.data.data)))
                 .catch(error => console.log(error))
         },
-        async createTodo({ commit }, data) {
-            await axios.post('/create-todo', data)
-                .then((response) => commit('ADD_TODOS', response.data.data))
-                .catch((error) => {
-                    if (error.response) {
-                        // The request was made and the server responded with a status code
-                        // that falls out of the range of 2xx
-                        console.warn(error.response.data);
+        async HandleCreateTodo({ state }, any) {
+            // const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id;
+            try {
+                const response = await createTodo(org_id, any);
+                console.log('todo created sucesfully', response)
+                    // commit('ADD_TODOS', data);
+            } catch (error) {
+                console.log(`Error from handleGetTodos ${error}`);
+            }
 
-                    } else if (error.request) {
-                        // The request was made but no response was received
-                        console.log(error.request);
-                    } else {
-                        // Something happened in setting up the request that triggered the Error
-                        console.log('Error', error.message);
-                    }
-                    console.log(error.config)
-                })
         },
-        ADD_TRASH({ commit, state }, any) {
+        centrifugeAddTodo({ commit }, data) {
+            commit('ADD_TODOS', data)
+        },
+        async ADD_TRASH({ state }, any) {
             let location = state.todos.findIndex(todo => todo._id.toLowerCase() === (any.toLowerCase()));
+            // commit('ADD_TRASH', state.todos[location])
+            const user_id = state.isUser["0"]._id;
+            const org_id = state.isUser["0"].org_id
+                // FUNCTION TO DELETE TODO FROM DATABASE
+            await axios.delete(`https://todo.zuri.chat/api/v1/todo/${any}/delete/${user_id}?organisation_id=${org_id}`)
+                // .then(response => (commit('SET_ARCHIVED', response.data.data)))
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch(error => console.log(error))
 
-            commit('ADD_TRASH', state.todos[location])
             return state.todos.splice(location, 1);
+
         },
         FIND_TODO({ state }, any) {
             let location = state.todos.findIndex(todo => todo.card_id.toLowerCase() === (any.toLowerCase()));

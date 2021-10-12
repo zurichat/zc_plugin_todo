@@ -1,5 +1,7 @@
 import { h, createApp } from 'vue';
 import singleSpaVue from 'single-spa-vue';
+// import auth from "plugins/auth";
+// import { GetUserInfo } from "@zuri/control";
 import 'primevue/resources/primevue.min.css'; //corecss
 import 'primeicons/primeicons.css';
 import 'primevue/resources/themes/saga-green/theme.css';
@@ -10,8 +12,9 @@ import "./assets/styles/app.css"
 axios.defaults.baseURL = 'https://todo.zuri.chat/api/v1'
 import VueClickAway from "vue3-click-away";
 import App from './App.vue'
+import "vue3-circle-progress/dist/circle-progress.css";
 // import './set-public-path'
-
+// Vue.config.productionTip = false;
 const vueLifecycles = singleSpaVue({
     createApp,
     appOptions: {

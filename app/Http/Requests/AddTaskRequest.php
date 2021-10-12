@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AddTaskRequest extends FormRequest
 {
@@ -24,7 +26,14 @@ class AddTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'tasks' => 'required|array|min:1',
+            'user_id' => 'required|string',
+            'title' => 'required|string',
+            'recurring' => 'required|integer|digits_between:0,1',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }

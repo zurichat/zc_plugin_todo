@@ -1,61 +1,54 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Busy from '../pages/Busy.vue';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import Pending from '../pages/Pending.vue';
 import Main from '../pages/Main.vue';
-import New from '../pages/New.vue';
 import Trash from '../pages/Trash.vue';
+import Card from '../components/cardnew.vue';
+
 import Archive from '../pages/Archive.vue';
-import DisplayNewTask from '../pages/DisplayNewTask.vue';
 import Details from '../pages/Details';
-import Didier from '../pages/Didier';
+import Detail from '../pages/Detail';
 const routes = [{
+        //landing page
         path: '',
-        //this is the page that contains todo trash
-        name: 'New',
-        component: New,
+        name: 'Main',
+        component: Main,
         children: [{
             path: '',
-            //this is where the main work lies
-            name: 'Main',
-            component: Main,
-
+            name: 'Pending',
+            component: Pending,
         }, {
             path: '/archive',
-            //this is the page that contains todo archive
             name: 'Archive',
             component: Archive
         }, {
             path: '/trash',
-            //this is the page that contains todo trash
             name: 'Trash',
             component: Trash
-        }, {
-            path: '/newtask',
-            //this is the page that contains new tasks
-            name: 'DisplayNewTask',
-            component: DisplayNewTask
         }]
     },
     {
+        path: '/card',
+        name: 'Card',
+        component: Card
+    }, {
         path: '/details/:id',
         name: 'Details',
         component: Details
-    }, {
-        path: '/didier',
-        name: 'Didier',
-        component: Didier
+    },
+    {
+        path: '/detail/:id',
+        name: 'Detail',
+        component: Detail
     },
     {
         path: '/:pathMatch(.*)*',
-        //this is where the main work lies
+        //wrong urls redirection
         name: 'PageNotFound',
-        component: Busy
-
+        component: Main
     }
-]
+];
 const router = createRouter({
     history: createWebHashHistory(),
     routes,
-
-})
-
-export default router
+});
+export default router;

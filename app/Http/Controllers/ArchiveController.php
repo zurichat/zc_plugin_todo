@@ -34,13 +34,37 @@ class ArchiveController extends Controller
 
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             // Publish To Centrifugo Here
+            $this->todoService->publishToRoomChannel($todo['channel'], $todo, "todo", "archive");
+
             return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $updatedTodo)], 200);
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
 
+    public function unArchiveTodo(Request $request, $todoId)
+    {
+        // Check if user has authorization to archive
+        $todo = $this->todoService->find($todoId);
+        unset($todo['_id']);
 
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+        
+        $results=array_search($todo['archived_at'],$todo,true);
+        if($results !== false) {
+            $todo['archived_at'] = null;
+        }
+        
+        $updatedTodo = array_merge($todo, ['archived_at' => null]);
+        $result = $this->todoService->update($updatedTodo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            // Publish To Centrifugo Here
+            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $updatedTodo)], 200);
+        }
+        return response()->json(['status' => "error", 'message' => $result], 500);
+    }
 
     public function fetchArchived(Request $request)
     {

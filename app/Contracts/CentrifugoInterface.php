@@ -10,9 +10,17 @@ interface CentrifugoInterface
      * @return
      */
 
-    public function publish(string $channel, array $data);
+    public function publishToCommonRoom(array $data, string $newChannel, string $subscriberId, string $collection, string $unSubsciberId);
 
     /**
+     * pass data to be send as message
+     * @param $data
+     * @return
+     */
+
+    public function publishToRoomChannel(string $channel, array $data, string $collection, string $action);
+
+    /**   
      * pass user id 
      * @param $data
      * @return
@@ -25,8 +33,6 @@ interface CentrifugoInterface
      * @param $data
      * @return
      */
-    
+
     public function broadcast(array $channel, array $data);
-
-
 }

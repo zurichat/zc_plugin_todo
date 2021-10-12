@@ -12,6 +12,8 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000"
     },
     "dependencies": {
+        "centrifuge": "^2.8.2",
+        "easy-circular-progress": "^1.0.4",
         "primeicons": "^4.1.0",
         "primevue": "3.7.0",
         "single-spa": "^5.9.3",
@@ -32,6 +34,7 @@
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.32.11",
+        "sass-loader": "12.1.0",
         "vue-cli-plugin-single-spa": "~3.1.2",
         "vue-loader": "^16.5.0",
         "vue-template-compiler": "^2.6.12"

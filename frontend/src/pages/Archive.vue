@@ -3,33 +3,43 @@
     <template v-if="showAll">
       <div v-if="archivedTodos.length <= 0">
         <Empty
-          :title="'Your Archived Tasks will be added here'"
-          :subtitle="'No Tasks in Archive'"
+          
+          :subtitle="'todo'"
         />
       </div>
       <div
         v-else
+        id="todo_container"
         class="
-          todo_container
           sm:td-grid sm:td-grid-cols-2
           td-gap-4
           md:td-grid-cols-3
           lg:td-grid-cols-4
         "
       >
-        <Newcard
+        <archived-card
           v-for="(todo, index) in archivedTodos"
           :key="index++"
           :todo="todo"
+          @restored="handleRestoredTodo(todo)"
         />
       </div>
     </template>
     <template v-else>
-      <div class="todo_container sm:td-grid sm:td-grid-cols-2 td-gap-4 md:td-grid-cols-3">
-        <Newcard
+      <div
+        id="searched_container"
+        class="
+          todo_container
+          sm:td-grid sm:td-grid-cols-2
+          td-gap-4
+          md:td-grid-cols-3
+        "
+      >
+        <archived-card
           v-for="(todo, index) in searchedTodo"
           :key="index"
           :todo="todo"
+          @restored="handleRestoredTodo(todo)"
         />
       </div>
     </template>
@@ -45,30 +55,34 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import ArchivedCard from "../components/ArchivedCard.vue";
 import Empty from "../components/Empty.vue";
-import Newcard from "../components/Newcard.vue";
 export default {
   name: "Archive",
   components: {
     Empty,
-    Newcard,
+    ArchivedCard,
   },
   mounted() {
     this.getAllArchivedTodos();
   },
-   computed: {
+  computed: {
     ...mapGetters({
       archivedTodos: "todos/allArchive",
       // result: "todos/searchedTodo",
       showAll: "todos/showAll",
     }),
   },
-  
+
   methods: {
-    ...mapActions({ getAllArchivedTodos: "todos/getAllArchivedTodos" })
-  }
+    ...mapActions({ getAllArchivedTodos: "todos/getAllArchivedTodos" }),
+    handleRestoredTodo(todo) {
+      const todos = this.archivedTodos.filter((item) => item !== todo);
+      console.log(todos);
+      this.$store.commit("todos/SET_ARCHIVED", todos);
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
