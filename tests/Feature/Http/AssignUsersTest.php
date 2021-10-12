@@ -122,8 +122,28 @@ class AssignUsersTest extends TestCase
         ];
         //Hit the endpoint to remove collaborator from a todo
         $this->json('PUT', 'api/v1/remove-collaborators/' . $this->todoId . $this->requestParam, $collaboratorData)
+            //assert the response status is 200     
             ->assertStatus(200)
             //assert that the collaborator is not contained in the collaborators array of the todo response 
             ->assertJsonMissing(['collaborator_id' => $this->collaborator_id,]);
+    }
+
+    public function test_fetch_collaborators_on_a_todo()
+    {
+        $this->withoutExceptionHandling();
+
+        //Hit the endpoint to remove collaborator from a todo
+        $response = $this->json('GET', 'api/v1/get-collaborators/' . $this->todoId . $this->requestParam)
+            //assert the response status is 200 
+            ->assertStatus(200)
+
+
+            // Assert JSON structure of response
+            ->assertJsonStructure([
+                "status",
+                "type",
+                "count",
+                "data"
+            ]);
     }
 }
