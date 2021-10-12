@@ -88,6 +88,7 @@
                 v-if="isDeleteModal"
                 :title="todo.title"
                 :id="todo._id"
+                @deleteItem="deleteItem"
                 @toggleDeleteModal="toggleDeleteModal"
             />
         </transition>
@@ -97,7 +98,7 @@
  import DeleteModal from "../DeleteModal";
  import MenuDropdown from "../MenuDropdown.vue";
 //  import AssignForm from "./collaborators/collaboratorModal.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
     name: "TodoCard",
     data() {
@@ -133,6 +134,12 @@ export default {
         //  AssignForm
     },
     computed: {
+       
+        //function to get user object from vuex store
+        ...mapGetters({
+            user: "user/user"
+        }),
+   
          description() {
              let value = 1;
              if (this.todo.description != undefined) {
@@ -168,8 +175,12 @@ export default {
     methods: {
         ...mapActions({
             delete: "todos/ADD_TRASH",
+            
             archive: "todos/ADD_ARCHIVE"
         }),
+        deleteItem(any){
+            this.delete(any);
+        },
         toggleDeleteModal() {
             this.isDeleteModal = !this.isDeleteModal;
         },

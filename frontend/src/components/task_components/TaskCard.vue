@@ -55,7 +55,10 @@
             </div>
         </div>
         <transition name="fade">
-			<deleteTask @delete="deleteTask" v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
+			<deleteTask @delete="deleteItem" v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" >You are about to delete your Task. Task
+				deleted are
+				sent to the trash and they are automatically deleted after 30
+				days</deleteTask>
 		</transition>
     </div>
 </template>
@@ -91,7 +94,8 @@
             }
             this.$emit('completeTask', data)
         },
-        deleteTask(){
+        deleteItem(){
+           
             this.$emit('deleteTask', this.task.task_id)
         },
             toggleMenu() {
