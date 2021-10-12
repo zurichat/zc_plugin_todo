@@ -20,7 +20,6 @@
         "single-spa-vue": "^2.1.0",
         "vue": "^3.0.0",
         "vue-router": "^4.0.11",
-        "vue3-circle-progress": "^1.0.6",
         "vue3-click-away": "^1.2.1",
         "vue3-mq": "^3.0.0",
         "vuex": "^4.0.2"
