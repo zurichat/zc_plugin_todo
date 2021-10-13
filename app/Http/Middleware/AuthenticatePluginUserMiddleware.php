@@ -6,6 +6,7 @@ use App\Repositories\AuthRepository;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class AuthenticatePluginUserMiddleware
 {
@@ -44,9 +45,16 @@ class AuthenticatePluginUserMiddleware
         // check response
         if($res['status'] == 200){
             // authentication successful
+            $this->storeToken($token);
+            
             return $next($request);
         }else{
             return response()->json(['error' => 'Authentication Error: ' . strtoupper($res['message'])], $res['status']);
         }
+    }
+
+    private function storeToken($token)
+    {
+        Config::set('token', $token);
     }
 }
