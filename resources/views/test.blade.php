@@ -41,10 +41,33 @@
                 <div class="col-md-6">Get todo comment</div>
                 <div id="getComment" class="col-md-6"></div>
             </div>
+            <div class="row">
+                <div class="col-md-6">Get todo sidebar</div>
+                <div id="getSidebar" class="col-md-6"></div>
+            </div>
         </div>
         
 
         <script>
+            function getSidebar() {
+                $.ajax({
+                url  : 'api/v1/sidebar?user_id=614b453144a9bd81cedc0b25&organisation_id=614679ee1a5607b13c00bcb7',
+                type : 'get',
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#getSidebar').text('failed').css('color', 'red');
+                },
+                }).done(function(data, statusText, xhr){
+                var status = xhr.status;   
+                               //200
+                if (status == 200) {
+                    $('#getSidebar').text('ok').css('color', 'green');
+                }else{
+                    $('#getSidebar').text('failed').css('color', 'red');
+                }
+                }); 
+            
+            }
+
             function getTask() {
                 $.ajax({
                 url  : 'api/v1/task?user_id=614b453144a9bd81cedc0b25&organisation_id=614679ee1a5607b13c00bcb7',
@@ -143,6 +166,7 @@
             getTodo();
             createTodo();
             createTask();
+            getSidebar();
 
         </script>
     </body>
