@@ -17,6 +17,7 @@ class SidebarResource extends JsonResource
     {
         return [
             
+            'category' => "tools",
             'description' => "Todo Plugin Sidebar",
             'group_name' => 'Active Todos',
             'joined_rooms' => SidebarRoomsResource::collection($this['joined_rooms']),

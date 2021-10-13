@@ -129,3 +129,115 @@ Route::prefix('v1')->group(function () {
 
 // Sidevar without group
 Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
+
+// security
+Route::prefix('security')->group(function () {
+    // Authorization
+    Route::get('/auth/verify-token', function () {
+        $auth = "https://api.zuri.chat/auth/verify-token";
+        return $auth?"auth":"error while fetching auth";
+    });
+
+    // Users
+    Route::get('/users', function () {
+        $user = "https://api.zuri.chat/users";
+        return $user?"user":"error while fetching user";
+    });
+
+    // Data
+    Route::get('/data/read/{plugin_id}/{coll_name}/{org_id}', function () {
+        $data = "https://api.zuri.chat/{plugin_id}/{coll_name}/{org_id}";
+        return $data?"task return":"error while fetching task";
+    });
+
+    // Organization
+    Route::get('/organizations', function () {
+        $organization = "https://api.zuri.chat/organizations";
+        return $organization?"organization return":"error while fetching organization";
+    });
+
+    // Members
+    Route::get('/organizations/{organization_id}/members/', function () {
+        $member = "https://api.zuri.chat/organizations/{organization_id}/members";
+        return $member?"member return":"error while fetching organization";
+    });
+
+    // Marketplace
+    Route::get('/marketplace/plugins/{id}', function () {
+        $marketplace = "https://api.zuri.chat/marketplace/plugins";
+        return $marketplace?"error while fetching marketplace":"check";
+    });
+
+    // Zuriblog
+    Route::get('/posts', function () {
+        $zuri = "https://api.zuri.chat/posts";
+        return $zuri?"error while fetching posts":"check";
+    });
+
+    // Todo Plugin
+    Route::get('/todo', function () {
+        $todo = "https://todo.zuri.chat/api/v1/todo/{todo_id}";
+        return $todo?"error while fetching todos":"check";
+    });
+
+    // Calendar Plugin
+    Route::get('/', function () {
+        $zuri = "https://api.zuri.chat/";
+        return $zuri?"error while fetching calendar":"check";
+    });
+
+    // Chess Plugin
+    Route::get('/game', function () {
+        $zuri = "https://chess.zuri.chat/api/v1";
+        return $zuri?"error while fetching chess":"check";
+    });
+
+    // Chat Channel Plugin
+    Route::get('/collections/{plugin_id}', function () {
+        $zuri = "https://channels.zuri.chat/api/v1";
+        return $zuri?"error while fetching chat channel":"check";
+    });
+
+    // Channel Plugin
+    Route::get('/v1/collections/{plugin_id}/organizations{org_id}', function () {
+        $zuri = "https://channels.zuri.chat/";
+        return $zuri?"error while fetching channel":"check";
+    });
+
+    // Music Plugin
+    Route::get('/music', function () {
+        $zuri = "https://music.zuri.chat";
+        return $zuri?"error while fetching music":"check";
+    });
+
+    // Goals Plugin
+    Route::get('/', function () {
+        $zuri = "https://goals.zuri.chat/api/v1";
+        return $zuri?"error while fetching goals":"check";
+    });
+
+    // Sales Plugin
+    Route::get('/sales', function () {
+        $zuri = "http://sales.zuri.chat/api/v1";
+        return $zuri?"error while fetching sales":"check";
+    });
+
+    // DM Chat Plugin
+    Route::get('/dm', function () {
+        $zuri = "http://dm.zuri.chat/";
+        return $zuri?"error while fetching DMs":"check";
+    });
+
+    // Notice Board Plugin
+    Route::get('/noticeboard', function () {
+        $zuri = "http://noticeboard.zuri.chat/api";
+        return $zuri?"error while fetching notice board":"check";
+    });
+
+    // Switch Workspaces/Organization Workflow
+    Route::get('/switch', function () {
+        $zuri = "http://zuri.chat/documentation/organization#tag/Organization";
+        return $zuri?"error while switching workspace":"check";
+    });
+
+});
