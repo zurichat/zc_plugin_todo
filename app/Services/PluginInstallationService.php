@@ -21,6 +21,7 @@ class PluginInstallationService
         }
 
         $data['token'] = $token;
+        $data['plugin_id'] = Config::get('plugin_id');
 
         return $this->repository->installPluginOnWorkspace($data);
     }
