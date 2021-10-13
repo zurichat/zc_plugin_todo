@@ -8,7 +8,7 @@ class PluginInstallationRepository extends HTTPRepository
 {
     public function installPluginOnWorkspace($data)
     {
-        return $this->model::withHeaders(['Authorization' => 'Bearer ' . $data['token']])->get($this->url . '/organizations/' . $data['organisation_id']. '/plugins')->json();
+        return $this->model::withHeaders(['Authorization' => 'Bearer ' . $data['token']])->post($this->url . '/organizations/' . $data['organisation_id']. '/plugins', $data)->json();
     }
 
     public function uninstallPluginFromWorkspace($data)
