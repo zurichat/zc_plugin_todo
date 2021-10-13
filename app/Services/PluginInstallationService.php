@@ -24,4 +24,15 @@ class PluginInstallationService
 
         return $this->repository->installPluginOnWorkspace($data);
     }
+
+    public function uninstall($data)
+    {
+        if(!$token = Config::get('token')){
+            abort(401, 'Authentication Error: TOKEN MISSING.');
+        }
+
+        $data['token'] = $token;
+
+        return $this->repository->uninstallPluginFromWorkspace($data);
+    }
 }
