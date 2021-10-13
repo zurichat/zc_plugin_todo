@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Manipulate;
+use Carbon\Carbon;
 use App\Helpers\Response;
-use App\Http\Requests\TodoRequest;
+use App\Helpers\Manipulate;
+use Illuminate\Http\Request;
 use App\Services\TodoService;
 use App\Services\TestTodoService;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Http\Requests\TodoRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class TodoController extends Controller
@@ -63,7 +64,6 @@ class TodoController extends Controller
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
 
-
         if ((isset($result['status']) && $result['status'] == 404)) {
             return response()->json(["message" => "error"], 404);
         }
@@ -91,7 +91,28 @@ class TodoController extends Controller
         if (count($search) < 1 || isset($search['status'])) {
             return response()->json(['message' => 'No result found'], 404);
         }
-        return response()->json($search, 200);
+        //pagination
+        $current_page = LengthAwarePaginator::resolveCurrentPage();
+        $results_collection = collect($search);
+        $perPage = 20;
+        $total_count = count($results_collection);
+        $page_count = ceil($total_count/$perPage);
+        $first_page = 1;
+        $last_page = $page_count;
+        $current_page_todos = $results_collection->slice(($current_page - 1) * $perPage, $perPage)->all();
+        return response()->json([
+            'status' => 'ok',
+            'pagination' => [
+                'total_count' => $total_count,
+                'current_page' => $current_page,
+                'per_page' => $perPage,
+                'page_count' => $page_count,
+                'first_page' => $first_page,
+                'last_page' => $last_page
+            ],
+            'query' => $request->query('q'),
+            'plugin' => 'Todo',
+            'data' => $current_page_todos], 200);
     }
 
     public function getTodo($id, $user_id)
@@ -101,12 +122,12 @@ class TodoController extends Controller
 
     public function delete($todoId, $user_id)
     {
-        return response()->json($this->todoService->delete($todoId, $user_id));
+       return response()->json($this->todoService->delete($todoId, $user_id));
     }
 
     public function updateTodo(Request $request, $todoId, $user_id)
     {
-        return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
+       return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
     }
 
 
@@ -167,4 +188,6 @@ class TodoController extends Controller
             'count' => count($activeTodo), 'data' => $activeTodo
         ], 200);
     }
+
+
 }
