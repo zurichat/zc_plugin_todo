@@ -9,31 +9,47 @@ class PluginInstallationService
 {
     protected $repository;
 
+    protected $token;
+
     function __construct(PluginInstallationRepository $repository)
     {
         $this->repository = $repository;
+        $this->token = Config::get('token');
     }
 
     public function install($data)
     {
-        if(!$token = Config::get('token')){
-            abort(401, 'Authentication Error: TOKEN MISSING.');
-        }
-
-        $data['token'] = $token;
-        $data['plugin_id'] = Config::get('plugin_id');
+        $data = $this->updateDataIfTokenSet($data);
 
         return $this->repository->installPluginOnWorkspace($data);
     }
 
     public function uninstall($data)
     {
-        if(!$token = Config::get('token')){
-            abort(401, 'Authentication Error: TOKEN MISSING.');
-        }
-
-        $data['token'] = $token;
+        $data = $this->updateDataIfTokenSet($data);
 
         return $this->repository->uninstallPluginFromWorkspace($data);
+    }
+
+    private function isTokenSet(){
+
+        if(!$this->token){
+            abort(401, 'Authentication Error: TOKEN MISSING.');
+        }
+    }
+
+    private function updateDataArray(array $data, $token){
+        
+        $data['token'] = $token;
+        $data['plugin_id'] = Config::get('plugin_id');
+
+        return $data;
+    }
+
+    private function updateDataIfTokenSet($data)
+    {
+        if ($this->isTokenSet()) {
+            return $this->updateDataArray($data, $this->token);
+        }
     }
 }
