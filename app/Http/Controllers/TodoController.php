@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\AppConstants;
 use App\Helpers\Manipulate;
 use App\Helpers\Response;
 use App\Http\Requests\TodoRequest;
 use App\Services\TodoService;
 use App\Services\TestTodoService;
+use App\Services\TodoRoomService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,7 @@ class TodoController extends Controller
 {
 
     protected $todoService;
-    protected $sam;
+
 
     public function __construct(TodoService $todoService, TestTodoService $testTodoService)
     {
@@ -48,11 +50,12 @@ class TodoController extends Controller
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], 'todo', null);
-            return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
+
+            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
+            return response()->json(['status' => 'success', 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
-        return response()->json(['message' => $result['message']], 404);
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_NOT_FOUND);
     }
 
 
