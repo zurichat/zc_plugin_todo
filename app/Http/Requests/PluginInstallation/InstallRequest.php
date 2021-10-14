@@ -26,7 +26,7 @@ class InstallRequest extends FormRequest
         return [
             'user_id' => 'required',
             'organisation_id' => 'required',
-            'plugin_id' => 'required'
+            'plugin_id' => 'nullable'
         ];
     }
 }

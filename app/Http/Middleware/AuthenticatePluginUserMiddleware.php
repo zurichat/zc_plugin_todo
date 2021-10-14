@@ -37,11 +37,11 @@ class AuthenticatePluginUserMiddleware
             return response()->json(['error' => 'Authentication Error: TOKEN MISSING.'], 401);
         }
 
-        $attr = ['user_id' => $request->user, 'token' => $token[1] ?? $request->token];
+        $attr = ['user_id' => $request->user ?? $request->user_id, 'token' => $token[1] ?? $request->token];
 
         // authenticate user
         $res = $this->authRepository->authenticateUser($attr);
-    
+        dd($res);
         // check response
         if($res['status'] == 200){
             // authentication successful

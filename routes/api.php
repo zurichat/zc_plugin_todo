@@ -97,8 +97,8 @@ Route::prefix('v1')->group(function () {
     /**
      * Installation enpoints
      */
-    Route::post('/install', [PluginInstallationController::class, 'install'])->middleware('authenticate.plugin.user');
-    Route::post('/uninstall', [PluginInstallationController::class, 'uninstall'])->middleware('authenticate.plugin.user');
+    Route::post('/install', [PluginInstallationController::class, 'install']);//->middleware('authenticate.plugin.user');
+    Route::post('/uninstall', [PluginInstallationController::class, 'uninstall']);//->middleware('authenticate.plugin.user');
 
 
 
