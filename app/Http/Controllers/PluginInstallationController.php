@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HelperFnc;
 use App\Http\Requests\PluginInstallation\InstallRequest;
 use App\Http\Requests\PluginInstallation\UninstallRequest;
 use App\Services\PluginInstallationService;
@@ -18,15 +19,26 @@ class PluginInstallationController extends Controller
 
     public function install(InstallRequest $request)
     {
-        $response = $this->pluginInstallationService->install($request->all());
+        $data = $this->addTokenToAttribute($request);
+        $response = $this->pluginInstallationService->install($data);
         
-        return response()->json($response);
+        return $response;
     }
 
     public function uninstall(UninstallRequest $request)
     {
-        $response = $this->pluginInstallationService->uninstall($request->all());
+        $data = $this->addTokenToAttribute($request);
+        $response = $this->pluginInstallationService->uninstall($data);
         
-        return response()->json($response);
+        return $response;
+    }
+
+    public function addTokenToAttribute($request)
+    {
+        $rawToken = $request->header('Authorization');
+        $token = HelperFnc::trimToken($rawToken);
+        $data = $request->all();
+        $data['token'] = $token;
+        return $data;
     }
 }

@@ -20,8 +20,7 @@ class PluginInstallationService
     public function install($data)
     {
         $data = $this->updateDataIfTokenSet($data);
-
-        return $this->repository->installPluginOnWorkspace($data);
+        return $this->responseGenerator($this->repository->installPluginOnWorkspace($data));   
     }
 
     public function uninstall($data)
@@ -31,25 +30,25 @@ class PluginInstallationService
         return $this->repository->uninstallPluginFromWorkspace($data);
     }
 
-    private function isTokenSet(){
-
-        if(!$this->token){
-            abort(401, 'Authentication Error: TOKEN MISSING.');
-        }
-    }
-
-    private function updateDataArray(array $data, $token){
-        
-        $data['token'] = $token;
-        $data['plugin_id'] = Config::get('plugin_id');
-
-        return $data;
-    }
-
     private function updateDataIfTokenSet($data)
     {
-        if ($this->isTokenSet()) {
-            return $this->updateDataArray($data, $this->token);
+        if ($data['token']) {
+            $data['plugin_id'] = Config::get('plugin_id');
+            return $data;
+        }
+        abort(401, 'Authentication Error: TOKEN MISSING.');
+    }
+
+    public function responseGenerator($response)
+    {
+        if($response['status'] == '200'){
+            return response()->json([
+                "message" => "Todo plugin installed.",
+                "success" => true,
+                "data" => [
+                    "redirect_url" => "https://zuri.chat/todo"
+                ]
+            ]);
         }
     }
 }
