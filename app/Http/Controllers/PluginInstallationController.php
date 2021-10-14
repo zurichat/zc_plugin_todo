@@ -36,6 +36,7 @@ class PluginInstallationController extends Controller
     public function addTokenToAttribute($request)
     {
         $rawToken = $request->header('Authorization');
+        if(!$rawToken) abort(401, 'Authentication Error: TOKEN MISSING.');
         $token = HelperFnc::trimToken($rawToken);
         $data = $request->all();
         $data['token'] = $token;
