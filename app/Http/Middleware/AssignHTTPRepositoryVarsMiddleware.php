@@ -46,7 +46,7 @@ class AssignHTTPRepositoryVarsMiddleware
     private function storeVars($request)
     {
         // store variables
-        Config::set('organisation_id', $request->organisation_id ?? $request->org);
+        Config::set('organisation_id', $request->organisation_id ?? $request->org ?? $request->org_id);
         Config::set('plugin_id', '6138deac99bd9e223a37d8f5');
         Config::set('user_id', $request->user_id ?? $request->user);
     }
@@ -56,6 +56,6 @@ class AssignHTTPRepositoryVarsMiddleware
      */
     public function hasOrganisationID($request)
     {
-        return $request->has('organisation_id') || $request->has('org');
+        return $request->has('organisation_id') || $request->has('org') || $request->has('org_id');
     }
 }
