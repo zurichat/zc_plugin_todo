@@ -6,6 +6,7 @@ use App\Repositories\AuthRepository;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class AuthenticatePluginUserMiddleware
 {
@@ -36,17 +37,24 @@ class AuthenticatePluginUserMiddleware
             return response()->json(['error' => 'Authentication Error: TOKEN MISSING.'], 401);
         }
 
-        $attr = ['user_id' => $request->user, 'token' => $token[1] ?? $request->token];
+        $attr = ['user_id' => $request->user ?? $request->user_id, 'token' => $token[1] ?? $request->token];
 
         // authenticate user
         $res = $this->authRepository->authenticateUser($attr);
-    
+        dd($res);
         // check response
         if($res['status'] == 200){
             // authentication successful
+            $this->storeToken($token);
+            
             return $next($request);
         }else{
             return response()->json(['error' => 'Authentication Error: ' . strtoupper($res['message'])], $res['status']);
         }
+    }
+
+    private function storeToken($token)
+    {
+        Config::set('token', $token);
     }
 }
