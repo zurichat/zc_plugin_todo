@@ -116,15 +116,15 @@ class TodoService extends TodoRepository
      */
     public function search($data, $user_id)
     {
-        $objects = $this->httpRepository->findWhere(['title' => $data, 'user_id' => $user_id]);
+        $objects = $this->httpRepository->findWhere(['user_id' => $user_id]);
         //if theres an error or status of 404 throw exception
         abort_if(isset($objects['status']) && $objects['status'] == '404', 404, 'No search result found');
         //filter the todo collection and get the one that meets the searched criteria
         $search_data = collect($objects['data'])->filter(function($todo) use($data) {
             return Str::contains(strtolower($todo['title']), strtolower($data));
-        })->toArray();
+        })->values();
 
-        return $search_data;
+        return ($search_data);
     }
 
     /**
