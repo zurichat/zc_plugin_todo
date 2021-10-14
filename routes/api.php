@@ -14,6 +14,7 @@ use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AssignUserController;
 use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\PluginInstallationController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReminderController;
@@ -92,6 +93,12 @@ Route::prefix('v1')->group(function () {
 
 
     Route::get('/demo-search', [TodoSearchController::class, 'search']);
+
+    /**
+     * Installation enpoints
+     */
+    Route::post('/install', [PluginInstallationController::class, 'install']);//->middleware('authenticate.plugin.user');
+    Route::delete('/uninstall', [PluginInstallationController::class, 'uninstall']);//->middleware('authenticate.plugin.user');
 
 
 
