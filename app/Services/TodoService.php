@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
-use App\Helpers\Collaborator;
 use Carbon\Carbon;
 use App\Helpers\Response;
+use Illuminate\Support\Str;
+use App\Helpers\Collaborator;
+use App\Services\ServiceTrait;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
-use App\Services\ServiceTrait;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TodoService extends TodoRepository
 {
@@ -112,15 +114,13 @@ class TodoService extends TodoRepository
   /**
      * This will search with a specif key-value pair
      */
-    public function search($key, $data, $user_id)
+    public function search($data, $user_id)
     {
-        $objects = $this->httpRepository->findWhere([$key => $data, 'user_id' => $user_id]);
-
-        if (isset($objects['status']) && $objects['status'] == '404') {
-            return ["status" => "error"];
-        }
-        $search_data = collect($objects['data'])->map(function($todo) use($data, $key) {
-            if(strtolower($todo[$key]) == strtolower($data)){
+        $objects = $this->httpRepository->findWhere(['title' => $data, 'user_id' => $user_id]);
+        //if theres an error or status of 404 throw exception
+        abort_if(isset($objects['status']) && $objects['status'] == '404', 404, 'No search result found');
+        $search_data = collect($objects['data'])->map(function($todo) use($data) {
+            if(strtolower($todo['title']) == strtolower($data)){
                 return $todo;
             }
         })->reject(fn($todo) => empty($todo))->values();
@@ -128,6 +128,65 @@ class TodoService extends TodoRepository
         return $search_data;
     }
 
+    /**
+     * Paginate the search results
+     */
+    public static function paginate($search, $request){
+        $current_page = LengthAwarePaginator::resolveCurrentPage();
+        $results_collection = collect($search);
+        $perPage = 20;
+        $total_count = count($results_collection);
+        $page_count = ceil($total_count/$perPage);
+        $first_page = 1;
+        $last_page = $page_count;
+        $prefx = route('search').'?page=';
+
+        $current_page_todos = $results_collection->slice(($current_page - 1) * $perPage, $perPage)->all();
+
+        $previous_page = $current_page <= 1 ? null : $prefx.($current_page -1);
+        $next_page = $prefx.($current_page +1);
+        $data = [
+            'total_count' => $total_count,
+            'current_page' => $current_page,
+            'per_page' => $perPage,
+            'page_count' => $page_count,
+            'first_page' => $first_page,
+            'last_page' => $last_page,
+            'next_page' => $next_page,
+            'previous_page' => $previous_page,
+            'query' => $request->query('key'),
+            'data' => $current_page_todos,
+        ];
+         return $data;
+          [
+                'status' => 'ok',
+                'pagination' => [
+                    'total_count' => $total_count,
+                    'current_page' => $current_page,
+                    'per_page' => $perPage,
+                    'page_count' => $page_count,
+                    'first_page' => $first_page,
+                    'last_page' => $last_page,
+                    'next_page' => $next_page,
+                    'previous_page' => $previous_page
+                ],
+                'query' => $request->query('key'),
+                'plugin' => 'Todo',
+                'data' => [
+                    'title' => collect($current_page_todos)->only(['title']),
+                    'email' => '',
+                    // 'description' => $current_page_todosdescription,
+                    // 'image_url' => '',
+                    // 'created_at' => $current_page_todoscreated_at,
+                    // 'url' => '/detail/'.$current_page_todos_id
+
+                ],
+                'filter_suggestions' => [
+                    'in' => [],
+                    'from' => []
+                ]
+            ];
+    }
     /**
      * Check if todo is archived
      */

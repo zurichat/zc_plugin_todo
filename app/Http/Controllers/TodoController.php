@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Services\TodoService;
 use App\Services\TestTodoService;
 use App\Http\Requests\TodoRequest;
+use App\Http\Resources\SearchResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 
@@ -87,32 +88,12 @@ class TodoController extends Controller
 
     public function search_todo(Request $request)
     {
-        $search = $this->todoService->search($request->query('key'), $request->query('q'), $request->query('user_id'));
+        $search = $this->todoService->search($request->query('key'), $request->query('user_id'));
         if (count($search) < 1 || isset($search['status'])) {
             return response()->json(['message' => 'No result found'], 404);
         }
         //pagination
-        $current_page = LengthAwarePaginator::resolveCurrentPage();
-        $results_collection = collect($search);
-        $perPage = 20;
-        $total_count = count($results_collection);
-        $page_count = ceil($total_count/$perPage);
-        $first_page = 1;
-        $last_page = $page_count;
-        $current_page_todos = $results_collection->slice(($current_page - 1) * $perPage, $perPage)->all();
-        return response()->json([
-            'status' => 'ok',
-            'pagination' => [
-                'total_count' => $total_count,
-                'current_page' => $current_page,
-                'per_page' => $perPage,
-                'page_count' => $page_count,
-                'first_page' => $first_page,
-                'last_page' => $last_page
-            ],
-            'query' => $request->query('q'),
-            'plugin' => 'Todo',
-            'data' => $current_page_todos], 200);
+       return response()->json(new SearchResource(TodoService::paginate($search, $request)), 200);
     }
 
     public function getTodo($id, $user_id)
