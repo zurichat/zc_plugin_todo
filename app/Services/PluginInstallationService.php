@@ -49,6 +49,8 @@ class PluginInstallationService
                     "redirect_url" => "https://zuri.chat/todo"
                 ]
             ]);
+        }else{
+            return response()->json($response);
         }
     }
 }
