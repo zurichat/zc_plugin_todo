@@ -119,11 +119,9 @@ class TodoService extends TodoRepository
         $objects = $this->httpRepository->findWhere(['title' => $data, 'user_id' => $user_id]);
         //if theres an error or status of 404 throw exception
         abort_if(isset($objects['status']) && $objects['status'] == '404', 404, 'No search result found');
-        $search_data = collect($objects['data'])->map(function($todo) use($data) {
-            if(strtolower($todo['title']) == strtolower($data)){
-                return $todo;
-            }
-        })->reject(fn($todo) => empty($todo))->values();
+        $search_data = collect($objects['data'])->filter(function($todo) use($data) {
+            return Str::contains(strtolower($todo['title']), strtolower($data));
+        })->toArray();
 
         return $search_data;
     }
@@ -158,34 +156,6 @@ class TodoService extends TodoRepository
             'data' => $current_page_todos,
         ];
          return $data;
-          [
-                'status' => 'ok',
-                'pagination' => [
-                    'total_count' => $total_count,
-                    'current_page' => $current_page,
-                    'per_page' => $perPage,
-                    'page_count' => $page_count,
-                    'first_page' => $first_page,
-                    'last_page' => $last_page,
-                    'next_page' => $next_page,
-                    'previous_page' => $previous_page
-                ],
-                'query' => $request->query('key'),
-                'plugin' => 'Todo',
-                'data' => [
-                    'title' => collect($current_page_todos)->only(['title']),
-                    'email' => '',
-                    // 'description' => $current_page_todosdescription,
-                    // 'image_url' => '',
-                    // 'created_at' => $current_page_todoscreated_at,
-                    // 'url' => '/detail/'.$current_page_todos_id
-
-                ],
-                'filter_suggestions' => [
-                    'in' => [],
-                    'from' => []
-                ]
-            ];
     }
     /**
      * Check if todo is archived
