@@ -89,7 +89,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
     Route::get('/task/archived', [TaskController::class, 'archived']);
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
-    Route::get('/search', [TodoController::class, 'search_todo'])->name('search');
+    Route::get('/search/{organisation}/{user}', [TodoController::class, 'search_todo'])->name('search');
 
 
     Route::get('/demo-search', [TodoSearchController::class, 'search']);

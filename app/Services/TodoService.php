@@ -137,7 +137,7 @@ class TodoService extends TodoRepository
         $page_count = ceil($total_count/$perPage);
         $first_page = 1;
         $last_page = $page_count;
-        $prefx = route('search').'?page=';
+        $prefx = route('search', [$request->org_id, $request->user]).'?page=';
 
         $current_page_todos = $results_collection->slice(($current_page - 1) * $perPage, $perPage)->all();
 

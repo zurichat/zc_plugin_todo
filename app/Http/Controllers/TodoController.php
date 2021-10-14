@@ -88,7 +88,7 @@ class TodoController extends Controller
 
     public function search_todo(Request $request)
     {
-        $search = $this->todoService->search($request->query('key'), $request->query('user_id'));
+        $search = $this->todoService->search($request->query('key'), $request->query('member_id'));
         if (count($search) < 1 || isset($search['status'])) {
             return response()->json(['message' => 'No result found'], 404);
         }
