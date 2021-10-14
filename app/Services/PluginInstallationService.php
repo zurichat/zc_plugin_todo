@@ -46,7 +46,7 @@ class PluginInstallationService
                 "message" => "Todo plugin installed.",
                 "success" => true,
                 "data" => [
-                    "redirect_url" => "https://zuri.chat/todo"
+                    "redirect_url" => "/todo"
                 ]
             ]);
         }else{
