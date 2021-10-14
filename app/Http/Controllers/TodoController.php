@@ -63,6 +63,16 @@ class TodoController extends Controller
     {
         $where = ['user_id' => $request['user_id']];
         $result = $this->todoService->findWhere($where);
+
+        if($request->order){
+            if ($request->order === 'asc'){
+                $result = collect($result->sortBy('created_at'))->toArray;
+            }
+            else{
+                $result = collect($result->sortByDesc('created_at'))->toArray;
+            }
+        }
+        
         $activeTodo = [];
 
         if ((isset($result['status']) && $result['status'] == 404)) {
