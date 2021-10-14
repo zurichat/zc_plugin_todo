@@ -119,6 +119,7 @@ class TodoService extends TodoRepository
         $objects = $this->httpRepository->findWhere(['title' => $data, 'user_id' => $user_id]);
         //if theres an error or status of 404 throw exception
         abort_if(isset($objects['status']) && $objects['status'] == '404', 404, 'No search result found');
+        //filter the todo collection and get the one that meets the searched criteria
         $search_data = collect($objects['data'])->filter(function($todo) use($data) {
             return Str::contains(strtolower($todo['title']), strtolower($data));
         })->toArray();
@@ -130,6 +131,7 @@ class TodoService extends TodoRepository
      * Paginate the search results
      */
     public static function paginate($search, $request){
+        //Get the current page
         $current_page = LengthAwarePaginator::resolveCurrentPage();
         $results_collection = collect($search);
         $perPage = 20;
@@ -137,10 +139,12 @@ class TodoService extends TodoRepository
         $page_count = ceil($total_count/$perPage);
         $first_page = 1;
         $last_page = $page_count;
+
+        //Set the link for the next and previous pages
         $prefx = route('search', [$request->org_id, $request->user]).'?page=';
-
+        //Slice the current items in the collection to fit the required per page
         $current_page_todos = $results_collection->slice(($current_page - 1) * $perPage, $perPage)->all();
-
+        //set the current and next pages
         $previous_page = $current_page <= 1 ? null : $prefx.($current_page -1);
         $next_page = $prefx.($current_page +1);
         $data = [
