@@ -89,7 +89,10 @@ Route::prefix('v1')->group(function () {
     Route::get('/task_collection/{id}', [TaskController::class, 'sort']);
     Route::get('/task/archived', [TaskController::class, 'archived']);
     Route::post('/archive_task/{id}', [TaskController::class, 'archive']);
+
+    // Zuri Search Bar Related Routes
     Route::get('/search/{organisation}/{user}', [TodoController::class, 'search_todo'])->name('search');
+    Route::get('/search-suggestions/{org_id}/{member_id}', [TodoController::class, 'fetchSuggestions']);
 
 
     Route::get('/demo-search', [TodoSearchController::class, 'search']);
@@ -97,8 +100,8 @@ Route::prefix('v1')->group(function () {
     /**
      * Installation enpoints
      */
-    Route::post('/install', [PluginInstallationController::class, 'install']);//->middleware('authenticate.plugin.user');
-    Route::delete('/uninstall', [PluginInstallationController::class, 'uninstall']);//->middleware('authenticate.plugin.user');
+    Route::post('/install', [PluginInstallationController::class, 'install']); //->middleware('authenticate.plugin.user');
+    Route::delete('/uninstall', [PluginInstallationController::class, 'uninstall']); //->middleware('authenticate.plugin.user');
 
 
 
@@ -136,4 +139,3 @@ Route::prefix('v1')->group(function () {
 
 // Sidevar without group
 Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
-
