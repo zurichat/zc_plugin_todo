@@ -17,20 +17,28 @@ class SearchResource extends JsonResource
     {
         return [
             'status' => 'ok',
-            'query' => $this['query'],
-            'plugin' => 'Todo',
+            'title' => $this['query'],
+            'description' => '',
             'pagination' => [
-                'total_count' => $this['total_count'],
+                'total_results' => $this['total_count'],
                 'current_page' => $this['current_page'],
-                'per_page' => $this['per_page'],
+                'per_size' => $this['per_page'],
                 'page_count' => $this['page_count'],
                 'first_page' => $this['first_page'],
                 'last_page' => $this['last_page'],
-                'next_page' => $this['next_page'],
-                'previous_page' => $this['previous_page']
+                'next' => $this['next_page'],
+                'previous' => $this['previous_page']
+            ],
+            'search_parameters' => [
+                'query' => $this['query'] ,
+                'filters' => [],
+                'plugin' => 'Todo'
             ],
 
-            'data' => SearchDataResource::collection($this['data']),
+            'results' => [
+                'entity' => 'others',
+                'data' => SearchDataResource::collection($this['data'])
+            ],
             'filter_suggestions' => [
                 'in' => [],
                 'from' => []
