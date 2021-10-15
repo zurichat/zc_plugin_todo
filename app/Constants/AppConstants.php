@@ -5,7 +5,7 @@ namespace App\Constants;
 class AppConstants
 {
     // PLUGIN
-    const PLUGIN_ID = "6169836dfbc5b28d42170c3d";
+    const PLUGIN_ID = "616991e1ef1c19335a2869f3";
 
     // RTC Publish Actons
     const ACTION_CREATE = "create";
