@@ -99,16 +99,16 @@ class TodoController extends Controller
     {
         $result = $this->todoService->findWhere(['user_id' => $request->query('member_id')]);
         $suggestions = [];
-        if ((isset($result['status']) && $result['status'] == AppConstants::STATUS_NOT_FOUND)) {
+        if ((isset($result['status']))) {
             return response()->json(["message" => "error"], AppConstants::STATUS_NOT_FOUND);
         }
 
         foreach ($result as  $todo) {
-            if (!isset($todo['deleted_at']) && (!isset($todo['archived_at']) || $todo['archived_at'] == null)) {
 
-                array_push($suggestions, $todo['title']);
-                array_push($suggestions, $todo['description']);
-                array_push($suggestions, $todo['channel']);
+            array_push($suggestions, [$todo['title'] => $todo['title']]);
+            array_push($suggestions, [$todo['title'] => $todo['description']]);
+            foreach ($todo['tasks'] as  $task) {
+                array_push($suggestions, [$todo['title'] => $task['title']]);
             }
         }
 
