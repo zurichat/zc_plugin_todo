@@ -31,17 +31,8 @@ class TodoController extends Controller
             'user_id' => $request->user
         ];
 
-        $todo = $this->respondWithData($this->todoRepository->findWhere($todo_attr));
-        if($request->order){
-            if ($request->order === 'asc'){
-                $todo = collect($todo->sortBy('created_at'))->toArray;
-            }
-            else{
-                $todo = collect($todo->sortByDesc('created_at'))->toArray;
-            }
-        }
-        // return response
-        return response()->json(['message' => "success", "data" => $todo], 200);
+            // return response
+        return response()->json(['message' => "success", "data" => $this->respondWithData($this->todoRepository->findWhere($todo_attr))], 200);
     }
 
     public function store(Request $request)
