@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Constants\AppConstants;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -18,11 +19,11 @@ class AssignHTTPRepositoryVarsMiddleware
     public function handle(Request $request, Closure $next)
     {
         // check if route is API route
-        if($this->isAPIRoute($request->getPathInfo())){
+        if ($this->isAPIRoute($request->getPathInfo())) {
             // check if request has organisation id
-            if($this->hasOrganisationID($request)){
+            if ($this->hasOrganisationID($request)) {
                 $this->storeVars($request);
-            }else{
+            } else {
                 return response()->json(['error' => 'Organisation id is required'], 422);
             }
         }
@@ -47,7 +48,7 @@ class AssignHTTPRepositoryVarsMiddleware
     {
         // store variables
         Config::set('organisation_id', $request->organisation_id ?? $request->org ?? $request->org_id);
-        Config::set('plugin_id', '6138deac99bd9e223a37d8f5');
+        Config::set('plugin_id', AppConstants::PLUGIN_ID);
         Config::set('user_id', $request->user_id ?? $request->user);
     }
 
