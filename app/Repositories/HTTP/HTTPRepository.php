@@ -2,6 +2,7 @@
 
 namespace App\Repositories\HTTP;
 
+use App\Constants\AppConstants;
 use App\Contracts\RepositoryInterface;
 use App\Helpers\HelperFnc;
 use Illuminate\Support\Facades\Config;
@@ -13,7 +14,8 @@ class HTTPRepository implements RepositoryInterface
 
     protected $modelName;
     protected $model;
-    protected $plugin_id = '6138deac99bd9e223a37d8f5';
+    // protected $plugin_id = '6138deac99bd9e223a37d8f5';
+    protected $plugin_id = AppConstants::PLUGIN_ID;
     protected $organisation_id; // = '613a3ac959842c7444fb0240'; // same as $org but let's keep for now
 
     public function __construct($modelName = "")
