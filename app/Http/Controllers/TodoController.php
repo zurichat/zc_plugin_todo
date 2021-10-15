@@ -9,6 +9,7 @@ use App\Services\TodoService;
 use App\Services\TestTodoService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 
 class TodoController extends Controller
@@ -33,6 +34,11 @@ class TodoController extends Controller
     public function createTodo(TodoRequest $request)
     {
 
+        $org_id = Config::get('organisation_id');
+        $user_id = Config::get('user_id');
+        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
+        //$workspaceChannelName = "614679ee1a5607b13c00bcb7_614f070ee35bb73a77bc2ab7_sidebar";
+
         $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();
         $labels =  $request->labels !== null ? $request->labels : [];
@@ -41,7 +47,8 @@ class TodoController extends Controller
             "tasks" => [],
             "labels" => $labels,
             "collaborators" => [],
-            "created_at" => now()
+            "created_at" => now(),
+            "unread" => true
         ]);
 
         $result = $this->todoService->create($todoObject);
@@ -49,6 +56,7 @@ class TodoController extends Controller
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
             $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], 'todo', null);
+            $this->todoService->publishToRoomChannel($workspaceChannelName, $todoObject, 'update_sidebar', 'todo.zuri.chat');
             return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
         }
 
