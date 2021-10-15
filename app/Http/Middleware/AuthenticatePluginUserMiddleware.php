@@ -46,7 +46,7 @@ class AuthenticatePluginUserMiddleware
         if($res['status'] == 200){
             // authentication successful
             $this->storeToken($token);
-            
+
             return $next($request);
         }else{
             return response()->json(['error' => 'Authentication Error: ' . strtoupper($res['message'])], $res['status']);
