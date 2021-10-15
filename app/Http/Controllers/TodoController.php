@@ -105,12 +105,14 @@ class TodoController extends Controller
 
         foreach ($result as  $todo) {
 
-            array_push($suggestions, [$todo['title'] => $todo['title']]);
-            array_push($suggestions, [$todo['title'] => $todo['description']]);
+            $suggestions[$todo['title']] =  $todo['title'];
+            $suggestions[$todo['description']] =  $todo['description'];
+
             foreach ($todo['tasks'] as  $task) {
-                array_push($suggestions, [$todo['title'] => $task['title']]);
+                $suggestions[$todo['_id']] =  $task['title'];
             }
         }
+
 
         return response()->json([
             'status' => AppConstants::MSG_200,
