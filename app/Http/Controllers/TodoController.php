@@ -99,18 +99,22 @@ class TodoController extends Controller
     {
         $result = $this->todoService->findWhere(['user_id' => $request->query('member_id')]);
         $suggestions = [];
+        $pickedVerbs = [];
         if ((isset($result['status']))) {
             return response()->json(["message" => "error"], AppConstants::STATUS_NOT_FOUND);
         }
 
         foreach ($result as  $todo) {
 
-            array_push($suggestions, [$todo['title'] => $todo['title']]);
-            array_push($suggestions, [$todo['title'] => $todo['description']]);
+            $suggestions[$todo['title']] =  $todo['title'];
+            $suggestions[$todo['description']] =  $todo['description'];
+
             foreach ($todo['tasks'] as  $task) {
-                array_push($suggestions, [$todo['title'] => $task['title']]);
+                $suggestions[$todo['_id']] =  $task['title'];
             }
         }
+
+        return response()->json($suggestions, 200);
 
         return response()->json([
             'status' => AppConstants::MSG_200,
