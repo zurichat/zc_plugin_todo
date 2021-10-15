@@ -99,7 +99,6 @@ class TodoController extends Controller
     {
         $result = $this->todoService->findWhere(['user_id' => $request->query('member_id')]);
         $suggestions = [];
-        $pickedVerbs = [];
         if ((isset($result['status']))) {
             return response()->json(["message" => "error"], AppConstants::STATUS_NOT_FOUND);
         }
@@ -114,7 +113,6 @@ class TodoController extends Controller
             }
         }
 
-        return response()->json($suggestions, 200);
 
         return response()->json([
             'status' => AppConstants::MSG_200,
