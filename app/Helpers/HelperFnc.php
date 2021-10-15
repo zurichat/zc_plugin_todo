@@ -18,4 +18,15 @@ class HelperFnc
         // return trimmed char
         return rtrim($query, '&');
     }    
+
+    public static function trimToken($token)
+    {
+        // data attr
+        $token = explode(' ', $token);
+
+        if(is_array($token) || count($token) > 1){
+            return $token[1];
+        }
+        return null;
+    }
 }
