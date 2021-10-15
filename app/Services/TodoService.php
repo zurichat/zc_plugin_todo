@@ -124,7 +124,7 @@ class TodoService extends TodoRepository
             return Str::contains(strtolower($todo['title']), strtolower($data));
         })->values();
 
-        return ($search_data);
+        return $search_data;
     }
 
     /**
