@@ -7,7 +7,7 @@ use App\Repositories\HTTP\HTTPRepository;
 
 class RoomRepository
 {
-    protected $modelName = 'DemoTodoRoom';
+    protected $modelName = 'TodoRoom';
     protected $httpRepository;
     protected $cacheRepository;
 

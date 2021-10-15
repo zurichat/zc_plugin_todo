@@ -172,12 +172,24 @@ class HTTPRepository implements RepositoryInterface
     }
 
     /**
+     * This will will fetch users in a workspace
+     */
+
+    public function findWorkSpaceUsers($bearerToken)
+    {
+        $urlConstruct = $this->url . 'organizations/' . $this->organisation_id . '/members';
+        $authorization = ['Authorization' => 'Bearer ' . $bearerToken];
+        return Http::withHeaders($authorization)->get($urlConstruct)->json();
+        // return $this->model::withHeaders($authorization)->get($urlConstruct)->json();
+    }
+
+    /**
      * Get users details by the userID
      */
     public function findUser($data, $bearerToken)
     {
         $user = $this->model::withHeaders(['Authorization' => $bearerToken])->get($this->url . '/users/' . $data['user_id'])
-                ->json();
+            ->json();
         if (isset($user['status']) && $user['status'] == '200') {
             return $user['data'];
         } else {

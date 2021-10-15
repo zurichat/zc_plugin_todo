@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\AppConstants;
 use Carbon\Carbon;
 use App\Helpers\Response;
 use App\Helpers\Manipulate;
@@ -18,7 +19,7 @@ class TodoController extends Controller
 {
 
     protected $todoService;
-    protected $sam;
+
 
     public function __construct(TodoService $todoService, TestTodoService $testTodoService)
     {
@@ -52,11 +53,12 @@ class TodoController extends Controller
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], 'todo', null);
-            return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
+
+            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
+            return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
-        return response()->json(['message' => $result['message']], 404);
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_NOT_FOUND);
     }
 
 
@@ -97,8 +99,32 @@ class TodoController extends Controller
             return response()->json(['message' => 'No result found'], 404);
         }
         //pagination
-       return response()->json(new SearchResource(TodoService::paginate($search, $request)), 200);
+        return response()->json(new SearchResource(TodoService::paginate($search, $request)), 200);
     }
+
+    public function fetchSuggestions(Request $request)
+    {
+        $result = $this->todoService->findWhere(['user_id' => $request->query('member_id')]);
+        $suggestions = [];
+        if ((isset($result['status']) && $result['status'] == AppConstants::STATUS_NOT_FOUND)) {
+            return response()->json(["message" => "error"], AppConstants::STATUS_NOT_FOUND);
+        }
+
+        foreach ($result as  $todo) {
+            if (!isset($todo['deleted_at']) && (!isset($todo['archived_at']) || $todo['archived_at'] == null)) {
+
+                array_push($suggestions, $todo['title']);
+                array_push($suggestions, $todo['description']);
+                array_push($suggestions, $todo['channel']);
+            }
+        }
+
+        return response()->json([
+            'status' => AppConstants::MSG_200,
+            'type' => 'suggections', 'data' => $suggestions
+        ], AppConstants::STATUS_OK);
+    }
+
 
     public function getTodo($id, $user_id)
     {
@@ -107,12 +133,12 @@ class TodoController extends Controller
 
     public function delete($todoId, $user_id)
     {
-       return response()->json($this->todoService->delete($todoId, $user_id));
+        return response()->json($this->todoService->delete($todoId, $user_id));
     }
 
     public function updateTodo(Request $request, $todoId, $user_id)
     {
-       return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
+        return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
     }
 
 
@@ -173,6 +199,4 @@ class TodoController extends Controller
             'count' => count($activeTodo), 'data' => $activeTodo
         ], 200);
     }
-
-
 }

@@ -82,14 +82,14 @@ class AssignUserController extends Controller
 
             // Publish To Centrifugo
             $this->todoService->publishToCommonRoom(
-                $todo,
+                $removeColabo,
                 $todo['channel'],
                 null,
-                'Todo',
+                AppConstants::TYPE_COLLABORATOR,
                 $request->collaborator_id
             );
 
-            return response()->json(["status" => AppConstants::MSG_200,  "data" => "User removed successfully"], 200);
+            return response()->json(["status" => AppConstants::MSG_200,  "data" => $removeColabo], 200);
         }
 
         return response()->json(['status' => AppConstants::MSG_500, 'message' => $result], AppConstants::STATUS_ERROR);
