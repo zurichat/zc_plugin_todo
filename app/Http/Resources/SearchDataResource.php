@@ -20,7 +20,7 @@ class SearchDataResource extends JsonResource
             'email' => '',
             'content' => $this['description'],
             'image_url' => [],
-            'created_by' => [],
+            'created_by' => '',
             'created_at' => $this['created_at'],
             'destination_url' => '/detail/'.$this['_id']
         ];
