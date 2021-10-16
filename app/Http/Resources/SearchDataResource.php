@@ -22,7 +22,7 @@ class SearchDataResource extends JsonResource
             'images_url' => [],
             'created_by' => '',
             'created_at' => $this['created_at'],
-            'destination_url' => '/todo/detail/'.$this['_id']
+            'destination_url' => '/todo#/detail/'.$this['_id']
         ];
     }
 }
