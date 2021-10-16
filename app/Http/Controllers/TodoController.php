@@ -40,8 +40,8 @@ class TodoController extends Controller
 
         $org_id = Config::get('organisation_id');
         $user_id = Config::get('user_id');
-        //$workspaceChannelName = $org_id."_".$user_id."_sidebar";
-        $workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
+        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
+        //$workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
 
         $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();

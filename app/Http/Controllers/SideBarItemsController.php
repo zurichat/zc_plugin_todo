@@ -53,10 +53,6 @@ class SideBarItemsController extends Controller
 
     public function sidebarRTC()
     {
-        $org_id = Config::get('organisation_id');
-        $user_id = Config::get('user_id');
-        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
-        //$workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
         // get all todo
         $todos = (new TodoService)->all();
         // check if response has error
@@ -79,8 +75,6 @@ class SideBarItemsController extends Controller
         // prepend dashboard to private todo
         $privateTodos->prepend(['room_name' => 'Todo Dashboard','room_url' => '/todo','room_image' => 'https://www.svgrepo.com/show/346459/todo-fill.svg']);
         // return response
-        $data =  [new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)])];
-        (new TodoService)->publishToRoomChannel($workspaceChannelName, $data, "update_sidebar", 'todo.zuri.chat');
         return (new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
 
     }
