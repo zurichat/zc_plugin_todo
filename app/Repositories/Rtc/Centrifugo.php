@@ -36,29 +36,7 @@ class Centrifugo implements CentrifugoInterface
         return $response->json();
     }
 
-    // public function publishToRoomChannel($channel, $payload)
-    // {
-    //     $response = Http::withHeaders([
-
-    //         'Content-type' => 'application/json',
-    //         'Authorization' => 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b' //58c2400b-831d-411d-8fe8-31b6e337738b'
-
-    //     ])->post($this->url, [
-    //         'method' => 'publish',
-    //         'params' => [
-    //             "channel" => $channel,
-    //             "data" => [
-    //                 "event" => "sidebar_update",
-    //                 "plugin_id" => "todo.zuri.chat",
-    //                 "data" => $payload
-    //             ]
-    //         ]
-    //     ]);
-
-    //     return $response->json();
-    // }
-
-        public function publishToRoomChannel($channel, $payload)
+    public function publishToRoomChannel($channel, $data, $collection, $action)
     {
         $response = Http::withHeaders([
 
@@ -70,9 +48,9 @@ class Centrifugo implements CentrifugoInterface
             'params' => [
                 "channel" => $channel,
                 "data" => [
-                    "event" => "sidebar_update",
-                    "plugin_id" => "todo.zuri.chat",
-                    "data" => $payload
+                    "collection" => $collection,
+                    "action" => $action,
+                    "details"  => $data,
                 ]
             ]
         ]);

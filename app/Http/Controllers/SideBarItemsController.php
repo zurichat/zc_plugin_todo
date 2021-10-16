@@ -48,7 +48,7 @@ class SideBarItemsController extends Controller
             "public_rooms" => collect($publicTodos),
             "joined_rooms" => collect($privateTodos),
         ];
-        (new TodoService)->publishToRoomChannel($workspaceChannelName, $dataRtcPayload);
+        (new TodoService)->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
     }
 
     public function sidebarRTC()

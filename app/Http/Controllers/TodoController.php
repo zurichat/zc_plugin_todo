@@ -72,7 +72,7 @@ class TodoController extends Controller
                     "joined_rooms" => $dataText["joined_rooms"],
             ];
             //publish to sidebar RTC
-            $this->todoService->publishToRoomChannel($workspaceChannelName, $dataRtcPayload);
+            $this->todoService->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
             return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
