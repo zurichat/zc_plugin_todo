@@ -25,7 +25,7 @@
                     <MainNav @showLabel="showEditModal = true" />
                     <div>
                       <button @click="toggleModal" class="td-bg-green-500 td-my-5 td-flex td-items-center td-py-3 td-px-4 td-rounded td-text-white">
-                        create a new task
+                        create a new todo
                       </button>
                     </div>
                      <!-- <CreateTodoBtn @click="toggleModal" />  -->
@@ -48,7 +48,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
-import TodoForm from "../components/TodoForm";
+import TodoForm from "../components/todo_components/TodoForm";
  import MainNav from "../components/MainNav";
 // // import CreateTodoBtn from "../components/CreateTodoBtn";
 // import SearchInput from "../components/SearchInput";

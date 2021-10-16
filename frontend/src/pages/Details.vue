@@ -299,9 +299,9 @@
 </template>
 <script>
 import CentrifugeSetup from "../plugins/realtime";
-import TaskForm from "../components/TaskForm";
+import TaskForm from "../components/task_components/TaskForm";
 import Empty from "../components/Empty";
-import TaskCard from "../components/TaskCard";
+import TaskCard from "../components/task_components/TaskCard";
 import axios from "axios";
 // import TextArea from '../components/TextArea.vue\
 // import CommentBox from '../components/CommentBox.vue'

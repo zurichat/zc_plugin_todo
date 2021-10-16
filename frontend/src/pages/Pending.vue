@@ -47,7 +47,7 @@
 </template>
 <script>
 import Empty from "../components/Empty.vue";
-import TodoCard from "../components/NewCard.vue";
+import TodoCard from "../components/todo_components/TodoCard.vue";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
 export default {

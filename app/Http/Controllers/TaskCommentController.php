@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Constants\AppConstants;
-use App\Helpers\Collaborator;
-use App\Http\Requests\CommentRequest;
-use App\Services\TaskCommentService;
-use App\Services\TodoService;
+use App\Helpers\Sort;
 use Illuminate\Http\Request;
+use App\Helpers\Collaborator;
+use App\Services\TodoService;
 use Illuminate\Support\Carbon;
+use App\Constants\AppConstants;
+use App\Services\TaskCommentService;
+use App\Http\Requests\CommentRequest;
 
 
 class TaskCommentController extends Controller
@@ -22,9 +23,12 @@ class TaskCommentController extends Controller
         $this->taskCommentService = $taskCommentService;
     }
 
-    public function getCommentsPerTask($taskId)
+    public function getCommentsPerTask(Request $request, $taskId)
     {
         $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
+        Sort::sortAsc($request);
+
+
         if ($result['status'] == 200 && isset($result["data"])) {
             return response()->json([
                 'status' => AppConstants::MSG_200,
@@ -120,9 +124,10 @@ class TaskCommentController extends Controller
         );
     }
 
-    public function getCommentPerTodo($todoId)
+    public function getCommentPerTodo(Request $request, $todoId)
     {
         $result = $this->taskCommentService->commentsByKey(['todo_id' => $todoId]);
+        Sort::sortAsc($request);
 
         return response()->json([
             'status' => AppConstants::MSG_200,
