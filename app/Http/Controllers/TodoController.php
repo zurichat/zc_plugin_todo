@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Manipulate;
+use App\Constants\AppConstants;
+use Carbon\Carbon;
 use App\Helpers\Response;
-use App\Http\Requests\TodoRequest;
+use App\Helpers\Manipulate;
+use Illuminate\Http\Request;
 use App\Services\TodoService;
 use App\Services\TestTodoService;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Http\Requests\TodoRequest;
+use App\Http\Resources\SearchResource;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class TodoController extends Controller
 {
 
     protected $todoService;
-    protected $sam;
+
 
     public function __construct(TodoService $todoService, TestTodoService $testTodoService)
     {
@@ -48,11 +51,12 @@ class TodoController extends Controller
 
         if (isset($result['object_id'])) {
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], 'todo', null);
-            return response()->json(['status' => 'success', 'type' => 'Todo', 'data' => $responseWithId], 200);
+
+            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
+            return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
-        return response()->json(['message' => $result['message']], 404);
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_NOT_FOUND);
     }
 
 
@@ -62,7 +66,6 @@ class TodoController extends Controller
         $where = ['user_id' => $request['user_id']];
         $result = $this->todoService->findWhere($where);
         $activeTodo = [];
-
 
         if ((isset($result['status']) && $result['status'] == 404)) {
             return response()->json(["message" => "error"], 404);
@@ -87,12 +90,36 @@ class TodoController extends Controller
 
     public function search_todo(Request $request)
     {
-        $search = $this->todoService->search($request->query('key'), $request->query('q'), $request->query('user_id'));
-        if (count($search) < 1 || isset($search['status'])) {
-            return response()->json(['message' => 'No result found'], 404);
-        }
-        return response()->json($search, 200);
+        $search = $this->todoService->search($request->query('q'), $request->query('member_id'));
+        //response pagination
+        return response()->json(new SearchResource(TodoService::paginate($search, $request)), 200);
     }
+
+    public function fetchSuggestions(Request $request)
+    {
+        $result = $this->todoService->findWhere(['user_id' => $request->query('member_id')]);
+        $suggestions = [];
+        if ((isset($result['status']))) {
+            return response()->json(["message" => "error"], AppConstants::STATUS_NOT_FOUND);
+        }
+
+        foreach ($result as  $todo) {
+
+            $suggestions[$todo['title']] =  $todo['title'];
+            $suggestions[$todo['description']] =  $todo['description'];
+
+            foreach ($todo['tasks'] as  $task) {
+                $suggestions[$todo['_id']] =  $task['title'];
+            }
+        }
+
+
+        return response()->json([
+            'status' => AppConstants::MSG_200,
+            'type' => 'suggections', 'data' => $suggestions
+        ], AppConstants::STATUS_OK);
+    }
+
 
     public function getTodo($id, $user_id)
     {

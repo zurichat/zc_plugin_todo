@@ -5,6 +5,8 @@ import Trash from '../pages/Trash.vue';
 
 import Archive from '../pages/Archive.vue';
 import Detail from '../pages/Detail';
+import Test from '../pages/Test';
+
 const routes = [{
         //landing page
         path: '',
@@ -29,6 +31,11 @@ const routes = [{
         path: '/detail/:id',
         name: 'Detail',
         component: Detail
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test
     },
     {
         path: '/:pathMatch(.*)*',
