@@ -124,7 +124,7 @@ class TodoService extends TodoRepository
             return Str::contains(strtolower($todo['title']), strtolower($data));
         })->values();
 
-        return ($search_data);
+        return $search_data;
     }
 
     /**
@@ -141,7 +141,7 @@ class TodoService extends TodoRepository
         $last_page = $page_count;
 
         //Set the link for the next and previous pages
-        $prefx = route('search', [$request->org_id, $request->user]).'?page=';
+        $prefx = route('search', [$request->org_id, $request->user]).'?q='.$request->query('q').'&member_id='.$request->user.'&org_id='.$request->org_id.'&page=';
         //Slice the current items in the collection to fit the required per page
         $current_page_todos = $results_collection->slice(($current_page - 1) * $perPage, $perPage)->all();
         //set the current and next pages
@@ -156,7 +156,7 @@ class TodoService extends TodoRepository
             'last_page' => $last_page,
             'next_page' => $next_page,
             'previous_page' => $previous_page,
-            'query' => $request->query('key'),
+            'query' => $request->query('q'),
             'data' => $current_page_todos,
         ];
          return $data;

@@ -15,12 +15,14 @@ class SearchDataResource extends JsonResource
     public function toArray($request)
     {
         return [
+            '_id' => $this['_id'],
             'title' => $this['title'],
             'email' => '',
-            'description' => $this['description'],
-            'image_url' => '',
+            'content' => $this['description'],
+            'image_url' => [],
+            'created_by' => '',
             'created_at' => $this['created_at'],
-            'url' => '/detail/'.$this['_id']
+            'destination_url' => '/detail/'.$this['_id']
         ];
     }
 }
