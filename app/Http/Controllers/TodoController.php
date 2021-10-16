@@ -11,6 +11,7 @@ use App\Services\TodoService;
 use App\Services\TestTodoService;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\SearchResource;
+use App\Http\Resources\SidebarResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Config;
 
@@ -39,8 +40,8 @@ class TodoController extends Controller
 
         $org_id = Config::get('organisation_id');
         $user_id = Config::get('user_id');
-        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
-        //$workspaceChannelName = "614679ee1a5607b13c00bcb7_614f070ee35bb73a77bc2ab7_sidebar";
+        //$workspaceChannelName = $org_id."_".$user_id."_sidebar";
+        $workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
 
         $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();
@@ -50,8 +51,7 @@ class TodoController extends Controller
             "tasks" => [],
             "labels" => $labels,
             "collaborators" => [],
-            "created_at" => now(),
-            "unread" => true
+            "created_at" => now()
         ]);
 
         $result = $this->todoService->create($todoObject);
@@ -60,7 +60,19 @@ class TodoController extends Controller
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
 
             $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
-            $this->todoService->publishToRoomChannel($workspaceChannelName, $todoObject, 'update_sidebar', 'todo.zuri.chat');
+            $dataText = (new SideBarItemsController)->sidebarRTC();
+            //update sidebar RTC
+            $dataRtcPayload = [
+                    "name" => "Todo Plugin",
+                    "description" => "Todo Plugin sidebar",
+                    "group_name" => "Active Todos",
+                    "category" => "tools",
+                    "show_group" => true,
+                    "public_rooms" => $dataText["public_rooms"],
+                    "joined_rooms" => $dataText["joined_rooms"],
+            ];
+            //publish to sidebar RTC
+            $this->todoService->publishToRoomChannel($workspaceChannelName, $dataRtcPayload);
             return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
