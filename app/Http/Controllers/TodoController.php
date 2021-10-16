@@ -12,6 +12,7 @@ use App\Services\TestTodoService;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\SearchResource;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Helpers\Sort;
 
 
 class TodoController extends Controller
@@ -28,8 +29,9 @@ class TodoController extends Controller
     /**
      * for testing purpose only
      */
-    public function index()
+    public function index(Request $request)
     {
+        Sort::sortAll($request);
         return $this->todoService->all();
     }
 
@@ -65,6 +67,8 @@ class TodoController extends Controller
     {
         $where = ['user_id' => $request['user_id']];
         $result = $this->todoService->findWhere($where);
+
+        Sort::sortAsc($request);
         $activeTodo = [];
 
         if ((isset($result['status']) && $result['status'] == 404)) {

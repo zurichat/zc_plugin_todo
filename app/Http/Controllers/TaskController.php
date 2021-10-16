@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Collaborator;
 use Carbon\Carbon;
+use App\Helpers\Sort;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\Collaborator;
 use App\Services\TaskService;
 use App\Services\TodoService;
+use App\Services\UserService;
 use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TodoResource;
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\MarkTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TodoResourceCollection;
-use App\Services\UserService;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
 
 class TaskController extends Controller
 {
@@ -40,9 +41,10 @@ class TaskController extends Controller
      * @return mixed
      */
 
-    public function index()
+    public function index(Request $request)
     {
         $task = $this->taskService->all();
+
         if (isset($task['status']) && $task['status'] == '404') {
             return response()->json(['message' => 'Tasks not found'], 404);
         }
@@ -98,6 +100,8 @@ class TaskController extends Controller
         }
         // Search for the category
         $allTasks = $this->taskService->all();
+        Sort::sortAll($request);
+
         $newArr = [];
         foreach ($allTasks as $value) {
             if (isset($value['category_id']) && $value['category_id'] == $request->category_id) {
@@ -121,14 +125,21 @@ class TaskController extends Controller
         return response()->json($this->taskService->update($request->all(), $id));
     }
 
-    public function taskcollection()
+    public function taskcollection(Request $request)
     {
 
         $allTasks = $this->taskService->all();
+        Sort::sortAll($request);
+
+        $sort = $request->order;
+        if ($sort){
+        $allTasks = collect($allTasks->sortBy('created_at'))->toArray;
+        }
+
         $time = time();
         $arr = array();
         foreach ($allTasks as $value) {
-            if (array_key_exists('end_date', $value)) {
+            if (array_key_exists('end_date', [$value])) {
                 $end_date = $value['end_date'];
                 $convert_date = strtotime($end_date);
                 if ($convert_date >= $time) {
@@ -176,7 +187,7 @@ class TaskController extends Controller
             // Send Mail
             $user_ids = $this->collaboratorInstance->listAllUsersInTodo($todo);
             $this->collaboratorInstance->sendMails($user_ids, 'Task Added', 'A task with the title'.$request->title.'has been added to the todo');
-            
+
             return response()->json(["status" => "success", "type" => "Todo", "data" => $todoWithId], 200);
         }
 
