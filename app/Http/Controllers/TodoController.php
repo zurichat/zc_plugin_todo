@@ -67,7 +67,7 @@ class TodoController extends Controller
                     "description" => "Todo Plugin sidebar",
                     "group_name" => "Active Todos",
                     "category" => "tools",
-                    "show_group" => true,
+                    "show_group" => false,
                     "public_rooms" => $dataText["public_rooms"],
                     "joined_rooms" => $dataText["joined_rooms"],
             ];
