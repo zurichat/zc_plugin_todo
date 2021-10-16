@@ -30,7 +30,7 @@
                 <div class="task_comment-amt td-flex td-items-center">
                     <div class="todo-profileImg2 td-flex">
                         <div class="todo-profile profileOne">
-                            <img src="../assets/img/collaborators.svg"
+                            <img src="../../assets/img/collaborators.svg"
                                 style="border: 1px solid rgb(1, 216, 146); border-radius: 4px;" />
                         </div>
                     </div>
@@ -55,15 +55,18 @@
             </div>
         </div>
         <transition name="fade">
-			<deleteTask @delete="deleteTask" v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" />
+			<deleteTask @delete="deleteItem" v-if="isDeleteModal" @toggleDeleteModal="toggleDeleteModal" >You are about to delete your Task. Task
+				deleted are
+				sent to the trash and they are automatically deleted after 30
+				days</deleteTask>
 		</transition>
     </div>
 </template>
 <script>
     // import Checkbox from 'primevue/checkbox';
-    import deleteTask from './deleteTask'
+    import deleteTask from '../deleteTask'
     
-    import taskDropdown from '../components/taskDropDown'
+    import taskDropdown from './taskDropDown'
     export default {
         name: "TaskCard",
        
@@ -91,7 +94,8 @@
             }
             this.$emit('completeTask', data)
         },
-        deleteTask(){
+        deleteItem(){
+           
             this.$emit('deleteTask', this.task.task_id)
         },
             toggleMenu() {
