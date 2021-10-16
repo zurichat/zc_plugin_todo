@@ -38,10 +38,6 @@ class SearchResource extends JsonResource
             'results' => [
                 'entity' => 'others',
                 'data' => SearchDataResource::collection($this['data'])
-            ],
-            'filter_suggestions' => [
-                'in' => [],
-                'from' => []
             ]
         ];
     }
