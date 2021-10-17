@@ -36,8 +36,6 @@ class SideBarItemsController extends Controller
         });
         // prepend dashboard to private todo
         $privateTodos->prepend(['room_name' => 'Todo Dashboard','room_url' => '/todo','room_image' => 'https://www.svgrepo.com/show/346459/todo-fill.svg']);
-        // return response
-        return response()->json(new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
          // peal time to centrifugo
          $dataRtcPayload = [
             "name" => "Todo Plugin",
@@ -49,6 +47,9 @@ class SideBarItemsController extends Controller
             "joined_rooms" => collect($privateTodos),
         ];
         (new TodoService)->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
+        // return response
+        return response()->json(new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
+        
     }
 
     public function sidebarRTC()
