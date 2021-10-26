@@ -51,12 +51,12 @@ class ArchiveController extends Controller
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
-        
+
         $results=array_search($todo['archived_at'],$todo,true);
         if($results !== false) {
             $todo['archived_at'] = null;
         }
-        
+
         $updatedTodo = array_merge($todo, ['archived_at' => null]);
         $result = $this->todoService->update($updatedTodo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
@@ -70,7 +70,6 @@ class ArchiveController extends Controller
     {
         // This function should normally be user centric
         // but for the ime being, leave for now
-
         $all  = $this->todoService->all();
 
         $archived = [];
