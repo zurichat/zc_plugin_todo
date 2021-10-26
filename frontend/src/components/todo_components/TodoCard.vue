@@ -72,7 +72,7 @@
         </div>
         <div class="td-flex td-justify-between  td-mt-4 td-items-center">
             <div id = "collaborators" class="td-flex td-border td-rounded-md td-items-center">
-                <img src="../assets/img/collaborators.svg" />
+                <img src="../../assets/img/collaborators.svg" />
                 <span
                     class=" td-mx-0.5  td-h-6 td-rounded td-px-2 td-py-1 td-text-xs td-select-none"
                    >20</span
@@ -88,16 +88,17 @@
                 v-if="isDeleteModal"
                 :title="todo.title"
                 :id="todo._id"
+                @deleteItem="deleteItem"
                 @toggleDeleteModal="toggleDeleteModal"
             />
         </transition>
     </div>
 </template>
 <script>
- import DeleteModal from "./DeleteModal";
- import MenuDropdown from "./MenuDropdown.vue";
+ import DeleteModal from "../DeleteModal";
+ import MenuDropdown from "../MenuDropdown.vue";
 //  import AssignForm from "./collaborators/collaboratorModal.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
     name: "TodoCard",
     data() {
@@ -133,6 +134,12 @@ export default {
         //  AssignForm
     },
     computed: {
+       
+        //function to get user object from vuex store
+        ...mapGetters({
+            user: "user/user"
+        }),
+   
          description() {
              let value = 1;
              if (this.todo.description != undefined) {
@@ -168,8 +175,12 @@ export default {
     methods: {
         ...mapActions({
             delete: "todos/ADD_TRASH",
+            
             archive: "todos/ADD_ARCHIVE"
         }),
+        deleteItem(any){
+            this.delete(any);
+        },
         toggleDeleteModal() {
             this.isDeleteModal = !this.isDeleteModal;
         },
