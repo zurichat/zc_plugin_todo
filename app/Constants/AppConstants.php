@@ -7,6 +7,15 @@ class AppConstants
     // PLUGIN
     const PLUGIN_ID = "616997699dd41e54786c9e04";
 
+    // ZC Core Realated Constants
+    const ZC_BASE_URL = 'https://api.zuri.chat/';
+    const REQUEST_WRITE = 'data/write';
+    const REQUEST_READ = 'data/read';
+
+    // RTC Related Constants
+    const CENTRIFUGO_URL = "https://realtime.zuri.chat/api";
+    const CENTRIFUGO_API_KEY = 'apikey 58c2400b-831d-411d-8fe8-31b6e337738b';
+
     // RTC Publish Actons
     const ACTION_CREATE = "create";
     const ACTION_UPDATE = "update";
