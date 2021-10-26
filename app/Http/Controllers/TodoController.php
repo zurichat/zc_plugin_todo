@@ -11,7 +11,10 @@ use App\Services\TodoService;
 use App\Services\TestTodoService;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\SearchResource;
+use App\Http\Resources\SidebarResource;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Config;
+use App\Helpers\Sort;
 
 
 class TodoController extends Controller
@@ -28,13 +31,19 @@ class TodoController extends Controller
     /**
      * for testing purpose only
      */
-    public function index()
+    public function index(Request $request)
     {
+        Sort::sortAll($request);
         return $this->todoService->all();
     }
 
     public function createTodo(TodoRequest $request)
     {
+
+        $org_id = Config::get('organisation_id');
+        $user_id = Config::get('user_id');
+        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
+        //$workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
 
         $channel = Manipulate::buildChannel($request->title);
         $input =  $request->all();
@@ -53,6 +62,19 @@ class TodoController extends Controller
             $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
 
             $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
+            $dataText = (new SideBarItemsController)->sidebarRTC();
+            //update sidebar RTC
+            $dataRtcPayload = [
+                    "name" => "Todo Plugin",
+                    "description" => "Todo Plugin sidebar",
+                    "group_name" => "Active Todos",
+                    "category" => "tools",
+                    "show_group" => false,
+                    "public_rooms" => $dataText["public_rooms"],
+                    "joined_rooms" => $dataText["joined_rooms"],
+            ];
+            //publish to sidebar RTC
+            $this->todoService->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
             return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
@@ -63,7 +85,35 @@ class TodoController extends Controller
 
     public function userTodos(Request $request)
     {
+<<<<<<< HEAD
         return $this->todoService->fetchUserTodo($request);
+=======
+        $where = ['user_id' => $request['user_id']];
+        $result = $this->todoService->findWhere($where);
+
+        Sort::sortAsc($request);
+        $activeTodo = [];
+
+        if ((isset($result['status']) && $result['status'] == 404)) {
+            return response()->json(["message" => "error"], 404);
+        }
+
+        if (count($result) < 1) {
+            return response()->json(["status" => 404, 'message' => 'resource not found', 'data' => $activeTodo], 404);
+        }
+
+        for ($i = 0; $i < count($result); $i++) {
+            if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
+                array_push($activeTodo, $result[$i]);
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'type' => 'Todo Collection',
+            'count' => count($activeTodo), 'data' => $activeTodo
+        ], 200);
+>>>>>>> 65e431e802e3e2066ef808e428b9cd6ddfac454e
     }
 
     public function search_todo(Request $request)

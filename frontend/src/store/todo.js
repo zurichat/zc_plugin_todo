@@ -4,29 +4,7 @@ import Centrifuge from 'centrifuge'
 export default {
     namespaced: true,
     state: {
-        isUser: {
-            Organizations: [
-                "61516d0f9d521e488c5971f6"
-            ],
-            _id: "61516cd39d521e488c5971f3",
-            created_at: "2021-09-27T09:03:47.019895424+02:00",
-            deactivated: false,
-            deactivated_at: "0001-01-01T00:00:00Z",
-            email: "posimichael6@gmail.com",
-            email_verification: null,
-            first_name: "Tolulope",
-            isverified: true,
-            last_name: "Makinde ",
-            password: "$2a$14$f8knCG8DezbTeMJAQHYEmOJvr3j7Fr7.0K8RKtE9d3Y6sxoRaRfke",
-            password_resets: null,
-            phone: "",
-            role: "",
-            settings: null,
-            social: false,
-            time_zone: "",
-            updated_at: "0001-01-01T00:00:00Z",
-            workspaces: null
-        },
+        isUser: null,
         todos: [],
         names: [],
         archive: [],

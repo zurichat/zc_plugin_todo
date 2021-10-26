@@ -33,23 +33,17 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
+
 export default {
     name: "DeleteModal",
     data() {
         return {};
     },
     computed: {
-        //function to get user object from vuex store
-        ...mapGetters({
-            user: "user/user"
-        })
+    
     },
     methods: {
-        ...mapActions({
-            deleteTodo: "todos/ADD_TRASH"
-        }),
+       
         closeDelete() {
             console.log("hgey");
             this.$emit("toggleDeleteModal");
@@ -60,7 +54,7 @@ export default {
         deleteItem() {
             this.$emit("toggleDeleteModal");
             //   function to call action in the vuex store
-            this.deleteTodo(this.id);
+            this.$emit('deleteItem', this.id);
         }
     },
     props: {
