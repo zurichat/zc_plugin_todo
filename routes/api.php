@@ -55,6 +55,8 @@ Route::prefix('v1')->group(function () {
     Route::put('/todo-update/{todoId}/{user_id}', [TodoController::class, 'updateTodo']);
 
 
+    Route::get('/getTasksByCategory', [TaskController::class, 'getTasksByCategory']);
+    Route::get('/taskcollection', [TaskController::class, 'taskcollection']);
 
 
 
