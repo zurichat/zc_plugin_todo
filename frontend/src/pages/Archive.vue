@@ -3,7 +3,7 @@
     <template v-if="showAll">
       <div v-if="archivedTodos.length <= 0">
         <Empty
-          
+
           :subtitle="'todo'"
         />
       </div>
@@ -54,11 +54,12 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import ArchivedCard from "../components/ArchivedCard.vue";
-import Empty from "../components/Empty.vue";
+import { mapGetters, mapActions } from 'vuex';
+import ArchivedCard from '../components/ArchivedCard.vue';
+import Empty from '../components/Empty.vue';
+
 export default {
-  name: "Archive",
+  name: 'Archive',
   components: {
     Empty,
     ArchivedCard,
@@ -68,18 +69,18 @@ export default {
   },
   computed: {
     ...mapGetters({
-      archivedTodos: "todos/allArchive",
+      archivedTodos: 'todos/allArchive',
       // result: "todos/searchedTodo",
-      showAll: "todos/showAll",
+      showAll: 'todos/showAll',
     }),
   },
 
   methods: {
-    ...mapActions({ getAllArchivedTodos: "todos/getAllArchivedTodos" }),
+    ...mapActions({ getAllArchivedTodos: 'todos/getAllArchivedTodos' }),
     handleRestoredTodo(todo) {
       const todos = this.archivedTodos.filter((item) => item !== todo);
       console.log(todos);
-      this.$store.commit("todos/SET_ARCHIVED", todos);
+      this.$store.commit('todos/SET_ARCHIVED', todos);
     },
   },
 };
