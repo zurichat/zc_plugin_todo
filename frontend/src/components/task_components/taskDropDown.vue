@@ -32,12 +32,12 @@
 				td-font-normal
 				td-text-sm
 				td-cursor-pointer
-				hover:td-text-white 
+				hover:td-text-white
 				td-flex
 				td-justify-between
-				td-border-b 
-				td-py-3 
-				hover:td-bg-green-400 
+				td-border-b
+				td-py-3
+				hover:td-bg-green-400
 				hover:td-text-white">Reminder <i v-show="!isReminder" class="pi pi-angle-right td-self-end"></i></span>
 				<span class="
             td-rounded-sm
@@ -53,47 +53,48 @@
 			</div>
 		</div>
 		<reminderModal :task="task" :todo="todo" v-show="isReminder" @reminder="reminder" @toggleReminderModal="toggleReminderModal" @toggleMenu="toggleMenu" />
-		
+
 	</div>
 </template>
 
 <script>
-	
-	import reminderModal from '../reminderModal'
-	export default {
-		name: "td-modal",
-		data(){
-			return{
-				
-				isReminder: false
-			}
-		},
-		methods: {
-			toggleDelete() {
-				// this.isDeleteModal = !this.isDeleteModal;
-				this.$emit('toggleDeleteModal')
-			},
-			
-			reminder() {
-				this.isReminder = !this.isReminder
-			}
-		},
-		mounted(){
-			
-		},
-		props: {
-            task: {
-                type: Object
-            },
-            todo:{
-                type:Object
-            }
-        },
-		components: {
-			
-			reminderModal
-		}
-	};
+
+import reminderModal from '../reminderModal';
+
+export default {
+  name: 'td-modal',
+  data() {
+    return {
+
+      isReminder: false,
+    };
+  },
+  methods: {
+    toggleDelete() {
+      // this.isDeleteModal = !this.isDeleteModal;
+      this.$emit('toggleDeleteModal');
+    },
+
+    reminder() {
+      this.isReminder = !this.isReminder;
+    },
+  },
+  mounted() {
+
+  },
+  props: {
+    task: {
+      type: Object,
+    },
+    todo: {
+      type: Object,
+    },
+  },
+  components: {
+
+    reminderModal,
+  },
+};
 </script>
 
 <style scoped>

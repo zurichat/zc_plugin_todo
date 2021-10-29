@@ -18,7 +18,7 @@
                 @toggleAssignModal="toggleAssignModal"
                 @archived="handleArchivedTodo"
             />
-           
+
         </div>
         <div >
             <div class="td-flex td-justify-between">
@@ -80,7 +80,7 @@
             </div>
             <div id="todo_link" @click="details()">
                 <span class="td-underline td-cursor-pointer td-font-medium td-text-green-400">View Task</span>
-            </div>      
+            </div>
         </div>
     </div>
      <transition name="fade">
@@ -95,127 +95,127 @@
     </div>
 </template>
 <script>
- import DeleteModal from "../DeleteModal";
- import MenuDropdown from "../MenuDropdown.vue";
+import { mapActions, mapGetters } from 'vuex';
+import DeleteModal from '../DeleteModal';
+import MenuDropdown from '../MenuDropdown.vue';
 //  import AssignForm from "./collaborators/collaboratorModal.vue";
-import { mapActions, mapGetters } from "vuex";
+
 export default {
-    name: "TodoCard",
-    data() {
-        return {
-            isModalVisible: false,
-            isDeleteModal: false,
-            isAssignModal:false,
-            links: [
-                {
-                    name: "Edit",
-                    action: () => {
-                        this.toggleMenu();
-                        // this.$emit('toggleShareModal')
-                        //alert('You cant assign tasks now')
-                    },
-                    type: "default"
-                },
-                {
-                    name: "Delete",
-                    action: () => {
-                        this.toggleMenu();
-                        alert("completed");
-                    },
-                    type: "default"
-                }
-            ]
-        };
-    },
-    components: {
-         MenuDropdown,
-        //   CircleProgress,
-         DeleteModal,
-        //  AssignForm
-    },
-    computed: {
-       
-        //function to get user object from vuex store
-        ...mapGetters({
-            user: "user/user"
-        }),
-   
-         description() {
-             let value = 1;
-             if (this.todo.description != undefined) {
-                 value = this.todo.description.slice(0, 20);
-             } 
-             return value;
-         },
-         percent(){
-             const all = this.todo.tasks;
-             let value = 0
-             if(all.length != 0){
-                 const completed = all.filter((task) => task.status === 1)
-                 value = (completed.length/all.length) * 100;
-             }
-            return Math.round(value)
-             
-         },
-          collaborators() {
-             let value = "";
-             if (this.todo.colaborators === undefined) {
-                 value = this.todo.collaborators.length;
-             } else {
-                 value = this.todo.colaborators.length;
-             }
-             return value;
-         },
-         completedTask(){
-          let completed = this.todo.tasks.filter( task => task.status === 1);
-          return completed
+  name: 'TodoCard',
+  data() {
+    return {
+      isModalVisible: false,
+      isDeleteModal: false,
+      isAssignModal: false,
+      links: [
+        {
+          name: 'Edit',
+          action: () => {
+            this.toggleMenu();
+            // this.$emit('toggleShareModal')
+            // alert('You cant assign tasks now')
+          },
+          type: 'default',
+        },
+        {
+          name: 'Delete',
+          action: () => {
+            this.toggleMenu();
+            alert('completed');
+          },
+          type: 'default',
+        },
+      ],
+    };
+  },
+  components: {
+    MenuDropdown,
+    //   CircleProgress,
+    DeleteModal,
+    //  AssignForm
+  },
+  computed: {
+
+    // function to get user object from vuex store
+    ...mapGetters({
+      user: 'user/user',
+    }),
+
+    description() {
+      let value = 1;
+      if (this.todo.description != undefined) {
+        value = this.todo.description.slice(0, 20);
       }
-
+      return value;
     },
-    methods: {
-        ...mapActions({
-            delete: "todos/ADD_TRASH",
-            
-            archive: "todos/ADD_ARCHIVE"
-        }),
-        deleteItem(any){
-            this.delete(any);
-        },
-        toggleDeleteModal() {
-            this.isDeleteModal = !this.isDeleteModal;
-        },
-        toggleAssignModal(){
-            this.isAssignModal = !this.isAssignModal;
-        },
-        ClickAway() {
-            this.isModalVisible = false;
-        },
-        details() {
-            this.$router.push({
-                name: "Detail",
-                params: { id: this.todo._id }
-            });
-        },   
-        toggleMenu() {
-            this.isModalVisible = !this.isModalVisible;
-        },
-
-        closeModal() {
-            this.isModalVisible = false;
-        },
-        alert() {
-            alert("hi");
-        },    
-        handleArchivedTodo() { 
-            this.$emit("archived", this.todo);
-        }
+    percent() {
+      const all = this.todo.tasks;
+      let value = 0;
+      if (all.length != 0) {
+        const completed = all.filter((task) => task.status === 1);
+        value = (completed.length / all.length) * 100;
+      }
+      return Math.round(value);
+    },
+    collaborators() {
+      let value = '';
+      if (this.todo.colaborators === undefined) {
+        value = this.todo.collaborators.length;
+      } else {
+        value = this.todo.colaborators.length;
+      }
+      return value;
+    },
+    completedTask() {
+      const completed = this.todo.tasks.filter((task) => task.status === 1);
+      return completed;
     },
 
-    props: {
-        todo: {
-            type: Object
-        }
-    }
+  },
+  methods: {
+    ...mapActions({
+      delete: 'todos/ADD_TRASH',
+
+      archive: 'todos/ADD_ARCHIVE',
+    }),
+    deleteItem(any) {
+      this.delete(any);
+    },
+    toggleDeleteModal() {
+      this.isDeleteModal = !this.isDeleteModal;
+    },
+    toggleAssignModal() {
+      this.isAssignModal = !this.isAssignModal;
+    },
+    ClickAway() {
+      this.isModalVisible = false;
+    },
+    details() {
+      this.$router.push({
+        name: 'Detail',
+        params: { id: this.todo._id },
+      });
+    },
+    toggleMenu() {
+      this.isModalVisible = !this.isModalVisible;
+    },
+
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    alert() {
+      alert('hi');
+    },
+    handleArchivedTodo() {
+      this.$emit('archived', this.todo);
+    },
+  },
+
+  props: {
+    todo: {
+      type: Object,
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -223,7 +223,7 @@ export default {
     background: #ffffff;
     // border: 1px solid #dadada;
     box-sizing: border-box;
-    
+
     max-width: 30em;
     box-shadow: 0px 0px 15px #e7e7e7de;
 }
@@ -236,7 +236,7 @@ progress[value] {
   //  box-shadow: 0 0 10px rgb(0 103 69 / 28%);
 }
 progress[value]::-webkit-progress-bar {
- 
+
   border-radius: 2px;
   background-color: #E1FDF4;
 }
