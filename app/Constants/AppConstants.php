@@ -23,6 +23,10 @@ class AppConstants
     const ACTION_TOGGLE_ADMIN = "toggle_admin";
     const ACTION_REACT = "react";
 
+    // RTC ROOMS
+    const SIDEBAR_ROOM = "public_rooms";
+
+
     // Resource or collection Type
     const TYPE_TODO = "Todo";
     const TYPE_TASK = "Task";

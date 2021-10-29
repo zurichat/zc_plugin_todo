@@ -7,11 +7,16 @@ use Carbon\Carbon;
 use App\Helpers\Response;
 use Illuminate\Support\Str;
 use App\Helpers\Collaborator;
+use App\Helpers\HelperFnc;
+use App\Helpers\Manipulate;
+use App\Http\Controllers\SideBarItemsController;
+use App\Http\Requests\TodoRequest;
 use App\Services\ServiceTrait;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
 use Illuminate\Http\Client\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Config;
 
 class TodoService extends TodoRepository
 {
@@ -21,6 +26,56 @@ class TodoService extends TodoRepository
 
         return Response::checkAndServe($this->httpRepository->all());
     }
+
+    public function createTodo(TodoRequest $request)
+    {
+
+        // Build channel name from todo title  using buildChannel helper func
+        $channel = Manipulate::buildChannel($request->title);
+        // Extract User entered input
+        $input =  $request->only('title', 'user_id', 'type');
+        $labels =  $request->labels !== null ? $request->labels : [];
+        // Merge user input with todo specif attributes
+        $todoObject = array_merge($input, [
+            'channel' => $channel,
+            "tasks" => [],
+            "labels" => $labels,
+            "collaborators" => [],
+            "created_at" => now()
+        ]);
+        // make create todo request
+        $result = Response::checkAndServe($this->httpRepository->create($todoObject));
+
+        if (isset($result['object_id'])) {
+
+            $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
+
+            $this->publishToCommonRoom(
+                $responseWithId,
+                $channel,
+                $input['user_id'],
+                AppConstants::TYPE_TODO,
+                null
+            );
+
+            //update sidebar RTC
+            // OMO, Take a look at this commented code. This is actually a call to your sidebar implementation
+            // but it is currently buggy so I had to comment it out. Please do the needful.
+            // $this->updateSideBarRTC();
+
+            // Return Json response. Helpfull should RTC fails
+            return response()->json([
+                'status' => AppConstants::MSG_200,
+                'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId
+            ], 200);
+        }
+        // Return server error should error occur
+        return response()->json([
+            'status' => AppConstants::MSG_500,
+            'error' => $result['message']
+        ], AppConstants::STATUS_ERROR);
+    }
+
 
 
     public function create(array $data)
@@ -270,5 +325,21 @@ class TodoService extends TodoRepository
             'type' => 'Todo Collection',
             'count' => count($activeTodo), 'data' => $activeTodo
         ], AppConstants::STATUS_OK);
+    }
+
+    // -------------------------            PRIVATES METHODS     ----------------------------------- // 
+
+    private function updateSideBarRTC()
+    {
+        // Obtain credentials from facade/config
+        $org_id = Config::get('organisation_id');
+        $user_id = Config::get('user_id');
+        // Define workspace channel
+        $workspaceChannel = $org_id . "_" . $user_id . "_sidebar";
+        $dataText = (new SideBarItemsController)->sidebarRTC();
+        // Build and extract RTC payload
+        $dataRtcPayload = HelperFnc::getRtcPayload($dataText);
+        // Publish to room
+        $this->todoService->publishToRoomChannel($workspaceChannel, $dataRtcPayload, " ", " ");
     }
 }

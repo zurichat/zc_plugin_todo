@@ -37,57 +37,18 @@ class TodoController extends Controller
         return $this->todoService->all();
     }
 
+    /**
+     *  createTodo is a callable to create a todo
+     */
     public function createTodo(TodoRequest $request)
     {
-
-        $org_id = Config::get('organisation_id');
-        $user_id = Config::get('user_id');
-        $workspaceChannelName = $org_id."_".$user_id."_sidebar";
-        //$workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
-
-        $channel = Manipulate::buildChannel($request->title);
-        $input =  $request->all();
-        $labels =  $request->labels !== null ? $request->labels : [];
-        $todoObject = array_merge($input, [
-            'channel' => $channel,
-            "tasks" => [],
-            "labels" => $labels,
-            "collaborators" => [],
-            "created_at" => now()
-        ]);
-
-        $result = $this->todoService->create($todoObject);
-
-        if (isset($result['object_id'])) {
-            $responseWithId = array_merge(['_id' => $result['object_id']], $todoObject);
-
-            $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
-            $dataText = (new SideBarItemsController)->sidebarRTC();
-            //update sidebar RTC
-            $dataRtcPayload = [
-                    "name" => "Todo Plugin",
-                    "description" => "Todo Plugin sidebar",
-                    "group_name" => "Active Todos",
-                    "category" => "tools",
-                    "show_group" => false,
-                    "public_rooms" => $dataText["public_rooms"],
-                    "joined_rooms" => $dataText["joined_rooms"],
-            ];
-            //publish to sidebar RTC
-            $this->todoService->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
-            return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
-        }
-
-        return response()->json(['message' => $result['message']], AppConstants::STATUS_NOT_FOUND);
+        return $this->todoService->createTodo($request);
     }
 
 
 
     public function userTodos(Request $request)
     {
-<<<<<<< HEAD
-        return $this->todoService->fetchUserTodo($request);
-=======
         $where = ['user_id' => $request['user_id']];
         $result = $this->todoService->findWhere($where);
 
@@ -113,7 +74,6 @@ class TodoController extends Controller
             'type' => 'Todo Collection',
             'count' => count($activeTodo), 'data' => $activeTodo
         ], 200);
->>>>>>> 65e431e802e3e2066ef808e428b9cd6ddfac454e
     }
 
     public function search_todo(Request $request)
