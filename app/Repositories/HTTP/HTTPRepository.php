@@ -198,4 +198,18 @@ class HTTPRepository implements RepositoryInterface
             return $user;
         }
     }
+
+    /**
+     * Read with Post Request
+     */
+
+    public function findWhereWithPost(array $filter = [])
+    {
+        return $this->model::post($this->url . 'data/read', [
+            "plugin_id" => $this->plugin_id,
+            "organization_id" => $this->organisation_id,
+            "collection_name" => $this->modelName,
+            "filter" => (object) $filter
+        ])->json();
+    }
 }
