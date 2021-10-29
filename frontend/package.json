@@ -19,8 +19,8 @@
         "single-spa": "^5.9.3",
         "single-spa-vue": "^2.1.0",
         "vue": "^3.0.0",
-        "vue3-circle-progress": "^1.0.6",
         "vue-router": "^4.0.11",
+        "vue3-circle-progress": "^1.0.6",
         "vue3-click-away": "^1.2.1",
         "vue3-mq": "^3.0.0",
         "vuex": "^4.0.2"
@@ -30,16 +30,18 @@
         "@vue/cli-plugin-eslint": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
         "@vue/compiler-sfc": "^3.0.0",
+        "@vue/eslint-config-airbnb": "^5.0.2",
         "autoprefixer": "^9.8.6",
         "babel-eslint": "^10.1.0",
         "eslint": "^6.7.2",
+        "eslint-plugin-import": "^2.20.2",
         "eslint-plugin-vue": "^7.0.0",
         "event-hooks-webpack-plugin": "^2.2.0",
         "postcss": "^7.0.36",
         "sass": "^1.32.11",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14",
         "vue-cli-plugin-single-spa": "~3.1.2"
-    }, 
+    },
     "eslintConfig": {
         "root": true,
         "env": {
@@ -47,12 +49,16 @@
         },
         "extends": [
             "plugin:vue/vue3-essential",
-            "eslint:recommended"
+            "eslint:recommended",
+            "@vue/airbnb"
         ],
         "parserOptions": {
             "parser": "babel-eslint"
         },
-        "rules": {}
+        "rules": {
+            "camelcase": "error",
+            "no-underscore-dangle": ["error", { "allow": ["_id", "_bar"] }]
+        }
     },
     "browserslist": [
         "> 1%",

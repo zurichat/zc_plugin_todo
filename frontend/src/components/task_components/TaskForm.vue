@@ -39,7 +39,7 @@
                     >Recurring<span>(optional)</span></label
                 >
                 <div class="td-flex td-items-center"><span class="td-text-gray-500 td-px-2">Click to make task a recurring task: </span> <Checkbox id="binary" v-model="checked" :binary="true" @change="form_data.recurring == 0 ? form_data.recurring = 1 : form_data.recurring = 0 "  /></div>
-            </div> 
+            </div>
 
             <!-- <div class="form-group td-flex td-flex-col td-pb-4">
           <label class="td-pb-2 td-font-bold" for="dueDate">Due Date</label>
@@ -59,49 +59,48 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { mapGetters } from "vuex";
-import Checkbox from 'primevue/checkbox'
+import { mapActions, mapGetters } from 'vuex';
+
+import Checkbox from 'primevue/checkbox';
 // import axios from "axios";
 export default {
-    name: "TaskForm",
-    data() {
-        return {
-            checked: false,
-            form_data: {
-                title: "",
-                recurring: 0,
-                user_id: ''
-            }
-        };
+  name: 'TaskForm',
+  data() {
+    return {
+      checked: false,
+      form_data: {
+        title: '',
+        recurring: 0,
+        user_id: '',
+      },
+    };
+  },
+  computed: {
+    // function to get user object from vuex store
+    ...mapGetters({
+      isUser: 'todos/user',
+    }),
+  },
+  components: {
+    Checkbox,
+  },
+  methods: {
+    ...mapActions({
+      createTodo: 'todos/createTodo',
+    }),
+    closeModal() {
+      this.$emit('toggleModal');
     },
-    computed: {
-        //function to get user object from vuex store
-        ...mapGetters({
-            isUser: "todos/user"
-        })
+    ClickAway() {
+      this.$emit('toggleModal');
     },
-    components : {
-        Checkbox
+    createTask() {
+      this.form_data.user_id = this.isUser['0']._id;
+      this.$emit('createTask', this.form_data);
+      this.$emit('toggleModal');
+      // this.createTodo(this.todoDetails);
     },
-    methods: {
-        ...mapActions({
-            createTodo: "todos/createTodo"
-        }),
-        closeModal() {
-            
-            this.$emit("toggleModal");
-        },
-        ClickAway() {
-            this.$emit("toggleModal");
-        },
-        createTask() {
-            this.form_data.user_id = this.isUser["0"]._id;
-            this.$emit("createTask", this.form_data);
-             this.$emit("toggleModal");
-            // this.createTodo(this.todoDetails);
-        }
-    }
+  },
 };
 </script>
 

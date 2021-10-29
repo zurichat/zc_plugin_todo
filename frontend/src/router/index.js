@@ -8,44 +8,44 @@ import Detail from '../pages/Detail';
 import Test from '../pages/Test';
 
 const routes = [{
-        //landing page
-        path: '',
-        name: 'Main',
-        component: Main,
-        children: [{
-            path: '',
-            name: 'Pending',
-            component: Pending,
-        }, {
-            path: '/archive',
-            name: 'Archive',
-            component: Archive
-        }, {
-            path: '/trash',
-            name: 'Trash',
-            component: Trash
-        }]
-    },
+  // landing page
+  path: '',
+  name: 'Main',
+  component: Main,
+  children: [{
+    path: '',
+    name: 'Pending',
+    component: Pending,
+  }, {
+    path: '/archive',
+    name: 'Archive',
+    component: Archive,
+  }, {
+    path: '/trash',
+    name: 'Trash',
+    component: Trash,
+  }],
+},
 
-    {
-        path: '/detail/:id',
-        name: 'Detail',
-        component: Detail
-    },
-    {
-        path: '/test',
-        name: 'Test',
-        component: Test
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        //wrong urls redirection
-        name: 'PageNotFound',
-        component: Main
-    }
+{
+  path: '/detail/:id',
+  name: 'Detail',
+  component: Detail,
+},
+{
+  path: '/test',
+  name: 'Test',
+  component: Test,
+},
+{
+  path: '/:pathMatch(.*)*',
+  // wrong urls redirection
+  name: 'PageNotFound',
+  component: Main,
+},
 ];
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
+  history: createWebHashHistory(),
+  routes,
 });
 export default router;
