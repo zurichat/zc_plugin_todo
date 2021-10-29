@@ -46,34 +46,12 @@ class TodoController extends Controller
     }
 
 
-
+    /**
+     *  userTodo is a callable function for fetching user active todos
+     */
     public function userTodos(Request $request)
     {
-        $where = ['user_id' => $request['user_id']];
-        $result = $this->todoService->findWhere($where);
-
-        Sort::sortAsc($request);
-        $activeTodo = [];
-
-        if ((isset($result['status']) && $result['status'] == 404)) {
-            return response()->json(["message" => "error"], 404);
-        }
-
-        if (count($result) < 1) {
-            return response()->json(["status" => 404, 'message' => 'resource not found', 'data' => $activeTodo], 404);
-        }
-
-        for ($i = 0; $i < count($result); $i++) {
-            if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
-                array_push($activeTodo, $result[$i]);
-            }
-        }
-
-        return response()->json([
-            'status' => 'success',
-            'type' => 'Todo Collection',
-            'count' => count($activeTodo), 'data' => $activeTodo
-        ], 200);
+        return $this->todoService->fetchUserTodo($request);
     }
 
     public function search_todo(Request $request)

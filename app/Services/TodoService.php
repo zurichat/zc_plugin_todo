@@ -41,7 +41,9 @@ class TodoService extends TodoRepository
             "tasks" => [],
             "labels" => $labels,
             "collaborators" => [],
-            "created_at" => now()
+            "created_at" => now(),
+            "archived_at" => null,
+            "deleted_at" => null
         ]);
         // make create todo request
         $result = Response::checkAndServe($this->httpRepository->create($todoObject));
@@ -60,7 +62,7 @@ class TodoService extends TodoRepository
 
             //update sidebar RTC
             // OMO, Take a look at this commented code. This is actually a call to your sidebar implementation
-            // but it is currently buggy so I had to comment it out. Please do the needful.
+            // but it is currently buggy so I had to comment it out. Please do the needful and uncomment it.
             // $this->updateSideBarRTC();
 
             // Return Json response. Helpfull should RTC fails
@@ -76,13 +78,6 @@ class TodoService extends TodoRepository
         ], AppConstants::STATUS_ERROR);
     }
 
-
-
-    public function create(array $data)
-    {
-
-        return Response::checkAndServe($this->httpRepository->create($data));
-    }
 
     public function find($id)
     {
@@ -293,37 +288,46 @@ class TodoService extends TodoRepository
         ], AppConstants::STATUS_OK);
     }
 
-
+    /**
+     * Fetch USer TODOs
+     */
     public function fetchUserTodo($request)
     {
-        $activeTodo = [];
-        $filter =  ['user_id' => $request->query('user_id')];
+        // Define the necessary where args
+        $filter =  [
+            'user_id' => $request->query('user_id'),
+            'archived_at' => null, 'deleted_at' => null
+        ];
+
+        // Inititiate request to fetch User todos with respect to defined args
         $result = Response::checkAndServe($this->httpRepository->findWhereWithPost($filter));
+        // Compute boolean for Okbut NOResult
+        $isOKButNoResult = isset($result['status']) && $result['status'] === AppConstants::MSG_200
+            && $result['data'] === null;
+        // Compute boolean for isServerError
+        $isServerError = isset($result['status'])
+            && $result['status'] != AppConstants::MSG_200 || isset($result['error']);
 
-        return response($request);
-
-        if (isset($result['status']) && isset($result['data']) && $result['data'] !== null) {
-            return response()->json(["message" => AppConstants::MSG_404], AppConstants::STATUS_NOT_FOUND);
-        } elseif ($result['data'] === null) {
+        // Return an empty data array if $isOKButNoResult is true 
+        if ($isOKButNoResult) {
+            return response()->json([
+                'status' => AppConstants::MSG_200,
+                'data' => []
+            ], AppConstants::STATUS_OK);
+        }
+        // Return a a server error msg if $isServerError is true 
+        if ($isServerError) {
             return response()->json(
-                [
-                    'status' => AppConstants::MSG_200,
-                    'type' => 'suggections', 'data' => $activeTodo
-                ],
-                AppConstants::STATUS_OK
+                ['status' => AppConstants::MSG_500],
+                AppConstants::STATUS_ERROR
             );
         }
-
-        for ($i = 0; $i < count($result); $i++) {
-            if (!isset($result[$i]['deleted_at']) && (!isset($result[$i]['archived_at']) || $result[$i]['archived_at'] == null)) {
-                array_push($activeTodo, $result[$i]);
-            }
-        }
-
+        // On the occasion that all checks pass, return complete data
         return response()->json([
             'status' => 'success',
             'type' => 'Todo Collection',
-            'count' => count($activeTodo), 'data' => $activeTodo
+            'count' => count($result),
+            'data' => $result
         ], AppConstants::STATUS_OK);
     }
 
