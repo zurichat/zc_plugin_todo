@@ -58,7 +58,7 @@ class TodoController extends Controller
 
             $this->todoService->publishToCommonRoom($responseWithId, $channel, $input['user_id'], AppConstants::TYPE_TODO, null);
             //EVENT TO UPDATE UPDATE THE SIDEBAR REAL TIME 
-            event(new SidebarEvent());
+            //event(new SidebarEvent());
             return response()->json(['status' => AppConstants::MSG_200, 'type' => AppConstants::TYPE_TODO, 'data' => $responseWithId], 200);
         }
 
