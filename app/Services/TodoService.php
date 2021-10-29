@@ -260,8 +260,6 @@ class TodoService extends TodoRepository
         $result = Response::checkAndServe($this->httpRepository->findWhereWithPost($filter));
         $suggestions = [];
 
-        return response($result);
-
         if (isset($result['status']) && isset($result['data']) && $result['data'] !== null) {
             return response()->json(["message" => AppConstants::MSG_404], AppConstants::STATUS_NOT_FOUND);
         } elseif ($result['data'] === null) {
