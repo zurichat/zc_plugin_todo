@@ -9,6 +9,7 @@ use App\Helpers\Collaborator;
 use App\Services\ServiceTrait;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class TodoService extends TodoRepository
@@ -193,5 +194,36 @@ class TodoService extends TodoRepository
         // if key does not exist
         // todo is not deleted
         return false;
+    }
+
+    public function star($data, $todoId){
+        $todo = $this->find($todoId);
+     
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+        //SEARCH FOR AN EXISTING  TO DO ID
+        $arraySearch = array_search($data, array_column($todo['starred'], "_id"));
+        
+        //IF NOT FOUNT ADD IT ELSE REMOVE IT
+        if ($arraySearch === false){
+            array_push($todo['starred'], ['_id' => $data]);
+        }else {
+            unset($todo['starred'][$arraySearch]);
+            array_values($todo['starred']);
+        }
+        //RE=INDEX THE ARRAY 
+        unset($todo['_id']);
+
+        $result = $this->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+
+            $response = ['message' => 'Todo starred successfully', 'data' => [$todo]];
+
+        }else{
+            $response = ['error'=> 'an error was encountered'];
+        }
+
+        return $response;
     }
 }
