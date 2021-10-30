@@ -33,7 +33,6 @@ class SidebarPublishListner
      */
     public function handle(SidebarEvent $event)
     {
-        //dd($this->SidebarService->sidebarAttr());
         $this->SidebarService->sidebarAttr();
     }
 }

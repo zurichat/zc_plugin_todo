@@ -12,7 +12,7 @@ class SidebarService
      * @var todoService
      */
     protected $todoService;
-
+    protected $sidebarServices;
     /**
      * __construct
      *
@@ -29,7 +29,6 @@ class SidebarService
         $org_id = Config::get('organisation_id');
         $user_id = Config::get('user_id');
         $workspaceChannelName = $org_id."_".$user_id."_sidebar";
-        //$workspaceChannelName = "61695d8bb2cc8a9af4833d46_61695d8bb2cc8a9af4833d47_sidebar";
         // get all todo by user
         $todos = (new TodoService)->findWhere(['user_id' => $user_id]);
         // check if response has error
@@ -63,7 +62,6 @@ class SidebarService
         ];
         //publish to centrifugo and return 
         (new TodoService)->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
-        //return response()->json(new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
         $response = (new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
         return $this->jsonEncoded($response, $dataType);
     }
@@ -99,7 +97,7 @@ class SidebarService
 
     public function sidebarDataAttr()
     {
-        $dataText = $this->SidebarServices->sidebar();
+        $dataText = $this->sidebar('json');
         $data = [
             "name" => "Todo Plugin",
             "description" => "Todo Plugin sidebar",
