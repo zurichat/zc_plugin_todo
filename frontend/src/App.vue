@@ -5,63 +5,62 @@
 </template>
 
 <script>
-import {getLoggedInUser} from "./plugins/auth"
 // import {getAllTodos} from './plugins/xhr'
 // import { GetUserInfo } from 'zuricontrol'
 // import Centrifuge from 'centrifuge'
-import { mapActions } from "vuex";
-import {mapGetters} from 'vuex';
-import CentrifugeSetup from './plugins/realtime'
+// import {  } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import { getLoggedInUser } from './plugins/auth';
+import CentrifugeSetup from './plugins/realtime';
 // let { GetUserInfo } = import ( "zuricontrol");
 export default {
   name: 'App',
-  data(){
-    return  {
+  data() {
+    return {
       user: null,
-        
-        }
+
+    };
   },
   components: { },
-  computed:  {
+  computed: {
     ...mapGetters({
-      isUser: "todos/user",
-      centrifuge: 'todos/centrifuge'
-    })
+      isUser: 'todos/user',
+      centrifuge: 'todos/centrifuge',
+    }),
   },
-   methods: {
-      ...mapActions({
-        HandleAllTodos: "todos/HandleGetTodos",
-        add_user : 'todos/ADD_USER',
-        cn_centri : 'todos/CONNECT_CENTRIFUGE',
-        addTodo : 'todos/centrifugeAddTodo',
-        // getMembers: 'todos/getAllMembers'
-      }),
-        welcome(){
-           getLoggedInUser()
-           
-          }, 
-          listenToCommonRoom(message){
-            const _this = this
-            // check if auth user id is same a subscriber id
-                  if (message.data.subscriberId === _this.isUser["0"]._id) {
-                     // //  console.log(2);
-                     //     _this.addTodo(message.data.details)
-                     //     console.log('hello its centrifugo');
-                     if(message.data.collection === 'todo'){
-                            console.log('hello its rifugo');
-                           console.log(message.data);
-                            _this.addTodo(message.data.details)
-                          console.log(message);
-                       //  _this.centrifuge.subscribe(message.data.channel, function(ctx) {
-                       //      //  handle new message coming from channel "news"
-                       //      console.log(ctx)
-                       //  });
-                  }
-          }
-          },
-        enterCommonRoom(){
-          CentrifugeSetup('common-room', this.listenToCommonRoom)
+  methods: {
+    ...mapActions({
+      HandleAllTodos: 'todos/HandleGetTodos',
+      add_user: 'todos/ADD_USER',
+      cn_centri: 'todos/CONNECT_CENTRIFUGE',
+      addTodo: 'todos/centrifugeAddTodo',
+      // getMembers: 'todos/getAllMembers'
+    }),
+    welcome() {
+      getLoggedInUser();
+    },
+    listenToCommonRoom(message) {
+      const _this = this;
+      // check if auth user id is same a subscriber id
+      if (message.data.subscriberId === _this.isUser['0']._id) {
+        // //  console.log(2);
+        //     _this.addTodo(message.data.details)
+        //     console.log('hello its centrifugo');
+        if (message.data.collection === 'todo') {
+          console.log('hello its rifugo');
+          console.log(message.data);
+          _this.addTodo(message.data.details);
+          console.log(message);
+          //  _this.centrifuge.subscribe(message.data.channel, function(ctx) {
+          //      //  handle new message coming from channel "news"
+          //      console.log(ctx)
+          //  });
         }
+      }
+    },
+    enterCommonRoom() {
+      CentrifugeSetup('common-room', this.listenToCommonRoom);
+    },
     //     callCentrifugo(){
     //                console.log('i say i wan sleep');
     //                const _this = this
@@ -92,16 +91,15 @@ export default {
     //       });
     //     _this.centrifuge.connect();
     // }
-   },
-     mounted(){
-         this.welcome()
-         this.enterCommonRoom()
-        //  this.getMembers()
-      
-       }
-   }
+  },
+  mounted() {
+    this.welcome();
+    this.enterCommonRoom();
+    //  this.getMembers()
+  },
+};
 
-  </script>
+</script>
 
 <style>
 @import './assets/styles/app.css';

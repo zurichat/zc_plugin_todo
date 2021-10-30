@@ -99,76 +99,73 @@
 </template>
 
 <script>
-    import cusReminderForm from './cusRemiderForm.vue'
-    import { mapGetters } from "vuex";
-    import axios from "axios";
+import { mapGetters } from 'vuex';
+import axios from 'axios';
+import cusReminderForm from './cusRemiderForm.vue';
 
-    export default {
-        name: "td-modal",
-        data() {
-            return {
-                iscusReminder: false,
-                
-            }
-        },
-         computed: {
-        ...mapGetters({
-            selectedTodo: "todos/selectedTodo",
-            isUser: 'todos/user'
-        })
-    },
-        methods: {
-            cusReminder() {
-                this.iscusReminder = !this.iscusReminder
-                this.$emit("toggleMenu");
-                this.$emit('cusReminderForm')
-            },
-            closeModal() {
-                this.$emit("reminder")
-            },
-            cusReminderForm() {
-                this.iscusReminder = !this.iscusReminder
-            },
-            
-            saveReminder(reminder_type){
-                    alert('You have set a reminder by '+ reminder_type)
-                
-                let data = {
-                    "time_string": reminder_type,
-                }
-                          
+export default {
+  name: 'td-modal',
+  data() {
+    return {
+      iscusReminder: false,
 
-                // axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
-                axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&${data}&user_id=${this.isUser[0]._id}`).then((response)=>{
-                
-                    console.log(response)
-                }).cath((error)=>{
-                    console.log(error)
-                })
-
-            }
-            // reminderForm(){
-            // 	this.$emit("cusReminderForm")
-            // }
-        },
-        props: {
-            links: {
-                type: Array,
-            },
-            todo: {
-                type: Object,
-            },
-            task:{
-                type:Object,
-            }
-        },
-        components: {
-            cusReminderForm,
-        },
-        mounted(){
-            
-        }
     };
+  },
+  computed: {
+    ...mapGetters({
+      selectedTodo: 'todos/selectedTodo',
+      isUser: 'todos/user',
+    }),
+  },
+  methods: {
+    cusReminder() {
+      this.iscusReminder = !this.iscusReminder;
+      this.$emit('toggleMenu');
+      this.$emit('cusReminderForm');
+    },
+    closeModal() {
+      this.$emit('reminder');
+    },
+    cusReminderForm() {
+      this.iscusReminder = !this.iscusReminder;
+    },
+
+    saveReminder(reminder_type) {
+      alert(`You have set a reminder by ${reminder_type}`);
+
+      const data = {
+        time_string: reminder_type,
+      };
+
+      // axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&user_id=${this.isUser[0]._id}`, data).then((response)=>{
+      axios.put(`https://todo.zuri.chat/api/v1/todo/${this.$route.params.id}/task/${this.task.task_id}/add-reminder?organisation_id=${this.isUser[0].org_id}&${data}&user_id=${this.isUser[0]._id}`).then((response) => {
+        console.log(response);
+      }).cath((error) => {
+        console.log(error);
+      });
+    },
+    // reminderForm(){
+    // 	this.$emit("cusReminderForm")
+    // }
+  },
+  props: {
+    links: {
+      type: Array,
+    },
+    todo: {
+      type: Object,
+    },
+    task: {
+      type: Object,
+    },
+  },
+  components: {
+    cusReminderForm,
+  },
+  mounted() {
+
+  },
+};
 </script>
 
 <style scoped>
