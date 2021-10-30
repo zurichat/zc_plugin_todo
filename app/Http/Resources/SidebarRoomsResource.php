@@ -18,7 +18,8 @@ class SidebarRoomsResource extends JsonResource
         return [
             'room_name' => isset($this['room_name']) ? $this['room_name'] : $this['title'],
             'room_url' => isset($this['room_url']) ? $this['room_url'] : '/todo#/details/' . $this['_id'],
-            'room_image' => isset($this['room_image']) ? $this['room_image'] : 'https://www.svgrepo.com/show/347559/todo.svg'
+            'room_image' => isset($this['room_image']) ? $this['room_image'] : 'https://www.svgrepo.com/show/347559/todo.svg',
+            'unread' => isset($this['unread']) ? $this['unread'] : false
         ];
     }
 }
