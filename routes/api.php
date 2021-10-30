@@ -133,7 +133,7 @@ Route::prefix('v1')->group(function () {
     Route::get('test-cron-trigger', [TaskReminderController::class, 'commandHandler']);
 
     // Star a todo
-    Route::put('star/{todo_id}', [StarredTodoController::class, 'star']);
+    Route::put('star/{todo_id}', [TodoController::class, 'star']);
 
     // Plugin Info Related Enpoints
     Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);

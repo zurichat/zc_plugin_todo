@@ -88,4 +88,8 @@ class TodoController extends Controller
         return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
     }
 
+    public function star(Request $request, $todo_id)
+    {
+        return  response()->json($this->todoService->star($request->_id, $todo_id));
+    }
 }

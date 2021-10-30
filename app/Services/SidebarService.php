@@ -19,7 +19,7 @@ class SidebarService
      * @param  SideBarItemsController $sideBarItemsController
      * @return void
      */
-    function __construct(todoService $todoService)
+    public function __construct(todoService $todoService)
     {
         $this->todoService = $todoService;
     }
@@ -33,7 +33,7 @@ class SidebarService
         // get all todo by user
         $todos = (new TodoService)->findWhere(['user_id' => $user_id]);
         // check if response has error
-        if(is_array($todos) && isset($todos['status'])){
+        if (is_array($todos) && isset($todos['status'])) {
             return response()->json($todos);
         }
         // convert to a collection
@@ -68,14 +68,14 @@ class SidebarService
         return $this->jsonEncoded($response, $dataType);
     }
 
-    static function jsonEncoded($data, $dataType){
-        $response = isset($data) && $dataType != null ? $data->toJson(): $data;
+    public static function jsonEncoded($data, $dataType){
+        $response = isset($data) && $dataType == null ? $data->toJson(): $data;
         return $response;
     }
 
     /**
      *
-     * @return void
+     * @return boolean
      */
     public function sidebarAttr()
     {
