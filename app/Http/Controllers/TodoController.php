@@ -8,9 +8,8 @@ use App\Services\TodoService;
 use App\Services\TestTodoService;
 use App\Http\Requests\TodoRequest;
 use App\Http\Resources\SearchResource;
-
 use App\Helpers\Sort;
-
+use App\Providers\SidebarEvent;
 
 
 class TodoController extends Controller
@@ -88,5 +87,10 @@ class TodoController extends Controller
     public function updateTodo(Request $request, $todoId, $user_id)
     {
         return response()->json($this->todoService->updateTodo($request->all(), $todoId, $user_id));
+    }
+
+    public function star(Request $request, $todo_id)
+    {
+        return  response()->json($this->todoService->star($request->_id, $todo_id));
     }
 }

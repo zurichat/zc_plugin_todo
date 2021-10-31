@@ -14,6 +14,7 @@ use App\Http\Requests\TodoRequest;
 use App\Services\ServiceTrait;
 use App\Repositories\TodoRepository;
 use App\Providers\AppServiceProvider;
+use App\Providers\SidebarEvent;
 use Illuminate\Http\Client\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Config;
@@ -41,6 +42,8 @@ class TodoService extends TodoRepository
             "tasks" => [],
             "labels" => $labels,
             "collaborators" => [],
+            "starred" => [],
+            "unread" => 1,
             "created_at" => now(),
             "archived_at" => null,
             "deleted_at" => null
@@ -61,9 +64,7 @@ class TodoService extends TodoRepository
             );
 
             //update sidebar RTC
-            // OMO, Take a look at this commented code. This is actually a call to your sidebar implementation
-            // but it is currently buggy so I had to comment it out. Please do the needful and uncomment it.
-            // $this->updateSideBarRTC();
+            //event(new SidebarEvent);
 
             // Return Json response. Helpfull should RTC fails
             return response()->json([
@@ -329,19 +330,35 @@ class TodoService extends TodoRepository
         ], AppConstants::STATUS_OK);
     }
 
-    // -------------------------            PRIVATES METHODS     ----------------------------------- // 
+    //STARR A TODO
+    public function star($data, $todoId){
+        $todo = $this->find($todoId);
+     
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+        //SEARCH FOR AN EXISTING  TO DO ID
+        $arraySearch = array_search($data, array_column($todo['starred'], "_id"));
+        
+        //IF NOT FOUNT ADD IT ELSE REMOVE IT
+        if ($arraySearch === false){
+            array_push($todo['starred'], ['_id' => $data]);
+        }else {
+            unset($todo['starred'][$arraySearch]);
+            array_values($todo['starred']);
+        }
+        //RE=INDEX THE ARRAY 
+        unset($todo['_id']);
 
-    private function updateSideBarRTC()
-    {
-        // Obtain credentials from facade/config
-        $org_id = Config::get('organisation_id');
-        $user_id = Config::get('user_id');
-        // Define workspace channel
-        $workspaceChannel = $org_id . "_" . $user_id . "_sidebar";
-        $dataText = (new SideBarItemsController)->sidebarRTC();
-        // Build and extract RTC payload
-        $dataRtcPayload = HelperFnc::getRtcPayload($dataText);
-        // Publish to room
-        $this->todoService->publishToRoomChannel($workspaceChannel, $dataRtcPayload, " ", " ");
+        $result = $this->update($todo, $todoId);
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+
+            $response = ['message' => 'Todo starred successfully', 'data' => [$todo]];
+
+        }else{
+            $response = ['error'=> 'an error was encountered'];
+        }
+
+        return $response;
     }
 }

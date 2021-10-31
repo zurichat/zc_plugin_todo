@@ -16,6 +16,7 @@ use App\Http\Controllers\AssignTaskUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PluginInstallationController;
 use App\Http\Controllers\SideBar\TodoController as SideBarTodoController;
+use App\Http\Controllers\StarredTodoController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskReminderController;
 use App\Http\Controllers\TaskSearchController;
@@ -130,6 +131,9 @@ Route::prefix('v1')->group(function () {
     Route::put('todo/{todo_id}/task/{task_id}/add-reminder', [TaskReminderController::class, 'addReminderToTask']);
     Route::put('todo/{todo_id}/task/{task_id}/remove-reminder/{reminder_id}', [TaskReminderController::class, 'removeReminderFromTask']);
     Route::get('test-cron-trigger', [TaskReminderController::class, 'commandHandler']);
+
+    // Star a todo
+    Route::put('star/{todo_id}', [TodoController::class, 'star']);
 
     // Plugin Info Related Enpoints
     Route::get('sidebar', [SideBarItemsController::class, 'sidebar']);
