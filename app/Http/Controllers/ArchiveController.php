@@ -9,10 +9,6 @@ use App\Services\TodoService;
 class ArchiveController extends Controller
 {
     protected $todoService;
-    /**
-     * Constructor that resolves todo service
-     *  @param $todoService
-     */
 
     public function __construct(TodoService $todoService)
     {
@@ -33,6 +29,7 @@ class ArchiveController extends Controller
         if (isset($todo['status'])) {
             $todo['archived_at'] = now();
         }
+
         $updatedTodo = array_merge($todo, ['archived_at' => now()]);
         $result = $this->todoService->update($updatedTodo, $todoId);
 
@@ -40,15 +37,7 @@ class ArchiveController extends Controller
             // Publish To Centrifugo Here
             $this->todoService->publishToRoomChannel($todo['channel'], $todo, "todo", "archive");
 
-            return response()->json(
-                ["status" => "success", "type" => "Todo", "data" => array_merge(
-                    [
-                    '_id' => $todoId],
-                    $updatedTodo
-                )
-                    ],
-                200
-            );
+            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $updatedTodo)], 200);
         }
 
         return response()->json(['status' => "error", 'message' => $result], 500);
@@ -64,8 +53,8 @@ class ArchiveController extends Controller
             return response()->json($todo, 404);
         }
 
-        $results = array_search($todo['archived_at'], $todo, true);
-        if ($results !== false) {
+        $results=array_search($todo['archived_at'],$todo,true);
+        if($results !== false) {
             $todo['archived_at'] = null;
         }
 
@@ -73,16 +62,7 @@ class ArchiveController extends Controller
         $result = $this->todoService->update($updatedTodo, $todoId);
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
             // Publish To Centrifugo Here
-            return response()->json(
-                ["status" => "success", "type" => "Todo", "data" => array_merge(
-                    [
-                    '_id' => $todoId
-                    ],
-                    $updatedTodo
-                )
-                ],
-                200
-            );
+            return response()->json(["status" => "success", "type" => "Todo", "data" => array_merge(['_id' => $todoId], $updatedTodo)], 200);
         }
         return response()->json(['status' => "error", 'message' => $result], 500);
     }
@@ -91,6 +71,8 @@ class ArchiveController extends Controller
     {
         // This function should normally be user centric
         // but for the ime being, leave for now
+        Sort::sortAsc($request);
+
         $all  = $this->todoService->all();
         $archived = [];
         if (isset($all['status']) && $all['status'] == 404) {
