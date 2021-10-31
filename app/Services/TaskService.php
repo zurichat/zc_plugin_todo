@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Helpers\Sort;
 use App\Helpers\Response;
 use Illuminate\Support\Str;
 use App\Helpers\Collaborator;
 use App\Services\TodoService;
 use App\Repositories\TaskRepository;
-//use App\Services\ServiceTrait;
 
 class TaskService extends TaskRepository
 {
@@ -112,9 +113,9 @@ class TaskService extends TaskRepository
     public function toggleStatus($id)
     {
         $task = $this->todoService->find($id); // Get the Task
-
+        // Set new date if it is null or empty, else set back to empty
         $archived = array_key_exists('archived_at', $task)
-            && $task['archived_at']  ?  '' : Carbon::now(); // Set new date if it is null or empty, else set back to empty
+            && $task['archived_at']  ?  '' : Carbon::now();
 
         // prepare the payload
         $data = array();
@@ -147,7 +148,7 @@ class TaskService extends TaskRepository
 
         $sort = $request->order;
         if ($sort) {
-        $allTasks = collect($allTasks->sortBy('created_at'))->toArray;
+            $allTasks = collect($allTasks->sortBy('created_at'))->toArray;
         }
 
         $time = time();
@@ -157,7 +158,6 @@ class TaskService extends TaskRepository
                 $end_date = $value['end_date'];
                 $convert_date = strtotime($end_date);
                 if ($convert_date >= $time) {
-
                     $arr = $value;
                 }
             }
@@ -196,10 +196,14 @@ class TaskService extends TaskRepository
             // Send Mail
             $user_ids = Collaborator::listAllUsersInTodo($todo);
             $collab = new Collaborator;
-            $collab->sendMails($user_ids, 'Task Added', 'A task with the title' . $request->title . 'has been marked in the todo');
+            $collab->sendMails(
+                $user_ids,
+                'Task Added',
+                'A task with the title' . $request->title . 'has been marked in the todo'
+            );
             return $todoWithId;
         } else {
-           abort(500, $result);
+            abort(500, $result);
         }
     }
 
@@ -227,14 +231,17 @@ class TaskService extends TaskRepository
         $result = $this->todoService->update($todo, $todoId);
 
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-
             // Publish To Centrifugo
             $todoWithId = array_merge(['_id' => $todoId], $todo);
             $this->publishToRoomChannel($todo['channel'], $todoWithId, "Task", "create");
             // Send Mail
             $user_ids = Collaborator::listAllUsersInTodo($todo);
             $collab = new Collaborator;
-            $collab->sendMails($user_ids, 'Task Added', 'A task with the title'.$request->title.'has been added to the todo');
+            $collab->sendMails(
+                $user_ids,
+                'Task Added',
+                'A task with the title'.$request->title.'has been added to the todo'
+            );
 
             return $todoWithId;
         }
