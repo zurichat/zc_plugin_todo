@@ -70,8 +70,6 @@ class TaskController extends Controller
         return $this->taskService->toggleStatus($id);
     }
 
-
-
     public function getTasksByCategory(TaskCategoryRequest $request)
     {
 
@@ -109,36 +107,7 @@ class TaskController extends Controller
 
     public function addTask(AddTaskRequest $request, $todoId)
     {
-        $todo = $this->todoService->find($todoId);
-
-        if (isset($todo['status']) && $todo['status'] == 404) {
-            return response()->json($todo, 404);
-        }
-
-
-        $newTasks = [
-            "task_id" => Str::uuid(), "title" => $request->title,
-            "recurring" => $request->recurring, "status" => 0
-        ];
-
-        array_push($todo['tasks'], $newTasks);
-        unset($todo['_id']);
-
-        $result = $this->todoService->update($todo, $todoId);
-
-        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
-
-            // Publish To Centrifugo
-            $todoWithId = array_merge(['_id' => $todoId], $todo);
-            $this->todoService->publishToRoomChannel($todo['channel'], $todoWithId, "Task", "create");
-            // Send Mail
-            $user_ids = $this->collaboratorInstance->listAllUsersInTodo($todo);
-            $this->collaboratorInstance->sendMails($user_ids, 'Task Added', 'A task with the title'.$request->title.'has been added to the todo');
-
-            return response()->json(["status" => "success", "type" => "Todo", "data" => $todoWithId], 200);
-        }
-
-        return response()->json(['status' => "error", 'message' => $result], 500);
+       return response()->json(["status" => "success", "type" => "Todo", "data" => $this->taskService->add($request, $todoId)], 200);
     }
 
     public function markTask(Request $request, $todoId)

@@ -5,6 +5,7 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Helpers\Sort;
 use App\Helpers\Response;
+use Illuminate\Support\Str;
 use App\Helpers\Collaborator;
 use App\Repositories\TaskRepository;
 
@@ -191,5 +192,44 @@ class TaskService extends TaskRepository
         } else {
            abort(500, $result);
         }
+    }
+
+    /**
+     * @param Request $request, $todoId string
+     * @return mixed
+     */
+    public function add($request, $todoId)
+    {
+        $todo = $this->find($todoId);
+
+        if (isset($todo['status']) && $todo['status'] == 404) {
+            return response()->json($todo, 404);
+        }
+
+
+        $newTasks = [
+            "task_id" => Str::uuid(), "title" => $request->title,
+            "recurring" => $request->recurring, "status" => 0
+        ];
+
+        array_push($todo['tasks'], $newTasks);
+        unset($todo['_id']);
+
+        $result = $this->update($todo, $todoId);
+
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+
+            // Publish To Centrifugo
+            $todoWithId = array_merge(['_id' => $todoId], $todo);
+            $this->publishToRoomChannel($todo['channel'], $todoWithId, "Task", "create");
+            // Send Mail
+            $user_ids = Collaborator::listAllUsersInTodo($todo);
+            $collab = new Collaborator;
+            $collab->sendMails($user_ids, 'Task Added', 'A task with the title'.$request->title.'has been added to the todo');
+
+            return $todoWithId;
+        }
+
+        abort(500, $result);
     }
 }
