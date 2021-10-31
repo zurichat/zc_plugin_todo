@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Config;
 use App\Http\Resources\SidebarResource;
 
 class SidebarService
-{    
+{
     /**
      * todoService
      *
@@ -19,11 +19,11 @@ class SidebarService
      * @param  SideBarItemsController $sideBarItemsController
      * @return void
      */
-    public function __construct(todoService $todoService)
+    public function __construct(TodoService $todoService)
     {
         $this->todoService = $todoService;
     }
-        
+
     public function sidebar($dataType)
     {
         $org_id = Config::get('organisation_id');
@@ -60,7 +60,7 @@ class SidebarService
             "public_rooms" => collect($publicTodos),
             "joined_rooms" => collect($privateTodos)
         ];
-        //publish to centrifugo and return 
+        //publish to centrifugo and return
         (new TodoService)->publishToRoomChannel($workspaceChannelName, $dataRtcPayload, " ", " ");
         $response = (new SidebarResource(['public_rooms' => collect($publicTodos), 'joined_rooms' => collect($privateTodos)]));
         return $this->jsonEncoded($response, $dataType);
@@ -108,5 +108,5 @@ class SidebarService
             "joined_rooms" => $dataText["joined_rooms"],
         ];
         return $data;
-    }    
+    }
 }

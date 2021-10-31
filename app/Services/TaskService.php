@@ -7,10 +7,18 @@ use App\Helpers\Sort;
 use App\Helpers\Response;
 use Illuminate\Support\Str;
 use App\Helpers\Collaborator;
+use App\Services\TodoService;
 use App\Repositories\TaskRepository;
 
 class TaskService extends TaskRepository
 {
+
+    protected $todoService;
+
+    public function __construct(TodoService $todoService)
+    {
+        $this->todoService = $todoService;
+    }
     /**
      * @return mixed
      */
@@ -103,9 +111,10 @@ class TaskService extends TaskRepository
      */
     public function toggleStatus($id)
     {
-        $task = $this->find($id); // Get the Task
+        $task = $this->todoService->find($id); // Get the Task
 
-        $archived = array_key_exists('archived_at', $task) && $task['archived_at']  ?  '' : Carbon::now(); // Set new date if it is null or empty, else set back to empty
+        $archived = array_key_exists('archived_at', $task)
+            && $task['archived_at']  ?  '' : Carbon::now(); // Set new date if it is null or empty, else set back to empty
 
         // prepare the payload
         $data = array();
@@ -118,26 +127,26 @@ class TaskService extends TaskRepository
     public function taskCategory($request)
     {
          // Search for the category
-         $allTasks = $this->all();
+         $allTasks = $this->todoService->all();
          Sort::sortAll($request);
 
          $newArr = [];
-         foreach ($allTasks as $value) {
-             if (isset($value['category_id']) && $value['category_id'] == $request->category_id) {
+        foreach ($allTasks as $value) {
+            if (isset($value['category_id']) && $value['category_id'] == $request->category_id) {
                  array_push($newArr, $value);
-             }
-         }
+            }
+        }
 
          return $newArr;
     }
 
     public function taskCollection($request)
     {
-        $allTasks = $this->all();
+        $allTasks = $this->todoService->all();
         Sort::sortAll($request);
 
         $sort = $request->order;
-        if ($sort){
+        if ($sort) {
         $allTasks = collect($allTasks->sortBy('created_at'))->toArray;
         }
 
@@ -159,15 +168,15 @@ class TaskService extends TaskRepository
     public function sort($request)
     {
         $parameter = $request->sort;
-        $tasks = $this->all();
+        $tasks = $this->todoService->all();
         $collectionTasks = collect($tasks)->sortBy($parameter);
         return $collectionTasks;
     }
 
-    public function MarkTask($request, $todoId)
+    public function markTask($request, $todoId)
     {
         // inialize value for task
-        $todo = $this->findBy('_id', $todoId);
+        $todo = $this->todoService->findBy('_id', $todoId);
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
         }
@@ -200,7 +209,7 @@ class TaskService extends TaskRepository
      */
     public function add($request, $todoId)
     {
-        $todo = $this->find($todoId);
+        $todo = $this->todoService->find($todoId);
 
         if (isset($todo['status']) && $todo['status'] == 404) {
             return response()->json($todo, 404);
@@ -215,7 +224,7 @@ class TaskService extends TaskRepository
         array_push($todo['tasks'], $newTasks);
         unset($todo['_id']);
 
-        $result = $this->update($todo, $todoId);
+        $result = $this->todoService->update($todo, $todoId);
 
         if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
 
