@@ -2,60 +2,138 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TaskCommentService;
+use App\Helpers\Sort;
 use Illuminate\Http\Request;
+use App\Helpers\Collaborator;
+use App\Services\TodoService;
 use Illuminate\Support\Carbon;
+use App\Constants\AppConstants;
+use App\Services\TaskCommentService;
+use App\Http\Requests\CommentRequest;
+
 
 class TaskCommentController extends Controller
 {
+    protected $todoService;
     protected $taskCommentService;
 
-    public function __construct(TaskCommentService $taskCommentService)
+    public function __construct(TodoService $todoService, TaskCommentService $taskCommentService)
     {
+        $this->todoService = $todoService;
         $this->taskCommentService = $taskCommentService;
     }
 
-    public function index()
+    public function getCommentsPerTask(Request $request, $taskId)
     {
-        return response()->json($this->taskCommentService->all());
+        $result = $this->taskCommentService->commentsPerTask('task_id', $taskId);
+        Sort::sortAsc($request);
+
+
+        if ($result['status'] == 200 && isset($result["data"])) {
+            return response()->json([
+                'status' => AppConstants::MSG_200,
+                'type' => AppConstants::TYPE_COMMENTS,
+                'count' => count($result),
+                'data' => $result
+            ], AppConstants::STATUS_OK);
+        }
+
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_NOT_FOUND);
     }
 
-    public function getCommentsPerTask($taskId)
-    {
-        $comments = $this->taskCommentService->commentsPerTask('task_id', $taskId);
-        return response()->json([
-            'status' => 'success',
-            'type' => 'comments',
-            'count' => count($comments),
-            'data' => $comments
-        ], 200);
-    }
 
-    public function saveComment(Request $request)
+    public function saveComment(CommentRequest $request, $todoId)
     {
-        $input = $request->validate([
-            'user_id' => 'required',
-            'task_id' => 'required',
-            'body' => 'required'
+
+        $todo = $this->todoService->find($todoId);
+
+        if (isset($todo['status']) && $todo['status'] == AppConstants::STATUS_NOT_FOUND) {
+            return response()->json($todo, AppConstants::STATUS_NOT_FOUND);
+        }
+
+        $input = $request->only('user_id', 'task_id', 'body');
+        $payload = array_merge($input, [
+            'todo_id' => $todoId,
+            'reaction' => [],
+            'created_at' => Carbon::now()
         ]);
 
-        $payload = array_merge($input, ['created_at' => Carbon::now()->toDateTime()]);
-        return response()->json($this->taskCommentService->create($payload));
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        $comment = $this->taskCommentService->find($id);
-        if (!$comment) {
-            return response()->json(['message' => 'Comment not found'], 404);
+        if (!Collaborator::haveAccess($todo, $request->user_id)) {
+            return response()->json(['message' => AppConstants::MSG_403], AppConstants::STATUS_FORBIDDEN);
         }
-        return response()->json($this->taskCommentService->update($request->all(), $comment['_id']));
+
+        $result = $this->taskCommentService->create($payload);
+
+        if (isset($result['object_id'])) {
+            $responseWithId = array_merge(['_id' => $result['object_id']], $payload);
+            $this->taskCommentService->publishToRoomChannel(
+                $todo['channel'],
+                $responseWithId,
+                AppConstants::TYPE_COMMENT,
+                AppConstants::ACTION_CREATE
+            );
+            return response()->json([
+                'status' => AppConstants::MSG_200,
+                'type' => AppConstants::TYPE_COMMENT,
+                'data' => $responseWithId
+            ], AppConstants::STATUS_OK);
+        }
+
+        return response()->json(['message' => $result['message']], AppConstants::STATUS_ERROR);
     }
 
 
-    public function delete($id)
+    public function update(Request $request, $taskId, $channel)
     {
-        return response()->json($this->taskCommentService->delete($id));
+        $comment = $this->taskCommentService->find($taskId);
+
+        if (isset($comment['status']) && $comment['status'] == AppConstants::STATUS_NOT_FOUND) {
+            return response()->json(['message' => AppConstants::MSG_404], AppConstants::STATUS_NOT_FOUND);
+        }
+
+        if (!Collaborator::isCreator($comment, $request->user_id)) {
+            return response()->json(['message' => AppConstants::MSG_401], AppConstants::STATUS_NO_AUTH);
+        }
+
+        $comment['body'] = $request->body;
+        unset($comment['_id']);
+        $result = $this->taskCommentService->update($comment, $taskId);
+
+        if (isset($result['modified_documents']) && $result['modified_documents'] > 0) {
+            $commentWithId = array_merge(['_id' => $taskId], $comment);
+
+            $this->taskCommentService->publishToRoomChannel(
+                $channel,
+                $commentWithId,
+                AppConstants::TYPE_COMMENT,
+                AppConstants::ACTION_UPDATE
+            );
+
+            return response()->json(
+                [
+                    'message' => AppConstants::MSG_204,
+                    'data' => $commentWithId
+                ],
+                AppConstants::STATUS_OK
+            );
+        }
+
+        return response()->json(
+            ['status' => AppConstants::MSG_500, 'message' => $result],
+            AppConstants::STATUS_ERROR
+        );
+    }
+
+    public function getCommentPerTodo(Request $request, $todoId)
+    {
+        $result = $this->taskCommentService->commentsByKey(['todo_id' => $todoId]);
+        Sort::sortAsc($request);
+
+        return response()->json([
+            'status' => AppConstants::MSG_200,
+            'type' => AppConstants::TYPE_COMMENTS,
+            'count' => count($result),
+            'data' => $result
+        ], AppConstants::STATUS_OK);
     }
 }

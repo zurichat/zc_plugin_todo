@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('search', function () {
+    return view('search');
 });
+
+Route::get('test', function () {
+    return view('test');
+});
+
+Route::get('/{any}', function () {
+    return view('index');
+})->where('any', '^(?!api).*$');
+
+
+

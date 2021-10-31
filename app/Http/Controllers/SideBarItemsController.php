@@ -2,53 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\SidebarResource;
+use App\Services\TodoService;
+use App\Services\UserService;
+use App\Services\SidebarService;
+use Illuminate\Support\Facades\Config;
 
 class SideBarItemsController extends Controller
 {
-    public function serveMenuItems()
+    /**
+     * sidebarService
+     *
+     * @var sidebarService
+     */
+    protected $sidebarService;
+
+    /**
+     * __construct
+     *
+     * @param  SidebarService $sidebarService
+     * @return void
+     */
+    public function __construct(SidebarService $sidebarService)
     {
-        $sideBarMenu = [
-            'title' => 'TODO',
-            'sub_menu' => [
-                'item_1' => [
-                    'name' => 'Task Board',
-                    'icon' => 'https://media.publit.io/file/board.svg',
-                    'action' => 'Open Task Board'
-                ],
-
-                'item_2' => [
-                    'name' => 'Schedule',
-                    'icon' => 'https://media.publit.io/file/schedulem.svg',
-                    'action' => 'Schedule Task'
-                ],
-
-                'item_3' => [
-                    'name' => 'Calender',
-                    'icon' => 'https://media.publit.io/file/calendar-page-with-circular-clock-symbol-svgrepo-com.svg',
-                    'action' => 'Open Task calendar'
-                ],
-
-                'item_4' => [
-                    'name' => 'Search',
-                    'icon' => '#',
-                    'action' => 'Open Search Bar'
-                ],
-
-                'item_5' => [
-                    'name' => 'Inbox',
-                    'icon' => '#',
-                    'action' => 'Open Inbox'
-                ]
-            ]
-
-        ];
-
-        return response()->json([
-            'status' => 'success',
-            'plugin_name' => 'TODO Plugin',
-            'type' => 'sidebar items',
-            'menu' => $sideBarMenu
-        ], 200);
+        $this->SidebarService = $sidebarService;
     }
+
+    public function sidebar()
+    {
+        return $this->SidebarService->sidebar('json');
+    }
+
+    public function sidebarRTC()
+    {
+        return $this->SidebarService->sidebar(null);
+    }
+
 }
