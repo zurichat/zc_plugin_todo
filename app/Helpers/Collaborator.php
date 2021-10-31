@@ -3,18 +3,13 @@
 namespace App\Helpers;
 
 use App\Mail\TaskAddedMail;
-use App\Services\UserService;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Repositories\TodoRepository;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
-class Collaborator
+class Collaborator extends TodoRepository
 {
-    protected $userService;
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-    }
 
     public static function isAdmin(array $todo, $userId): bool
     {
@@ -71,7 +66,7 @@ class Collaborator
             for ($i = 0; $i < count($user_ids); $i++) {
                 # code...
                 $data['user_id'] = $user_ids[$i];
-                $user = $this->userService->findUser($data, $bearerToken);
+                $user = $this->findUser($data, $bearerToken);
                 // Log::info($user['email'])
                 $this->sendMail($user, $subject, $message);
             }
@@ -101,5 +96,8 @@ class Collaborator
         }
 
         return $adminFirstList;
+    }
+    public function findUser($data, $bearerToken){
+        return $this->httpRepository->findUser($data,$bearerToken);
     }
 }
