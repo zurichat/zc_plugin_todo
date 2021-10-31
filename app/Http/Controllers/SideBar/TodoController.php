@@ -15,9 +15,10 @@ class TodoController extends Controller
 {
     use HTTPRepoResponseHandler;
 
-    protected $todoRepository, $roomRepository;
+    protected $todoRepository;
+    protected $roomRepository;
 
-    function __construct(TodoRepository $todoRepository, RoomRepository $roomRepository)
+    public function __construct(TodoRepository $todoRepository, RoomRepository $roomRepository)
     {
         $this->todoRepository = $todoRepository;
         $this->roomRepository = $roomRepository;
@@ -32,7 +33,10 @@ class TodoController extends Controller
         ];
 
             // return response
-        return response()->json(['message' => "success", "data" => $this->respondWithData($this->todoRepository->findWhere($todo_attr))], 200);
+        return response()->json(
+            ['message' => "success", "data" => $this->respondWithData($this->todoRepository->findWhere($todo_attr))],
+             200
+            );
     }
 
     public function store(Request $request)
@@ -52,7 +56,7 @@ class TodoController extends Controller
         $result = $this->todoRepository->create($todo_attr);
 
         // check response
-        if($result['status'] == 200 && isset($result["data"])){
+        if ($result['status'] == 200 && isset($result["data"])){
 
             // create room attr
             $room_attr = [
