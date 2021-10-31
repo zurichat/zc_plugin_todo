@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use Carbon\Carbon;
-use App\Helpers\Sort;
 use App\Helpers\Response;
 use Illuminate\Support\Str;
 use App\Helpers\Collaborator;
 use App\Services\TodoService;
 use App\Repositories\TaskRepository;
+//use App\Services\ServiceTrait;
 
 class TaskService extends TaskRepository
 {
@@ -24,9 +23,8 @@ class TaskService extends TaskRepository
      */
     public function all()
     {
-        $task = Response::checkAndServe($this->httpRepository->all());
-        abort_if(isset($task['status']) && $task['status'] == '404', 200, 'Tasks not found');
-        return $task;
+
+        return Response::checkAndServe($this->httpRepository->all());
     }
 
     /**
@@ -35,6 +33,7 @@ class TaskService extends TaskRepository
      */
     public function create(array $data)
     {
+
         return Response::checkAndServe($this->httpRepository->create($data));
     }
 
@@ -44,6 +43,7 @@ class TaskService extends TaskRepository
      */
     public function find($id)
     {
+
         return Response::checkAndServe($this->httpRepository->find($id));
     }
 
@@ -53,9 +53,7 @@ class TaskService extends TaskRepository
      */
     public function findBy($attr, $value)
     {
-        $task = Response::checkAndServe($this->httpRepository->findBy($attr, $value));
-        abort_if(empty($tasks), 200, "Todo not found");
-        return $task;
+        return Response::checkAndServe($this->httpRepository->findBy($attr, $value));
     }
 
     /**
@@ -65,6 +63,7 @@ class TaskService extends TaskRepository
      */
     public function update($data, $id)
     {
+
         return Response::checkAndServe($this->httpRepository->update($id, $data));
     }
 
@@ -74,6 +73,7 @@ class TaskService extends TaskRepository
      */
     public function delete($id)
     {
+
         return Response::checkAndServe($this->httpRepository->delete($id));
     }
 

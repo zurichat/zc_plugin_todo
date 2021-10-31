@@ -67,7 +67,7 @@ class SidebarService
     }
 
     public static function jsonEncoded($data, $dataType){
-        $response = isset($data) && $dataType == null ? $data->toJson(): $data;
+        $response = isset($data) && $dataType != null ? $data->toJson(): $data;
         return $response;
     }
 

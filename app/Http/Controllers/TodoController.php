@@ -11,7 +11,6 @@ use App\Http\Resources\SearchResource;
 use App\Helpers\Sort;
 use App\Providers\SidebarEvent;
 
-
 class TodoController extends Controller
 {
 
