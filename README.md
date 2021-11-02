@@ -1,84 +1,51 @@
-## ZURI.CHAT TODO PLUGIN
-## Stack Laravel and VueJs
+# **ZURI CHAT TODO PLUGIN**
 
- - To install dependencies
- You need to composer installed, after installing composer
+## ***Stack:* Laravel & VueJs**
 
-```
-composer install
-
-```
-which will install all the dependencies in the composer.json
-
-- To start the Laravel app
-```
-php artisan serve
-
-```
-will start the laravel server
-
-
+## ***Description:* A project management tool to manage and prioritise tasks, increase productivity and improve workflow in Zuri Chat.**
 
 <br>
 
-# Installation Guide For Laravel
+## ***Features*** 
+- ### *Create A Todo*<br>
+  As a user, you can create a new todo. This todo can have a list of mini tasks you also have to do that is related to that particular todo. You can view your todo and edit where necessary. You can also mark as done once you have completed the todo.
+- ### *Assign Collaborators*<br>
+  You can add and remove other members of your workspace to your todo. This is particularly helpful for team work. You and your teammates can make collaborative effort to achieve your tasks.
+- ### *Create A Task*<br>
+  You can optimize your productivity by breaking down your todo into smaller easily acheiveable tasks. You can organize these tasks in order of priority and also mark as done once you have fulfilled a task. You and every collaborator with access can edit or delete these tasks.
 
-- Install [Composer](https://getcomposer.org) &  [Laravel](https://laravel.com)
- <br>
+  <br>
 
+## ***Installation Guide***<br>
+Once you have downloaded and created an account with `Zuri Chat` on your desktop or mobile device, visit the Zuri Chat `Marketplace` to install the `Todo Plugin` to your organization workspace. Once you have successfully added the Todo plugin, it automatically appears on the sidebar of your workspace. You can now proceed with configurations to suit your needs and improve your productivity. 
 
+<br>
 
-Fork The Repo And Clone Your Fork
+## ***API Reference***
+- Use `/create` to create a todo  
+- Use `/todo{id}` to fetch a todo
+- Use `/edit` to edit a todo
+- Use `/add-task` to create a task
+- Use `/task{id}/show` to fetch a task
+- Use `/task` to fetch all tasks
+- Use `/getLatestTask` to fetch latest task
+- Use `/task/update/{id}` to edit a task
+- Use `/delete-task/{id}` to delete a task
+- Use `/task/assign` to assign a collaborator 
+- Use `/task/assign/{user_id}` to fetch a collaborator 
+- Use `/task/archived` to archive a task
+- Use `/archive_task/{id}` to fetch archived task
 
-```bash
-cd zc_plugin_todo
-```
-```bash
-git remote add upstream https://github.com/zurichat/zc_plugin_todo.git
-```
+<br>
 
-```bash
-git pull upstream develop
-```
+## ***Credits***
 
-```bash
-copy and paste your `.env` to your root dir
-```
+Team Kant, HNG Internship 2021<br>
+[Hotels NG] (https://hotels.ng)<br>
+[Zuri Team] (https://zuri.team)<br>
+[I4G] (https://ingressive.org) <br>
 
-```bash
-composer install
-```
+<br>
 
-```bash
-php artisan serve
-```
-
-
-Visit localhost:8000 in your browser
-
-
-# When You Make Changes 
-
-```bash
-git add .
-```
-
-```bash
-git commit -m "commit message"
-```
-```bash
-git pull upstream develop
-```
-Make Sure there is no conflict, 
-Make sure you push to develop branch -- Create a develop branch in your local
-
-```bash
-git push origin develop
-```
-Then Create Your Pull Request
-
-- **Also include your issue number in the commit message with a close action e.g "...this commit close #10" which automatically closes the issue with #10 on merge** <br>
-
-
-
-# Contribution Guide
+## ***License***
+[License] (LICENSE.md)
